@@ -10,7 +10,6 @@ Este proyecto utiliza las siguientes tecnologías y dependencias:
 ## Dependencias:
 - Lombok: Simplifica la escritura de código al reducir la cantidad de código repetitivo.
 - Spring Web: Permite crear aplicaciones web, incluyendo RESTful, usando Spring MVC.
-- Spring Security: Provee características de seguridad como autenticación y autorización.
 - JUnit: Framework de pruebas para Java.
 - Mockito: Framework de pruebas para crear mocks y stubs en Java.
 - Spring Data JPA: Facilita la creación de repositorios basados en JPA.
@@ -26,3 +25,22 @@ El proyecto sigue el siguiente modelo de carpetas:
 - **Utilidades**: Contiene clases de utilidad y funciones que se utilizan en todo el proyecto.
 - **DTO**: (Data Transfer Object) Clases que se utilizan para transferir datos entre capas y clases.
 - **Controladores**: Contiene las clases de controladores para manejar las solicitudes HTTP y sus respuestas.
+
+## Guía de Despliegue con Docker:
+
+### Prerrequisitos:
+1. Asegúrate de tener instalado [Git](https://git-scm.com/book/es/v2/Inicio---Sobre-el-Control-de-Versiones-Instalaci%C3%B3n-de-Git).
+2. Debes tener Docker instalado en tu máquina. Si no lo tienes, puedes descargarlo e instalarlo desde la [página oficial de Docker](https://www.docker.com/).
+
+### Instrucciones de Despliegue:
+1. Abre la Terminal de Git.
+2. Navega hasta la carpeta del proyecto usando el comando `cd [ruta-a-tu-carpeta]`.
+3. Ejecuta el script `./start.sh`. Este script compila y lanza el contenedor Docker, instalando todas las dependencias automáticamente.
+   
+   ```bash
+   ./start.sh
+
+### En caso de cambios en el back-end:
+Si realizas cambios en el back-end y necesitas reiniciar el contenedor, simplemente ejecuta:
+ ```bash
+   ./restart.sh
