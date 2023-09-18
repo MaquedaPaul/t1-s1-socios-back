@@ -1,5 +1,7 @@
-package ar.utn.aceleradora.gestion.socios.modelos;
+package ar.utn.aceleradora.gestion.socios.modelos.empresa;
 
+import ar.utn.aceleradora.gestion.socios.modelos.Socio;
+import ar.utn.aceleradora.gestion.socios.modelos.empresa.*;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Enumerated;
@@ -9,14 +11,15 @@ import jakarta.persistence.Id;
 import lombok.Getter;
 import lombok.Setter;
 
-import static ar.utn.aceleradora.gestion.socios.modelos.TipoSocio.SOCIO_PLENARIO;
+import static ar.utn.aceleradora.gestion.socios.modelos.empresa.TipoSocio.SOCIO_PLENARIO;
+
 @Entity
 @Getter
 @Setter
-public class SocioPlenario implements Socio{
+public class SocioPlenario implements Socio {
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
-  private Integer id;
+  private Integer idSocioPlenario;
   @Enumerated
   private TipoSocio categoria = SOCIO_PLENARIO;
   @Column
@@ -39,7 +42,7 @@ public class SocioPlenario implements Socio{
     //TODO
   }
 
-  public SocioPlenario(String nombreEmpresa, String nombrePresidente, String categoria, Integer telefono, String mail) {
+  public SocioPlenario(String nombreEmpresa, String nombrePresidente, Integer telefono, String mail) {
     this.nombreEmpresa = nombreEmpresa;
     this.nombrePresidente = nombrePresidente;
     this.activo = true; // Suponemos que al dar de alta, el socio está activo por defecto

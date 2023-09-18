@@ -1,5 +1,8 @@
-package ar.utn.aceleradora.gestion.socios.modelos;
+package ar.utn.aceleradora.gestion.socios.modelos.empresa;
 
+import ar.utn.aceleradora.gestion.socios.modelos.Socio;
+
+import ar.utn.aceleradora.gestion.socios.modelos.empresa.*;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
@@ -9,13 +12,17 @@ import lombok.Getter;
 import lombok.Setter;
 
 
-import static ar.utn.aceleradora.gestion.socios.modelos.TipoSocio.SOCIO_EMPRESA;
+import static ar.utn.aceleradora.gestion.socios.modelos.empresa.TipoSocio.SOCIO_EMPRESA;
+
+
 @Entity
 @Getter
 @Setter
-public class SocioEmpresa implements Socio{
+public class SocioEmpresa implements Socio {
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
+  private Integer idSocioEmpresa;
+
   private String nombreEmpresa;
   @Enumerated
   private TipoSocio categoria = SOCIO_EMPRESA;
