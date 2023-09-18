@@ -1,7 +1,8 @@
 package ar.utn.aceleradora.gestion.socios.controladores;
 
 import ar.utn.aceleradora.gestion.socios.modelos.Socio;
-import ar.utn.aceleradora.gestion.socios.modelos.SocioPlenario;
+//import ar.utn.aceleradora.gestion.socios.modelos.SocioPlenario;
+import ar.utn.aceleradora.gestion.socios.modelos.empresa.SocioPlenario;
 import ar.utn.aceleradora.gestion.socios.servicios.SocioService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;

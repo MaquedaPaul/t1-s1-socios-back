@@ -2,7 +2,7 @@ package ar.utn.aceleradora.gestion.socios.repositorios;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 
-import ar.utn.aceleradora.gestion.socios.modelos.SocioPlenario;
+import ar.utn.aceleradora.gestion.socios.modelos.empresa.SocioPlenario;
 import org.springframework.stereotype.Repository;
 
 @Repository

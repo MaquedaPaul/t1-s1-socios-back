@@ -1,7 +1,8 @@
 package ar.utn.aceleradora.gestion.socios.modelos.registros;
 
+//import ar.utn.aceleradora.gestion.socios.modelos.Socio;
 import ar.utn.aceleradora.gestion.socios.modelos.Socio;
-import ar.utn.aceleradora.gestion.socios.modelos.empresa.Socio;
+//import ar.utn.aceleradora.gestion.socios.modelos.empresa.Socio;
 import jakarta.persistence.*;
 
 import jakarta.persistence.Column;
@@ -25,7 +26,7 @@ public class Registro {
     private String participacion;
 
 
-public Registro(String eventoR,Socio socioR,String participacionr){
+public Registro(String eventoR, Socio socioR, String participacionr){
     this.evento=eventoR;
     this.participacion = participacionr;
     this.socio = socioR;
