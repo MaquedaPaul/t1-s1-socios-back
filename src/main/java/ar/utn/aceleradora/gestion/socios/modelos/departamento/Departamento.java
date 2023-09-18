@@ -1,6 +1,6 @@
 package ar.utn.aceleradora.gestion.socios.modelos.departamento;
 
-import ar.utn.aceleradora.gestion.socios.modelos.Socio;
+import ar.utn.aceleradora.gestion.socios.modelos.empresa.Socio;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;

@@ -1,6 +1,6 @@
 package ar.utn.aceleradora.gestion.socios.controladores;
 
-import ar.utn.aceleradora.gestion.socios.modelos.Socio;
+import ar.utn.aceleradora.gestion.socios.modelos.empresa.Socio;
 //import ar.utn.aceleradora.gestion.socios.modelos.SocioPlenario;
 import ar.utn.aceleradora.gestion.socios.modelos.empresa.SocioPlenario;
 import ar.utn.aceleradora.gestion.socios.servicios.SocioService;

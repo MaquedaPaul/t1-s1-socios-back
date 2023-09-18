@@ -1,6 +1,5 @@
 package ar.utn.aceleradora.gestion.socios.modelos.empresa;
 
-import ar.utn.aceleradora.gestion.socios.modelos.Socio;
 import ar.utn.aceleradora.gestion.socios.modelos.empresa.*;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
