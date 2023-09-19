@@ -39,11 +39,18 @@ public class Departamento {
         this.nombre = nombreDepto;
         this.socioEmpresa = socioEmpresa;
         this.socioPlenario = socioPlenario;
+
     }
 
     public void agregarSocioPlenario(SocioPlenario socio){
        socioPlenario.add(socio);
    }
+   public void asignarEtiqutaSocioEmpresa(Etiqueta etiqueta, SocioEmpresa socio){
+        socio.recibirEtiqueta(etiqueta);
+   }
+    public void asignarEtiqutaSocioPlenario(Etiqueta etiqueta, SocioPlenario socio){
+        socio.recibirEtiqueta(etiqueta);
+    }
 
     public void agregarSocioEmpresa(SocioEmpresa socio){
         socioEmpresa.add(socio);

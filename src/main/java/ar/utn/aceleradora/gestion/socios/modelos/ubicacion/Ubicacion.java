@@ -15,7 +15,7 @@ public class Ubicacion {
     @Column
     private String direccion;
     @Column
-    private Integer piso;
+    private String piso;
     @Column
     private String departamento;
     @Column
@@ -25,7 +25,7 @@ public class Ubicacion {
     @Column
     private String pais;
 
-    public Ubicacion(String direccion,Integer piso,String departamento,String localidad,String provincia,String pais){
+    public Ubicacion(String direccion,String piso,String departamento,String localidad,String provincia,String pais){
 
         this.departamento = departamento;
         this.direccion = direccion;
