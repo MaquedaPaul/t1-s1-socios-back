@@ -3,6 +3,8 @@ package ar.utn.aceleradora.gestion.socios.modelos.registros;
 //import ar.utn.aceleradora.gestion.socios.modelos.Socio;
 
 import ar.utn.aceleradora.gestion.socios.modelos.empresa.Socio;
+import ar.utn.aceleradora.gestion.socios.modelos.empresa.SocioEmpresa;
+import ar.utn.aceleradora.gestion.socios.modelos.empresa.SocioPlenario;
 import jakarta.persistence.*;
 
 import jakarta.persistence.Column;
@@ -27,19 +29,28 @@ public class Registro {
 
     
     @ManyToMany( fetch = FetchType.LAZY)
-    @JoinTable(name = "Socio_x_evento",
-            joinColumns = @JoinColumn(name = "id"),
-            inverseJoinColumns = @JoinColumn(name = "id")
+    @JoinTable(name = "SocioPlenario_x_evento",
+            joinColumns = @JoinColumn(name = "idRegistro"),
+            inverseJoinColumns = @JoinColumn(name = "idPlenario")
     )
-    private List<Socio> socio;
+    private List<SocioPlenario> socioPlenario;
+
+    @ManyToMany( fetch = FetchType.LAZY)
+    @JoinTable(name = "SocioEmpresa_x_evento",
+            joinColumns = @JoinColumn(name = "idRegistro"),
+            inverseJoinColumns = @JoinColumn(name = "idEmpresa")
+    )
+    private List<SocioEmpresa> socioEmpresa;
+
     @Column
     private String participacion;
 
 
-public Registro(String eventoR, Socio socioR, String participacionr){
+public Registro(String eventoR, List<SocioPlenario> socioP, List<SocioEmpresa> socioE, String participacionr){
     this.evento=eventoR;
     this.participacion = participacionr;
-    this.socio = (List<Socio>) socioR;
+    this.socioPlenario = socioP;
+    this.socioEmpresa = socioE;
 }
 
 }

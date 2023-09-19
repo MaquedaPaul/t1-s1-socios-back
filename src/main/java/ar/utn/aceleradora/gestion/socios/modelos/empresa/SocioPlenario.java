@@ -19,7 +19,7 @@ import ar.utn.aceleradora.gestion.socios.modelos.departamento.Departamento;
 public class SocioPlenario implements Socio {
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
-  private Integer id;
+  private Integer idPlenario;
   @Enumerated
   private TipoSocio categoria = SOCIO_PLENARIO;
   @Column
@@ -35,8 +35,8 @@ public class SocioPlenario implements Socio {
 
   @ManyToMany( fetch = FetchType.LAZY)
   @JoinTable(name = "departamento_x_socioPlenario",
-          joinColumns = @JoinColumn(name = "id"),
-          inverseJoinColumns = @JoinColumn(name = "id")
+          joinColumns = @JoinColumn(name = "idEmpresa"),
+          inverseJoinColumns = @JoinColumn(name = "idDepartamento")
   )
   private List<Departamento> departamentos;
  

@@ -23,7 +23,7 @@ import java.util.List;
 public class SocioEmpresa implements Socio {
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
-  private Integer id;
+  private Integer idEmpresa;
 
   @Column
   private String nombreEmpresa;
@@ -38,12 +38,12 @@ public class SocioEmpresa implements Socio {
 
   @ManyToMany( fetch = FetchType.LAZY)
   @JoinTable(name = "departamento_x_socioEmpresa",
-          joinColumns = @JoinColumn(name = "id"),
-          inverseJoinColumns = @JoinColumn(name = "id")
+          joinColumns = @JoinColumn(name = "idEmpresa"),
+          inverseJoinColumns = @JoinColumn(name = "idDepartamento")
   )
   private List<Departamento> departamentos;
 
-  @OneToOne(cascade = CascadeType.ALL,mappedBy = "SocioEmpresa")
+  @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
   private Ubicacion ubicacion;
 
   public SocioEmpresa(String nombreEmpresa, TipoSocio categoria, Integer telefono, String mail,Ubicacion ubicacion) {

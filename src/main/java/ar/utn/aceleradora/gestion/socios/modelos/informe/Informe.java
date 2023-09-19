@@ -1,6 +1,8 @@
 package ar.utn.aceleradora.gestion.socios.modelos.informe;
 
 import ar.utn.aceleradora.gestion.socios.modelos.empresa.Socio;
+import ar.utn.aceleradora.gestion.socios.modelos.empresa.SocioEmpresa;
+import ar.utn.aceleradora.gestion.socios.modelos.empresa.SocioPlenario;
 import ar.utn.aceleradora.gestion.socios.modelos.empresa.TipoSocio;
 import ar.utn.aceleradora.gestion.socios.modelos.membresia.Membresia;
 import jakarta.persistence.*;
@@ -25,13 +27,18 @@ public class Informe {
     private TipoSocio categoria;
 
     @ManyToOne(cascade = CascadeType.ALL, fetch =  FetchType.LAZY)
-    private Socio socio;
+    private SocioEmpresa socioEmpresa;
+
+    @ManyToOne(cascade = CascadeType.ALL, fetch =  FetchType.LAZY)
+    private SocioPlenario socioPlenario;
 
 
 
-    public Informe(Membresia membresiaI, TipoSocio categoriaI, Socio socioI){
+
+    public Informe(Membresia membresiaI, TipoSocio categoriaI, SocioEmpresa socioEmpresa,SocioPlenario socioPlenario){
         this.membresia = membresiaI;
         this.categoria = categoriaI;
-        this.socio = socioI;
+        this.socioEmpresa = socioEmpresa;
+        this.socioPlenario = socioPlenario;
     }
 }

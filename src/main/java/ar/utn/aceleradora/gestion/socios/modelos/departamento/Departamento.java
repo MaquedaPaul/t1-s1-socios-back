@@ -1,6 +1,8 @@
 package ar.utn.aceleradora.gestion.socios.modelos.departamento;
 
 import ar.utn.aceleradora.gestion.socios.modelos.empresa.Socio;
+import ar.utn.aceleradora.gestion.socios.modelos.empresa.SocioEmpresa;
+import ar.utn.aceleradora.gestion.socios.modelos.empresa.SocioPlenario;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
@@ -22,18 +24,28 @@ public class Departamento {
     private String nombre;
 
     @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    @JoinTable(name = "departamento_x_socio",
-            joinColumns = @JoinColumn(name="id"),
-            inverseJoinColumns=@JoinColumn(name="id"))
-    private List<Socio> miembros;
+    @JoinTable(name = "departamento_x_socioPlenario",
+            joinColumns = @JoinColumn(name="idDepartamento"),
+            inverseJoinColumns=@JoinColumn(name="idPlenario"))
+    private List<SocioPlenario> socioPlenario;
 
-    public Departamento(String nombreDepto,List<Socio> miembrosDptos){
+    @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @JoinTable(name = "departamento_x_socioEmpresa",
+            joinColumns = @JoinColumn(name="idDepartamento"),
+            inverseJoinColumns=@JoinColumn(name="idEmpresa"))
+    private List<SocioEmpresa> socioEmpresa;
+
+    public Departamento(String nombreDepto,List<SocioEmpresa> socioEmpresa,List<SocioPlenario> socioPlenario){
         this.nombre = nombreDepto;
-        this.miembros = miembrosDptos;
+        this.socioEmpresa = socioEmpresa;
+        this.socioPlenario = socioPlenario;
     }
 
-    public void agregarSocio(Socio socio){
-       miembros.add(socio);
+    public void agregarSocioPlenario(SocioPlenario socio){
+       socioPlenario.add(socio);
    }
 
+    public void agregarSocioEmpresa(SocioEmpresa socio){
+        socioEmpresa.add(socio);
+    }
 }
