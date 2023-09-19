@@ -11,7 +11,7 @@ import lombok.Setter;
 public class Ubicacion {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer idUbicacion;
+    private Integer id;
     @Column
     private String direccion;
     @Column

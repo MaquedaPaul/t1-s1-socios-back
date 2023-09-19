@@ -11,6 +11,10 @@ import lombok.Setter;
 
 import static ar.utn.aceleradora.gestion.socios.modelos.empresa.TipoSocio.SOCIO_EMPRESA;
 
+import ar.utn.aceleradora.gestion.socios.modelos.departamento.Departamento;
+
+import java.util.List;
+
 
 @Entity
 @Getter
@@ -19,7 +23,7 @@ import static ar.utn.aceleradora.gestion.socios.modelos.empresa.TipoSocio.SOCIO_
 public class SocioEmpresa implements Socio {
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
-  private Integer idSocioEmpresa;
+  private Integer id;
 
   @Column
   private String nombreEmpresa;
@@ -32,8 +36,14 @@ public class SocioEmpresa implements Socio {
   @Column
   private String mail;
 
-  //@OneToOne
-  @Transient
+  @ManyToMany( fetch = FetchType.LAZY)
+  @JoinTable(name = "departamento_x_socioEmpresa",
+          joinColumns = @JoinColumn(name = "id"),
+          inverseJoinColumns = @JoinColumn(name = "id")
+  )
+  private List<Departamento> departamentos;
+
+  @OneToOne(cascade = CascadeType.ALL,mappedBy = "SocioEmpresa")
   private Ubicacion ubicacion;
 
   public SocioEmpresa(String nombreEmpresa, TipoSocio categoria, Integer telefono, String mail,Ubicacion ubicacion) {

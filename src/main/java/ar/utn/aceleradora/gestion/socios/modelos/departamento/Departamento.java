@@ -16,19 +16,20 @@ import java.util.List;
 public class Departamento {
     @Id
     @GeneratedValue
-    private Integer idDepartamento;
-
+    private Integer id;
 
     @Column
     private String nombre;
 
-   // @OneToMany
-    @Transient
+    @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @JoinTable(name = "departamento_x_socio",
+            joinColumns = @JoinColumn(name="id"),
+            inverseJoinColumns=@JoinColumn(name="id"))
     private List<Socio> miembros;
 
     public Departamento(String nombreDepto,List<Socio> miembrosDptos){
         this.nombre = nombreDepto;
-       // this.miembros = miembrosDptos;
+        this.miembros = miembrosDptos;
     }
 
     public void agregarSocio(Socio socio){
