@@ -16,6 +16,8 @@ public class Etiqueta {
     @Column
     private String nombreEtiqueta;
 
+
+
     public Etiqueta(Departamento departamento, String nombreEtiqueta){
         this.departamentoPerteneciente = departamento;
         this.nombreEtiqueta = nombreEtiqueta;

@@ -38,8 +38,8 @@ public class SocioEmpresa implements Socio {
   private String mail;
   @ManyToMany(fetch = FetchType.LAZY)
   @JoinTable(name = "etiqueta_x_socioEmpresa",
-          joinColumns = @JoinColumn(name = "id"),
-          inverseJoinColumns = @JoinColumn(name = "id")
+          joinColumns = @JoinColumn(name = "idEmpresa"),
+          inverseJoinColumns = @JoinColumn(name = "idEtiqueta")
   )
   private List<Etiqueta> etiquetas;
 

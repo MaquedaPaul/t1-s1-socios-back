@@ -33,10 +33,11 @@ public class SocioPlenario implements Socio {
   private Integer telefono;
   @Column
   private String mail;
+
   @ManyToMany(fetch = FetchType.LAZY)
   @JoinTable(name = "etiqueta_x_socioPlenario",
-          joinColumns = @JoinColumn(name = "id"),
-          inverseJoinColumns = @JoinColumn(name = "id")
+          joinColumns = @JoinColumn(name = "idPlenario"),
+          inverseJoinColumns = @JoinColumn(name = "idEtiqueta")
   )
   private List<Etiqueta> etiquetas;
 
