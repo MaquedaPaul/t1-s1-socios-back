@@ -2,6 +2,7 @@ package ar.utn.aceleradora.gestion.socios.modelos.empresa;
 
 
 
+import ar.utn.aceleradora.gestion.socios.modelos.departamento.Etiqueta;
 import ar.utn.aceleradora.gestion.socios.modelos.empresa.*;
 import ar.utn.aceleradora.gestion.socios.modelos.ubicacion.Ubicacion;
 import jakarta.persistence.*;
@@ -35,6 +36,12 @@ public class SocioEmpresa implements Socio {
   private Integer telefono;
   @Column
   private String mail;
+  @ManyToMany(fetch = FetchType.LAZY)
+  @JoinTable(name = "etiqueta_x_socioEmpresa",
+          joinColumns = @JoinColumn(name = "id"),
+          inverseJoinColumns = @JoinColumn(name = "id")
+  )
+  private List<Etiqueta> etiquetas;
 
   @ManyToMany( fetch = FetchType.LAZY)
   @JoinTable(name = "departamento_x_socioEmpresa",
@@ -55,7 +62,9 @@ public class SocioEmpresa implements Socio {
     this.ubicacion = ubicacion;
   }
 
-  public SocioEmpresa() {
+  public SocioEmpresa() {}
 
+  public void recibirEtiqueta(Etiqueta etiqueta){
+    this.etiquetas.add(etiqueta);
   }
 }

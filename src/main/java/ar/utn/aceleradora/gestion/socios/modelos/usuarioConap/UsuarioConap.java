@@ -32,7 +32,7 @@ public class UsuarioConap {
      @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<Registro> registros;
 
-public UsuarioConap(String nombre,String apellido,List<Socio> socios, List<Departamento> departamentos,/*List <Informe> informes,*/List<Registro> registros){
+public UsuarioConap(String nombre,String apellido,List<Socio> socios, List<Departamento> departamentos,List <Informe> informes,List<Registro> registros){
     this.nombre = nombre;
     this.apellido = apellido;
     this.socios = socios;
@@ -42,7 +42,7 @@ public UsuarioConap(String nombre,String apellido,List<Socio> socios, List<Depar
 
       }
 //funcion a llamar para hacer informes cuando llege info via json
-public Informe GenerarInforme(Membresia membresia, TipoSocio categoria, Socio socio){
+public Informe GenerarInforme(Membresia membresia, String categoria, Socio socio){
     return new Informe(membresia, categoria, socio);
 }
 

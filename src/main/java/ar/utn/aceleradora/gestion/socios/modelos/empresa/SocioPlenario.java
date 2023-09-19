@@ -1,5 +1,6 @@
 package ar.utn.aceleradora.gestion.socios.modelos.empresa;
 
+import ar.utn.aceleradora.gestion.socios.modelos.departamento.Etiqueta;
 import ar.utn.aceleradora.gestion.socios.modelos.empresa.*;
 import ar.utn.aceleradora.gestion.socios.modelos.ubicacion.Ubicacion;
 import jakarta.persistence.*;
@@ -32,25 +33,31 @@ public class SocioPlenario implements Socio {
   private Integer telefono;
   @Column
   private String mail;
+  @ManyToMany(fetch = FetchType.LAZY)
+  @JoinTable(name = "etiqueta_x_socioPlenario",
+          joinColumns = @JoinColumn(name = "id"),
+          inverseJoinColumns = @JoinColumn(name = "id")
+  )
+  private List<Etiqueta> etiquetas;
 
-  @ManyToMany( fetch = FetchType.LAZY)
+  @ManyToMany(fetch = FetchType.LAZY)
   @JoinTable(name = "departamento_x_socioPlenario",
           joinColumns = @JoinColumn(name = "id"),
           inverseJoinColumns = @JoinColumn(name = "id")
   )
   private List<Departamento> departamentos;
- 
+
   @OneToOne(cascade = CascadeType.ALL)
   private Ubicacion ubicacion;
-  
+
   public SocioPlenario() {
   }
 
-  public void votar(){
+  public void votar() {
     //TODO
   }
 
-  public SocioPlenario(String nombreEmpresa, String nombrePresidente, Integer telefono, String mail,Ubicacion ubicacion) {
+  public SocioPlenario(String nombreEmpresa, String nombrePresidente, Integer telefono, String mail, Ubicacion ubicacion) {
     this.nombreEmpresa = nombreEmpresa;
     this.nombrePresidente = nombrePresidente;
     this.activo = true; // Suponemos que al dar de alta, el socio está activo por defecto
@@ -59,6 +66,9 @@ public class SocioPlenario implements Socio {
     this.ubicacion = ubicacion;
   }
 
+  public void recibirEtiqueta(Etiqueta etiqueta) {
+    this.etiquetas.add(etiqueta);
+  }
 }
 
 
