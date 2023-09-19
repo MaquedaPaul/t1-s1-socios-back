@@ -3,11 +3,8 @@ package ar.utn.aceleradora.gestion.socios.modelos.empresa;
 
 
 import ar.utn.aceleradora.gestion.socios.modelos.empresa.*;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Enumerated;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import ar.utn.aceleradora.gestion.socios.modelos.ubicacion.Ubicacion;
+import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -26,16 +23,22 @@ public class SocioEmpresa implements Socio {
   private String nombreEmpresa;
   @Enumerated
   private TipoSocio categoria = SOCIO_EMPRESA;
+  @Column
   private Boolean activo;
+  @Column
   private Integer telefono;
+  @Column
   private String mail;
+  @OneToOne
+  private Ubicacion ubicacion;
 
-  public SocioEmpresa(String nombreEmpresa, TipoSocio categoria, Integer telefono, String mail) {
+  public SocioEmpresa(String nombreEmpresa, TipoSocio categoria, Integer telefono, String mail,Ubicacion ubicacion) {
     this.nombreEmpresa = nombreEmpresa;
     this.categoria = categoria;
     this.activo = true; // Suponemos que al dar de alta, el socio está activo por defecto
     this.telefono = telefono;
     this.mail = mail;
+    this.ubicacion = ubicacion;
   }
 
   public SocioEmpresa() {

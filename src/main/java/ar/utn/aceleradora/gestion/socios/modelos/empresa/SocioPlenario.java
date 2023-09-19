@@ -1,12 +1,8 @@
 package ar.utn.aceleradora.gestion.socios.modelos.empresa;
 
 import ar.utn.aceleradora.gestion.socios.modelos.empresa.*;
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Enumerated;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import ar.utn.aceleradora.gestion.socios.modelos.ubicacion.Ubicacion;
+import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -27,12 +23,12 @@ public class SocioPlenario implements Socio {
   private String nombrePresidente;
   @Column
   private Boolean activo;
-
   @Column
   private Integer telefono;
-
   @Column
   private String mail;
+  @OneToOne
+  private Ubicacion ubicacion;
 
   public SocioPlenario() {
   }
@@ -41,12 +37,13 @@ public class SocioPlenario implements Socio {
     //TODO
   }
 
-  public SocioPlenario(String nombreEmpresa, String nombrePresidente, Integer telefono, String mail) {
+  public SocioPlenario(String nombreEmpresa, String nombrePresidente, Integer telefono, String mail,Ubicacion ubicacion) {
     this.nombreEmpresa = nombreEmpresa;
     this.nombrePresidente = nombrePresidente;
     this.activo = true; // Suponemos que al dar de alta, el socio está activo por defecto
     this.telefono = telefono;
     this.mail = mail;
+    this.ubicacion = ubicacion;
   }
 
 }
