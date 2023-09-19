@@ -16,18 +16,23 @@ import java.util.List;
 public class Departamento {
     @Id
     @GeneratedValue
+    private Integer idDepartamento;
+
+
+    @Column
     private String nombre;
 
-    @OneToMany
+   // @OneToMany
+    @Transient
     private List<Socio> miembros;
 
     public Departamento(String nombreDepto,List<Socio> miembrosDptos){
         this.nombre = nombreDepto;
-        this.miembros = miembrosDptos;
+       // this.miembros = miembrosDptos;
     }
 
     public void agregarSocio(Socio socio){
-        miembros.add(socio);
-    }
+       miembros.add(socio);
+   }
 
 }

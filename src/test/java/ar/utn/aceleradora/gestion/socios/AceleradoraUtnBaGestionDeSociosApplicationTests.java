@@ -1,6 +1,7 @@
 package ar.utn.aceleradora.gestion.socios;
 
 //import ar.utn.aceleradora.gestion.socios.modelos.empresa.Socio;
+import ar.utn.aceleradora.gestion.socios.modelos.empresa.Socio;
 import ar.utn.aceleradora.gestion.socios.modelos.empresa.SocioPlenario;
 import ar.utn.aceleradora.gestion.socios.repositorios.SocioPlenarioRepository;
 import ar.utn.aceleradora.gestion.socios.servicios.SocioService;
@@ -40,10 +41,10 @@ class AceleradoraUtnBaGestionDeSociosApplicationTests {
 		SocioPlenario socioGuardado = socioService.guardarSocioPlenario(entidad);
 
 	}
-/* 
+
 	@Test
 	public void testObtenerSocioPlenario() {
-		Optional<Socio> socioRecuperado = socioService.obtenerSocio(1);
+		SocioPlenario socioRecuperado = socioPlenarioRepository.findById(1).orElse(null);
 
 		// Verifica que el SocioPlenario se haya guardado y recuperado correctamente
 		assertThat(socioRecuperado).isNotNull();
@@ -52,7 +53,6 @@ class AceleradoraUtnBaGestionDeSociosApplicationTests {
 		assertThat(socioRecuperado.getTelefono()).isEqualTo(123456);
 		assertThat(socioRecuperado.getMail()).isEqualTo("Ejemplo");
 	}
-	*/
 
 
 

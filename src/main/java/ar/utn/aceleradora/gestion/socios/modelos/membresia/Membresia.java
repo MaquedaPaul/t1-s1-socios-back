@@ -21,7 +21,9 @@ import java.util.Date;
 public class Membresia {
     @Id
     @GeneratedValue
-    @OneToOne
+    private Integer idMembresia;
+    //@OneToOne
+    @Transient
     private Socio empresa;
     @Column
     private Date fechaInicio;

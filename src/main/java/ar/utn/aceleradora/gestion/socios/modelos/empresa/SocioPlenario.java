@@ -11,6 +11,7 @@ import static ar.utn.aceleradora.gestion.socios.modelos.empresa.TipoSocio.SOCIO_
 @Entity
 @Getter
 @Setter
+@Table
 public class SocioPlenario implements Socio {
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -27,7 +28,10 @@ public class SocioPlenario implements Socio {
   private Integer telefono;
   @Column
   private String mail;
-  @OneToOne
+
+
+  //@OneToOne
+  @Transient
   private Ubicacion ubicacion;
 
   public SocioPlenario() {

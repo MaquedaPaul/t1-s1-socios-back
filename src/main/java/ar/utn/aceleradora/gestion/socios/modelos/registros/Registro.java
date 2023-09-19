@@ -9,18 +9,29 @@ import jakarta.persistence.Column;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
 import jakarta.persistence.MappedSuperclass;
+import lombok.Getter;
+import lombok.Setter;
+
 @Table(name="evento")
 @Entity
+@Getter@Setter
 public class Registro {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id;
+    private Integer idRegistro;
+
+    @Column
     private String evento;
+
+    /*
     @ManyToMany( fetch = FetchType.LAZY)
     @JoinTable(name = "Socio_x_evento",
             joinColumns = @JoinColumn(name = "id"),
             inverseJoinColumns = @JoinColumn(name = "id")
     )
+
+     */
+    @Transient
     private Socio socio;
     @Column
     private String participacion;

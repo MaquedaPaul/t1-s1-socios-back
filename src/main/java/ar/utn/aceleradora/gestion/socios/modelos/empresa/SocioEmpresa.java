@@ -15,11 +15,13 @@ import static ar.utn.aceleradora.gestion.socios.modelos.empresa.TipoSocio.SOCIO_
 @Entity
 @Getter
 @Setter
+@Table
 public class SocioEmpresa implements Socio {
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Integer idSocioEmpresa;
 
+  @Column
   private String nombreEmpresa;
   @Enumerated
   private TipoSocio categoria = SOCIO_EMPRESA;
@@ -29,7 +31,9 @@ public class SocioEmpresa implements Socio {
   private Integer telefono;
   @Column
   private String mail;
-  @OneToOne
+
+  //@OneToOne
+  @Transient
   private Ubicacion ubicacion;
 
   public SocioEmpresa(String nombreEmpresa, TipoSocio categoria, Integer telefono, String mail,Ubicacion ubicacion) {
