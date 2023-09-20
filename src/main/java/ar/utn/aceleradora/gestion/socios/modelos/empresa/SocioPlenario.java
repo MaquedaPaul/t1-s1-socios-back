@@ -1,7 +1,6 @@
 package ar.utn.aceleradora.gestion.socios.modelos.empresa;
 
 import ar.utn.aceleradora.gestion.socios.modelos.departamento.Etiqueta;
-import ar.utn.aceleradora.gestion.socios.modelos.empresa.*;
 import ar.utn.aceleradora.gestion.socios.modelos.ubicacion.Ubicacion;
 import jakarta.persistence.*;
 import lombok.Getter;
@@ -17,11 +16,10 @@ import ar.utn.aceleradora.gestion.socios.modelos.departamento.Departamento;
 @Getter
 @Setter
 @Table
-public class SocioPlenario implements Socio {
-  @Id
-  @GeneratedValue(strategy = GenerationType.SEQUENCE)
-  private Integer idPlenario;
-  @Enumerated
+@DiscriminatorValue(value = "socioPlenario")
+public class SocioPlenario extends Socio{
+
+
   private TipoSocio categoria = SOCIO_PLENARIO;
   @Column
   private String nombreEmpresa;

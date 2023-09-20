@@ -66,7 +66,7 @@ public class SocioService {
   public void eliminarSocioEmpresa(Integer id) {
     socioEmpresaRepository.deleteById(id);
   }
-
+/*
   public SocioPlenario actualizarSocioPlenario(SocioPlenario socio) {
     if (socio.getIdPlenario() != null) {
       return socioPlenarioRepository.save(socio);
@@ -80,7 +80,7 @@ public class SocioService {
     }
     return null; // El socio no tiene un ID válido
   }
-
+*/
 
 
 

@@ -3,7 +3,6 @@ package ar.utn.aceleradora.gestion.socios.modelos.empresa;
 
 
 import ar.utn.aceleradora.gestion.socios.modelos.departamento.Etiqueta;
-import ar.utn.aceleradora.gestion.socios.modelos.empresa.*;
 import ar.utn.aceleradora.gestion.socios.modelos.ubicacion.Ubicacion;
 import jakarta.persistence.*;
 import lombok.Getter;
@@ -21,14 +20,14 @@ import java.util.List;
 @Getter
 @Setter
 @Table
-public class SocioEmpresa implements Socio {
-  @Id
-  @GeneratedValue(strategy = GenerationType.SEQUENCE)
-  private Integer idEmpresa;
+@DiscriminatorValue(value = "socioEmpresa")
+public class SocioEmpresa extends Socio{
+
 
   @Column
   private String nombreEmpresa;
-  @Enumerated
+
+
   private TipoSocio categoria = SOCIO_EMPRESA;
   @Column
   private Boolean activo;

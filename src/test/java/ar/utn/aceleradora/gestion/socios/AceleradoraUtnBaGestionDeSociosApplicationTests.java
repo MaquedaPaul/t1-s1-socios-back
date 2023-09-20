@@ -1,7 +1,6 @@
 package ar.utn.aceleradora.gestion.socios;
 
 //import ar.utn.aceleradora.gestion.socios.modelos.empresa.Socio;
-import ar.utn.aceleradora.gestion.socios.modelos.empresa.Socio;
 import ar.utn.aceleradora.gestion.socios.modelos.empresa.SocioPlenario;
 import ar.utn.aceleradora.gestion.socios.repositorios.SocioPlenarioRepository;
 import ar.utn.aceleradora.gestion.socios.servicios.SocioService;
@@ -10,10 +9,6 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
-
-import static org.assertj.core.api.FactoryBasedNavigableListAssert.assertThat;
-
-import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
