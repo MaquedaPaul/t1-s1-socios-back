@@ -6,7 +6,6 @@ import ar.utn.aceleradora.gestion.socios.modelos.empresa.SocioEmpresa;
 import ar.utn.aceleradora.gestion.socios.modelos.empresa.SocioPlenario;
 import ar.utn.aceleradora.gestion.socios.repositorios.SocioEmpresaRepository;
 import ar.utn.aceleradora.gestion.socios.repositorios.SocioPlenarioRepository;
-import jakarta.persistence.EntityManager;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -44,5 +43,24 @@ public class SocioService {
     return socioPlenarioRepository.save(socio);
   }
 
+  public SocioEmpresa guardarSocioEmpresa(SocioEmpresa socio) {
+    return socioEmpresaRepository.save(socio);
+  }
+
+  public SocioPlenario getSocioPlenarioPorId(Integer id) {
+    SocioPlenario socioPlenario = socioPlenarioRepository.findById(id).orElse(null);
+    if( socioPlenario != null ) {return socioPlenario;}
+    else {return null;}
+    }
+
+  public SocioEmpresa getSocioEmpresaPorId(Integer id) {
+    SocioEmpresa socioEmpresa = socioEmpresaRepository.findById(id).orElse(null);
+    if( socioEmpresa != null ) {return socioEmpresa;}
+    else{return null;}
+  }
+
   
+
+
+
 }
