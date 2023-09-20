@@ -99,6 +99,37 @@ public class SocioService {
     }
     return null; // El socio no tiene un ID válido
   }
+
+   public List<NombresDTO> obtenerNombres() {
+    List<SocioEmpresa> listaSocios = socioEmpresaRepository.findAll();
+    List<SocioPlenario> listaSocios2 = socioPlenarioRepository.findAll();
+
+    List<NombresDTO> nombresDTOList = new ArrayList<>();
+
+    nombresDTOList.addAll(listaSocios.stream()
+            .map(socio -> new NombresDTO(socio.getNombreEmpresa()))
+            .collect(Collectors.toList()));
+
+    nombresDTOList.addAll(listaSocios2.stream()
+            .map(socio -> new NombresDTO(socio.getNombreEmpresa()))
+            .collect(Collectors.toList()));
+
+    return nombresDTOList;
+  }
+/*
+  public busquedaSegunIdDTO busquedaSegunId(int id) {   ACA FALTA: QUE PASA CON EL DTO SI ES UN PLENARIO O UNA EMPRESA AHORA Q SOCIO ES UN ABSTRACT? COMO MANEJO LA EXCEPCION?
+    Optional<SocioPlenario> socioPlenarioOptional = socioPlenarioRepository.findById(id);
+
+    if (socioPlenarioOptional.isPresent()) {
+      SocioPlenario socioPlenario = socioPlenarioOptional.get();
+      busquedaSegunIdDTO dto = new busquedaSegunIdDTO(socioPlenario.getIdPlenario(),socioPlenario.getNombreEmpresa(),socioPlenario.getNombrePresidente(),socioPlenario.getCategoria(),socioPlenario.getEtiquetas(),socioPlenario.getMail(),socioPlenario.getTelefono(),
+      true, new Membresia.getFechainicio, new Membresia.getFechavto, socioPlenario.getUbicacion());
+      return dto;
+    } else {
+      throw new Exception("SocioPlenario not found with ID: " + id);
+      return null;
+    }
+  }*/
 */
 
 }

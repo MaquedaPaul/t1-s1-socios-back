@@ -35,6 +35,11 @@ public class SocioController {
         SocioPlenario nuevoSocio = socioService.guardarSocioPlenario(socio);
         return ResponseEntity.ok(nuevoSocio);
     }
+    @GetMapping("/obtenerNombres")
+    public ResponseEntity<List<NombresDTO>> obtenerNombres() {
+        List<NombresDTO> nombres = socioService.obtenerNombres();
+        return ResponseEntity.ok(nombres);
+    }
 */
 
 }
