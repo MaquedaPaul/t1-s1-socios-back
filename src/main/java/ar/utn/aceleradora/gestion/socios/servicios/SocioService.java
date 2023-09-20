@@ -59,7 +59,30 @@ public class SocioService {
     else{return null;}
   }
 
-  
+  public void eliminarSocioPlenario(Integer id) {
+    socioPlenarioRepository.deleteById(id);
+  }
+
+  public void eliminarSocioEmpresa(Integer id) {
+    socioEmpresaRepository.deleteById(id);
+  }
+
+  public SocioPlenario actualizarSocioPlenario(SocioPlenario socio) {
+    if (socio.getIdPlenario() != null) {
+      return socioPlenarioRepository.save(socio);
+    }
+    return null; // El socio no tiene un ID válido
+  }
+
+  public SocioEmpresa actualizarSocioEmpresa(SocioEmpresa socio) {
+    if (socio.getIdEmpresa() != null) {
+      return socioEmpresaRepository.save(socio);
+    }
+    return null; // El socio no tiene un ID válido
+  }
+
+
+
 
 
 

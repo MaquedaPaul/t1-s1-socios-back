@@ -34,8 +34,8 @@ class AceleradoraUtnBaGestionDeSociosApplicationTests {
 	public void testGuardarSocioPlenario() {
 		// Crea un objeto Socioplenario
 		SocioPlenario entidad = new SocioPlenario();
-		entidad.setNombreEmpresa("Josue");
-		entidad.setNombrePresidente("Elmaskpito");
+		entidad.setNombreEmpresa("Ejemplo");
+		entidad.setNombrePresidente("Ejemplo");
 		entidad.setTelefono(123456);
 		entidad.setMail("Ejemplo");
 
@@ -46,7 +46,7 @@ class AceleradoraUtnBaGestionDeSociosApplicationTests {
 
 	@Test
 	public void testObtenerSocioPlenario() {
-		SocioPlenario socioRecuperado = socioPlenarioRepository.findById(1).orElse(null);
+		SocioPlenario socioRecuperado = socioService.getSocioPlenarioPorId(1);
 
 		// Verifica que el SocioPlenario se haya guardado y recuperado correctamente
 		assertThat(socioRecuperado).isNotNull();
