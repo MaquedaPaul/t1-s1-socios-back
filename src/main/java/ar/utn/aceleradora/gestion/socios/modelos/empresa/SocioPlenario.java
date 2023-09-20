@@ -19,7 +19,7 @@ import ar.utn.aceleradora.gestion.socios.modelos.departamento.Departamento;
 @Table
 public class SocioPlenario implements Socio {
   @Id
-  @GeneratedValue(strategy = GenerationType.IDENTITY)
+  @GeneratedValue(strategy = GenerationType.SEQUENCE)
   private Integer idPlenario;
   @Enumerated
   private TipoSocio categoria = SOCIO_PLENARIO;

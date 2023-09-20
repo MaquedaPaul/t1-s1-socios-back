@@ -23,7 +23,7 @@ import java.util.List;
 @Table
 public class SocioEmpresa implements Socio {
   @Id
-  @GeneratedValue(strategy = GenerationType.IDENTITY)
+  @GeneratedValue(strategy = GenerationType.SEQUENCE)
   private Integer idEmpresa;
 
   @Column
