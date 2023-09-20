@@ -29,12 +29,12 @@ public class SocioController {
           .map(socio -> new ResponseEntity<>(socio, HttpStatus.OK))
           .orElseGet(() -> new ResponseEntity<>(null, HttpStatus.NOT_FOUND));
     }
-*/
+
     @PostMapping("/plenario")
     public ResponseEntity<SocioPlenario> crearSocioPlenario(@RequestBody SocioPlenario socio) {
         SocioPlenario nuevoSocio = socioService.guardarSocioPlenario(socio);
         return ResponseEntity.ok(nuevoSocio);
     }
-
+*/
 
 }

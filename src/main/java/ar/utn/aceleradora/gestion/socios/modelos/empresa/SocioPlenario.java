@@ -20,54 +20,44 @@ import ar.utn.aceleradora.gestion.socios.modelos.departamento.Departamento;
 public class SocioPlenario extends Socio{
 
 
-  private TipoSocio categoria = SOCIO_PLENARIO;
-  @Column
-  private String nombreEmpresa;
+
   @Column
   private String nombrePresidente;
-  @Column
-  private Boolean activo;
-  @Column
-  private Integer telefono;
-  @Column
-  private String mail;
+    /*
+      @Column
+        private String nombreEmpresa;
 
-  @ManyToMany(fetch = FetchType.LAZY)
-  @JoinTable(name = "etiqueta_x_socioPlenario",
-          joinColumns = @JoinColumn(name = "idPlenario"),
-          inverseJoinColumns = @JoinColumn(name = "idEtiqueta")
-  )
-  private List<Etiqueta> etiquetas;
+      private TipoSocio categoria = SOCIO_PLENARIO;
+      @Column
+      private Boolean activo;
+      @Column
+      private Integer telefono;
+    @Column
+      private String mail;
 
-  @ManyToMany(fetch = FetchType.LAZY)
-  @JoinTable(name = "departamento_x_socioPlenario",
-          joinColumns = @JoinColumn(name = "idEmpresa"),
-          inverseJoinColumns = @JoinColumn(name = "idDepartamento")
-  )
-  private List<Departamento> departamentos;
+     /* @ManyToMany(fetch = FetchType.LAZY)
+      @JoinTable(name = "etiqueta_x_socioPlenario",
+              joinColumns = @JoinColumn(name = "idPlenario"),
+              inverseJoinColumns = @JoinColumn(name = "idEtiqueta")
+      )
+      @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+      private List<Etiqueta> etiquetas;
 
-  @OneToOne(cascade = CascadeType.ALL)
-  private Ubicacion ubicacion;
-
-  public SocioPlenario() {
-  }
+      @OneToOne(cascade = CascadeType.ALL)
+      private Ubicacion ubicacion;
+    */
 
   public void votar() {
     //TODO
   }
 
+
   public SocioPlenario(String nombreEmpresa, String nombrePresidente, Integer telefono, String mail, Ubicacion ubicacion) {
-    this.nombreEmpresa = nombreEmpresa;
+    super(nombreEmpresa, TipoSocio.SOCIO_PLENARIO, telefono, mail, ubicacion);
     this.nombrePresidente = nombrePresidente;
-    this.activo = true; // Suponemos que al dar de alta, el socio está activo por defecto
-    this.telefono = telefono;
-    this.mail = mail;
-    this.ubicacion = ubicacion;
   }
 
-  public void recibirEtiqueta(Etiqueta etiqueta) {
-    this.etiquetas.add(etiqueta);
-  }
+
 }
 
 

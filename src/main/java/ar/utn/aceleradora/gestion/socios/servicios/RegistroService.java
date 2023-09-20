@@ -8,7 +8,7 @@ import org.springframework.stereotype.Service;
 
 @Service
 public class RegistroService {
-
+/*
     private final RegistroRepository registroRepository;
 
     @Autowired
@@ -36,5 +36,5 @@ public class RegistroService {
         }
         return null; // El departamento no tiene un ID válido
     }
-
+*/
 }

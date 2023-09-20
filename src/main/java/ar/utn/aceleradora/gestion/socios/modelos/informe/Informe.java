@@ -1,5 +1,6 @@
 package ar.utn.aceleradora.gestion.socios.modelos.informe;
 
+import ar.utn.aceleradora.gestion.socios.modelos.empresa.Socio;
 import ar.utn.aceleradora.gestion.socios.modelos.empresa.SocioEmpresa;
 import ar.utn.aceleradora.gestion.socios.modelos.empresa.SocioPlenario;
 import ar.utn.aceleradora.gestion.socios.modelos.empresa.TipoSocio;
@@ -22,22 +23,19 @@ public class Informe {
     @ManyToOne(cascade = CascadeType.ALL, fetch =  FetchType.LAZY)
     private Membresia membresia;
 
-    @Enumerated(EnumType.STRING)
     private TipoSocio categoria;
 
     @ManyToOne(cascade = CascadeType.ALL, fetch =  FetchType.LAZY)
-    private SocioEmpresa socioEmpresa;
-
-    @ManyToOne(cascade = CascadeType.ALL, fetch =  FetchType.LAZY)
-    private SocioPlenario socioPlenario;
+    private Socio socio;
 
 
 
 
-    public Informe(Membresia membresiaI, TipoSocio categoriaI, SocioEmpresa socioEmpresa,SocioPlenario socioPlenario){
+
+
+    public Informe(Membresia membresiaI, TipoSocio categoriaI, Socio socio){
         this.membresia = membresiaI;
         this.categoria = categoriaI;
-        this.socioEmpresa = socioEmpresa;
-        this.socioPlenario = socioPlenario;
+        this.socio = socio;
     }
 }

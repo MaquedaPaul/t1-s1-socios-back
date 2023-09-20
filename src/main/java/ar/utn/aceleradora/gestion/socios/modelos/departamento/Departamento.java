@@ -21,36 +21,25 @@ public class Departamento {
     @Column
     private String nombre;
 
-    @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    @JoinTable(name = "departamento_x_socioPlenario",
-            joinColumns = @JoinColumn(name="idDepartamento"),
-            inverseJoinColumns=@JoinColumn(name="idPlenario"))
-    private List<SocioPlenario> socioPlenario;
+    @OneToMany(cascade = CascadeType.ALL)
+    //@JoinColumn(name = "idDepartamento")
+    private List<Etiqueta> etiquetas;
 
-    @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    @JoinTable(name = "departamento_x_socioEmpresa",
-            joinColumns = @JoinColumn(name="idDepartamento"),
-            inverseJoinColumns=@JoinColumn(name="idEmpresa"))
-    private List<SocioEmpresa> socioEmpresa;
 
-    public Departamento(String nombreDepto,List<SocioEmpresa> socioEmpresa,List<SocioPlenario> socioPlenario){
+    public Departamento(String nombreDepto, List<Etiqueta> etiquetas){
         this.nombre = nombreDepto;
-        this.socioEmpresa = socioEmpresa;
-        this.socioPlenario = socioPlenario;
-
+        this.etiquetas = etiquetas;
     }
 
-    public void agregarSocioPlenario(SocioPlenario socio){
-       socioPlenario.add(socio);
+    public void agregarEtiqueta(Etiqueta e){
+       etiquetas.add(e);
    }
-   public void asignarEtiqutaSocioEmpresa(Etiqueta etiqueta, SocioEmpresa socio){
-        socio.recibirEtiqueta(etiqueta);
-   }
-    public void asignarEtiqutaSocioPlenario(Etiqueta etiqueta, SocioPlenario socio){
+  // public void asignarEtiqutaSocioEmpresa(Etiqueta etiqueta, SocioEmpresa socio){
+ //       socio.recibirEtiqueta(etiqueta);
+ //  }
+   /* public void asignarEtiqutaSocioPlenario(Etiqueta etiqueta, SocioPlenario socio){
         socio.recibirEtiqueta(etiqueta);
     }
+*/
 
-    public void agregarSocioEmpresa(SocioEmpresa socio){
-        socioEmpresa.add(socio);
-    }
 }

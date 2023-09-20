@@ -1,6 +1,7 @@
 package ar.utn.aceleradora.gestion.socios.modelos.usuarioConap;
 
 import ar.utn.aceleradora.gestion.socios.modelos.departamento.Departamento;
+import ar.utn.aceleradora.gestion.socios.modelos.empresa.Socio;
 import ar.utn.aceleradora.gestion.socios.modelos.empresa.SocioEmpresa;
 import ar.utn.aceleradora.gestion.socios.modelos.empresa.SocioPlenario;
 import ar.utn.aceleradora.gestion.socios.modelos.empresa.TipoSocio;
@@ -26,35 +27,37 @@ public class UsuarioConap {
     @Column
     private String apellido;
 
-    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    private List<SocioPlenario> sociosPlenarios;
+    @OneToMany(cascade = CascadeType.ALL)
+    @JoinColumn(name = "idUsuario")
+    private List<Socio> socios;
 
-    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    private List<SocioEmpresa> sociosEmpresa;
-
-    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @OneToMany(cascade = CascadeType.ALL)
+    @JoinColumn(name = "idUsuario")
     private List<Departamento> departamentos;
-     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+
+     @OneToMany(cascade = CascadeType.ALL)
+     @JoinColumn(name = "idUsuario")
     private List <Informe> informes;
-     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    private List<Registro> registros;
+
+    // @OneToMany(cascade = CascadeType.ALL)
+    // @JoinColumn(name = "idUsuario")
+    //private List<Registro> registros;
 
 
-public UsuarioConap(String nombre,String apellido,List<SocioPlenario> sociosPlenarios, List<SocioEmpresa> sociosEmpresa, List<Departamento> departamentos,/*List <Informe> informes,*/List<Registro> registros){
+public UsuarioConap(String nombre,String apellido, List<Socio> socios, List<Departamento> departamentos,List <Informe> informes/*,List<Registro> registros*/){
 
     this.nombre = nombre;
     this.apellido = apellido;
-    this.sociosPlenarios = sociosPlenarios;
-    this.sociosEmpresa = sociosEmpresa;
+    this.socios = socios;
     this.departamentos = departamentos;
     this.informes = informes;
-    this.registros = registros;
+    //this.registros = registros;
 
       }
 //funcion a llamar para hacer informes cuando llege info via json
 
-public Informe GenerarInforme(Membresia membresia, TipoSocio categoria, SocioEmpresa socioEmpresa, SocioPlenario socioPlenario){
-    return new Informe(membresia, categoria, socioEmpresa, socioPlenario);
+public Informe GenerarInforme(Membresia membresia, TipoSocio categoria, Socio socio){
+    return new Informe(membresia, categoria, socio);
 
 }
 
