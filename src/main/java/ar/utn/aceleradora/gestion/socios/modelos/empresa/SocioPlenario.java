@@ -19,33 +19,12 @@ import ar.utn.aceleradora.gestion.socios.modelos.departamento.Departamento;
 @DiscriminatorValue(value = "socioPlenario")
 public class SocioPlenario extends Socio{
 
-
-
   @Column
   private String nombrePresidente;
-    /*
-      @Column
-        private String nombreEmpresa;
 
-      private TipoSocio categoria = SOCIO_PLENARIO;
-      @Column
-      private Boolean activo;
-      @Column
-      private Integer telefono;
-    @Column
-      private String mail;
+  public SocioPlenario() {
 
-     /* @ManyToMany(fetch = FetchType.LAZY)
-      @JoinTable(name = "etiqueta_x_socioPlenario",
-              joinColumns = @JoinColumn(name = "idPlenario"),
-              inverseJoinColumns = @JoinColumn(name = "idEtiqueta")
-      )
-      @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-      private List<Etiqueta> etiquetas;
-
-      @OneToOne(cascade = CascadeType.ALL)
-      private Ubicacion ubicacion;
-    */
+  }
 
   public void votar() {
     //TODO

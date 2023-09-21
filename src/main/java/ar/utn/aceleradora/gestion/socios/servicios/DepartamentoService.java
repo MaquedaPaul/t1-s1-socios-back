@@ -2,8 +2,6 @@ package ar.utn.aceleradora.gestion.socios.servicios;
 
 import ar.utn.aceleradora.gestion.socios.modelos.departamento.Departamento;
 import ar.utn.aceleradora.gestion.socios.repositorios.DepartamentoRepository;
-import ar.utn.aceleradora.gestion.socios.repositorios.SocioEmpresaRepository;
-import ar.utn.aceleradora.gestion.socios.repositorios.SocioPlenarioRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

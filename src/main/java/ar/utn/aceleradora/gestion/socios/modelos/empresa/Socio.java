@@ -23,7 +23,7 @@ public class Socio {
     private Integer id;
 
     @Column
-    private String nombreEmpresa;
+    private String nombre;
 
     private TipoSocio categoria;
     @Column
@@ -32,36 +32,32 @@ public class Socio {
     private Integer telefono;
     @Column
     private String mail;
-
-
+    @OneToMany
+    private List<Etiqueta> etiquetas;
 
     @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     //@JoinColumn(name = "idSocio")
     private Ubicacion ubicacion;
 
-    @OneToMany(cascade = CascadeType.ALL)
-    //@JoinColumn(name = "idSocio")
-    private List<Etiqueta> etiquetas;
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private List<Evento> eventoPendiente;
 
-    @OneToMany(cascade = CascadeType.ALL)
-    //@JoinColumn(name = "idSocio")
-    private List<Evento> evento;
-
-    @OneToOne(cascade = CascadeType.ALL)
+    @OneToOne()
    // @JoinColumn(name = "idSocio")
     private Membresia membresia;
 
     public Socio() {
     }
 
-    public Socio(String nombreEmpresa, TipoSocio categoria, Integer telefono, String mail ,Ubicacion ubicacion) {
-        this.nombreEmpresa = nombreEmpresa;
+    public Socio(String nombre, TipoSocio categoria, Integer telefono, String mail ,Ubicacion ubicacion) {
+        this.nombre = nombre;
         this.categoria = categoria;
         this.activo = true; // Suponemos que al dar de alta, el socio está activo por defecto
         this.telefono = telefono;
         this.mail = mail;
         this.ubicacion = ubicacion;
     }
+
 /*
     public void recibirEtiqueta(Etiqueta etiqueta){
         this.etiquetas.add(etiqueta);

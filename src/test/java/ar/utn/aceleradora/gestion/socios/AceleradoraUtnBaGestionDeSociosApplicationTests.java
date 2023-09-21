@@ -1,9 +1,6 @@
 package ar.utn.aceleradora.gestion.socios;
 
 //import ar.utn.aceleradora.gestion.socios.modelos.empresa.Socio;
-import ar.utn.aceleradora.gestion.socios.modelos.empresa.Socio;
-import ar.utn.aceleradora.gestion.socios.modelos.empresa.SocioPlenario;
-import ar.utn.aceleradora.gestion.socios.repositorios.SocioPlenarioRepository;
 import ar.utn.aceleradora.gestion.socios.servicios.SocioService;
 
 import org.junit.jupiter.api.Test;

@@ -1,20 +1,28 @@
 package ar.utn.aceleradora.gestion.socios.servicios;
 
 
+import ar.utn.aceleradora.gestion.socios.dto.ResumenSocioDTO;
+import ar.utn.aceleradora.gestion.socios.dto.SocioDTO;
+import ar.utn.aceleradora.gestion.socios.dto.SocioEmpresaDTO;
+import ar.utn.aceleradora.gestion.socios.dto.SocioPlenarioDTO;
 import ar.utn.aceleradora.gestion.socios.modelos.empresa.Socio;
 import ar.utn.aceleradora.gestion.socios.modelos.empresa.SocioEmpresa;
 import ar.utn.aceleradora.gestion.socios.modelos.empresa.SocioPlenario;
-import ar.utn.aceleradora.gestion.socios.repositorios.SocioEmpresaRepository;
-import ar.utn.aceleradora.gestion.socios.repositorios.SocioPlenarioRepository;
 import ar.utn.aceleradora.gestion.socios.repositorios.SocioRepository;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 public class SocioService {
-
   private final SocioRepository socioRepository;
 
   @Autowired
@@ -22,114 +30,88 @@ public class SocioService {
     this.socioRepository = socioRepository;
   }
 
-  public Socio guardarSocio(Socio socio) {
-    return socioRepository.save(socio);
-  }
-
-  public Socio getSocio(Integer id) {
-    Socio socio = socioRepository.findById(id).orElse(null);
-    if( socio != null ) {return socio;}
-    else {return null;}
-  }
-
-  public void eliminarSocio(Integer id) {
-    socioRepository.deleteById(id);
-  }
-
-  public Socio actualizarSocio(Socio socio) {
-    if (socio.getId() != null) {
-      return socioRepository.save(socio);
-    }
-    return null; // El socio no tiene un ID válido
-  }
-
-
-
-  /*
-  public Optional<Socio> obtenerSocio(Integer id){
-    Optional<SocioEmpresa> socioEmpresa = socioEmpresaRepository.findById(id);
-    Optional<SocioPlenario> socioPlenario = socioPlenarioRepository.findById(id);
-    if( socioEmpresa.isPresent() ){
-      return Optional.of(socioEmpresa.get());
-    }else if( socioPlenario.isPresent() ){
-      return Optional.of(socioPlenario.get());
-    }else{
-      return Optional.empty();
-    }
-  }
-
-  public SocioPlenario guardarSocioPlenario(SocioPlenario socio) {
-    return socioPlenarioRepository.save(socio);
-  }
-
-  public SocioEmpresa guardarSocioEmpresa(SocioEmpresa socio) {
-    return socioEmpresaRepository.save(socio);
-  }
-
-  public SocioPlenario getSocioPlenarioPorId(Integer id) {
-    SocioPlenario socioPlenario = socioPlenarioRepository.findById(id).orElse(null);
-    if( socioPlenario != null ) {return socioPlenario;}
-    else {return null;}
-    }
-
-  public SocioEmpresa getSocioEmpresaPorId(Integer id) {
-    SocioEmpresa socioEmpresa = socioEmpresaRepository.findById(id).orElse(null);
-    if( socioEmpresa != null ) {return socioEmpresa;}
-    else{return null;}
-  }
-
-  public void eliminarSocioPlenario(Integer id) {
-    socioPlenarioRepository.deleteById(id);
-  }
-
-  public void eliminarSocioEmpresa(Integer id) {
-    socioEmpresaRepository.deleteById(id);
-  }
-
-  public SocioPlenario actualizarSocioPlenario(SocioPlenario socio) {
-    if (socio.getIdPlenario() != null) {
-      return socioPlenarioRepository.save(socio);
-    }
-    return null; // El socio no tiene un ID válido
-  }
-
-  public SocioEmpresa actualizarSocioEmpresa(SocioEmpresa socio) {
-    if (socio.getIdEmpresa() != null) {
-      return socioEmpresaRepository.save(socio);
-    }
-    return null; // El socio no tiene un ID válido
-  }
-
-   public List<NombresDTO> obtenerNombres() {
-    List<SocioEmpresa> listaSocios = socioEmpresaRepository.findAll();
-    List<SocioPlenario> listaSocios2 = socioPlenarioRepository.findAll();
-
-    List<NombresDTO> nombresDTOList = new ArrayList<>();
-
-    nombresDTOList.addAll(listaSocios.stream()
-            .map(socio -> new NombresDTO(socio.getNombreEmpresa()))
-            .collect(Collectors.toList()));
-
-    nombresDTOList.addAll(listaSocios2.stream()
-            .map(socio -> new NombresDTO(socio.getNombreEmpresa()))
-            .collect(Collectors.toList()));
-
-    return nombresDTOList;
-  }
-/*
-  public busquedaSegunIdDTO busquedaSegunId(int id) {   ACA FALTA: QUE PASA CON EL DTO SI ES UN PLENARIO O UNA EMPRESA AHORA Q SOCIO ES UN ABSTRACT? COMO MANEJO LA EXCEPCION?
-    Optional<SocioPlenario> socioPlenarioOptional = socioPlenarioRepository.findById(id);
-
-    if (socioPlenarioOptional.isPresent()) {
-      SocioPlenario socioPlenario = socioPlenarioOptional.get();
-      busquedaSegunIdDTO dto = new busquedaSegunIdDTO(socioPlenario.getIdPlenario(),socioPlenario.getNombreEmpresa(),socioPlenario.getNombrePresidente(),socioPlenario.getCategoria(),socioPlenario.getEtiquetas(),socioPlenario.getMail(),socioPlenario.getTelefono(),
-      true, new Membresia.getFechainicio, new Membresia.getFechavto, socioPlenario.getUbicacion());
-      return dto;
+  private Socio convertirAEntidad(SocioDTO socioDTO) {
+    if (socioDTO instanceof SocioPlenarioDTO) {
+      SocioPlenario socioPlenario = new SocioPlenario();
+      BeanUtils.copyProperties(socioDTO, socioPlenario);
+      return socioPlenario;
     } else {
-      throw new Exception("SocioPlenario not found with ID: " + id);
+      SocioEmpresa socioEmpresa = new SocioEmpresa();
+      BeanUtils.copyProperties(socioDTO, socioEmpresa);
+      return socioEmpresa;
+    }
+  }
+
+  private SocioDTO convertirADto(Socio socio) {
+    if (socio instanceof SocioPlenario) {
+      SocioPlenarioDTO socioPlenarioDTO = new SocioPlenarioDTO();
+      BeanUtils.copyProperties(socio, socioPlenarioDTO);
+      return socioPlenarioDTO;
+    } else {
+      SocioEmpresaDTO socioEmpresaDTO = new SocioEmpresaDTO();
+      BeanUtils.copyProperties(socio, socioEmpresaDTO);
+      return socioEmpresaDTO;
+    }
+  }
+
+  public SocioDTO guardarSocio(SocioDTO socioDTO) {
+    Socio socio = convertirAEntidad(socioDTO);
+    Socio savedSocio = socioRepository.save(socio);
+    return convertirADto(savedSocio);
+  }
+
+  public SocioDTO obtenerSocio(Integer id) {
+    Socio socio = socioRepository.findById(id).orElse(null);
+    if (socio != null) {
+      SocioDTO dto = convertirADto(socio);
+      return dto.convertirDTO(dto);  // Esto devolverá SocioEmpresaDTO o SocioPlenarioDTO
+    }
+    return null;
+  }
+
+  public List<String> obtenerNombres() {
+    List<Socio> socios= socioRepository.findAll();
+    return socios.stream().map(Socio::getNombre).collect(Collectors.toList());
+  }
+
+  public Page<ResumenSocioDTO> obtenerResumenSociosPaginados(int pagina,int tamanio){
+    List<Socio> socios = socioRepository.findAll();
+    List<ResumenSocioDTO> resumenSocios = new ArrayList<>();
+    for (Socio socio : socios) {
+      ResumenSocioDTO resumenSocioDTO = new ResumenSocioDTO(
+          socio.getNombre(),
+          socio.getActivo(),
+          socio.getCategoria(),
+          socio.getUbicacion()
+      );
+      resumenSocios.add(resumenSocioDTO);
+    }
+
+    return new PageImpl<>(resumenSocios, PageRequest.of(pagina, tamanio), resumenSocios.size());
+  }
+
+  public SocioDTO  eliminarSocio(Integer id) {
+    Optional<Socio> existingSocioOpt = socioRepository.findById(id);
+    if (existingSocioOpt.isPresent()) {
+      Socio existingSocio = existingSocioOpt.get();
+      existingSocio.setActivo(false);
+      Socio updatedSocio = socioRepository.save(existingSocio);
+      return convertirADto(updatedSocio); // Convertir el socio inactivo a DTO y devolverlo
+    }
+    else {
       return null;
     }
-  }*/
-*/
+  }
 
+  public SocioDTO actualizarSocio(Integer id,SocioDTO socioDTO) {
+    Optional<Socio> existingSocioOpt = socioRepository.findById(id);
+    if (existingSocioOpt.isPresent()) {
+      Socio existingSocio = existingSocioOpt.get();
+      BeanUtils.copyProperties(socioDTO, existingSocio);
+      Socio updatedSocio = socioRepository.save(existingSocio);
+      return convertirADto(updatedSocio);
+    } else {
+      return null;
+    }
+  }
 }
