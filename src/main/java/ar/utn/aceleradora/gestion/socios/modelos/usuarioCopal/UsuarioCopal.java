@@ -1,13 +1,11 @@
-package ar.utn.aceleradora.gestion.socios.modelos.usuarioConap;
+package ar.utn.aceleradora.gestion.socios.modelos.usuarioCopal;
 
 import ar.utn.aceleradora.gestion.socios.modelos.departamento.Departamento;
 import ar.utn.aceleradora.gestion.socios.modelos.empresa.Socio;
-import ar.utn.aceleradora.gestion.socios.modelos.empresa.SocioEmpresa;
-import ar.utn.aceleradora.gestion.socios.modelos.empresa.SocioPlenario;
 import ar.utn.aceleradora.gestion.socios.modelos.empresa.TipoSocio;
+import ar.utn.aceleradora.gestion.socios.modelos.evento.Evento;
 import ar.utn.aceleradora.gestion.socios.modelos.informe.Informe;
 import ar.utn.aceleradora.gestion.socios.modelos.membresia.Membresia;
-import ar.utn.aceleradora.gestion.socios.modelos.registros.Registro;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
@@ -18,7 +16,7 @@ import java.util.List;
 @Getter
 @Entity
 @Table
-public class UsuarioConap {
+public class UsuarioCopal {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
@@ -39,12 +37,16 @@ public class UsuarioConap {
      @JoinColumn(name = "idUsuario")
     private List <Informe> informes;
 
+    @OneToMany(cascade = CascadeType.ALL)
+    @JoinColumn(name = "idUsuario")
+    private List<Evento> eventos;
+
     // @OneToMany(cascade = CascadeType.ALL)
     // @JoinColumn(name = "idUsuario")
     //private List<Registro> registros;
 
 
-public UsuarioConap(String nombre,String apellido, List<Socio> socios, List<Departamento> departamentos,List <Informe> informes/*,List<Registro> registros*/){
+public UsuarioCopal(String nombre, String apellido, List<Socio> socios, List<Departamento> departamentos, List <Informe> informes/*,List<Registro> registros*/){
 
     this.nombre = nombre;
     this.apellido = apellido;

@@ -19,7 +19,7 @@ import static ar.utn.aceleradora.gestion.socios.modelos.empresa.TipoSocio.SOCIO_
 public class Socio {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
     @Column
@@ -32,14 +32,15 @@ public class Socio {
     private Integer telefono;
     @Column
     private String mail;
-    @OneToMany
+
+    @ManyToMany(mappedBy = "socios")
     private List<Etiqueta> etiquetas;
 
     @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     //@JoinColumn(name = "idSocio")
     private Ubicacion ubicacion;
 
-    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @ManyToMany(mappedBy = "socios")
     private List<Evento> eventoPendiente;
 
     @OneToOne()

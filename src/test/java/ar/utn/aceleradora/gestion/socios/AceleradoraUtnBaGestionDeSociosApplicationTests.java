@@ -1,6 +1,7 @@
 package ar.utn.aceleradora.gestion.socios;
 
 //import ar.utn.aceleradora.gestion.socios.modelos.empresa.Socio;
+import ar.utn.aceleradora.gestion.socios.repositorios.SocioRepository;
 import ar.utn.aceleradora.gestion.socios.servicios.SocioService;
 
 import org.junit.jupiter.api.Test;
@@ -18,7 +19,7 @@ class AceleradoraUtnBaGestionDeSociosApplicationTests {
 	}
 
 	@Autowired
-	private SocioPlenarioRepository socioPlenarioRepository;
+	private SocioRepository socioRepository;
 
 	@Autowired
 	private SocioService socioService;

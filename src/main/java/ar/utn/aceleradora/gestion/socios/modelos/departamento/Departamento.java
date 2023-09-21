@@ -21,8 +21,7 @@ public class Departamento {
     @Column
     private String nombre;
 
-    @OneToMany(cascade = CascadeType.ALL)
-    //@JoinColumn(name = "idDepartamento")
+    @OneToMany(mappedBy = "departamentoPerteneciente")
     private List<Etiqueta> etiquetas;
 
 
