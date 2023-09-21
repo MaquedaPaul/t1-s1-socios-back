@@ -11,6 +11,7 @@ import jakarta.persistence.Column;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
 
+import java.time.LocalDate;
 import java.util.Date;
 
 @Setter
@@ -25,9 +26,9 @@ public class Membresia {
     @JoinColumn(name = "id")
     private SocioEmpresa empresa;
     @Column
-    private Date fechaInicio;
+    private LocalDate fechaInicio;
     @Column
-    private Date fechaVto;
+    private LocalDate fechaVto;
     @Column
     private int cuota;
 
@@ -35,7 +36,7 @@ public class Membresia {
     @Column
     private boolean cuotaPagada;
 
-    public Membresia(SocioEmpresa empresa, Date fechaInicio, Date fechaVto, int cuota) {
+    public Membresia(SocioEmpresa empresa, LocalDate fechaInicio, LocalDate fechaVto, int cuota) {
         this.empresa = empresa;
         this.fechaInicio = fechaInicio;
         this.fechaVto = fechaVto;

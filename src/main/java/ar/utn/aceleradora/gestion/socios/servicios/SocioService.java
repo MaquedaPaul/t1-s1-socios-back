@@ -16,6 +16,8 @@ import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
+import java.time.Period;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -74,7 +76,7 @@ public class SocioService {
     return socios.stream().map(Socio::getNombre).collect(Collectors.toList());
   }
 
-  public Page<ResumenSocioDTO> obtenerResumenSociosPaginados(int pagina,int tamanio){
+  /*public Page<ResumenSocioDTO> obtenerResumenSociosPaginados(int pagina,int tamanio){
     List<Socio> socios = socioRepository.findAll();
     List<ResumenSocioDTO> resumenSocios = new ArrayList<>();
     for (Socio socio : socios) {
@@ -82,13 +84,57 @@ public class SocioService {
           socio.getNombre(),
           socio.getActivo(),
           socio.getCategoria(),
-          socio.getUbicacion()
-      );
+          socio.getUbicacion(),
+              aniosDeActividad);
       resumenSocios.add(resumenSocioDTO);
     }
 
     return new PageImpl<>(resumenSocios, PageRequest.of(pagina, tamanio), resumenSocios.size());
+  }*/
+
+
+  public Page<ResumenSocioDTO> obtenerResumenSociosPaginados(int pagina, int tamanio, Optional<String> categoriaOptional, Optional<Integer> aniosActivosOptional) {
+    List<Socio> socios = socioRepository.findAll();
+    List<ResumenSocioDTO> resumenSocios = new ArrayList<>();
+    LocalDate fechaActual = LocalDate.now();
+
+    for (Socio socio : socios) {
+      // Filtrar por categoría si se proporciona
+      if (categoriaOptional.isPresent() && !socio.getCategoria().equals(categoriaOptional.get())) {
+        continue; // Saltar a la siguiente iteración si la categoría no coincide
+      }
+
+      LocalDate fechaInicioMembresia = socio.getMembresia().getFechaInicio();
+      LocalDate fechaVencimientoMembresia = socio.getMembresia().getFechaVto();
+
+      // Calcula el período entre la fecha de inicio y la fecha actual
+      Period periodo = Period.between(fechaInicioMembresia, fechaActual);
+      int aniosDeActividad = periodo.getYears();
+
+      // Aplica el filtro de años activos si se proporciona
+      if (!aniosActivosOptional.isPresent() || aniosDeActividad >= aniosActivosOptional.get()) {
+        ResumenSocioDTO resumenSocioDTO = new ResumenSocioDTO(
+                socio.getNombre(),
+                socio.getActivo(),
+                socio.getCategoria(),
+                socio.getUbicacion(),
+                aniosDeActividad // Agrega el número de años de actividad al DTO
+        );
+        resumenSocios.add(resumenSocioDTO);
+      }
+    }
+
+    // Aplica la paginación solo a los socios que cumplen con el filtro
+    int desde = pagina * tamanio;
+    int hasta = Math.min(desde + tamanio, resumenSocios.size());
+    List<ResumenSocioDTO> sociosPaginados = resumenSocios.subList(desde, hasta);
+
+    return new PageImpl<>(sociosPaginados, PageRequest.of(pagina, tamanio), resumenSocios.size());
   }
+
+
+
+
 
   public SocioDTO  eliminarSocio(Integer id) {
     Optional<Socio> existingSocioOpt = socioRepository.findById(id);
