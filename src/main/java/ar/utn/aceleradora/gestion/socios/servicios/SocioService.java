@@ -116,7 +116,7 @@ public class SocioService {
         ResumenSocioDTO resumenSocioDTO = new ResumenSocioDTO(
                 socio.getNombre(),
                 socio.getActivo(),
-                socio.getCategoria(),
+                socio.getTipoSocio(),
                 socio.getUbicacion(),
                 aniosDeActividad // Agrega el número de años de actividad al DTO
         );

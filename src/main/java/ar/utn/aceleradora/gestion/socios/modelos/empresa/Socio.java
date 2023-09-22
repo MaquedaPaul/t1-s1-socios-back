@@ -25,7 +25,7 @@ public class Socio {
     @Column
     private String nombre;
 
-    private TipoSocio categoria;
+    private TipoSocio tipoSocio;
     @Column
     private Boolean activo;
     @Column
@@ -34,7 +34,7 @@ public class Socio {
     private String mail;
 
     @ManyToMany(mappedBy = "socios")
-    private List<Etiqueta> etiquetas;
+    private List<Etiqueta> categoria;
 
     @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     //@JoinColumn(name = "idSocio")
@@ -50,9 +50,9 @@ public class Socio {
     public Socio() {
     }
 
-    public Socio(String nombre, TipoSocio categoria, Integer telefono, String mail ,Ubicacion ubicacion) {
+    public Socio(String nombre, TipoSocio tipoSocio, Integer telefono, String mail ,Ubicacion ubicacion) {
         this.nombre = nombre;
-        this.categoria = categoria;
+        this.tipoSocio = tipoSocio;
         this.activo = true; // Suponemos que al dar de alta, el socio está activo por defecto
         this.telefono = telefono;
         this.mail = mail;
