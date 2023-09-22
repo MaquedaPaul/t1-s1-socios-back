@@ -15,7 +15,7 @@ import java.util.List;
 @Getter@Setter
 public class Departamento {
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
     @Column

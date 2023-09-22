@@ -3,6 +3,7 @@ package ar.utn.aceleradora.gestion.socios.controladores;
 import ar.utn.aceleradora.gestion.socios.dto.ResumenSocioDTO;
 import ar.utn.aceleradora.gestion.socios.dto.SocioDTO;
 import ar.utn.aceleradora.gestion.socios.dto.SocioPlenarioDTO;
+import ar.utn.aceleradora.gestion.socios.dto.SocioPostDTO;
 import ar.utn.aceleradora.gestion.socios.servicios.SocioService;
 import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -35,7 +36,7 @@ public class SocioController {
     }
 
     @PostMapping()
-    public ResponseEntity<SocioDTO> crearSocio(@RequestBody SocioDTO socio) {
+    public ResponseEntity<SocioDTO> crearSocio(@RequestBody SocioPostDTO socio) {
         SocioDTO nuevoSocio = socioService.guardarSocio(socio);
         return new ResponseEntity<>(nuevoSocio, HttpStatus.CREATED);
     }

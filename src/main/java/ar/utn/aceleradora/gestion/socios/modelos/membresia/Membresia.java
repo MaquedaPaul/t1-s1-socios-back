@@ -20,7 +20,7 @@ import java.util.Date;
 @Table
 public class Membresia {
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
     @OneToOne
     @JoinColumn(name = "id")

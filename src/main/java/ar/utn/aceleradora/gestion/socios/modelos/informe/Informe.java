@@ -17,7 +17,7 @@ import lombok.Setter;
 
 public class Informe {
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
     @ManyToOne(cascade = CascadeType.ALL, fetch =  FetchType.LAZY)

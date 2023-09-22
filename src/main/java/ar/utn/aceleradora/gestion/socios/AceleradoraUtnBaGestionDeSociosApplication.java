@@ -11,8 +11,4 @@ public class AceleradoraUtnBaGestionDeSociosApplication {
 	public static void main(String[] args) {
 		SpringApplication.run(AceleradoraUtnBaGestionDeSociosApplication.class, args);
 	}
-
-
-
-
 }
