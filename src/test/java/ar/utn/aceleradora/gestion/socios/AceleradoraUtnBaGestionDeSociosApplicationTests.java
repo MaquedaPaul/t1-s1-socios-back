@@ -1,8 +1,10 @@
 package ar.utn.aceleradora.gestion.socios;
 
 //import ar.utn.aceleradora.gestion.socios.modelos.empresa.Socio;
+import ar.utn.aceleradora.gestion.socios.modelos.ubicacion.Ubicacion;
 import ar.utn.aceleradora.gestion.socios.repositorios.SocioRepository;
 import ar.utn.aceleradora.gestion.socios.servicios.SocioService;
+import ar.utn.aceleradora.gestion.socios.servicios.UbicacionService;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,6 +25,18 @@ class AceleradoraUtnBaGestionDeSociosApplicationTests {
 
 	@Autowired
 	private SocioService socioService;
+
+	@Autowired
+	private UbicacionService ubicacionService;
+
+
+	public void testGuardarUbicacion(){
+		Ubicacion ubicacion = new Ubicacion("Ejemplo","Ejemplo","Ejemplo","Ejemplo","Ejemplo","Ejemplo");
+
+		Ubicacion ubicacionGuardada = ubicacionService.agregarUbicacion(ubicacion);
+
+	}
+
 /*
 	@Test
 	public void testGuardarSocioPlenario() {

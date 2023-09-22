@@ -27,9 +27,9 @@ public class Ubicacion {
 
     public Ubicacion(String direccion,String piso,String departamento,String localidad,String provincia,String pais){
 
-        this.departamento = departamento;
         this.direccion = direccion;
         this.piso=piso;
+        this.departamento = departamento;
         this.localidad = localidad;
         this.provincia = provincia;
         this.pais = pais;

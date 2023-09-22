@@ -15,7 +15,7 @@ import static ar.utn.aceleradora.gestion.socios.modelos.empresa.TipoSocio.SOCIO_
 @Entity
 @Getter@Setter
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
-@DiscriminatorColumn(name = "tipoSocio")
+@DiscriminatorColumn(name = "tipo")
 public class Socio {
 
     @Id
