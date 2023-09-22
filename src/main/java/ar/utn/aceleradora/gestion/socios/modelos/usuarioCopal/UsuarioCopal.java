@@ -46,6 +46,9 @@ public class UsuarioCopal {
     //private List<Registro> registros;
 
 
+
+    public UsuarioCopal() {
+    }
 public UsuarioCopal(String nombre, String apellido, List<Socio> socios, List<Departamento> departamentos, List <Informe> informes/*,List<Registro> registros*/){
 
     this.nombre = nombre;

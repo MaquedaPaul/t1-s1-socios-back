@@ -29,9 +29,8 @@ public class Informe {
     private Socio socio;
 
 
-
-
-
+    public Informe() {
+    }
 
     public Informe(Membresia membresiaI, TipoSocio categoriaI, Socio socio){
         this.membresia = membresiaI;

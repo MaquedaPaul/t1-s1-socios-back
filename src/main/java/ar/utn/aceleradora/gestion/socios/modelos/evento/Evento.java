@@ -28,4 +28,13 @@ public class Evento {
     )
     private List <Socio> socios;
 
+
+    public Evento() {
+    }
+
+    public Evento(String nombre, List<Socio> socios) {
+        this.nombre = nombre;
+        this.socios = socios;
+    }
+
 }

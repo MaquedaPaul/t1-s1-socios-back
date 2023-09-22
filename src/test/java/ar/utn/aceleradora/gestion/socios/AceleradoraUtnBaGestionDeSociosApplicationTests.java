@@ -30,12 +30,28 @@ class AceleradoraUtnBaGestionDeSociosApplicationTests {
 	private UbicacionService ubicacionService;
 
 
+	@Test
 	public void testGuardarUbicacion(){
-		Ubicacion ubicacion = new Ubicacion("Ejemplo","Ejemplo","Ejemplo","Ejemplo","Ejemplo","Ejemplo");
+		Ubicacion ubicacion = new Ubicacion("Ejemplazo","Ejemplo","Ejemplo","Ejemplo","Ejemplo","Ejemplo");
 
 		Ubicacion ubicacionGuardada = ubicacionService.agregarUbicacion(ubicacion);
-
 	}
+
+	@Test
+	public void testObtenerUbicacion(){
+		Ubicacion ubicacionRecuperada = ubicacionService.obtenerUbicacion(1);
+
+		assertThat(ubicacionRecuperada).isNotNull();
+		assertThat(ubicacionRecuperada.getDireccion()).isEqualTo("Ejemplazo");
+		assertThat(ubicacionRecuperada.getPais()).isEqualTo("Ejemplo");
+		assertThat(ubicacionRecuperada.getPiso()).isEqualTo("Ejemplo");
+		assertThat(ubicacionRecuperada.getDepartamento()).isEqualTo("Ejemplo");
+		assertThat(ubicacionRecuperada.getLocalidad()).isEqualTo("Ejemplo");
+		assertThat(ubicacionRecuperada.getProvincia()).isEqualTo("Ejemplo");
+	}
+
+
+
 
 /*
 	@Test

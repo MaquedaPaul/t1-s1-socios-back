@@ -29,6 +29,8 @@ public class Etiqueta {
     private List<Socio> socios;
 
 
+    public Etiqueta() {
+    }
     public Etiqueta(Departamento departamento, String nombreEtiqueta){
         this.departamentoPerteneciente = departamento;
         this.nombreEtiqueta = nombreEtiqueta;

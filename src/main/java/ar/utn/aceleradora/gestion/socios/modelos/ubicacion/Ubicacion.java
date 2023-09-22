@@ -7,7 +7,6 @@ import lombok.Setter;
 @Setter
 @Getter
 @Entity
-@Table(name="ubicacion")
 public class Ubicacion {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -24,6 +23,10 @@ public class Ubicacion {
     private String provincia;
     @Column
     private String pais;
+
+
+    public Ubicacion() {
+    }
 
     public Ubicacion(String direccion,String piso,String departamento,String localidad,String provincia,String pais){
 

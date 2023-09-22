@@ -36,6 +36,10 @@ public class Membresia {
     @Column
     private boolean cuotaPagada;
 
+
+    public Membresia() {
+    }
+
     public Membresia(SocioEmpresa empresa, LocalDate fechaInicio, LocalDate fechaVto, int cuota) {
         this.empresa = empresa;
         this.fechaInicio = fechaInicio;

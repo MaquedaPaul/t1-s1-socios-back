@@ -25,6 +25,9 @@ public class Departamento {
     private List<Etiqueta> etiquetas;
 
 
+    public Departamento() {
+    }
+
     public Departamento(String nombreDepto, List<Etiqueta> etiquetas){
         this.nombre = nombreDepto;
         this.etiquetas = etiquetas;
