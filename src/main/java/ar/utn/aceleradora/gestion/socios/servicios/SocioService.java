@@ -66,7 +66,7 @@ public class SocioService {
     Socio socio = socioRepository.findById(id).orElse(null);
     if (socio != null) {
       SocioDTO dto = convertirADto(socio);
-      return dto.convertirDTO(dto);  // Esto devolverá SocioEmpresaDTO o SocioPlenarioDTO
+      return dto;  // Esto devolverá SocioEmpresaDTO o SocioPlenarioDTO
     }
     return null;
   }

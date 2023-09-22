@@ -25,6 +25,7 @@ public class Socio {
     @Column
     private String nombre;
 
+    @Enumerated(EnumType.STRING)
     private TipoSocio tipoSocio;
     @Column
     private Boolean activo;

@@ -1,7 +1,9 @@
 package ar.utn.aceleradora.gestion.socios;
 
 //import ar.utn.aceleradora.gestion.socios.modelos.empresa.Socio;
+import ar.utn.aceleradora.gestion.socios.dto.SocioDTO;
 import ar.utn.aceleradora.gestion.socios.modelos.empresa.Socio;
+import ar.utn.aceleradora.gestion.socios.modelos.empresa.SocioEmpresa;
 import ar.utn.aceleradora.gestion.socios.modelos.empresa.TipoSocio;
 import ar.utn.aceleradora.gestion.socios.modelos.ubicacion.Ubicacion;
 import ar.utn.aceleradora.gestion.socios.repositorios.SocioRepository;
@@ -73,30 +75,34 @@ class AceleradoraUtnBaGestionDeSociosApplicationTests {
 		ubicacionService.eliminarUbicacion(1);
 	}
 
-/*
+
 	@Test
 	public void testGuardarSocio(){
-		Socio socio = new Socio();
+		SocioEmpresa socio = new SocioEmpresa();
 		socio.setNombre("Ejemplo");
-		socio.setCategoria(TipoSocio.SOCIO_PLENARIO);
+		socio.setTipoSocio(TipoSocio.SOCIO_EMPRESA);
 		socio.setTelefono(123456);
 		socio.setMail("Ejemplo");
-		socio.setNombrePresidente("Ejemplo");
-		socio.setTipoSocio(TipoSocio.SOCIO_PLENARIO);
+		//socio.setNombrePresidente("Ejemplo");
 		socio.setUbicacion(ubicacionService.obtenerUbicacion(1));
 
-		Socio socioGuardado = socioService.guardarSocio(socio);
+		Socio socioGuardado = socioRepository.save(socio);
 
 		assertThat(socioGuardado).isNotNull();
 		assertThat(socioGuardado.getNombre()).isEqualTo("Ejemplo");
-		assertThat(socioGuardado.getCategoria()).isEqualTo(TipoSocio.SOCIO_PLENARIO);
+		assertThat(socioGuardado.getTipoSocio()).isEqualTo(TipoSocio.SOCIO_EMPRESA);
 		assertThat(socioGuardado.getTelefono()).isEqualTo(123456);
 		assertThat(socioGuardado.getMail()).isEqualTo("Ejemplo");
-		assertThat(socioGuardado.getNombrePresidente()).isEqualTo("Ejemplo");
-		assertThat(socioGuardado.getTipoSocio()).isEqualTo(TipoSocio.SOCIO_PLENARIO);
+		//assertThat(socioGuardado.getNombrePresidente()).isEqualTo("Ejemplo");
 		assertThat(socioGuardado.getUbicacion()).isEqualTo(ubicacionService.obtenerUbicacion(1));
 	}
 
+/*
+	@Test
+	public void testObtenerSocio(){
+		public SocioDTO obtenerSocio(Integer id) {
+			Socio socio = socioRepository.findById(id).orElse(null);
+	}
 
 
 
