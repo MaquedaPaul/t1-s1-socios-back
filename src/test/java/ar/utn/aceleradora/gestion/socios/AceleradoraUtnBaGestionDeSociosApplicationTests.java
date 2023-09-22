@@ -1,6 +1,8 @@
 package ar.utn.aceleradora.gestion.socios;
 
 //import ar.utn.aceleradora.gestion.socios.modelos.empresa.Socio;
+import ar.utn.aceleradora.gestion.socios.modelos.empresa.Socio;
+import ar.utn.aceleradora.gestion.socios.modelos.empresa.TipoSocio;
 import ar.utn.aceleradora.gestion.socios.modelos.ubicacion.Ubicacion;
 import ar.utn.aceleradora.gestion.socios.repositorios.SocioRepository;
 import ar.utn.aceleradora.gestion.socios.servicios.SocioService;
@@ -71,11 +73,33 @@ class AceleradoraUtnBaGestionDeSociosApplicationTests {
 		ubicacionService.eliminarUbicacion(1);
 	}
 
-
-
-
-
 /*
+	@Test
+	public void testGuardarSocio(){
+		Socio socio = new Socio();
+		socio.setNombre("Ejemplo");
+		socio.setCategoria(TipoSocio.SOCIO_PLENARIO);
+		socio.setTelefono(123456);
+		socio.setMail("Ejemplo");
+		socio.setNombrePresidente("Ejemplo");
+		socio.setTipoSocio(TipoSocio.SOCIO_PLENARIO);
+		socio.setUbicacion(ubicacionService.obtenerUbicacion(1));
+
+		Socio socioGuardado = socioService.guardarSocio(socio);
+
+		assertThat(socioGuardado).isNotNull();
+		assertThat(socioGuardado.getNombre()).isEqualTo("Ejemplo");
+		assertThat(socioGuardado.getCategoria()).isEqualTo(TipoSocio.SOCIO_PLENARIO);
+		assertThat(socioGuardado.getTelefono()).isEqualTo(123456);
+		assertThat(socioGuardado.getMail()).isEqualTo("Ejemplo");
+		assertThat(socioGuardado.getNombrePresidente()).isEqualTo("Ejemplo");
+		assertThat(socioGuardado.getTipoSocio()).isEqualTo(TipoSocio.SOCIO_PLENARIO);
+		assertThat(socioGuardado.getUbicacion()).isEqualTo(ubicacionService.obtenerUbicacion(1));
+	}
+
+
+
+
 	@Test
 	public void testGuardarSocioPlenario() {
 		// Crea un objeto Socioplenario
