@@ -37,10 +37,28 @@ public class SocioService {
     this.modelMapper = modelMapper;
   }
   public SocioDTO guardarSocio(SocioPostDTO socioPostDTO) {
+    System.out.println("Antes del mapeo:");
+    System.out.println("Nombre: " + socioPostDTO.getNombre());
+    // Agrega más impresiones para otras propiedades que desees verificar
+
     Socio socio = modelMapper.map(socioPostDTO, Socio.class);
+    System.out.println("Después del mapeo a Socio:");
+    System.out.println("Nombre: " + socio.getNombre());
+    // Agrega más impresiones para las propiedades mapeadas en Socio
+
     Socio savedSocio = socioRepository.save(socio);
-    return modelMapper.map(savedSocio, SocioDTO.class);
+    System.out.println("Después de guardar en la base de datos:");
+    System.out.println("ID del Socio: " + savedSocio.getId());
+    // Agrega más impresiones para otras propiedades del Socio guardado
+
+    SocioDTO socioDTO = modelMapper.map(savedSocio, SocioDTO.class);
+    System.out.println("Después del mapeo a SocioDTO:");
+    System.out.println("Nombre: " + socioDTO.getNombre());
+    // Agrega más impresiones para las propiedades mapeadas en SocioDTO
+
+    return socioDTO;
   }
+
   public SocioDTO obtenerSocio(Integer id) {
     Optional<Socio> socioOptional = socioRepository.findById(id);
 
@@ -76,13 +94,14 @@ public class SocioService {
 
       // Aplica el filtro de años activos si se proporciona
       if (!aniosActivosOptional.isPresent() || aniosDeActividad >= aniosActivosOptional.get()) {
-        ResumenSocioDTO resumenSocioDTO = new ResumenSocioDTO(
-                socio.getNombre(),
-                socio.getActivo(),
-                socio.getTipoSocio(),
-                socio.getUbicacion(),
-                aniosDeActividad // Agrega el número de años de actividad al DTO
-        );
+        ResumenSocioDTO resumenSocioDTO = new ResumenSocioDTO();
+        resumenSocioDTO.setNombre(socio.getNombre());
+        //TODO: FALTA CASO PARA CUANDO TIENE NOMBRE PRESIDENTE
+        resumenSocioDTO.setActivo(socio.getActivo());
+        resumenSocioDTO.setMail(socio.getMail());
+        resumenSocioDTO.setTipoSocio(socio.getTipoSocio());
+        resumenSocioDTO.setUbicacion(socio.getUbicacion());
+        resumenSocioDTO.setAniosDeAntiguedad(aniosDeActividad);
         resumenSocios.add(resumenSocioDTO);
       }
     }

@@ -37,7 +37,7 @@ public class Socio {
     @ManyToMany(mappedBy = "socios")
     private List<Etiqueta> categoria;
 
-    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     //@JoinColumn(name = "idSocio")
     private Ubicacion ubicacion;
 
