@@ -36,7 +36,7 @@ class AceleradoraUtnBaGestionDeSociosApplicationTests {
 
 	@Test
 	public void testGuardarUbicacion(){
-		Ubicacion ubicacion = new Ubicacion("Ejemplo","Ejemplo","Ejemplo","Ejemplo","Ejemplo","Ejemplo");
+		Ubicacion ubicacion = new Ubicacion("Argentina","Ejemplo","Ejemplo","Ejemplo","Ejemplo","Ejemplo");
 
 		Ubicacion ubicacionGuardada = ubicacionService.agregarUbicacion(ubicacion);
 	}
@@ -46,7 +46,7 @@ class AceleradoraUtnBaGestionDeSociosApplicationTests {
 		Ubicacion ubicacionRecuperada = ubicacionService.obtenerUbicacion(1);
 
 		assertThat(ubicacionRecuperada).isNotNull();
-		assertThat(ubicacionRecuperada.getDireccion()).isEqualTo("Ejemplo");
+		assertThat(ubicacionRecuperada.getDireccion()).isEqualTo("Argentina");
 		assertThat(ubicacionRecuperada.getPais()).isEqualTo("Ejemplo");
 		assertThat(ubicacionRecuperada.getPiso()).isEqualTo("Ejemplo");
 		assertThat(ubicacionRecuperada.getDepartamento()).isEqualTo("Ejemplo");

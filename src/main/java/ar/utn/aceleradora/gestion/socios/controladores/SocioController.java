@@ -80,7 +80,7 @@ public class SocioController {
     public ResponseEntity<Void> eliminarSocio(@PathVariable Integer id) {
         try {
             SocioDTO socioEliminado = socioService.eliminarSocio(id);
-            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+            return new ResponseEntity<>(HttpStatus.ACCEPTED);
         } catch (EntityNotFoundException e) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }

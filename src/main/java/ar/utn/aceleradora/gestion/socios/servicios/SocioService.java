@@ -18,6 +18,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
@@ -74,6 +75,8 @@ public class SocioService {
     List<Socio> socios = socioRepository.findAll();
     return socios.stream().map(Socio::getNombre).collect(Collectors.toList());
   }
+
+  /*
   public Page<ResumenSocioDTO> obtenerResumenSociosPaginados(int pagina, int tamanio, Optional<String> categoriaOptional, Optional<Integer> aniosActivosOptional) {
     List<Socio> socios = socioRepository.findAll();
     List<ResumenSocioDTO> resumenSocios = new ArrayList<>();
@@ -113,6 +116,38 @@ public class SocioService {
 
     return new PageImpl<>(sociosPaginados, PageRequest.of(pagina, tamanio), resumenSocios.size());
   }
+  */
+
+  public Page<ResumenSocioDTO> obtenerResumenSociosPaginados(int pagina, int tamanio, Optional<String> categoriaOptional, Optional<Integer> aniosActivosOptional) {
+    LocalDate fechaActual = LocalDate.now();
+    LocalDate fechaInicioMembresia;
+
+    Pageable pageable = PageRequest.of(pagina, tamanio);
+
+    List<Socio> sociosFiltrados;
+    if (categoriaOptional.isPresent() && aniosActivosOptional.isPresent()) {
+      fechaInicioMembresia = fechaActual.minusYears(aniosActivosOptional.get());
+      sociosFiltrados = socioRepository.findByCategoriaAndMembresiaFechaInicioBefore(categoriaOptional.get(), fechaInicioMembresia, pageable);
+    } else if (categoriaOptional.isPresent()) {
+      sociosFiltrados = socioRepository.findByCategoria(categoriaOptional.get(), pageable);
+    } else if (aniosActivosOptional.isPresent()) {
+      fechaInicioMembresia = fechaActual.minusYears(aniosActivosOptional.get());
+      sociosFiltrados = socioRepository.findByMembresiaFechaInicioBefore(fechaInicioMembresia, pageable);
+    } else {
+      sociosFiltrados = socioRepository.findAll(pageable).getContent();
+    }
+
+    List<ResumenSocioDTO> resumenSocios = sociosFiltrados.stream().map(socio -> {
+      ResumenSocioDTO dto = modelMapper.map(socio, ResumenSocioDTO.class);
+      Period periodo = Period.between(socio.getMembresia().getFechaInicio(), fechaActual);
+      dto.setAniosDeAntiguedad(periodo.getYears());
+      //TODO: FALTA CASO PARA CUANDO TIENE NOMBRE PRESIDENTE, A CONTEMPLAR
+      return dto;
+    }).collect(Collectors.toList());
+
+    return new PageImpl<>(resumenSocios, pageable, sociosFiltrados.size());
+  }
+
   public SocioDTO eliminarSocio(Integer id) {
     Optional<Socio> existingSocioOpt = socioRepository.findById(id);
     if (existingSocioOpt.isPresent()) {
