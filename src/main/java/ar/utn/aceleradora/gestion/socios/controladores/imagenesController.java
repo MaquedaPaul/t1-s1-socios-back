@@ -14,6 +14,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
+import java.nio.file.NoSuchFileException;
+
 @RestController
 @RequestMapping("/api/imagenes")
 public class imagenesController {
@@ -42,5 +45,20 @@ public class imagenesController {
       return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("No se pudo obtener la imagen");
     }
   }
+
+
+  @GetMapping("/eliminar/{idSocio}")
+  public ResponseEntity<?> eliminarImagen(@PathVariable Integer idSocio) {
+    String nombreArchivo = "usuario_" + idSocio;
+
+    boolean eliminada = imagenesService.eliminarImagenSiExiste(nombreArchivo);
+
+    if (eliminada) {
+      return ResponseEntity.ok("Imagen eliminada correctamente");
+    } else {
+      return ResponseEntity.status(HttpStatus.NOT_FOUND).body("La imagen no existe");
+    }
+  }
+
 
 }

@@ -58,4 +58,20 @@ public class ImagenesService {
       throw new RuntimeException("Error al eliminar la imagen", e);
     }
   }
+  public boolean eliminarImagenSiExiste(String nombreArchivo) {
+    try {
+      Path rutaParaEliminar = Paths.get(path_imagenes + File.separator + StringUtils.cleanPath(nombreArchivo));
+
+      if (Files.exists(rutaParaEliminar)) {
+        Files.delete(rutaParaEliminar);
+        return true; // La imagen se eliminó con éxito
+      } else {
+        return false; // La imagen no existía
+      }
+    } catch (IOException e) {
+      throw new RuntimeException("Error al eliminar la imagen", e);
+    }
+  }
+
+
 }
