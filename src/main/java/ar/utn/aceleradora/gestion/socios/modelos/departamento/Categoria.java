@@ -18,21 +18,12 @@ public class Categoria {
     @JoinColumn(name = "idDepartamento")
     private Departamento departamentoPerteneciente;
     @Column
-    private String nombreEtiqueta;
-
-    @ManyToMany(cascade = { CascadeType.PERSIST, CascadeType.MERGE })
-    @JoinTable(
-            name = "Etiqueta_X_Socio",
-            joinColumns = @JoinColumn(name = "idEtiqueta"),
-            inverseJoinColumns = @JoinColumn(name = "idSocio")
-    )
-    private List<Socio> socios;
-
+    private String nombre;
 
     public Categoria() {
     }
-    public Categoria(Departamento departamento, String nombreEtiqueta){
+    public Categoria(Departamento departamento, String nombre){
         this.departamentoPerteneciente = departamento;
-        this.nombreEtiqueta = nombreEtiqueta;
+        this.nombre = nombre;
     }
 }

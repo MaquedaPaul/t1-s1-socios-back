@@ -34,7 +34,7 @@ public class Socio {
     @Column
     private String mail;
 
-    @ManyToMany(mappedBy = "socios")
+    @OneToMany(cascade = CascadeType.ALL)
     private List<Categoria> categorias;
 
     @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)

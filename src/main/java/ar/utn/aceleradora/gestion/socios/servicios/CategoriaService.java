@@ -43,6 +43,12 @@ public class CategoriaService {
 
     public List<String> obtenerNombres() {
         List<Categoria> socios = categoriaRepository.findAll();
-        return socios.stream().map(Categoria::getNombreEtiqueta).collect(Collectors.toList());
+        return socios.stream().map(Categoria::getNombre).collect(Collectors.toList());
     }
+
+    public List<Categoria> obtenerCategoriaPorNombre(String nombre){
+        List<Categoria> categorias = categoriaRepository.findByNombre(nombre);
+        return categorias;
+    }
+
 }

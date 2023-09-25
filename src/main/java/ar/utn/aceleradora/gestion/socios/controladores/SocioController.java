@@ -47,14 +47,6 @@ public class SocioController {
         return new ResponseEntity<>(nombres, HttpStatus.OK);
     }
 
-    /*@GetMapping("/busquedaPaginada")
-    public ResponseEntity<Page<ResumenSocioDTO>> obtenerResumenSocios(
-        @RequestParam(defaultValue = "0") int pagina,
-        @RequestParam(defaultValue = "10") int tamanio) {
-        Page<ResumenSocioDTO> pages = socioService.obtenerResumenSociosPaginados(pagina, tamanio);
-        return ResponseEntity.ok(pages);
-    }*/
-
     @GetMapping("/busquedaPaginada")
     public ResponseEntity<Page<ResumenSocioDTO>> obtenerResumenSocios(
             @RequestParam(defaultValue = "0") int pagina,
