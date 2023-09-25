@@ -3,7 +3,7 @@ package ar.utn.aceleradora.gestion.socios.modelos.registros;
 //import ar.utn.aceleradora.gestion.socios.modelos.Socio;
 
 import ar.utn.aceleradora.gestion.socios.modelos.empresa.Socio;
-import ar.utn.aceleradora.gestion.socios.modelos.empresa.SocioEmpresa;
+import ar.utn.aceleradora.gestion.socios.modelos.empresa.SocioAdherente;
 import ar.utn.aceleradora.gestion.socios.modelos.empresa.SocioPlenario;
 import jakarta.persistence.*;
 

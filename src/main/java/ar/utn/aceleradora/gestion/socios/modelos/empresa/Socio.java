@@ -10,7 +10,7 @@ import lombok.Setter;
 
 import java.util.List;
 
-import static ar.utn.aceleradora.gestion.socios.modelos.empresa.TipoSocio.SOCIO_EMPRESA;
+import static ar.utn.aceleradora.gestion.socios.modelos.empresa.TipoSocio.SOCIO_ADHERENTE;
 
 @Entity
 @Getter@Setter
