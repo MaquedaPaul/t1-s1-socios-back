@@ -10,7 +10,7 @@ import java.util.List;
 @Entity
 @Getter
 @Setter
-public class Etiqueta {
+public class Categoria {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
@@ -29,9 +29,9 @@ public class Etiqueta {
     private List<Socio> socios;
 
 
-    public Etiqueta() {
+    public Categoria() {
     }
-    public Etiqueta(Departamento departamento, String nombreEtiqueta){
+    public Categoria(Departamento departamento, String nombreEtiqueta){
         this.departamentoPerteneciente = departamento;
         this.nombreEtiqueta = nombreEtiqueta;
     }

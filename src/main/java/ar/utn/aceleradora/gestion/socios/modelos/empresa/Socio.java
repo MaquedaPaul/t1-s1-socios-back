@@ -1,6 +1,6 @@
 package ar.utn.aceleradora.gestion.socios.modelos.empresa;
 
-import ar.utn.aceleradora.gestion.socios.modelos.departamento.Etiqueta;
+import ar.utn.aceleradora.gestion.socios.modelos.departamento.Categoria;
 import ar.utn.aceleradora.gestion.socios.modelos.evento.Evento;
 import ar.utn.aceleradora.gestion.socios.modelos.membresia.Membresia;
 import ar.utn.aceleradora.gestion.socios.modelos.ubicacion.Ubicacion;
@@ -35,7 +35,7 @@ public class Socio {
     private String mail;
 
     @ManyToMany(mappedBy = "socios")
-    private List<Etiqueta> categoria;
+    private List<Categoria> categorias;
 
     @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     //@JoinColumn(name = "idSocio")

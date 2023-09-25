@@ -1,6 +1,6 @@
 package ar.utn.aceleradora.gestion.socios.modelos.empresa;
 
-import ar.utn.aceleradora.gestion.socios.modelos.departamento.Etiqueta;
+import ar.utn.aceleradora.gestion.socios.modelos.departamento.Categoria;
 import ar.utn.aceleradora.gestion.socios.modelos.ubicacion.Ubicacion;
 import jakarta.persistence.*;
 import lombok.Getter;

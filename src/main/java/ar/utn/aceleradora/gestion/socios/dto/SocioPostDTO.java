@@ -1,5 +1,5 @@
 package ar.utn.aceleradora.gestion.socios.dto;
-import ar.utn.aceleradora.gestion.socios.modelos.departamento.Etiqueta;
+import ar.utn.aceleradora.gestion.socios.modelos.departamento.Categoria;
 import ar.utn.aceleradora.gestion.socios.modelos.empresa.TipoSocio;
 import ar.utn.aceleradora.gestion.socios.modelos.ubicacion.Ubicacion;
 import lombok.Getter;
