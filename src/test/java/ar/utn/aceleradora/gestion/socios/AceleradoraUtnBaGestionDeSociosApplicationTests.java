@@ -106,6 +106,152 @@ class AceleradoraUtnBaGestionDeSociosApplicationTests {
 		assertThat(socio.getNombre()).isEqualTo("Ejemplo");
 		assertThat(socio.getTelefono()).isEqualTo(123456);
 	}
+
+
+	@Test
+	public void testGuardarMuchosSocios(){
+		SocioEmpresa socio = new SocioEmpresa();
+		socio.setNombre("Ejemplo");
+		socio.setTipoSocio(TipoSocio.SOCIO_EMPRESA);
+		socio.setTelefono(123456);
+		socio.setMail("Ejemplo");
+		//socio.setNombrePresidente("Ejemplo");
+		socio.setUbicacion(ubicacionService.obtenerUbicacion(1));
+
+		Socio socioGuardado = socioRepository.save(socio);
+
+		SocioEmpresa socio2 = new SocioEmpresa();
+		socio.setNombre("Hola");
+		socio.setTipoSocio(TipoSocio.SOCIO_EMPRESA);
+		socio.setTelefono(123456);
+		socio.setMail("Ejemplo");
+		//socio.setNombrePresidente("Ejemplo");
+		socio.setUbicacion(ubicacionService.obtenerUbicacion(1));
+
+		Socio socioGuardado2 = socioRepository.save(socio2);
+
+		SocioEmpresa socio3 = new SocioEmpresa();
+		socio.setNombre("Ejemplo");
+		socio.setTipoSocio(TipoSocio.SOCIO_EMPRESA);
+		socio.setTelefono(123456);
+		socio.setMail("Ejemplo");
+		//socio.setNombrePresidente("Ejemplo");
+		socio.setUbicacion(ubicacionService.obtenerUbicacion(1));
+
+		Socio socioGuardado3 = socioRepository.save(socio3);
+
+		SocioEmpresa socio4 = new SocioEmpresa();
+		socio.setNombre("Ejemplo");
+		socio.setTipoSocio(TipoSocio.SOCIO_EMPRESA);
+		socio.setTelefono(123456);
+		socio.setMail("Ejemplo");
+		//socio.setNombrePresidente("Ejemplo");
+		socio.setUbicacion(ubicacionService.obtenerUbicacion(1));
+
+		Socio socioGuardado4 = socioRepository.save(socio4);
+
+		SocioEmpresa socio5 = new SocioEmpresa();
+		socio.setNombre("Ejemplo");
+		socio.setTipoSocio(TipoSocio.SOCIO_EMPRESA);
+		socio.setTelefono(123456);
+		socio.setMail("Ejemplo");
+		//socio.setNombrePresidente("Ejemplo");
+		socio.setUbicacion(ubicacionService.obtenerUbicacion(1));
+
+		Socio socioGuardado5 = socioRepository.save(socio5);
+
+		SocioEmpresa socio6 = new SocioEmpresa();
+		socio.setNombre("Ejemplo");
+		socio.setTipoSocio(TipoSocio.SOCIO_EMPRESA);
+		socio.setTelefono(123456);
+		socio.setMail("Ejemplo");
+		//socio.setNombrePresidente("Ejemplo");
+		socio.setUbicacion(ubicacionService.obtenerUbicacion(1));
+
+		Socio socioGuardado6 = socioRepository.save(socio6);
+
+		SocioEmpresa socio7 = new SocioEmpresa();
+		socio.setNombre("Ejemplo");
+		socio.setTipoSocio(TipoSocio.SOCIO_EMPRESA);
+		socio.setTelefono(123456);
+		socio.setMail("Ejemplo");
+		//socio.setNombrePresidente("Ejemplo");
+		socio.setUbicacion(ubicacionService.obtenerUbicacion(1));
+
+
+		Socio socioGuardado7 = socioRepository.save(socio7);
+
+		SocioEmpresa socio8 = new SocioEmpresa();
+		socio.setNombre("Ejemplo");
+		socio.setTipoSocio(TipoSocio.SOCIO_EMPRESA);
+		socio.setTelefono(123456);
+		socio.setMail("Ejemplo");
+		//socio.setNombrePresidente("Ejemplo");
+		socio.setUbicacion(ubicacionService.obtenerUbicacion(1));
+		SocioEmpresa socio9 = new SocioEmpresa();
+		socio.setNombre("Ejemplo");
+		socio.setTipoSocio(TipoSocio.SOCIO_EMPRESA);
+		socio.setTelefono(123456);
+		socio.setMail("Ejemplo");
+		//socio.setNombrePresidente("Ejemplo");
+		socio.setUbicacion(ubicacionService.obtenerUbicacion(1));
+		SocioEmpresa socio10 = new SocioEmpresa();
+		socio.setNombre("Ejemplo");
+		socio.setTipoSocio(TipoSocio.SOCIO_EMPRESA);
+		socio.setTelefono(123456);
+		socio.setMail("Ejemplo");
+		//socio.setNombrePresidente("Ejemplo");
+		socio.setUbicacion(ubicacionService.obtenerUbicacion(1));
+		SocioEmpresa socio11 = new SocioEmpresa();
+		socio.setNombre("Ejemplo");
+		socio.setTipoSocio(TipoSocio.SOCIO_EMPRESA);
+		socio.setTelefono(123456);
+		socio.setMail("Ejemplo");
+		//socio.setNombrePresidente("Ejemplo");
+		socio.setUbicacion(ubicacionService.obtenerUbicacion(1));
+		SocioEmpresa socio12 = new SocioEmpresa();
+		socio.setNombre("Ejemplo");
+		socio.setTipoSocio(TipoSocio.SOCIO_EMPRESA);
+		socio.setTelefono(123456);
+		socio.setMail("Ejemplo");
+		//socio.setNombrePresidente("Ejemplo");
+		socio.setUbicacion(ubicacionService.obtenerUbicacion(1));
+		SocioEmpresa socio13 = new SocioEmpresa();
+		socio.setNombre("Ejemplo");
+		socio.setTipoSocio(TipoSocio.SOCIO_EMPRESA);
+		socio.setTelefono(123456);
+		socio.setMail("Ejemplo");
+		//socio.setNombrePresidente("Ejemplo");
+		socio.setUbicacion(ubicacionService.obtenerUbicacion(1));
+		SocioEmpresa socio14 = new SocioEmpresa();
+		socio.setNombre("Ejemplo");
+		socio.setTipoSocio(TipoSocio.SOCIO_EMPRESA);
+		socio.setTelefono(123456);
+		socio.setMail("Ejemplo");
+		//socio.setNombrePresidente("Ejemplo");
+		socio.setUbicacion(ubicacionService.obtenerUbicacion(1));
+		SocioEmpresa socio15 = new SocioEmpresa();
+		socio.setNombre("Ejemplo");
+		socio.setTipoSocio(TipoSocio.SOCIO_EMPRESA);
+		socio.setTelefono(123456);
+		socio.setMail("Ejemplo");
+		//socio.setNombrePresidente("Ejemplo");
+		socio.setUbicacion(ubicacionService.obtenerUbicacion(1));
+
+		Socio socioGuardado8 = socioRepository.save(socio8);
+		Socio socioGuardado9 = socioRepository.save(socio9);
+		Socio socioGuardado10 = socioRepository.save(socio10);
+		Socio socioGuardado11 = socioRepository.save(socio11);
+		Socio socioGuardado12 = socioRepository.save(socio12);
+		Socio socioGuardado13 = socioRepository.save(socio13);
+		Socio socioGuardado14 = socioRepository.save(socio14);
+		Socio socioGuardado15 = socioRepository.save(socio15);
+
+
+
+	}
+
+
 /*
 
 

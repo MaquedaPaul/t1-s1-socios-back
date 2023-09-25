@@ -10,6 +10,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
 import java.util.Optional;
 
 @RequestMapping("/api/departamento")
@@ -35,6 +36,12 @@ public class DepartamentoController {
     public ResponseEntity<Departamento> crearDepartamento(@RequestBody Departamento dpto) {
         Departamento nuevoDpto = departamentoService.agregarDepartamento(dpto);
         return new ResponseEntity<>(nuevoDpto, HttpStatus.CREATED);
+    }
+
+    @GetMapping("/obtenerNombres")
+    public ResponseEntity<List<String>> obtenerNombresDepartamento() {
+        List<String> nombres = departamentoService.obtenerNombres();
+        return new ResponseEntity<>(nombres, HttpStatus.OK);
     }
 
 
