@@ -84,14 +84,14 @@ public class SocioService {
     if (categoriaOptional.isPresent() && aniosActivosOptional.isPresent()) {
       List <Categoria> categorias = categoriaService.obtenerCategoriaPorNombre(categoriaOptional.get());
       fechaInicioMembresia = fechaActual.minusYears(aniosActivosOptional.get());
-      sociosFiltrados = socioRepository.findByCategoriasAndMembresiaFechaInicioBeforeIn(categorias, fechaInicioMembresia, pageable);
+      sociosFiltrados = socioRepository.findByCategoriasInAndMembresiaFechaInicio(categorias, fechaInicioMembresia, pageable);
     } else if (categoriaOptional.isPresent()) {
       //categoriaOptional.forEach(categoria -> socioRepository.findByCategoria(categoria, pageable));
       List <Categoria> categorias = categoriaService.obtenerCategoriaPorNombre(categoriaOptional.get());
       sociosFiltrados = socioRepository.findByCategoriasIn(categorias, pageable);
     } else if (aniosActivosOptional.isPresent()) {
       fechaInicioMembresia = fechaActual.minusYears(aniosActivosOptional.get());
-      sociosFiltrados = socioRepository.findByMembresiaFechaInicioBefore(fechaInicioMembresia, pageable);
+      sociosFiltrados = socioRepository.findByMembresiaFechaInicio(fechaInicioMembresia, pageable);
     } else {
       sociosFiltrados = socioRepository.findAll(pageable).getContent();
     }

@@ -14,8 +14,8 @@ import java.util.List;
 public interface SocioRepository extends JpaRepository<Socio, Integer>{
 
     List<Socio> findByCategoriasIn(List<Categoria> categoria, Pageable pageable);
-    List<Socio> findByMembresiaFechaInicioBefore(LocalDate fechaInicio, Pageable pageable);
-    List<Socio> findByCategoriasAndMembresiaFechaInicioBeforeIn(List<Categoria>  categoria, LocalDate fechaInicioMembresia, Pageable pageable);
+    List<Socio> findByMembresiaFechaInicio(LocalDate fechaInicio, Pageable pageable);
+    List<Socio> findByCategoriasInAndMembresiaFechaInicio(List<Categoria>  categoria, LocalDate fechaInicioMembresia, Pageable pageable);
 
 }
 
