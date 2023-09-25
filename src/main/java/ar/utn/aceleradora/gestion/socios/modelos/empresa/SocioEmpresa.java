@@ -23,10 +23,15 @@ import java.util.List;
 @Table
 @DiscriminatorValue(value = "socioEmpresa")
 public class SocioEmpresa extends Socio{
+
+
+
+  public SocioEmpresa() {
+  }
+
   public SocioEmpresa(String nombreEmpresa, Integer telefono, String mail, Ubicacion ubicacion) {
     super(nombreEmpresa, TipoSocio.SOCIO_EMPRESA, telefono, mail, ubicacion);
   }
 
-  public SocioEmpresa() {
-  }
+
 }

@@ -13,7 +13,6 @@ public class DepartamentoService {
 
     @Autowired
     public DepartamentoService(DepartamentoRepository departamentoRepository) {
-
         this.departamentoRepository = departamentoRepository;
     }
 

@@ -97,13 +97,16 @@ class AceleradoraUtnBaGestionDeSociosApplicationTests {
 		assertThat(socioGuardado.getUbicacion()).isEqualTo(ubicacionService.obtenerUbicacion(1));
 	}
 
-/*
+
 	@Test
 	public void testObtenerSocio(){
-		public SocioDTO obtenerSocio(Integer id) {
-			Socio socio = socioRepository.findById(id).orElse(null);
-	}
 
+		SocioDTO socio = socioService.obtenerSocio(1);
+
+		assertThat(socio.getNombre()).isEqualTo("Ejemplo");
+		assertThat(socio.getTelefono()).isEqualTo(123456);
+	}
+/*
 
 
 	@Test
