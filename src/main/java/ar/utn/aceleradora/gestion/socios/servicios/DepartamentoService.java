@@ -1,9 +1,13 @@
 package ar.utn.aceleradora.gestion.socios.servicios;
 
 import ar.utn.aceleradora.gestion.socios.modelos.departamento.Departamento;
+import ar.utn.aceleradora.gestion.socios.modelos.empresa.Socio;
 import ar.utn.aceleradora.gestion.socios.repositorios.DepartamentoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class DepartamentoService {
@@ -34,6 +38,11 @@ public class DepartamentoService {
             return departamentoRepository.save(departamento);
         }
         return null; // El departamento no tiene un ID válido
+    }
+
+    public List<String> obtenerNombres() {
+        List<Departamento> socios = departamentoRepository.findAll();
+        return socios.stream().map(Departamento::getNombre).collect(Collectors.toList());
     }
 
 }
