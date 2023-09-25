@@ -2,7 +2,7 @@ package ar.utn.aceleradora.gestion.socios.modelos.membresia;
 
 
 
-import ar.utn.aceleradora.gestion.socios.modelos.empresa.SocioEmpresa;
+import ar.utn.aceleradora.gestion.socios.modelos.empresa.SocioAdherente;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
@@ -24,7 +24,7 @@ public class Membresia {
     private Integer id;
     @OneToOne
     @JoinColumn(name = "id")
-    private SocioEmpresa empresa;
+    private SocioAdherente empresa;
     @Column
     private LocalDate fechaInicio;
     @Column
@@ -40,7 +40,7 @@ public class Membresia {
     public Membresia() {
     }
 
-    public Membresia(SocioEmpresa empresa, LocalDate fechaInicio, LocalDate fechaVto, int cuota) {
+    public Membresia(SocioAdherente empresa, LocalDate fechaInicio, LocalDate fechaVto, int cuota) {
         this.empresa = empresa;
         this.fechaInicio = fechaInicio;
         this.fechaVto = fechaVto;

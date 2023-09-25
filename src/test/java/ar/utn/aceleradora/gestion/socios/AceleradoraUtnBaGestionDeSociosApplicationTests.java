@@ -3,7 +3,7 @@ package ar.utn.aceleradora.gestion.socios;
 //import ar.utn.aceleradora.gestion.socios.modelos.empresa.Socio;
 import ar.utn.aceleradora.gestion.socios.dto.SocioDTO;
 import ar.utn.aceleradora.gestion.socios.modelos.empresa.Socio;
-import ar.utn.aceleradora.gestion.socios.modelos.empresa.SocioEmpresa;
+import ar.utn.aceleradora.gestion.socios.modelos.empresa.SocioAdherente;
 import ar.utn.aceleradora.gestion.socios.modelos.empresa.TipoSocio;
 import ar.utn.aceleradora.gestion.socios.modelos.ubicacion.Ubicacion;
 import ar.utn.aceleradora.gestion.socios.repositorios.SocioRepository;
@@ -78,9 +78,9 @@ class AceleradoraUtnBaGestionDeSociosApplicationTests {
 
 	@Test
 	public void testGuardarSocio(){
-		SocioEmpresa socio = new SocioEmpresa();
+		SocioAdherente socio = new SocioAdherente();
 		socio.setNombre("Ejemplo");
-		socio.setTipoSocio(TipoSocio.SOCIO_EMPRESA);
+		socio.setTipoSocio(TipoSocio.SOCIO_ADHERENTE);
 		socio.setTelefono(123456);
 		socio.setMail("Ejemplo");
 		//socio.setNombrePresidente("Ejemplo");
@@ -90,7 +90,7 @@ class AceleradoraUtnBaGestionDeSociosApplicationTests {
 
 		assertThat(socioGuardado).isNotNull();
 		assertThat(socioGuardado.getNombre()).isEqualTo("Ejemplo");
-		assertThat(socioGuardado.getTipoSocio()).isEqualTo(TipoSocio.SOCIO_EMPRESA);
+		assertThat(socioGuardado.getTipoSocio()).isEqualTo(TipoSocio.SOCIO_ADHERENTE);
 		assertThat(socioGuardado.getTelefono()).isEqualTo(123456);
 		assertThat(socioGuardado.getMail()).isEqualTo("Ejemplo");
 		//assertThat(socioGuardado.getNombrePresidente()).isEqualTo("Ejemplo");
@@ -110,9 +110,9 @@ class AceleradoraUtnBaGestionDeSociosApplicationTests {
 
 	@Test
 	public void testGuardarMuchosSocios(){
-		SocioEmpresa socio = new SocioEmpresa();
+		SocioAdherente socio = new SocioAdherente();
 		socio.setNombre("Ejemplo");
-		socio.setTipoSocio(TipoSocio.SOCIO_EMPRESA);
+		socio.setTipoSocio(TipoSocio.SOCIO_ADHERENTE);
 		socio.setTelefono(123456);
 		socio.setMail("Ejemplo");
 		//socio.setNombrePresidente("Ejemplo");
@@ -120,9 +120,9 @@ class AceleradoraUtnBaGestionDeSociosApplicationTests {
 
 		Socio socioGuardado = socioRepository.save(socio);
 
-		SocioEmpresa socio2 = new SocioEmpresa();
+		SocioAdherente socio2 = new SocioAdherente();
 		socio.setNombre("Hola");
-		socio.setTipoSocio(TipoSocio.SOCIO_EMPRESA);
+		socio.setTipoSocio(TipoSocio.SOCIO_ADHERENTE);
 		socio.setTelefono(123456);
 		socio.setMail("Ejemplo");
 		//socio.setNombrePresidente("Ejemplo");
@@ -130,9 +130,9 @@ class AceleradoraUtnBaGestionDeSociosApplicationTests {
 
 		Socio socioGuardado2 = socioRepository.save(socio2);
 
-		SocioEmpresa socio3 = new SocioEmpresa();
+		SocioAdherente socio3 = new SocioAdherente();
 		socio.setNombre("Ejemplo");
-		socio.setTipoSocio(TipoSocio.SOCIO_EMPRESA);
+		socio.setTipoSocio(TipoSocio.SOCIO_ADHERENTE);
 		socio.setTelefono(123456);
 		socio.setMail("Ejemplo");
 		//socio.setNombrePresidente("Ejemplo");
@@ -140,9 +140,9 @@ class AceleradoraUtnBaGestionDeSociosApplicationTests {
 
 		Socio socioGuardado3 = socioRepository.save(socio3);
 
-		SocioEmpresa socio4 = new SocioEmpresa();
+		SocioAdherente socio4 = new SocioAdherente();
 		socio.setNombre("Ejemplo");
-		socio.setTipoSocio(TipoSocio.SOCIO_EMPRESA);
+		socio.setTipoSocio(TipoSocio.SOCIO_ADHERENTE);
 		socio.setTelefono(123456);
 		socio.setMail("Ejemplo");
 		//socio.setNombrePresidente("Ejemplo");
@@ -150,9 +150,9 @@ class AceleradoraUtnBaGestionDeSociosApplicationTests {
 
 		Socio socioGuardado4 = socioRepository.save(socio4);
 
-		SocioEmpresa socio5 = new SocioEmpresa();
+		SocioAdherente socio5 = new SocioAdherente();
 		socio.setNombre("Ejemplo");
-		socio.setTipoSocio(TipoSocio.SOCIO_EMPRESA);
+		socio.setTipoSocio(TipoSocio.SOCIO_ADHERENTE);
 		socio.setTelefono(123456);
 		socio.setMail("Ejemplo");
 		//socio.setNombrePresidente("Ejemplo");
@@ -160,9 +160,9 @@ class AceleradoraUtnBaGestionDeSociosApplicationTests {
 
 		Socio socioGuardado5 = socioRepository.save(socio5);
 
-		SocioEmpresa socio6 = new SocioEmpresa();
+		SocioAdherente socio6 = new SocioAdherente();
 		socio.setNombre("Ejemplo");
-		socio.setTipoSocio(TipoSocio.SOCIO_EMPRESA);
+		socio.setTipoSocio(TipoSocio.SOCIO_ADHERENTE);
 		socio.setTelefono(123456);
 		socio.setMail("Ejemplo");
 		//socio.setNombrePresidente("Ejemplo");
@@ -170,9 +170,9 @@ class AceleradoraUtnBaGestionDeSociosApplicationTests {
 
 		Socio socioGuardado6 = socioRepository.save(socio6);
 
-		SocioEmpresa socio7 = new SocioEmpresa();
+		SocioAdherente socio7 = new SocioAdherente();
 		socio.setNombre("Ejemplo");
-		socio.setTipoSocio(TipoSocio.SOCIO_EMPRESA);
+		socio.setTipoSocio(TipoSocio.SOCIO_ADHERENTE);
 		socio.setTelefono(123456);
 		socio.setMail("Ejemplo");
 		//socio.setNombrePresidente("Ejemplo");
@@ -181,58 +181,58 @@ class AceleradoraUtnBaGestionDeSociosApplicationTests {
 
 		Socio socioGuardado7 = socioRepository.save(socio7);
 
-		SocioEmpresa socio8 = new SocioEmpresa();
+		SocioAdherente socio8 = new SocioAdherente();
 		socio.setNombre("Ejemplo");
-		socio.setTipoSocio(TipoSocio.SOCIO_EMPRESA);
+		socio.setTipoSocio(TipoSocio.SOCIO_ADHERENTE);
 		socio.setTelefono(123456);
 		socio.setMail("Ejemplo");
 		//socio.setNombrePresidente("Ejemplo");
 		socio.setUbicacion(ubicacionService.obtenerUbicacion(1));
-		SocioEmpresa socio9 = new SocioEmpresa();
+		SocioAdherente socio9 = new SocioAdherente();
 		socio.setNombre("Ejemplo");
-		socio.setTipoSocio(TipoSocio.SOCIO_EMPRESA);
+		socio.setTipoSocio(TipoSocio.SOCIO_ADHERENTE);
 		socio.setTelefono(123456);
 		socio.setMail("Ejemplo");
 		//socio.setNombrePresidente("Ejemplo");
 		socio.setUbicacion(ubicacionService.obtenerUbicacion(1));
-		SocioEmpresa socio10 = new SocioEmpresa();
+		SocioAdherente socio10 = new SocioAdherente();
 		socio.setNombre("Ejemplo");
-		socio.setTipoSocio(TipoSocio.SOCIO_EMPRESA);
+		socio.setTipoSocio(TipoSocio.SOCIO_ADHERENTE);
 		socio.setTelefono(123456);
 		socio.setMail("Ejemplo");
 		//socio.setNombrePresidente("Ejemplo");
 		socio.setUbicacion(ubicacionService.obtenerUbicacion(1));
-		SocioEmpresa socio11 = new SocioEmpresa();
+		SocioAdherente socio11 = new SocioAdherente();
 		socio.setNombre("Ejemplo");
-		socio.setTipoSocio(TipoSocio.SOCIO_EMPRESA);
+		socio.setTipoSocio(TipoSocio.SOCIO_ADHERENTE);
 		socio.setTelefono(123456);
 		socio.setMail("Ejemplo");
 		//socio.setNombrePresidente("Ejemplo");
 		socio.setUbicacion(ubicacionService.obtenerUbicacion(1));
-		SocioEmpresa socio12 = new SocioEmpresa();
+		SocioAdherente socio12 = new SocioAdherente();
 		socio.setNombre("Ejemplo");
-		socio.setTipoSocio(TipoSocio.SOCIO_EMPRESA);
+		socio.setTipoSocio(TipoSocio.SOCIO_ADHERENTE);
 		socio.setTelefono(123456);
 		socio.setMail("Ejemplo");
 		//socio.setNombrePresidente("Ejemplo");
 		socio.setUbicacion(ubicacionService.obtenerUbicacion(1));
-		SocioEmpresa socio13 = new SocioEmpresa();
+		SocioAdherente socio13 = new SocioAdherente();
 		socio.setNombre("Ejemplo");
-		socio.setTipoSocio(TipoSocio.SOCIO_EMPRESA);
+		socio.setTipoSocio(TipoSocio.SOCIO_ADHERENTE);
 		socio.setTelefono(123456);
 		socio.setMail("Ejemplo");
 		//socio.setNombrePresidente("Ejemplo");
 		socio.setUbicacion(ubicacionService.obtenerUbicacion(1));
-		SocioEmpresa socio14 = new SocioEmpresa();
+		SocioAdherente socio14 = new SocioAdherente();
 		socio.setNombre("Ejemplo");
-		socio.setTipoSocio(TipoSocio.SOCIO_EMPRESA);
+		socio.setTipoSocio(TipoSocio.SOCIO_ADHERENTE);
 		socio.setTelefono(123456);
 		socio.setMail("Ejemplo");
 		//socio.setNombrePresidente("Ejemplo");
 		socio.setUbicacion(ubicacionService.obtenerUbicacion(1));
-		SocioEmpresa socio15 = new SocioEmpresa();
+		SocioAdherente socio15 = new SocioAdherente();
 		socio.setNombre("Ejemplo");
-		socio.setTipoSocio(TipoSocio.SOCIO_EMPRESA);
+		socio.setTipoSocio(TipoSocio.SOCIO_ADHERENTE);
 		socio.setTelefono(123456);
 		socio.setMail("Ejemplo");
 		//socio.setNombrePresidente("Ejemplo");

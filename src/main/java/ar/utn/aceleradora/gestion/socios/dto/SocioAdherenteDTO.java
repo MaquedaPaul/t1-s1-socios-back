@@ -5,5 +5,5 @@ import lombok.Setter;
 
 @Getter
 @Setter
-public class SocioEmpresaDTO extends SocioDTO{
+public class SocioAdherenteDTO extends SocioDTO{
 }

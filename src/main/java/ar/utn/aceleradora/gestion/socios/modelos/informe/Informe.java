@@ -1,7 +1,7 @@
 package ar.utn.aceleradora.gestion.socios.modelos.informe;
 
 import ar.utn.aceleradora.gestion.socios.modelos.empresa.Socio;
-import ar.utn.aceleradora.gestion.socios.modelos.empresa.SocioEmpresa;
+import ar.utn.aceleradora.gestion.socios.modelos.empresa.SocioAdherente;
 import ar.utn.aceleradora.gestion.socios.modelos.empresa.SocioPlenario;
 import ar.utn.aceleradora.gestion.socios.modelos.empresa.TipoSocio;
 import ar.utn.aceleradora.gestion.socios.modelos.membresia.Membresia;

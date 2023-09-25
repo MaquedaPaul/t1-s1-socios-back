@@ -10,7 +10,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 
-import static ar.utn.aceleradora.gestion.socios.modelos.empresa.TipoSocio.SOCIO_EMPRESA;
+import static ar.utn.aceleradora.gestion.socios.modelos.empresa.TipoSocio.SOCIO_ADHERENTE;
 
 import ar.utn.aceleradora.gestion.socios.modelos.departamento.Departamento;
 
@@ -22,15 +22,15 @@ import java.util.List;
 @Setter
 @Table
 @DiscriminatorValue(value = "socioEmpresa")
-public class SocioEmpresa extends Socio{
+public class SocioAdherente extends Socio{
 
 
 
-  public SocioEmpresa() {
+  public SocioAdherente() {
   }
 
-  public SocioEmpresa(String nombreEmpresa, Integer telefono, String mail, Ubicacion ubicacion) {
-    super(nombreEmpresa, TipoSocio.SOCIO_EMPRESA, telefono, mail, ubicacion);
+  public SocioAdherente(String nombreEmpresa, Integer telefono, String mail, Ubicacion ubicacion) {
+    super(nombreEmpresa, TipoSocio.SOCIO_ADHERENTE, telefono, mail, ubicacion);
   }
 
 
