@@ -1,8 +1,6 @@
 package ar.utn.aceleradora.gestion.socios.servicios;
 
-import ar.utn.aceleradora.gestion.socios.modelos.departamento.Etiqueta;
 import ar.utn.aceleradora.gestion.socios.modelos.informe.Informe;
-import ar.utn.aceleradora.gestion.socios.repositorios.EtiquetaRepository;
 import ar.utn.aceleradora.gestion.socios.repositorios.InformeRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
