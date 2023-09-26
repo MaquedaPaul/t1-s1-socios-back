@@ -13,9 +13,10 @@ Este proyecto utiliza las siguientes tecnologías y dependencias:
 - JUnit: Framework de pruebas para Java.
 - Mockito: Framework de pruebas para crear mocks y stubs en Java.
 - Spring Data JPA: Facilita la creación de repositorios basados en JPA.
+- ModelMapper: Facilita el mapeo automático entre objetos, útil para convertir DTOs a entidades y viceversa.
 - Spring Boot Actuator: Proporciona características de producción listas para monitorear y administrar la aplicación.
 - MySQL Driver: Driver necesario para conectar con bases de datos MySQL.
-
+- Thumbnailator: Biblioteca para la creación de miniaturas de imágenes en Java.
 ## Estructura del proyecto:
 El proyecto sigue el siguiente modelo de carpetas:
 
@@ -39,3 +40,9 @@ El proyecto sigue el siguiente modelo de carpetas:
    
    ```bash
    ./start.sh
+
+### Instrucciones de Reseteo:
+3. Ejecuta el script `./restart.sh`. Este script recompila y lanza el contenedor Docker.
+
+   ```bash
+   ./restart.sh
