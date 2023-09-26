@@ -10,4 +10,4 @@ WORKDIR /app
 # Copio cualquier JAR compilado al contenedor
 COPY target/*.jar /app/app.jar
 
-RUN ls -la /app
+ENTRYPOINT ["java", "-jar", "/app/app.jar"]
