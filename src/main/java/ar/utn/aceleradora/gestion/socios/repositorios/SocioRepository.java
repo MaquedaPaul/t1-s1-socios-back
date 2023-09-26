@@ -10,9 +10,11 @@ import java.time.LocalDate;
 import java.util.List;
 
 @Repository
+
 public interface SocioRepository extends JpaRepository<Socio, Integer> {
     List<Socio> findByCategoriasIn(List<Categoria> categorias, Pageable pageable);
     List<Socio> findByCategoriasInAndMembresia_FechaInicioBefore(List<Categoria> categorias, LocalDate fechaInicioMembresia, Pageable pageable);
     List<Socio> findByMembresia_FechaInicioBefore(LocalDate fecha, Pageable pageable);
+
 }
 
