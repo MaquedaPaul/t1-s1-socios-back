@@ -43,7 +43,7 @@ public class CategoriaController {
         return new ResponseEntity<>(nombres, HttpStatus.OK);
     }
 
-    @GetMapping("/borrarCategoria/{idCategoria}")
+    @DeleteMapping ("/borrarCategoria/{idCategoria}")
     public ResponseEntity<String> eliminarCategoria(@PathVariable Integer idCategoria) {
         try {
             categoriaService.eliminarCategoria(idCategoria);
