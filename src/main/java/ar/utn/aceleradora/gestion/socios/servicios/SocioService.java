@@ -35,24 +35,12 @@ public class SocioService {
     this.categoriaService = categoriaService;
   }
   public SocioDTO guardarSocio(SocioPostDTO socioPostDTO) {
-    System.out.println("Antes del mapeo:");
-    System.out.println("Nombre: " + socioPostDTO.getNombre());
-    // Agrega más impresiones para otras propiedades que desees verificar
 
     Socio socio = modelMapper.map(socioPostDTO, Socio.class);
-    System.out.println("Después del mapeo a Socio:");
-    System.out.println("Nombre: " + socio.getNombre());
-    // Agrega más impresiones para las propiedades mapeadas en Socio
 
     Socio savedSocio = socioRepository.save(socio);
-    System.out.println("Después de guardar en la base de datos:");
-    System.out.println("ID del Socio: " + savedSocio.getId());
-    // Agrega más impresiones para otras propiedades del Socio guardado
 
     SocioDTO socioDTO = modelMapper.map(savedSocio, SocioDTO.class);
-    System.out.println("Después del mapeo a SocioDTO:");
-    System.out.println("Nombre: " + socioDTO.getNombre());
-    // Agrega más impresiones para las propiedades mapeadas en SocioDTO
 
     return socioDTO;
   }
@@ -73,41 +61,44 @@ public class SocioService {
     return socios.stream().map(Socio::getNombre).collect(Collectors.toList());
   }
 
-  public Page<ResumenSocioDTO> obtenerResumenSociosPaginados(int pagina, int tamanio, Optional<String> categoriaOptional, Optional<Integer> aniosActivosOptional) {
+  public Page<ResumenSocioDTO> obtenerResumenSociosPaginados(int pagina, int tamanio, Optional<List<String>> categoriaOptional, Optional<Integer> aniosActivosOptional) {
     LocalDate fechaActual = LocalDate.now();
-    LocalDate fechaInicioMembresia;
-
     Pageable pageable = PageRequest.of(pagina, tamanio);
-
     List<Socio> sociosFiltrados;
 
-    if (categoriaOptional.isPresent() && aniosActivosOptional.isPresent()) {
-      List <Categoria> categorias = categoriaService.obtenerCategoriaPorNombre(categoriaOptional.get());
-      fechaInicioMembresia = fechaActual.minusYears(aniosActivosOptional.get());
-      sociosFiltrados = socioRepository.findByCategoriasAndMembresiaFechaInicioBeforeIn(categorias, fechaInicioMembresia, pageable);
-    } else if (categoriaOptional.isPresent()) {
-      //categoriaOptional.forEach(categoria -> socioRepository.findByCategoria(categoria, pageable));
-      List <Categoria> categorias = categoriaService.obtenerCategoriaPorNombre(categoriaOptional.get());
+    List<Categoria> categorias = categoriaOptional.isPresent() ? categoriaService.obtenerCategoriasPorNombres(categoriaOptional.get()) : null;
+    LocalDate fechaInicioMembresia = aniosActivosOptional.isPresent() ? fechaActual.minusYears(aniosActivosOptional.get()) : null;
+
+    if (categorias != null && fechaInicioMembresia != null) {
+      sociosFiltrados = socioRepository.findByCategoriasInAndMembresia_FechaInicioBefore(categorias, fechaInicioMembresia, pageable);
+    } else if (categorias != null) {
       sociosFiltrados = socioRepository.findByCategoriasIn(categorias, pageable);
-    } else if (aniosActivosOptional.isPresent()) {
-      fechaInicioMembresia = fechaActual.minusYears(aniosActivosOptional.get());
-      sociosFiltrados = socioRepository.findByMembresiaFechaInicioBefore(fechaInicioMembresia, pageable);
+    } else if (fechaInicioMembresia != null) {
+      sociosFiltrados = socioRepository.findByMembresia_FechaInicioBefore(fechaInicioMembresia, pageable);
     } else {
       sociosFiltrados = socioRepository.findAll(pageable).getContent();
     }
 
-    List<ResumenSocioDTO> resumenSocios = sociosFiltrados.stream().map(socio -> {
-      ResumenSocioDTO dto = modelMapper.map(socio, ResumenSocioDTO.class);
-      Period periodo = Period.between(socio.getMembresia().getFechaInicio(), fechaActual);
-      dto.setAniosDeAntiguedad(periodo.getYears());
-      //TODO: FALTA CASO PARA CUANDO TIENE NOMBRE PRESIDENTE, A CONTEMPLAR
-      return dto;
-    }).collect(Collectors.toList());
+    List<ResumenSocioDTO> resumenSocios = sociosFiltrados.stream()
+        .map(socio -> convertirResumenSocioDTO(socio, fechaActual))
+        .collect(Collectors.toList());
 
     return new PageImpl<>(resumenSocios, pageable, sociosFiltrados.size());
   }
 
+  private ResumenSocioDTO convertirResumenSocioDTO(Socio socio, LocalDate fechaActual) {
+    ResumenSocioDTO resumenSocioDTO = modelMapper.map(socio, ResumenSocioDTO.class);
+    if (socio.isActivo() && socio.getMembresia() != null) {
 
+      Period periodo = Period.between(socio.getMembresia().getFechaInicio(), fechaActual);
+      resumenSocioDTO.setAniosDeAntiguedad(periodo.getYears());
+      // TODO: Considerar otros casos aquí, como cuando el socio tiene un nombre de presidente
+    } else {
+      // Establezco valores predeterminados en casos limites, ejemplo este que el socio no tiene membresia
+      resumenSocioDTO.setAniosDeAntiguedad(0);
+    }
+    return resumenSocioDTO;
+  }
 
   public SocioDTO eliminarSocio(Integer id) {
     Optional<Socio> existingSocioOpt = socioRepository.findById(id);
@@ -115,7 +106,7 @@ public class SocioService {
       Socio existingSocio = existingSocioOpt.get();
       existingSocio.setActivo(false);
       Socio updatedSocio = socioRepository.save(existingSocio);
-      return modelMapper.map(updatedSocio, SocioDTO.class); // Convertir el socio inactivo a DTO y devolverlo
+      return modelMapper.map(updatedSocio, SocioDTO.class);
     } else {
       return null;
     }
@@ -131,4 +122,29 @@ public class SocioService {
       return null;
     }
   }
+
+  public SocioDTO agregarCategoriasASocio(Integer idSocio, List<String> nombresCategorias) {
+    Socio socio = socioRepository.findById(idSocio).orElseThrow(() -> new EntityNotFoundException("Socio no encontrado"));
+
+    List<Categoria> categorias = categoriaService.obtenerCategoriasPorNombres(nombresCategorias);
+    socio.getCategorias().addAll(categorias); // TODO: Agregarle la funcion a socio para que no rompa el paradigma de objetos
+
+    Socio socioGuardado = socioRepository.save(socio);
+
+    // Reutiliza el mapeo existente para convertir Socio a SocioDTO
+    SocioDTO socioDTO = modelMapper.map(socioGuardado, SocioDTO.class);
+
+    return socioDTO;
+  }
+
+  public List<String> obtenerCategoriasDeSocio(Integer idSocio) {
+    Socio socio = socioRepository.findById(idSocio).orElseThrow(() -> new EntityNotFoundException("Socio no encontrado"));
+
+    List<String> categorias = socio.getCategorias().stream()
+        .map(Categoria::getNombre)
+        .collect(Collectors.toList());
+
+    return categorias;
+  }
+
 }

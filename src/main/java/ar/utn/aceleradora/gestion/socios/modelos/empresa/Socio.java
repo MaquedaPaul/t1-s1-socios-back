@@ -34,7 +34,12 @@ public class Socio {
     @Column
     private String mail;
 
-    @OneToMany(cascade = CascadeType.ALL)
+    @ManyToMany(fetch = FetchType.EAGER)
+    @JoinTable(
+        name = "socio_categoria",
+        joinColumns = @JoinColumn(name = "socio_id"),
+        inverseJoinColumns = @JoinColumn(name = "categoria_id")
+    )
     private List<Categoria> categorias;
 
     @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
@@ -58,6 +63,10 @@ public class Socio {
         this.telefono = telefono;
         this.mail = mail;
         this.ubicacion = ubicacion;
+    }
+
+    public boolean isActivo() {
+        return activo;
     }
 
 /*
