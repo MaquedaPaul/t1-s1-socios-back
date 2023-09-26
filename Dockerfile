@@ -1,13 +1,13 @@
+# Usa una imagen base de JDK 17
 FROM openjdk:17-alpine
 
-# Instalo bash
+# Instala Bash
 RUN apk add --no-cache bash
 
-ARG JAR_FILE=target/*.jar
-COPY ${JAR_FILE} app.jar
+# Directorio donde nuestra aplicación se ejecutará dentro del contenedor
+WORKDIR /app
 
-#Copio el script para esperar a que la base de datos este lista
-COPY wait-for-it.sh /wait-for-it.sh
-RUN chmod +x /wait-for-it.sh
+# Copio cualquier JAR compilado al contenedor
+COPY target/*.jar /app/app.jar
 
-EXPOSE 8080
+RUN ls -la /app

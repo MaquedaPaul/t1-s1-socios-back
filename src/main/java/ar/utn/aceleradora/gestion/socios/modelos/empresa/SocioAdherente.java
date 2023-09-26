@@ -20,7 +20,6 @@ import java.util.List;
 @Entity
 @Getter
 @Setter
-@Table
 @DiscriminatorValue(value = "socioEmpresa")
 public class SocioAdherente extends Socio{
 

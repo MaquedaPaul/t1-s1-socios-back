@@ -39,8 +39,3 @@ El proyecto sigue el siguiente modelo de carpetas:
    
    ```bash
    ./start.sh
-
-### En caso de cambios en el back-end:
-Si realizas cambios en el back-end y necesitas reiniciar el contenedor, simplemente ejecuta:
- ```bash
-   ./restart.sh
