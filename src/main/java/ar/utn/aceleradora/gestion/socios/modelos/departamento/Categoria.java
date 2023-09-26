@@ -1,6 +1,7 @@
 package ar.utn.aceleradora.gestion.socios.modelos.departamento;
 
 import ar.utn.aceleradora.gestion.socios.modelos.empresa.Socio;
+import ar.utn.aceleradora.gestion.socios.modelos.evento.Evento;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
@@ -19,6 +20,8 @@ public class Categoria {
     private Departamento departamentoPerteneciente;
     @Column
     private String nombre;
+    //@ManyToMany(mappedBy = "categorias")
+    //private List<Socio> socios;
 
     public Categoria() {
     }

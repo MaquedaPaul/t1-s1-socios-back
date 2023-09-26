@@ -15,7 +15,7 @@ import ar.utn.aceleradora.gestion.socios.modelos.departamento.Departamento;
 @Entity
 @Getter
 @Setter
-@Table
+//@Table
 @DiscriminatorValue(value = "socioPlenario")
 public class SocioPlenario extends Socio{
 

@@ -26,7 +26,6 @@ import java.util.stream.Collectors;
 public class SocioService {
   private final SocioRepository socioRepository;
   private final ModelMapper modelMapper;
-
   private final CategoriaService categoriaService;
   @Autowired
   public SocioService(SocioRepository socioRepository, ModelMapper modelMapper, CategoriaService categoriaService) {
