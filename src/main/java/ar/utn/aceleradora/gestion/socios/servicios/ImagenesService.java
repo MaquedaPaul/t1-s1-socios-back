@@ -60,7 +60,7 @@ public class ImagenesService {
   }
   public boolean eliminarImagenSiExiste(String nombreArchivo) {
     try {
-      Path rutaParaEliminar = Paths.get(path_imagenes + File.separator + StringUtils.cleanPath(nombreArchivo));
+      Path rutaParaEliminar = Paths.get(path_imagenes + File.separator + nombreArchivo + ".JPEG");
 
       if (Files.exists(rutaParaEliminar)) {
         Files.delete(rutaParaEliminar);
