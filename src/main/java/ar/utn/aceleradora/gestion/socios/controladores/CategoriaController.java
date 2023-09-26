@@ -3,6 +3,7 @@ package ar.utn.aceleradora.gestion.socios.controladores;
 import ar.utn.aceleradora.gestion.socios.modelos.departamento.Categoria;
 import ar.utn.aceleradora.gestion.socios.servicios.CategoriaService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -40,5 +41,17 @@ public class CategoriaController {
     public ResponseEntity<List<String>> obtenerNombresCategoria() {
         List<String> nombres = categoriaService.obtenerNombres();
         return new ResponseEntity<>(nombres, HttpStatus.OK);
+    }
+
+    @GetMapping("/borrarCategoria/{idCategoria}")
+    public ResponseEntity<String> eliminarCategoria(@PathVariable Integer idCategoria) {
+        try {
+            categoriaService.eliminarCategoria(idCategoria);
+            return ResponseEntity.ok("Categoria eliminada exitosamente");
+        } catch (EmptyResultDataAccessException e) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("La categoría no se encontró o no pudo ser eliminada");
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Hubo un error al eliminar la categoría");
+        }
     }
 }
