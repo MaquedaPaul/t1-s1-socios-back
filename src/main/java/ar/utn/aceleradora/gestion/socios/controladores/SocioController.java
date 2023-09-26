@@ -51,12 +51,12 @@ public class SocioController {
     public ResponseEntity<Page<ResumenSocioDTO>> obtenerResumenSocios(
             @RequestParam(defaultValue = "0") int pagina,
             @RequestParam(defaultValue = "10") int tamanio,
-            @RequestParam(name = "categoria", required = false) String categoria,
+            @RequestParam(name = "categoria", required = false) List<String> categorias,
             @RequestParam(name = "aniosActivos", required = false) Integer aniosActivos) {
-        Optional<String> categoriaOptional = Optional.ofNullable(categoria);
+        Optional<List<String>> categoriasOptionales = Optional.ofNullable(categorias);
         Optional<Integer> aniosActivosOptional = Optional.ofNullable(aniosActivos);
 
-        Page<ResumenSocioDTO> pages = socioService.obtenerResumenSociosPaginados(pagina, tamanio, categoriaOptional, aniosActivosOptional);
+        Page<ResumenSocioDTO> pages = socioService.obtenerResumenSociosPaginados(pagina, tamanio, categoriasOptionales, aniosActivosOptional);
         return ResponseEntity.ok(pages);
     }
 
@@ -75,6 +75,28 @@ public class SocioController {
             return new ResponseEntity<>(HttpStatus.ACCEPTED);
         } catch (EntityNotFoundException e) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+    }
+
+    @PostMapping("/{id}/categorias")
+    public ResponseEntity<SocioDTO> agregarCategoriasASocio(@PathVariable Integer id, @RequestBody List<String> categorias) {
+        try {
+            SocioDTO socioConEtiquetas = socioService.agregarCategoriasASocio(id, categorias);
+            return new ResponseEntity<>(socioConEtiquetas, HttpStatus.OK);
+        } catch (EntityNotFoundException e) {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Socio no encontrado", e);
+        } catch (Exception e) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Error al agregar etiquetas al socio", e);
+        }
+    }
+
+    @GetMapping("/{id}/categorias")
+    public ResponseEntity<List<String>> obtenerCategoriasDeSocio(@PathVariable Integer id) {
+        try {
+            List<String> categorias = socioService.obtenerCategoriasDeSocio(id);
+            return new ResponseEntity<>(categorias, HttpStatus.OK);
+        } catch (EntityNotFoundException e) {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Socio no encontrado", e);
         }
     }
 }
