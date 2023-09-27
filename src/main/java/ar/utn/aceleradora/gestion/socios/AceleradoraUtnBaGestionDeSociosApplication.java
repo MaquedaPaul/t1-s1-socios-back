@@ -10,7 +10,6 @@ import ar.utn.aceleradora.gestion.socios.modelos.ubicacion.Ubicacion;
 import ar.utn.aceleradora.gestion.socios.repositorios.CategoriaRepository;
 import ar.utn.aceleradora.gestion.socios.repositorios.DepartamentoRepository;
 import ar.utn.aceleradora.gestion.socios.repositorios.SocioRepository;
-import ar.utn.aceleradora.gestion.socios.repositorios.UbicacionRepository;
 import ar.utn.aceleradora.gestion.socios.servicios.CategoriaService;
 import ar.utn.aceleradora.gestion.socios.servicios.SocioService;
 import org.springframework.boot.CommandLineRunner;
@@ -18,7 +17,9 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 import java.util.Random;
 
@@ -32,13 +33,24 @@ public class AceleradoraUtnBaGestionDeSociosApplication {
 	@Bean
 	public CommandLineRunner dataInicial(CategoriaRepository categoriaRepo, CategoriaService categoriaService,
 																			 DepartamentoRepository departamentoRepo,
-																			 SocioRepository socioRepo,SocioService socioService,
-										 									 UbicacionRepository ubicacionRepo) {
+																			 SocioRepository socioRepo,SocioService socioService) {
 		return args -> {
 
 			Random random = new Random();
+			List<String> primeraParte = Arrays.asList("Omega", "Beta", "Gamma", "Sigma", "Theta");
+			List<String> segundaParte = Arrays.asList("Innovations", "Solutions", "Enterprises", "Software", "Technologies");
 
-			String[] nombres = {"Carri Corp", "AlphaTech", "BravoSoft", "Charlie Systems", "Delta Devs"};
+
+			List<String> combinaciones = new ArrayList<>();
+			for (String prefijo : primeraParte) {
+				for (String sufijo : segundaParte) {
+					combinaciones.add(prefijo + " " + sufijo);
+				}
+			}
+
+			Collections.shuffle(combinaciones);
+			String[] nombres = combinaciones.subList(0, 15).toArray(new String[0]);
+
 			TipoSocio[] tipos = TipoSocio.values();
 			String[] mails = {"example1@domain.com", "example2@domain.com", "example3@domain.com", "example4@domain.com"};
 
