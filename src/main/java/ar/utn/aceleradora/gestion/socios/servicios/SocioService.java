@@ -166,4 +166,12 @@ public class SocioService {
     return categorias;
   }
 
+  public Void eliminarCategoriaDeSocio(Integer idSocio, String nombreCategoria) {
+    Socio socio = socioRepository.findById(idSocio).orElseThrow(() -> new EntityNotFoundException("Socio no encontrado"));
+    Categoria categoria = categoriaService.obtenerCategoriaPorNombre(nombreCategoria);
+    socio.getCategorias().remove(categoria);
+    socioRepository.save(socio);
+    return null;
+  }
+
 }

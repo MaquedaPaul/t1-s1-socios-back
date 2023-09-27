@@ -103,4 +103,16 @@ public class SocioController {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Socio no encontrado", e);
         }
     }
+
+    @PutMapping("/{id}/categorias")
+    public ResponseEntity<Void> eliminarCategoriaDeSocio(@PathVariable Integer id, @RequestBody String categoria) {
+        try {
+            socioService.eliminarCategoriaDeSocio(id, categoria);
+            return new ResponseEntity<>(HttpStatus.OK);
+        } catch (EntityNotFoundException e) {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Socio no encontrado", e);
+        }
+    }
+
+
 }
