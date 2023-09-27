@@ -82,7 +82,10 @@ public class SocioService {
       sociosFiltrados = socioRepository.findByCategoriasInAndMembresia_FechaInicioBefore(categorias, fechaInicioMembresia, pageable);
     } else if (tipoSocio != null && fechaInicioMembresia != null) {
       sociosFiltrados = socioRepository.findByTipoSocioAndMembresia_FechaInicioBefore(tipoSocio, fechaInicioMembresia, pageable);
-    } else if (tipoSocio != null) {
+    } else if (tipoSocio != null && nombre !=null){
+        sociosFiltrados = socioRepository.findByTipoSocioAndNombreContaining(tipoSocio, nombre, pageable);
+    }
+    else if (tipoSocio != null) {
       sociosFiltrados = socioRepository.findByTipoSocio(tipoSocio, pageable);
     } else if (categorias != null) {
       sociosFiltrados = socioRepository.findByCategoriasIn(categorias, pageable);
