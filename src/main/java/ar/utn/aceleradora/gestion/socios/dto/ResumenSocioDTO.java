@@ -10,6 +10,7 @@ import java.util.List;
 @Getter
 @Setter
 public class ResumenSocioDTO{
+  private Integer id;
   private String nombre;
   private String apellidoPresidente;
   private TipoSocio tipoSocio;
