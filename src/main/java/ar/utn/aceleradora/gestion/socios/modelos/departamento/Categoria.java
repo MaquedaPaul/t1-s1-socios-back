@@ -15,18 +15,23 @@ public class Categoria {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
-    @ManyToOne
-    @JoinColumn(name = "idDepartamento")
-    private Departamento departamentoPerteneciente;
+
     @Column
     private String nombre;
+
+
+
     //@ManyToMany(mappedBy = "categorias")
     //private List<Socio> socios;
 
+
+    //@ManyToOne
+    //@JoinColumn(name = "idDepartamento")
+    //private Departamento departamentoPerteneciente;
+
     public Categoria() {
     }
-    public Categoria(Departamento departamento, String nombre){
-        this.departamentoPerteneciente = departamento;
+    public Categoria( String nombre){
         this.nombre = nombre;
     }
 }

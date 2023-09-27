@@ -20,21 +20,19 @@ public class Departamento {
     @Column
     private String nombre;
 
-    @OneToMany(mappedBy = "departamentoPerteneciente")
-    private List<Categoria> etiquetas;
+    //@OneToMany(mappedBy = "departamentoPerteneciente")
+    //private List<Categoria> etiquetas;
 
 
     public Departamento() {
     }
 
-    public Departamento(String nombreDepto, List<Categoria> etiquetas){
+    public Departamento(String nombreDepto){
         this.nombre = nombreDepto;
-        this.etiquetas = etiquetas;
+
     }
 
-    public void agregarEtiqueta(Categoria e){
-       etiquetas.add(e);
-   }
+
   // public void asignarEtiqutaSocioEmpresa(Etiqueta etiqueta, SocioEmpresa socio){
  //       socio.recibirEtiqueta(etiqueta);
  //  }

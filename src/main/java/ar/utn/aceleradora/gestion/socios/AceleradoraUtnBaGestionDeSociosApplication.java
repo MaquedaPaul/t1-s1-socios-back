@@ -54,29 +54,29 @@ public class AceleradoraUtnBaGestionDeSociosApplication {
 			TipoSocio[] tipos = TipoSocio.values();
 			String[] mails = {"example1@domain.com", "example2@domain.com", "example3@domain.com", "example4@domain.com"};
 
-			Departamento departamento1 = new Departamento("Departamento 1", null);
-			Departamento departamento2 = new Departamento("Departamento 2", null);
-			Departamento departamento3 = new Departamento("Departamento 3", null);
+			Departamento departamento1 = new Departamento("Departamento 1");
+			Departamento departamento2 = new Departamento("Departamento 2");
+			Departamento departamento3 = new Departamento("Departamento 3");
 
 			departamentoRepo.saveAll(Arrays.asList(
 					departamento1, departamento2, departamento3
 			));
 			Categoria[] categorias = {
-					new Categoria(departamento1, "Normativa"),
-					new Categoria(departamento1, "RRII"),
-					new Categoria(departamento2, "Ambiente"),
-					new Categoria(departamento2, "Comité Ejecutivo"),
-					new Categoria(departamento3, "Comisión Directiva"),
-					new Categoria(departamento3, "Empresas"),
-					new Categoria(departamento3, "Cámaras"),
-					new Categoria(departamento3, "Presidentes"),
-					new Categoria(departamento3, "Gerentes"),
-					new Categoria(departamento3, "Comex"),
-					new Categoria(departamento3, "Pyme"),
-					new Categoria(departamento3, "Fiscal"),
-					new Categoria(departamento3, "Laborales"),
-					new Categoria(departamento3, "Legales"),
-					new Categoria(departamento3, "Envases")
+					new Categoria( "Normativa"),
+					new Categoria( "RRII"),
+					new Categoria( "Ambiente"),
+					new Categoria( "Comité Ejecutivo"),
+					new Categoria( "Comisión Directiva"),
+					new Categoria( "Empresas"),
+					new Categoria( "Cámaras"),
+					new Categoria( "Presidentes"),
+					new Categoria( "Gerentes"),
+					new Categoria( "Comex"),
+					new Categoria( "Pyme"),
+					new Categoria( "Fiscal"),
+					new Categoria( "Laborales"),
+					new Categoria( "Legales"),
+					new Categoria( "Envases")
 			};
 			categoriaRepo.saveAll(Arrays.asList(categorias));
 
