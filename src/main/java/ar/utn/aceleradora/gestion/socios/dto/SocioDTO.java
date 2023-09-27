@@ -15,6 +15,7 @@ public class SocioDTO {
   private Integer id;
   private String nombre;
   private TipoSocio tipoSocio;
+  private Boolean activo;
   private Integer telefono;
   private String mail;
   private String nombrePresidente;  //solo para socios plenarios
