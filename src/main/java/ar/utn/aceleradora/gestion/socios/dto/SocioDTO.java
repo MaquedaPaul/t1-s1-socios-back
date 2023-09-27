@@ -19,10 +19,10 @@ public class SocioDTO {
   private Integer telefono;
   private String mail;
   private String nombrePresidente;  //solo para socios plenarios
-  private List<Categoria> categorias;
+  private List<Categoria> categoria;
   private Ubicacion ubicacion;
 
     public SocioDTO() {
-    this.categorias = new ArrayList<>();
+    this.categoria = new ArrayList<>();
     }
 }
