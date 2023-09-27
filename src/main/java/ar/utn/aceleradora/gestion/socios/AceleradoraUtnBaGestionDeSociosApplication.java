@@ -31,7 +31,7 @@ public class AceleradoraUtnBaGestionDeSociosApplication {
 	}
 
 	@Bean
-	public CommandLineRunner dataInicial(CategoriaRepository categoriaRepo, CategoriaService categoriaService,
+	public CommandLineRunner dataInicial(CategoriaRepository categoriaRepo,
 																			 DepartamentoRepository departamentoRepo,
 																			 SocioRepository socioRepo,SocioService socioService) {
 		return args -> {
