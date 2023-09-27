@@ -53,12 +53,14 @@ public class SocioController {
             @RequestParam(defaultValue = "10") int tamanio,
             @RequestParam(name = "categoria", required = false) List<String> categorias,
             @RequestParam(name = "aniosActivos", required = false) Integer aniosActivos,
-            @RequestParam(name = "tipoSocio", required = false) String tipoSocio) {
+            @RequestParam(name = "tipoSocio", required = false) String tipoSocio,
+            @RequestParam(name = "nombre", required = false) String nombre) {
         Optional<List<String>> categoriasOptionales = Optional.ofNullable(categorias);
         Optional<Integer> aniosActivosOptional = Optional.ofNullable(aniosActivos);
         Optional<String> tipoSocioOptional = Optional.ofNullable(tipoSocio);
+        Optional<String> nombreOptional = Optional.ofNullable(nombre);
 
-        Page<ResumenSocioDTO> pages = socioService.obtenerResumenSociosPaginados(pagina, tamanio, categoriasOptionales, aniosActivosOptional, tipoSocioOptional);
+        Page<ResumenSocioDTO> pages = socioService.obtenerResumenSociosPaginados(pagina, tamanio, categoriasOptionales, aniosActivosOptional, tipoSocioOptional, nombreOptional);
         return ResponseEntity.ok(pages);
     }
 

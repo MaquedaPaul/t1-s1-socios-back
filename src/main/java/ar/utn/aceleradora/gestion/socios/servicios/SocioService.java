@@ -61,7 +61,7 @@ public class SocioService {
     return socios.stream().map(Socio::getNombre).collect(Collectors.toList());
   }
 
-  public Page<ResumenSocioDTO> obtenerResumenSociosPaginados(int pagina, int tamanio, Optional<List<String>> categoriaOptional, Optional<Integer> aniosActivosOptional, Optional<String> tipoSocioOptional) {
+  public Page<ResumenSocioDTO> obtenerResumenSociosPaginados(int pagina, int tamanio, Optional<List<String>> categoriaOptional, Optional<Integer> aniosActivosOptional, Optional<String> tipoSocioOptional, Optional<String> nombreOptional) {
     LocalDate fechaActual = LocalDate.now();
     Pageable pageable = PageRequest.of(pagina, tamanio);
     List<Socio> sociosFiltrados;
@@ -71,17 +71,9 @@ public class SocioService {
     List<Categoria> categorias = categoriaOptional.isPresent() ? categoriaService.obtenerCategoriasPorNombres(categoriaOptional.get()) : null;
     LocalDate fechaInicioMembresia = aniosActivosOptional.isPresent() ? fechaActual.minusYears(aniosActivosOptional.get()) : null;
     TipoSocio tipoSocio = tipoSocioOptional.isPresent() ? TipoSocio.valueOf(tipoSocioOptional.get()) : null;
-    /*
-    if (categorias != null && fechaInicioMembresia != null) {
-      sociosFiltrados = socioRepository.findByCategoriasInAndMembresia_FechaInicioBefore(categorias, fechaInicioMembresia, pageable);
-    } else if (categorias != null) {
-      sociosFiltrados = socioRepository.findByCategoriasIn(categorias, pageable);
-    } else if (fechaInicioMembresia != null) {
-      sociosFiltrados = socioRepository.findByMembresia_FechaInicioBefore(fechaInicioMembresia, pageable);
-    } else {
-      sociosFiltrados = socioRepository.findAll(pageable).getContent();
-    }
-*/
+    String nombre = nombreOptional.isPresent() ? nombreOptional.get() : null;
+
+
     if (categorias != null && fechaInicioMembresia != null && tipoSocio != null) {
       sociosFiltrados = socioRepository.findByTipoSocioAndCategoriasInAndMembresia_FechaInicioBefore(tipoSocio, categorias, fechaInicioMembresia, pageable);
     } else if (categorias != null && tipoSocio != null) {
@@ -96,6 +88,8 @@ public class SocioService {
       sociosFiltrados = socioRepository.findByCategoriasIn(categorias, pageable);
     } else if (fechaInicioMembresia != null) {
       sociosFiltrados = socioRepository.findByMembresia_FechaInicioBefore(fechaInicioMembresia, pageable);
+    } else if (nombre != null) {
+      sociosFiltrados = socioRepository.findByNombreContaining(nombre, pageable);
     } else {
       sociosFiltrados = socioRepository.findAll(pageable).getContent();
     }

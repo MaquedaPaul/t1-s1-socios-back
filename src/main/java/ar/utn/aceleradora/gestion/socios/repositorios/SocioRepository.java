@@ -21,6 +21,8 @@ public interface SocioRepository extends JpaRepository<Socio, Integer> {
     List<Socio> findByTipoSocio(TipoSocio tipoSocio, Pageable pageable);
 
     List<Socio> findByTipoSocioAndMembresia_FechaInicioBefore(TipoSocio tipoSocio, LocalDate fechaInicioMembresia, Pageable pageable);
-     List<Socio> findByTipoSocioAndCategoriasIn(TipoSocio tipoSocio, List<Categoria> categoria, Pageable pageable);
+    List<Socio> findByTipoSocioAndCategoriasIn(TipoSocio tipoSocio, List<Categoria> categoria, Pageable pageable);
+
+    List<Socio> findByNombreContaining(String nombre, Pageable pageable);
 }
 
