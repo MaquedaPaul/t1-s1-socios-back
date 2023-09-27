@@ -6,6 +6,7 @@ import ar.utn.aceleradora.gestion.socios.dto.SocioDTO;
 import ar.utn.aceleradora.gestion.socios.dto.SocioPostDTO;
 import ar.utn.aceleradora.gestion.socios.modelos.departamento.Categoria;
 import ar.utn.aceleradora.gestion.socios.modelos.empresa.Socio;
+import ar.utn.aceleradora.gestion.socios.modelos.empresa.TipoSocio;
 import ar.utn.aceleradora.gestion.socios.repositorios.SocioRepository;
 import jakarta.persistence.EntityNotFoundException;
 import org.modelmapper.ModelMapper;
@@ -60,15 +61,17 @@ public class SocioService {
     return socios.stream().map(Socio::getNombre).collect(Collectors.toList());
   }
 
-  public Page<ResumenSocioDTO> obtenerResumenSociosPaginados(int pagina, int tamanio, Optional<List<String>> categoriaOptional, Optional<Integer> aniosActivosOptional) {
+  public Page<ResumenSocioDTO> obtenerResumenSociosPaginados(int pagina, int tamanio, Optional<List<String>> categoriaOptional, Optional<Integer> aniosActivosOptional, Optional<String> tipoSocioOptional) {
     LocalDate fechaActual = LocalDate.now();
     Pageable pageable = PageRequest.of(pagina, tamanio);
     List<Socio> sociosFiltrados;
 
 
+
     List<Categoria> categorias = categoriaOptional.isPresent() ? categoriaService.obtenerCategoriasPorNombres(categoriaOptional.get()) : null;
     LocalDate fechaInicioMembresia = aniosActivosOptional.isPresent() ? fechaActual.minusYears(aniosActivosOptional.get()) : null;
-
+    TipoSocio tipoSocio = tipoSocioOptional.isPresent() ? TipoSocio.valueOf(tipoSocioOptional.get()) : null;
+    /*
     if (categorias != null && fechaInicioMembresia != null) {
       sociosFiltrados = socioRepository.findByCategoriasInAndMembresia_FechaInicioBefore(categorias, fechaInicioMembresia, pageable);
     } else if (categorias != null) {
@@ -78,6 +81,25 @@ public class SocioService {
     } else {
       sociosFiltrados = socioRepository.findAll(pageable).getContent();
     }
+*/
+    if (categorias != null && fechaInicioMembresia != null && tipoSocio != null) {
+      sociosFiltrados = socioRepository.findByTipoSocioAndCategoriasInAndMembresia_FechaInicioBefore(tipoSocio, categorias, fechaInicioMembresia, pageable);
+    } else if (categorias != null && tipoSocio != null) {
+      sociosFiltrados = socioRepository.findByTipoSocioAndCategoriasIn(tipoSocio, categorias, pageable);
+    } else if (categorias != null && fechaInicioMembresia != null) {
+      sociosFiltrados = socioRepository.findByCategoriasInAndMembresia_FechaInicioBefore(categorias, fechaInicioMembresia, pageable);
+    } else if (tipoSocio != null && fechaInicioMembresia != null) {
+      sociosFiltrados = socioRepository.findByTipoSocioAndMembresia_FechaInicioBefore(tipoSocio, fechaInicioMembresia, pageable);
+    } else if (tipoSocio != null) {
+      sociosFiltrados = socioRepository.findByTipoSocio(tipoSocio, pageable);
+    } else if (categorias != null) {
+      sociosFiltrados = socioRepository.findByCategoriasIn(categorias, pageable);
+    } else if (fechaInicioMembresia != null) {
+      sociosFiltrados = socioRepository.findByMembresia_FechaInicioBefore(fechaInicioMembresia, pageable);
+    } else {
+      sociosFiltrados = socioRepository.findAll(pageable).getContent();
+    }
+
 
     List<ResumenSocioDTO> resumenSocios = sociosFiltrados.stream()
         .map(socio -> convertirResumenSocioDTO(socio, fechaActual))
