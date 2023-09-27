@@ -19,10 +19,8 @@ public class Categoria {
     @Column
     private String nombre;
 
-
-
-    //@ManyToMany(mappedBy = "categorias")
-    //private List<Socio> socios;
+    @ManyToMany(mappedBy = "categorias")
+    private List<Socio> socios;
 
 
     //@ManyToOne

@@ -8,6 +8,7 @@ import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import static ar.utn.aceleradora.gestion.socios.modelos.empresa.TipoSocio.SOCIO_ADHERENTE;
@@ -54,12 +55,14 @@ public class Socio {
     private Membresia membresia;
 
     public Socio() {
+        this.categorias = new ArrayList<>();
     }
 
     public Socio(String nombre, TipoSocio tipoSocio, Integer telefono, String mail ,Ubicacion ubicacion) {
         this.nombre = nombre;
         this.tipoSocio = tipoSocio;
         this.activo = true; // Suponemos que al dar de alta, el socio está activo por defecto
+        this.categorias = new ArrayList<>();
         this.telefono = telefono;
         this.mail = mail;
         this.ubicacion = ubicacion;
