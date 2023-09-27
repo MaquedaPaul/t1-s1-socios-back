@@ -104,7 +104,7 @@ public class SocioController {
         }
     }
 
-    @PutMapping("/{id}/categorias")
+    @DeleteMapping("/{id}/categorias")
     public ResponseEntity<Void> eliminarCategoriaDeSocio(@PathVariable Integer id, @RequestParam(name = "categoria") String categoria) {
         try {
             socioService.eliminarCategoriaDeSocio(id, categoria);
