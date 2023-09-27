@@ -31,7 +31,7 @@ public class SocioPlenario extends Socio{
   }
 
 
-  public SocioPlenario(String nombre, String nombrePresidente, Integer telefono, String mail, Ubicacion ubicacion) {
+  public SocioPlenario(String nombre, String nombrePresidente, String telefono, String mail, Ubicacion ubicacion) {
     super(nombre, TipoSocio.SOCIO_PLENARIO, telefono, mail, ubicacion);
     this.nombrePresidente = nombrePresidente;
   }

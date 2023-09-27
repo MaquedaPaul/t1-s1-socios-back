@@ -16,13 +16,14 @@ public class SocioDTO {
   private String nombre;
   private TipoSocio tipoSocio;
   private Boolean activo;
-  private Integer telefono;
+  //private Integer telefono;
+  private String telefono;
   private String mail;
   private String nombrePresidente;  //solo para socios plenarios
-  private List<Categoria> categoria;
+  private List<Categoria> categorias;
   private Ubicacion ubicacion;
 
     public SocioDTO() {
-    this.categoria = new ArrayList<>();
+    //this.categorias = new ArrayList<>();
     }
 }

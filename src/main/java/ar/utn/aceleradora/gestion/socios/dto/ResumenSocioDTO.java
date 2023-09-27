@@ -14,7 +14,7 @@ public class ResumenSocioDTO{
   private String nombre;
   private String apellidoPresidente;
   private TipoSocio tipoSocio;
-  private List<Categoria> categoria;
+  private List<Categoria> categorias;
   private Boolean activo;
   private String mail;
   private String telefono;

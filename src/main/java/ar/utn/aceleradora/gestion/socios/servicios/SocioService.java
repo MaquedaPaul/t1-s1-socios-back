@@ -10,6 +10,8 @@ import ar.utn.aceleradora.gestion.socios.modelos.empresa.TipoSocio;
 import ar.utn.aceleradora.gestion.socios.repositorios.SocioRepository;
 import jakarta.persistence.EntityNotFoundException;
 import org.modelmapper.ModelMapper;
+import org.modelmapper.TypeMap;
+import org.modelmapper.convention.MatchingStrategies;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
@@ -33,7 +35,17 @@ public class SocioService {
     this.socioRepository = socioRepository;
     this.modelMapper = modelMapper;
     this.categoriaService = categoriaService;
+
+
+
+    //modelMapper.getConfiguration().setMatchingStrategy(MatchingStrategies.STRICT); // Configura la estrategia de coincidencia
+
+    //TypeMap<Socio, SocioDTO> typeMap = modelMapper.createTypeMap(Socio.class, SocioDTO.class);
+
+    //typeMap.addMapping(Socio::getCategorias, SocioDTO::setCategoria);
   }
+
+
   public SocioDTO guardarSocio(SocioPostDTO socioPostDTO) {
 
     Socio socio = modelMapper.map(socioPostDTO, Socio.class);
@@ -170,6 +182,14 @@ public class SocioService {
     Socio socio = socioRepository.findById(idSocio).orElseThrow(() -> new EntityNotFoundException("Socio no encontrado"));
     Categoria categoria = categoriaService.obtenerCategoriaPorNombre(nombreCategoria);
     socio.getCategorias().remove(categoria);
+    socioRepository.save(socio);
+    return null;
+  }
+
+  public Void actualizarCategoriasDeSocio(Integer idSocio, List<String> nombresCategorias) {
+    Socio socio = socioRepository.findById(idSocio).orElseThrow(() -> new EntityNotFoundException("Socio no encontrado"));
+    List<Categoria> categorias = categoriaService.obtenerCategoriasPorNombres(nombresCategorias);
+    socio.setCategorias(categorias);
     socioRepository.save(socio);
     return null;
   }

@@ -28,17 +28,21 @@ public class AceleradoraUtnBaGestionDeSociosApplication {
 	public static void main(String[] args) {
 		SpringApplication.run(AceleradoraUtnBaGestionDeSociosApplication.class, args);
 
+
 	}
+
+
 
 	@Bean
 	public CommandLineRunner dataInicial(CategoriaRepository categoriaRepo,
-																			 DepartamentoRepository departamentoRepo,
-																			 SocioRepository socioRepo,SocioService socioService) {
+										 DepartamentoRepository departamentoRepo,
+										 SocioRepository socioRepo,SocioService socioService) {
 		return args -> {
 
 			Random random = new Random();
 			List<String> primeraParte = Arrays.asList("Omega", "Beta", "Gamma", "Sigma", "Theta");
 			List<String> segundaParte = Arrays.asList("Innovations", "Solutions", "Enterprises", "Software", "Technologies");
+
 
 
 			List<String> combinaciones = new ArrayList<>();
@@ -83,8 +87,9 @@ public class AceleradoraUtnBaGestionDeSociosApplication {
 			for (int i = 0; i < 15; i++) {
 				String nombreRandom = nombres[random.nextInt(nombres.length)];
 				TipoSocio tipoRandom = tipos[random.nextInt(tipos.length)];
-				int telefonoRandom = 100000000 + random.nextInt(900000000);
+				//int telefonoRandom = 100000000 + random.nextInt(900000000);
 				String mailRandom = "random" + random.nextInt(1000) + "@domain.com";
+				String telefonoRandomString = "11" + (10000000 + random.nextInt(90000000));
 
 				Ubicacion ubicacion = new Ubicacion(
 						"Dirección " + random.nextInt(100),
@@ -98,7 +103,7 @@ public class AceleradoraUtnBaGestionDeSociosApplication {
 				Socio socio = new Socio(
 						nombreRandom,
 						tipoRandom,
-						telefonoRandom,
+						telefonoRandomString,
 						mailRandom,
 						ubicacion
 				);

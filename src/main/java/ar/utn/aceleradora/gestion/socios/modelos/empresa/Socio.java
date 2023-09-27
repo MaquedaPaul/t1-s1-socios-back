@@ -31,7 +31,7 @@ public class Socio {
     @Column
     private Boolean activo;
     @Column
-    private Integer telefono;
+    private String telefono;//Puede ser string
     @Column
     private String mail;
 
@@ -58,7 +58,7 @@ public class Socio {
         this.categorias = new ArrayList<>();
     }
 
-    public Socio(String nombre, TipoSocio tipoSocio, Integer telefono, String mail ,Ubicacion ubicacion) {
+    public Socio(String nombre, TipoSocio tipoSocio, String telefono, String mail ,Ubicacion ubicacion) {
         this.nombre = nombre;
         this.tipoSocio = tipoSocio;
         this.activo = true; // Suponemos que al dar de alta, el socio está activo por defecto
@@ -72,9 +72,5 @@ public class Socio {
         return activo;
     }
 
-/*
-    public void recibirEtiqueta(Etiqueta etiqueta){
-        this.etiquetas.add(etiqueta);
-    }
-*/
+
 }
