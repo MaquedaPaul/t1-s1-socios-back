@@ -83,29 +83,44 @@ public class AceleradoraUtnBaGestionDeSociosApplication {
 			};
 			categoriaRepo.saveAll(Arrays.asList(categorias));
 
+			List<Categoria> categoriasDisponibles = categoriaRepo.findAll();
+
+			// Tipos de socios disponibles
+			TipoSocio[] tiposSocios = TipoSocio.values();
+
 			for (int i = 0; i < 15; i++) {
-				String nombreRandom = nombres[random.nextInt(nombres.length)];
-				TipoSocio tipoRandom = tipos[random.nextInt(tipos.length)];
-				//int telefonoRandom = 100000000 + random.nextInt(900000000);
-				String mailRandom = "random" + random.nextInt(1000) + "@domain.com";
-				String telefonoRandomString = "11" + (10000000 + random.nextInt(90000000));
+				// Selecciona un tipo de socio aleatorio
+				TipoSocio tipoSocio = tiposSocios[random.nextInt(tiposSocios.length)];
 
+				// Crea una ubicación ficticia
 				Ubicacion ubicacion = new Ubicacion(
-						"Dirección " + random.nextInt(100),
-						"Piso " + random.nextInt(10),
-						"Dpto " + (char) (65 + random.nextInt(26)),
-						"Localidad " + random.nextInt(100),
-						"Provincia " + random.nextInt(5),
-						"País " + random.nextInt(3)
+						"Calle Ficticia " + (i + 1),
+						"Piso " + (i + 1),
+						"Depto " + (i + 1),
+						"Ciudad Ficticia",
+						"Provincia Ficticia",
+						"País Ficticio"
 				);
 
+				// Crea un socio con datos de prueba
 				Socio socio = new Socio(
-						nombreRandom,
-						tipoRandom,
-						telefonoRandomString,
-						mailRandom,
-						ubicacion
+						"Socio de Prueba " + (i + 1),
+						tipoSocio,
+						"123456789", // Número de teléfono ficticio
+						"socio" + (i + 1) + "@ejemplo.com", // Correo electrónico ficticio
+						ubicacion // Asigna la ubicación ficticia al socio
 				);
+
+				// Agrega un subconjunto aleatorio de categorías
+				List<Categoria> subconjuntoCategorias = new ArrayList<>();
+				int numCategorias = random.nextInt(categoriasDisponibles.size());
+				for (int j = 0; j < numCategorias; j++) {
+					Categoria categoria = categoriasDisponibles.get(j);
+					subconjuntoCategorias.add(categoria);
+				}
+				socio.setCategorias(subconjuntoCategorias);
+
+				// Guarda el socio en la base de datos
 				socioRepo.save(socio);
 			}
 
