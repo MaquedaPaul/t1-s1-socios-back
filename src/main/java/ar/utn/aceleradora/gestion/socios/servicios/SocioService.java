@@ -73,18 +73,16 @@ public class SocioService {
     return socios.stream().map(Socio::getNombre).collect(Collectors.toList());
   }
 
-  public Page<ResumenSocioDTO> obtenerResumenSociosPaginados(int pagina, int tamanio, Optional<List<String>> categoriaOptional, Optional<Integer> aniosActivosOptional, Optional<String> tipoSocioOptional, Optional<String> nombreOptional) {
+  public Page<ResumenSocioDTO> obtenerResumenSociosPaginados(int pagina, int tamanio, Optional<List<String>> categoriaOptional, Optional<Integer> aniosActivosOptional, Optional<String> tipoSocioOptional, Optional<String> nombreOptional, Optional<Boolean> activoOptional) {
     LocalDate fechaActual = LocalDate.now();
     Pageable pageable = PageRequest.of(pagina, tamanio);
     List<Socio> sociosFiltrados;
-
-
 
     List<Categoria> categorias = categoriaOptional.isPresent() ? categoriaService.obtenerCategoriasPorNombres(categoriaOptional.get()) : null;
     LocalDate fechaInicioMembresia = aniosActivosOptional.isPresent() ? fechaActual.minusYears(aniosActivosOptional.get()) : null;
     TipoSocio tipoSocio = tipoSocioOptional.isPresent() ? TipoSocio.valueOf(tipoSocioOptional.get()) : null;
     String nombre = nombreOptional.isPresent() ? nombreOptional.get() : null;
-
+    Boolean activo = activoOptional.isPresent() ? activoOptional.get() : null;
 
     if (categorias != null && fechaInicioMembresia != null && tipoSocio != null) {
       sociosFiltrados = socioRepository.findByTipoSocioAndCategoriasInAndMembresia_FechaInicioBefore(tipoSocio, categorias, fechaInicioMembresia, pageable);
@@ -96,8 +94,7 @@ public class SocioService {
       sociosFiltrados = socioRepository.findByTipoSocioAndMembresia_FechaInicioBefore(tipoSocio, fechaInicioMembresia, pageable);
     } else if (tipoSocio != null && nombre !=null){
         sociosFiltrados = socioRepository.findByTipoSocioAndNombreContaining(tipoSocio, nombre, pageable);
-    }
-    else if (tipoSocio != null) {
+    } else if (tipoSocio != null) {
       sociosFiltrados = socioRepository.findByTipoSocio(tipoSocio, pageable);
     } else if (categorias != null) {
       sociosFiltrados = socioRepository.findByCategoriasIn(categorias, pageable);
@@ -105,9 +102,12 @@ public class SocioService {
       sociosFiltrados = socioRepository.findByMembresia_FechaInicioBefore(fechaInicioMembresia, pageable);
     } else if (nombre != null) {
       sociosFiltrados = socioRepository.findByNombreContaining(nombre, pageable);
+    } else if (activo != null){
+        sociosFiltrados = socioRepository.findByActivo(activo, pageable);
     } else {
       sociosFiltrados = socioRepository.findAll(pageable).getContent();
     }
+
 
 
     List<ResumenSocioDTO> resumenSocios = sociosFiltrados.stream()

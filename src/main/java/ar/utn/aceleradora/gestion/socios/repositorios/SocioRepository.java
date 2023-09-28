@@ -26,5 +26,7 @@ public interface SocioRepository extends JpaRepository<Socio, Integer> {
     List<Socio> findByNombreContaining(String nombre, Pageable pageable);
 
     List<Socio> findByTipoSocioAndNombreContaining(TipoSocio tipoSocio, String nombre, Pageable pageable);
+
+    List<Socio> findByActivo(Boolean activo ,Pageable pageable);
 }
 

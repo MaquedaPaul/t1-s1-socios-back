@@ -46,7 +46,7 @@ public class SocioController {
         List<String> nombres = socioService.obtenerNombres();
         return new ResponseEntity<>(nombres, HttpStatus.OK);
     }
-
+/*
     @GetMapping("/busquedaPaginada")
     public ResponseEntity<Page<ResumenSocioDTO>> obtenerResumenSocios(
             @RequestParam(defaultValue = "0") int pagina,
@@ -62,8 +62,25 @@ public class SocioController {
 
         Page<ResumenSocioDTO> pages = socioService.obtenerResumenSociosPaginados(pagina, tamanio, categoriasOptionales, aniosActivosOptional, tipoSocioOptional, nombreOptional);
         return ResponseEntity.ok(pages);
-    }
+    }*/
+    @GetMapping("/busquedaPaginada")
+    public ResponseEntity<Page<ResumenSocioDTO>> obtenerResumenSocios(
+            @RequestParam(defaultValue = "0") int pagina,
+            @RequestParam(defaultValue = "10") int tamanio,
+            @RequestParam(name = "categoria", required = false) List<String> categorias,
+            @RequestParam(name = "aniosActivos", required = false) Integer aniosActivos,
+            @RequestParam(name = "tipoSocio", required = false) String tipoSocio,
+            @RequestParam(name = "nombre", required = false) String nombre,
+            @RequestParam(name = "activo", required = false) Boolean activo){
+        Optional<List<String>> categoriasOptionales = Optional.ofNullable(categorias);
+        Optional<Integer> aniosActivosOptional = Optional.ofNullable(aniosActivos);
+        Optional<String> tipoSocioOptional = Optional.ofNullable(tipoSocio);
+        Optional<String> nombreOptional = Optional.ofNullable(nombre);
+        Optional<Boolean> activoOptional = Optional.ofNullable(activo);
 
+        Page<ResumenSocioDTO> pages = socioService.obtenerResumenSociosPaginados(pagina, tamanio, categoriasOptionales, aniosActivosOptional, tipoSocioOptional, nombreOptional,activoOptional);
+        return ResponseEntity.ok(pages);
+    }
     @PutMapping("/{id}")
     public ResponseEntity<SocioDTO> actualizarSocio(@PathVariable Integer id, @RequestBody SocioDTO socio) {
         SocioDTO socioActualizado = socioService.actualizarSocio(id, socio);

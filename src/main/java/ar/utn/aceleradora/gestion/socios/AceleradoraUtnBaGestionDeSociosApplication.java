@@ -10,7 +10,6 @@ import ar.utn.aceleradora.gestion.socios.modelos.ubicacion.Ubicacion;
 import ar.utn.aceleradora.gestion.socios.repositorios.CategoriaRepository;
 import ar.utn.aceleradora.gestion.socios.repositorios.DepartamentoRepository;
 import ar.utn.aceleradora.gestion.socios.repositorios.SocioRepository;
-import ar.utn.aceleradora.gestion.socios.servicios.CategoriaService;
 import ar.utn.aceleradora.gestion.socios.servicios.SocioService;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
@@ -27,8 +26,6 @@ import java.util.Random;
 public class AceleradoraUtnBaGestionDeSociosApplication {
 	public static void main(String[] args) {
 		SpringApplication.run(AceleradoraUtnBaGestionDeSociosApplication.class, args);
-
-
 	}
 
 
