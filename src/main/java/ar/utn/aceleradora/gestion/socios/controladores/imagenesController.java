@@ -22,7 +22,7 @@ public class imagenesController {
   public ResponseEntity<String> subirImagen(@PathVariable Integer idSocio, @RequestParam("imagen") MultipartFile archivo) {
     try {
       String ruta = imagenesService.guardarImagen(archivo, idSocio);
-      return ResponseEntity.ok(ruta);
+      return ResponseEntity.status(HttpStatus.CREATED).body(ruta);
     } catch (Exception e) {
       return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("No se pudo subir la imagen");
     }
