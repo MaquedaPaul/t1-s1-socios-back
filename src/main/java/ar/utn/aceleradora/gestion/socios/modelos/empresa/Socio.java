@@ -55,7 +55,9 @@ public class Socio {
     private Membresia membresia;
 
     public Socio() {
+
         this.categorias = new ArrayList<>();
+        this.activo = true;
     }
 
     public Socio(String nombre, TipoSocio tipoSocio, String telefono, String mail ,Ubicacion ubicacion) {
