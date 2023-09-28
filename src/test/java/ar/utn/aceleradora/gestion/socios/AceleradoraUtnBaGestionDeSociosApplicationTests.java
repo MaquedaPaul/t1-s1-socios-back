@@ -81,7 +81,7 @@ class AceleradoraUtnBaGestionDeSociosApplicationTests {
 		SocioAdherente socio = new SocioAdherente();
 		socio.setNombre("Ejemplo");
 		socio.setTipoSocio(TipoSocio.SOCIO_ADHERENTE);
-		socio.setTelefono(123456);
+		socio.setTelefono("123456");
 		socio.setMail("Ejemplo");
 		//socio.setNombrePresidente("Ejemplo");
 		socio.setUbicacion(ubicacionService.obtenerUbicacion(1));
