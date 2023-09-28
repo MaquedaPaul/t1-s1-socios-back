@@ -111,9 +111,11 @@ public class AceleradoraUtnBaGestionDeSociosApplication {
 						ubicacion // Asigna la ubicación ficticia al socio
 				);
 
+				//TODO: BORRAR, lo puso Mati para probar
 				if (socio.getNombre().contains("3") || socio.getNombre().contains("6") || socio.getNombre().contains("9")){
 					socio.setActivo(false);
 				}
+				//*******************************************************
 
 				// Agrega un subconjunto aleatorio de categorías
 				List<Categoria> subconjuntoCategorias = new ArrayList<>();
