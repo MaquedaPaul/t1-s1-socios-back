@@ -40,20 +40,22 @@ public class AceleradoraUtnBaGestionDeSociosApplication {
 		return args -> {
 
 			Random random = new Random();
-			List<String> primeraParte = Arrays.asList("Omega", "Beta", "Gamma", "Sigma", "Theta");
-			List<String> segundaParte = Arrays.asList("Innovations", "Solutions", "Enterprises", "Software", "Technologies");
-
-
-
-			List<String> combinaciones = new ArrayList<>();
-			for (String prefijo : primeraParte) {
-				for (String sufijo : segundaParte) {
-					combinaciones.add(prefijo + " " + sufijo);
-				}
-			}
-
-			Collections.shuffle(combinaciones);
-			String[] nombres = combinaciones.subList(0, 15).toArray(new String[0]);
+			String[] nombres = {"AxiomTech",
+					"QuantumLeap",
+					"NexaWave",
+					"PrimeVertex",
+					"DynaCore",
+					"ZenithLink",
+					"AlphaStream",
+					"OrionPulse",
+					"MysticNode",
+					"GalacticNest",
+					"HelixSpiral",
+					"EchoStar",
+					"VortexMatrix",
+					"NimbusCloud",
+					"CelestialBurst"
+			};
 
 			TipoSocio[] tipos = TipoSocio.values();
 			String[] mails = {"example1@domain.com", "example2@domain.com", "example3@domain.com", "example4@domain.com"};
