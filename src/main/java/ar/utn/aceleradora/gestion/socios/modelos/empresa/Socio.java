@@ -26,6 +26,9 @@ public class Socio {
     @Column
     private String nombre;
 
+    @Column
+    private String nombrePresidente;
+
     @Enumerated(EnumType.STRING)
     private TipoSocio tipoSocio;
     @Column
