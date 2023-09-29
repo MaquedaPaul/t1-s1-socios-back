@@ -163,6 +163,9 @@ public class SocioService {
     Optional<Socio> existingSocioOpt = socioRepository.findById(id);
     if (existingSocioOpt.isPresent()) {
       Socio existingSocio = existingSocioOpt.get();
+      if(socioDTO.getActivo() == null) {
+        socioDTO.setActivo(existingSocio.getActivo());
+      }
       modelMapper.map(socioDTO, existingSocio);
       Socio updatedSocio = socioRepository.save(existingSocio);
       return modelMapper.map(updatedSocio, SocioDTO.class);
