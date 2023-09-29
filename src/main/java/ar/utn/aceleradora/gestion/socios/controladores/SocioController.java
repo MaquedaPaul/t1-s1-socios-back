@@ -35,6 +35,14 @@ public class SocioController {
             .orElse(new ResponseEntity<>(HttpStatus.NOT_FOUND));
     }
 
+    @GetMapping("/obtenerSocioPorNombre/{nombre}")
+    public ResponseEntity<SocioDTO> obtenerSocio(@PathVariable String nombre) {
+        SocioDTO socio = socioService.obtenerSocio(nombre);
+        return Optional.ofNullable(socio)
+                .map(s -> new ResponseEntity<>(s, HttpStatus.OK))
+                .orElse(new ResponseEntity<>(HttpStatus.NOT_FOUND));
+    }
+
     @PostMapping()
     public ResponseEntity<SocioDTO> crearSocio(@RequestBody SocioPostDTO socio) {
         SocioDTO nuevoSocio = socioService.guardarSocio(socio);

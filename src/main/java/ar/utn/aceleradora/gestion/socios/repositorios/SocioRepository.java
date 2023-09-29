@@ -9,6 +9,7 @@ import org.springframework.stereotype.Repository;
 
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Optional;
 
 @Repository
 
@@ -32,5 +33,7 @@ public interface SocioRepository extends JpaRepository<Socio, Integer> {
     List<Socio> findByTipoSocioAndActivo(TipoSocio tipoSocio, Boolean activo, Pageable pageable);
 
     List<Socio> findByCategoriasInAndActivo(List<Categoria> categorias, Boolean activo, Pageable pageable);
+
+    Optional<Socio> findByNombre(String nombre);
 }
 

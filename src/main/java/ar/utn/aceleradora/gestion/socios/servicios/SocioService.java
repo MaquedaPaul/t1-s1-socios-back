@@ -68,6 +68,19 @@ public class SocioService {
       throw new EntityNotFoundException("Socio no encontrado con ID: " + id);
     }
   }
+
+  public SocioDTO obtenerSocio(String nombre) {
+    Optional<Socio> socioOptional = socioRepository.findByNombre(nombre);
+
+    if (socioOptional.isPresent()) {
+      Socio socio = socioOptional.get();
+      SocioDTO dto = modelMapper.map(socio, SocioDTO.class);
+      return dto;
+    } else {
+      throw new EntityNotFoundException("Socio no encontrado con NOMBRE: " + nombre);
+    }
+  }
+
   public List<String> obtenerNombres() {
     List<Socio> socios = socioRepository.findAll();
     return socios.stream().map(Socio::getNombre).collect(Collectors.toList());
