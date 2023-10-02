@@ -81,10 +81,14 @@ public class SocioService {
     }
   }
 
-  public List<String> obtenerNombres() {
+  public List<String> obtenerNombres() {  //CAMBIO: SI LA LISTA ESTA VACIA AHORA TIRA EXCPECION ADVIRTIENDOLO, PERO NO DEVUELVE LA LISTA VACIA, QUIZA DEBERIA SIMPLEMENTE DEVOLVER LISTA VACIA
     List<Socio> socios = socioRepository.findAll();
+    if (socios.isEmpty()) {
+      throw new EntityNotFoundException("No hay socios cargados");
+    }else{
+
     return socios.stream().map(Socio::getNombre).collect(Collectors.toList());
-  }
+  }}
 
   public Page<ResumenSocioDTO> obtenerResumenSociosPaginados(int pagina, int tamanio, Optional<List<String>> categoriaOptional, Optional<Integer> aniosActivosOptional, Optional<String> tipoSocioOptional, Optional<String> nombreOptional, Optional<Boolean> activoOptional) {
     LocalDate fechaActual = LocalDate.now();
@@ -125,6 +129,9 @@ public class SocioService {
       sociosFiltrados = socioRepository.findAll(pageable).getContent();
     }
 
+    if (sociosFiltrados == null || sociosFiltrados.isEmpty()) {
+      throw new EntityNotFoundException("No se encontraron socios que coincidan con los criterios de búsqueda.");
+    }
 
 
     List<ResumenSocioDTO> resumenSocios = sociosFiltrados.stream()
@@ -156,7 +163,8 @@ public class SocioService {
       Socio updatedSocio = socioRepository.save(existingSocio);
       return modelMapper.map(updatedSocio, SocioDTO.class);
     } else {
-      return null;
+      throw new EntityNotFoundException("no se econtro un socio con id: " + id+ " para borrar");
+
     }
   }
   public SocioDTO darAltaSocio(Integer id) {
@@ -182,7 +190,7 @@ public class SocioService {
       Socio updatedSocio = socioRepository.save(existingSocio);
       return modelMapper.map(updatedSocio, SocioDTO.class);
     } else {
-      return null;
+      throw new EntityNotFoundException("no se econtro un socio con id: " + id+ " para actualizar");
     }
   }
 

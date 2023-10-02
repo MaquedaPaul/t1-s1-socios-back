@@ -4,8 +4,11 @@ import ar.utn.aceleradora.gestion.socios.modelos.departamento.Departamento;
 import ar.utn.aceleradora.gestion.socios.modelos.ubicacion.Ubicacion;
 import ar.utn.aceleradora.gestion.socios.repositorios.DepartamentoRepository;
 import ar.utn.aceleradora.gestion.socios.repositorios.UbicacionRepository;
+import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.Optional;
 
 @Service
 public class UbicacionService {
@@ -24,17 +27,28 @@ public class UbicacionService {
     }
 
     public void eliminarUbicacion(Integer id) {
+        Optional<Ubicacion> ubicacion = ubicacionRepository.findById(id);
+        if(ubicacion.isPresent()){
         ubicacionRepository.deleteById(id);
+        }
+        else{throw new EntityNotFoundException("no esxite ubicacion con id "+id);
+        }
     }
 
     public Ubicacion obtenerUbicacion(Integer id) {
-        return ubicacionRepository.findById(id).orElse(null);
+        Optional<Ubicacion> ubicacion = ubicacionRepository.findById(id);
+        if(ubicacion.isPresent()){
+            return ubicacionRepository.findById(id).orElse(null);
+        }
+        else{throw new EntityNotFoundException("no esxite ubicacion con id "+id);
+        }
+
     }
 
     public Ubicacion actualizarUbicacion(Ubicacion ubicacion) {
         if (ubicacion.getId() != null) {
             return ubicacionRepository.save(ubicacion);
         }
-        return null; // El departamento no tiene un ID válido
+        else{throw new EntityNotFoundException("no esxite ubicacion: "+ubicacion);}
     }
 }
