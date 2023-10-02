@@ -159,6 +159,18 @@ public class SocioService {
       return null;
     }
   }
+  public SocioDTO darAltaSocio(Integer id) {
+    Optional<Socio> existingSocioOpt = socioRepository.findById(id);
+    if (existingSocioOpt.isPresent()) {
+      Socio existingSocio = existingSocioOpt.get();
+      existingSocio.setActivo(true);
+      Socio updatedSocio = socioRepository.save(existingSocio);
+      return modelMapper.map(updatedSocio, SocioDTO.class);
+    } else {
+      return null;
+    }
+  }
+
   public SocioDTO actualizarSocio(Integer id, SocioDTO socioDTO) {
     Optional<Socio> existingSocioOpt = socioRepository.findById(id);
     if (existingSocioOpt.isPresent()) {
@@ -212,6 +224,10 @@ public class SocioService {
     socio.setCategorias(categorias);
     socioRepository.save(socio);
     return null;
+  }
+
+  public List<String> getAllTipoSocio(){
+    return List.of(TipoSocio.values()).stream().map(TipoSocio::name).collect(Collectors.toList());
   }
 
 }

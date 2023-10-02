@@ -5,11 +5,17 @@ import ar.utn.aceleradora.gestion.socios.dto.SocioDTO;
 import ar.utn.aceleradora.gestion.socios.dto.SocioPlenarioDTO;
 import ar.utn.aceleradora.gestion.socios.dto.SocioPostDTO;
 import ar.utn.aceleradora.gestion.socios.servicios.SocioService;
+
+import com.mysql.cj.protocol.Message;
 import jakarta.persistence.EntityNotFoundException;
+import jakarta.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
+import org.springframework.data.relational.core.sql.In;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 
@@ -44,7 +50,8 @@ public class SocioController {
     }
 
     @PostMapping()
-    public ResponseEntity<SocioDTO> crearSocio(@RequestBody SocioPostDTO socio) {
+    public ResponseEntity<SocioDTO> crearSocio(@Valid @RequestBody SocioPostDTO socio) {
+
         SocioDTO nuevoSocio = socioService.guardarSocio(socio);
         return new ResponseEntity<>(nuevoSocio, HttpStatus.CREATED);
     }
@@ -54,23 +61,7 @@ public class SocioController {
         List<String> nombres = socioService.obtenerNombres();
         return new ResponseEntity<>(nombres, HttpStatus.OK);
     }
-/*
-    @GetMapping("/busquedaPaginada")
-    public ResponseEntity<Page<ResumenSocioDTO>> obtenerResumenSocios(
-            @RequestParam(defaultValue = "0") int pagina,
-            @RequestParam(defaultValue = "10") int tamanio,
-            @RequestParam(name = "categoria", required = false) List<String> categorias,
-            @RequestParam(name = "aniosActivos", required = false) Integer aniosActivos,
-            @RequestParam(name = "tipoSocio", required = false) String tipoSocio,
-            @RequestParam(name = "nombre", required = false) String nombre) {
-        Optional<List<String>> categoriasOptionales = Optional.ofNullable(categorias);
-        Optional<Integer> aniosActivosOptional = Optional.ofNullable(aniosActivos);
-        Optional<String> tipoSocioOptional = Optional.ofNullable(tipoSocio);
-        Optional<String> nombreOptional = Optional.ofNullable(nombre);
 
-        Page<ResumenSocioDTO> pages = socioService.obtenerResumenSociosPaginados(pagina, tamanio, categoriasOptionales, aniosActivosOptional, tipoSocioOptional, nombreOptional);
-        return ResponseEntity.ok(pages);
-    }*/
     @GetMapping("/busquedaPaginada")
     public ResponseEntity<Page<ResumenSocioDTO>> obtenerResumenSocios(
             @RequestParam(defaultValue = "0") int pagina,
@@ -147,6 +138,22 @@ public class SocioController {
         } catch (EntityNotFoundException e) {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Socio no encontrado", e);
         }
+    }
+
+    @PutMapping("/darAlta/{id}")
+    public ResponseEntity<Void> darAltaSocio(@PathVariable Integer id){
+        try{
+            socioService.darAltaSocio(id);
+            return new ResponseEntity<>(HttpStatus.OK);
+        }catch (EntityNotFoundException e){
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Socio no encontrado", e);
+        }
+    }
+
+    @GetMapping("/tipoSocio")
+    public ResponseEntity<List<String>> obtenerTiposDeSocio() {
+        List<String> tiposDeSocio = socioService.getAllTipoSocio();
+        return new ResponseEntity<>(tiposDeSocio, HttpStatus.OK);
     }
 
 

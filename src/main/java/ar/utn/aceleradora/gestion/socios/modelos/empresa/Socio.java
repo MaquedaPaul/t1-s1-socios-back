@@ -5,6 +5,9 @@ import ar.utn.aceleradora.gestion.socios.modelos.evento.Evento;
 import ar.utn.aceleradora.gestion.socios.modelos.membresia.Membresia;
 import ar.utn.aceleradora.gestion.socios.modelos.ubicacion.Ubicacion;
 import jakarta.persistence.*;
+import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -23,19 +26,21 @@ public class Socio {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    @Column
+    @NotNull@NotBlank
     private String nombre;
 
-    @Column
     private String nombrePresidente;
 
     @Enumerated(EnumType.STRING)
     private TipoSocio tipoSocio;
-    @Column
+
+
     private Boolean activo;
-    @Column
+
+    @NotNull@NotBlank
     private String telefono;//Puede ser string
-    @Column
+
+    @NotNull@Email
     private String mail;
 
     @ManyToMany(fetch = FetchType.EAGER)
