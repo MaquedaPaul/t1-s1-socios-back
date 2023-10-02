@@ -7,6 +7,8 @@ import ar.utn.aceleradora.gestion.socios.modelos.evento.Evento;
 import ar.utn.aceleradora.gestion.socios.modelos.informe.Informe;
 import ar.utn.aceleradora.gestion.socios.modelos.membresia.Membresia;
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -20,9 +22,11 @@ public class UsuarioCopal {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
-    @Column
+    @NotBlank
+    @NotNull(message = "El nombre no puede estar vacío")
     private String nombre;
-    @Column
+    @NotNull
+    @NotBlank(message = "El apellido no puede estar vacío")
     private String apellido;
 
     @OneToMany(cascade = CascadeType.ALL)

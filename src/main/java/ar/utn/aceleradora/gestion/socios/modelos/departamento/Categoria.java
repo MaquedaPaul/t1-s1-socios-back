@@ -3,6 +3,8 @@ package ar.utn.aceleradora.gestion.socios.modelos.departamento;
 import ar.utn.aceleradora.gestion.socios.modelos.empresa.Socio;
 import ar.utn.aceleradora.gestion.socios.modelos.evento.Evento;
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -16,7 +18,8 @@ public class Categoria {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    @Column
+    @NotNull
+    @NotBlank(message = "El nombreCategoria no puede estar vacío")
     private String nombre;
 
     //@ManyToMany(mappedBy = "categorias")

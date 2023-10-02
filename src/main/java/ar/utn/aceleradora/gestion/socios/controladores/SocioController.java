@@ -54,6 +54,15 @@ public class SocioController {
 
         SocioDTO nuevoSocio = socioService.guardarSocio(socio);
         return new ResponseEntity<>(nuevoSocio, HttpStatus.CREATED);
+
+    }
+
+    @PostMapping("/ingresarSocio")
+    public SocioDTO crearSocio2(@Valid @RequestBody SocioPostDTO socio) {
+
+        SocioDTO nuevoSocio = socioService.guardarSocio(socio);
+        return nuevoSocio;
+
     }
 
     @GetMapping("/obtenerNombres")
@@ -99,7 +108,7 @@ public class SocioController {
     }
 
     @PostMapping("/{id}/categorias")
-    public ResponseEntity<SocioDTO> agregarCategoriasASocio(@PathVariable Integer id, @RequestBody List<String> categorias) {
+    public ResponseEntity<SocioDTO> agregarCategoriasASocio(@PathVariable Integer id, @Valid @RequestBody List<String> categorias) {
         try {
             SocioDTO socioConEtiquetas = socioService.agregarCategoriasASocio(id, categorias);
             return new ResponseEntity<>(socioConEtiquetas, HttpStatus.OK);

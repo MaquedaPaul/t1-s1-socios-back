@@ -26,10 +26,12 @@ public class Socio {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    @NotNull@NotBlank
+    @NotNull(message = "El nombre no puede ser nulo")
+    @NotBlank(message = "El nombre no puede estar vacío")
     private String nombre;
 
     private String nombrePresidente;
+
 
     @Enumerated(EnumType.STRING)
     private TipoSocio tipoSocio;
@@ -37,10 +39,12 @@ public class Socio {
 
     private Boolean activo;
 
-    @NotNull@NotBlank
+    @NotNull(message = "El telefono no puede ser nulo")
+    @NotBlank(message = "El telefono no puede estar vacío")
     private String telefono;//Puede ser string
 
-    @NotNull@Email
+    @NotBlank(message = "El mail no puede estar vacío")
+    @Email(message = "El mail es inválido")
     private String mail;
 
     @ManyToMany(fetch = FetchType.EAGER)

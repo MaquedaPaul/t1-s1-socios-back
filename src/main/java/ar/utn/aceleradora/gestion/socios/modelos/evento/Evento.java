@@ -3,6 +3,7 @@ package ar.utn.aceleradora.gestion.socios.modelos.evento;
 
 import ar.utn.aceleradora.gestion.socios.modelos.empresa.Socio;
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotBlank;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -17,7 +18,7 @@ public class Evento {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    @Column
+    @NotBlank(message = "El nombre de evento no puede estar vacío")
     private String nombre;
 
     @ManyToMany(cascade = { CascadeType.PERSIST, CascadeType.MERGE })

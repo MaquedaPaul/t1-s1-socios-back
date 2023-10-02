@@ -2,6 +2,8 @@ package ar.utn.aceleradora.gestion.socios.modelos.departamento;
 
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -17,7 +19,7 @@ public class Departamento {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    @Column
+    @NotNull@NotBlank
     private String nombre;
 
     //@OneToMany(mappedBy = "departamentoPerteneciente")
