@@ -1,6 +1,5 @@
 package ar.utn.aceleradora.gestion.socios.servicios;
 
-
 import ar.utn.aceleradora.gestion.socios.dto.ResumenSocioDTO;
 import ar.utn.aceleradora.gestion.socios.dto.SocioDTO;
 import ar.utn.aceleradora.gestion.socios.dto.SocioPostDTO;
@@ -10,17 +9,16 @@ import ar.utn.aceleradora.gestion.socios.modelos.empresa.TipoSocio;
 import ar.utn.aceleradora.gestion.socios.repositorios.SocioRepository;
 import jakarta.persistence.EntityNotFoundException;
 import org.modelmapper.ModelMapper;
-import org.modelmapper.TypeMap;
-import org.modelmapper.convention.MatchingStrategies;
+import org.apache.commons.lang3.tuple.Pair;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
-
 import java.time.LocalDate;
 import java.time.Period;
+import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -35,16 +33,7 @@ public class SocioService {
     this.socioRepository = socioRepository;
     this.modelMapper = modelMapper;
     this.categoriaService = categoriaService;
-
-
-
-    //modelMapper.getConfiguration().setMatchingStrategy(MatchingStrategies.STRICT); // Configura la estrategia de coincidencia
-
-    //TypeMap<Socio, SocioDTO> typeMap = modelMapper.createTypeMap(Socio.class, SocioDTO.class);
-
-    //typeMap.addMapping(Socio::getCategorias, SocioDTO::setCategoria);
   }
-
 
   public SocioDTO guardarSocio(SocioPostDTO socioPostDTO) {
 
@@ -86,59 +75,105 @@ public class SocioService {
     if (socios.isEmpty()) {
       throw new EntityNotFoundException("No hay socios cargados");
     }else{
+      return socios.stream().map(Socio::getNombre).collect(Collectors.toList());
+    }
+  }
 
-    return socios.stream().map(Socio::getNombre).collect(Collectors.toList());
-  }}
+  private Pair<List<Socio>, Long> filtrarYContarSocios(Pageable pageable,
+                                                       Optional<List<String>> categoriaOptional,
+                                                       Optional<LocalDate> fechaInicioMembresia,
+                                                       Optional<TipoSocio> tipoSocioOptional,
+                                                       Optional<String> nombreOptional,
+                                                       Optional<Boolean> activoOptional) {
 
-  public Page<ResumenSocioDTO> obtenerResumenSociosPaginados(int pagina, int tamanio, Optional<List<String>> categoriaOptional, Optional<Integer> aniosActivosOptional, Optional<String> tipoSocioOptional, Optional<String> nombreOptional, Optional<Boolean> activoOptional) {
-    LocalDate fechaActual = LocalDate.now();
-    Pageable pageable = PageRequest.of(pagina, tamanio);
     List<Socio> sociosFiltrados;
+    Long totalSocios;
 
-    List<Categoria> categorias = categoriaOptional.isPresent() ? categoriaService.obtenerCategoriasPorNombres(categoriaOptional.get()) : null;
-    LocalDate fechaInicioMembresia = aniosActivosOptional.isPresent() ? fechaActual.minusYears(aniosActivosOptional.get()) : null;
-    TipoSocio tipoSocio = tipoSocioOptional.isPresent() ? TipoSocio.valueOf(tipoSocioOptional.get()) : null;
-    String nombre = nombreOptional.isPresent() ? nombreOptional.get() : null;
-    Boolean activo = activoOptional.isPresent() ? activoOptional.get() : null;
+    TipoSocio tipoSocio = tipoSocioOptional.orElse(null);
+    List<Categoria> categorias = null;
+    if(categoriaOptional.isPresent()) {
+      categorias = categoriaService.obtenerCategoriasPorNombres(categoriaOptional.get());
+    }
+    String nombre = nombreOptional.orElse(null);
+    Boolean activo = activoOptional.orElse(null);
+    LocalDate fechaInicio = fechaInicioMembresia.orElse(null);
 
-    if (categorias != null && fechaInicioMembresia != null && tipoSocio != null) {
-      sociosFiltrados = socioRepository.findByTipoSocioAndCategoriasInAndMembresia_FechaInicioBefore(tipoSocio, categorias, fechaInicioMembresia, pageable);
+    if (categorias != null && fechaInicio != null && tipoSocio != null) {
+      totalSocios = socioRepository.countByTipoSocioAndCategoriasInAndMembresia_FechaInicioBefore(tipoSocio, categorias, fechaInicio);
+      sociosFiltrados = socioRepository.findByTipoSocioAndCategoriasInAndMembresia_FechaInicioBefore(tipoSocio, categorias, fechaInicio, pageable);
     } else if (categorias != null && tipoSocio != null) {
+      totalSocios = socioRepository.countByTipoSocioAndCategoriasIn(tipoSocio, categorias);
       sociosFiltrados = socioRepository.findByTipoSocioAndCategoriasIn(tipoSocio, categorias, pageable);
-    } else if (categorias != null && fechaInicioMembresia != null) {
-      sociosFiltrados = socioRepository.findByCategoriasInAndMembresia_FechaInicioBefore(categorias, fechaInicioMembresia, pageable);
-    } else if (tipoSocio != null && fechaInicioMembresia != null) {
-      sociosFiltrados = socioRepository.findByTipoSocioAndMembresia_FechaInicioBefore(tipoSocio, fechaInicioMembresia, pageable);
-    } else if (tipoSocio != null && nombre !=null){
-        sociosFiltrados = socioRepository.findByTipoSocioAndNombreContaining(tipoSocio, nombre, pageable);
-    } else if (tipoSocio != null && activo != null){
+    } else if (categorias != null && fechaInicio != null) {
+      totalSocios = socioRepository.countByCategoriasInAndMembresia_FechaInicioBefore(categorias, fechaInicio);
+      sociosFiltrados = socioRepository.findByCategoriasInAndMembresia_FechaInicioBefore(categorias, fechaInicio, pageable);
+    } else if (tipoSocio != null && fechaInicio != null) {
+      totalSocios = socioRepository.countByTipoSocioAndMembresia_FechaInicioBefore(tipoSocio, fechaInicio);
+      sociosFiltrados = socioRepository.findByTipoSocioAndMembresia_FechaInicioBefore(tipoSocio, fechaInicio, pageable);
+    } else if (tipoSocio != null && nombre !=null) {
+      totalSocios = socioRepository.countByTipoSocioAndNombreContaining(tipoSocio, nombre);
+      sociosFiltrados = socioRepository.findByTipoSocioAndNombreContaining(tipoSocio, nombre, pageable);
+    } else if (tipoSocio != null && activo != null) {
+      totalSocios = socioRepository.countByTipoSocioAndActivo(tipoSocio, activo);
       sociosFiltrados = socioRepository.findByTipoSocioAndActivo(tipoSocio, activo, pageable);
-    } else if (categorias != null && activo != null){
+    } else if (categorias != null && activo != null) {
+      totalSocios = socioRepository.countByCategoriasInAndActivo(categorias, activo);
       sociosFiltrados = socioRepository.findByCategoriasInAndActivo(categorias, activo, pageable);
     } else if (tipoSocio != null) {
+      totalSocios = socioRepository.countByTipoSocio(tipoSocio);
       sociosFiltrados = socioRepository.findByTipoSocio(tipoSocio, pageable);
     } else if (categorias != null) {
+      totalSocios = socioRepository.countByCategoriasIn(categorias);
       sociosFiltrados = socioRepository.findByCategoriasIn(categorias, pageable);
-    } else if (fechaInicioMembresia != null) {
-      sociosFiltrados = socioRepository.findByMembresia_FechaInicioBefore(fechaInicioMembresia, pageable);
+    } else if (fechaInicio != null) {
+      totalSocios = socioRepository.countByMembresia_FechaInicioBefore(fechaInicio);
+      sociosFiltrados = socioRepository.findByMembresia_FechaInicioBefore(fechaInicio, pageable);
     } else if (nombre != null) {
+      totalSocios = socioRepository.countByNombreContaining(nombre);
       sociosFiltrados = socioRepository.findByNombreContaining(nombre, pageable);
-    } else if (activo != null){
-        sociosFiltrados = socioRepository.findByActivo(activo, pageable);
+    } else if (activo != null) {
+      totalSocios = socioRepository.countByActivo(activo);
+      sociosFiltrados = socioRepository.findByActivo(activo, pageable);
     } else {
+      totalSocios = (long) socioRepository.findAll().size();
       sociosFiltrados = socioRepository.findAll(pageable).getContent();
     }
 
-    if (sociosFiltrados == null || sociosFiltrados.isEmpty()) {
-      throw new EntityNotFoundException("No se encontraron socios que coincidan con los criterios de búsqueda.");
-    }
+    return Pair.of(sociosFiltrados, totalSocios);
+  }
 
+  public Page<ResumenSocioDTO> obtenerResumenSociosPaginados(int pagina, int tamanio,
+                                                             Optional<List<String>> categoriaOptional,
+                                                             Optional<Integer> aniosActivosOptional,
+                                                             Optional<TipoSocio> tipoSocioOptional,
+                                                             Optional<String> nombreOptional,
+                                                             Optional<Boolean> activoOptional) {
+
+    LocalDate fechaActual = LocalDate.now();
+    Pageable pageable = PageRequest.of(pagina, tamanio);
+
+    Optional<LocalDate> fechaInicioMembresiaOptional = aniosActivosOptional.map(anios -> fechaActual.minusYears(anios));
+
+    Pair<List<Socio>, Long> result = filtrarYContarSocios(
+        pageable,
+        categoriaOptional,
+        fechaInicioMembresiaOptional,
+        tipoSocioOptional,
+        nombreOptional,
+        activoOptional);
+
+    List<Socio> sociosFiltrados = result.getKey();
+    Long totalSocios = result.getValue();
+
+    if (sociosFiltrados.isEmpty()) {
+      return new PageImpl<>(Collections.emptyList(), pageable, 0L);
+    }
 
     List<ResumenSocioDTO> resumenSocios = sociosFiltrados.stream()
         .map(socio -> convertirResumenSocioDTO(socio, fechaActual))
         .collect(Collectors.toList());
 
-    return new PageImpl<>(resumenSocios, pageable, sociosFiltrados.size());
+    return new PageImpl<>(resumenSocios, pageable, totalSocios);
   }
 
   private ResumenSocioDTO convertirResumenSocioDTO(Socio socio, LocalDate fechaActual) {

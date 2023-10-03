@@ -4,6 +4,7 @@ import ar.utn.aceleradora.gestion.socios.dto.ResumenSocioDTO;
 import ar.utn.aceleradora.gestion.socios.dto.SocioDTO;
 import ar.utn.aceleradora.gestion.socios.dto.SocioPlenarioDTO;
 import ar.utn.aceleradora.gestion.socios.dto.SocioPostDTO;
+import ar.utn.aceleradora.gestion.socios.modelos.empresa.TipoSocio;
 import ar.utn.aceleradora.gestion.socios.servicios.SocioService;
 
 import com.mysql.cj.protocol.Message;
@@ -75,18 +76,13 @@ public class SocioController {
     public ResponseEntity<Page<ResumenSocioDTO>> obtenerResumenSocios(
             @RequestParam(defaultValue = "0") int pagina,
             @RequestParam(defaultValue = "10") int tamanio,
-            @RequestParam(name = "categoria", required = false) List<String> categorias,
-            @RequestParam(name = "aniosActivos", required = false) Integer aniosActivos,
-            @RequestParam(name = "tipoSocio", required = false) String tipoSocio,
-            @RequestParam(name = "nombre", required = false) String nombre,
-            @RequestParam(name = "activo", required = false) Boolean activo){
-        Optional<List<String>> categoriasOptionales = Optional.ofNullable(categorias);
-        Optional<Integer> aniosActivosOptional = Optional.ofNullable(aniosActivos);
-        Optional<String> tipoSocioOptional = Optional.ofNullable(tipoSocio);
-        Optional<String> nombreOptional = Optional.ofNullable(nombre);
-        Optional<Boolean> activoOptional = Optional.ofNullable(activo);
+            @RequestParam(name = "categoria", required = false) Optional<List<String>> categorias,
+            @RequestParam(name = "aniosActivos", required = false) Optional<Integer> aniosActivos,
+            @RequestParam(name = "tipoSocio", required = false) Optional<TipoSocio> tipoSocio,
+            @RequestParam(name = "nombre", required = false) Optional<String> nombre,
+            @RequestParam(name = "activo", required = false) Optional<Boolean> activo){
 
-        Page<ResumenSocioDTO> pages = socioService.obtenerResumenSociosPaginados(pagina, tamanio, categoriasOptionales, aniosActivosOptional, tipoSocioOptional, nombreOptional,activoOptional);
+        Page<ResumenSocioDTO> pages = socioService.obtenerResumenSociosPaginados(pagina, tamanio, categorias, aniosActivos, tipoSocio, nombre,activo);
         return ResponseEntity.ok(pages);
     }
     @PutMapping("/{id}")
