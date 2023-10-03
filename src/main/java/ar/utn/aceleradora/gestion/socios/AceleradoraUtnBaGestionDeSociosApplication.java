@@ -104,7 +104,7 @@ public class AceleradoraUtnBaGestionDeSociosApplication {
 				// Crea un socio con datos de prueba
 				Socio socio = new Socio(
 						"Socio de Prueba " + (i + 1),
-						"123456789" + (i + 1), // CUIT ficticio
+						   "00-34567890-0" , // CUIT ficticio
 						tipoSocio,
 						"123456789", // Número de teléfono ficticio
 						"socio" + (i + 1) + "@ejemplo.com", // Correo electrónico ficticio
