@@ -31,7 +31,7 @@ public class UbicacionService {
         if(ubicacion.isPresent()){
         ubicacionRepository.deleteById(id);
         }
-        else{throw new EntityNotFoundException("no esxite ubicacion con id "+id);
+        else{throw new EntityNotFoundException("no existe ubicacion con id "+id);
         }
     }
 

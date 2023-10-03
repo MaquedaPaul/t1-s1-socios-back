@@ -36,7 +36,7 @@ class AceleradoraUtnBaGestionDeSociosApplicationTests {
 
 	@Test
 	public void testGuardarUbicacion(){
-		Ubicacion ubicacion = new Ubicacion("Argentina","Ejemplo","Ejemplo","Ejemplo","Ejemplo","Ejemplo");
+		Ubicacion ubicacion = new Ubicacion("Ejemplo","Ejemplo","Ejemplo","Ejemplo","Ejemplo");
 
 		Ubicacion ubicacionGuardada = ubicacionService.agregarUbicacion(ubicacion);
 	}
@@ -47,7 +47,7 @@ class AceleradoraUtnBaGestionDeSociosApplicationTests {
 
 		assertThat(ubicacionRecuperada).isNotNull();
 		assertThat(ubicacionRecuperada.getDireccion()).isEqualTo("Argentina");
-		assertThat(ubicacionRecuperada.getPais()).isEqualTo("Ejemplo");
+
 		assertThat(ubicacionRecuperada.getPiso()).isEqualTo("Ejemplo");
 		assertThat(ubicacionRecuperada.getDepartamento()).isEqualTo("Ejemplo");
 		assertThat(ubicacionRecuperada.getLocalidad()).isEqualTo("Ejemplo");
@@ -56,14 +56,14 @@ class AceleradoraUtnBaGestionDeSociosApplicationTests {
 
 	@Test
 	public void testActualizarUbicacion(){
-		Ubicacion ubicacion = new Ubicacion("Ejemplon","Ejemplo","Ejemplo","Ejemplo","Ejemplo","Ejemplo");
+		Ubicacion ubicacion = new Ubicacion("Ejemplo","Ejemplo","Ejemplo","Ejemplo","Ejemplo");
 		ubicacion.setId(1);
 
 		Ubicacion ubicacionActualizada = ubicacionService.actualizarUbicacion(ubicacion);
 
 		assertThat(ubicacionActualizada).isNotNull();
 		assertThat(ubicacionActualizada.getDireccion()).isEqualTo("Ejemplon");
-		assertThat(ubicacionActualizada.getPais()).isEqualTo("Ejemplo");
+
 		assertThat(ubicacionActualizada.getPiso()).isEqualTo("Ejemplo");
 		assertThat(ubicacionActualizada.getDepartamento()).isEqualTo("Ejemplo");
 		assertThat(ubicacionActualizada.getLocalidad()).isEqualTo("Ejemplo");
