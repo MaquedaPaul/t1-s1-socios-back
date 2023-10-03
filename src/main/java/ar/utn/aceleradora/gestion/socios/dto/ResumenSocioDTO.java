@@ -12,6 +12,7 @@ import java.util.List;
 public class ResumenSocioDTO{
   private Integer id;
   private String nombre;
+  private String cuit;
   private String apellidoPresidente;
   private TipoSocio tipoSocio;
   private List<Categoria> categorias;

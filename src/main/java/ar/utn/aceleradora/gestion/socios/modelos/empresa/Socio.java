@@ -32,6 +32,9 @@ public class Socio {
 
     private String nombrePresidente;
 
+    @NotBlank(message = "El cuit no puede estar vacío")
+    private String cuit;
+
 
     @Enumerated(EnumType.STRING)
     private TipoSocio tipoSocio;
@@ -72,8 +75,9 @@ public class Socio {
         this.activo = true;
     }
 
-    public Socio(String nombre, TipoSocio tipoSocio, String telefono, String mail ,Ubicacion ubicacion) {
+    public Socio(String nombre, String cuit,  TipoSocio tipoSocio, String telefono, String mail ,Ubicacion ubicacion) {
         this.nombre = nombre;
+        this.cuit = cuit;
         this.tipoSocio = tipoSocio;
         this.activo = true; // Suponemos que al dar de alta, el socio está activo por defecto
         this.categorias = new ArrayList<>();
