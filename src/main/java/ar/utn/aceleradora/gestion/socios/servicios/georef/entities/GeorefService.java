@@ -3,10 +3,12 @@ package ar.utn.aceleradora.gestion.socios.servicios.georef.entities;
 import ar.utn.aceleradora.gestion.socios.servicios.georef.entities.ListadoDeMunicipios;
 import ar.utn.aceleradora.gestion.socios.servicios.georef.entities.ListadoDeProvincias;
 
+import org.springframework.stereotype.Service;
 import retrofit2.Call;
 import retrofit2.http.GET;
 import retrofit2.http.Query;
 
+@Service
 public interface GeorefService {
   @GET("provincias")
   Call<ListadoDeProvincias> provincias();

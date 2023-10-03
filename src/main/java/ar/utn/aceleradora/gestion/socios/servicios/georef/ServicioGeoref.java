@@ -11,11 +11,13 @@ import ar.utn.aceleradora.gestion.socios.servicios.georef.entities.GeorefService
 import ar.utn.aceleradora.gestion.socios.servicios.georef.entities.ListadoDeProvincias;
 import ar.utn.aceleradora.gestion.socios.servicios.georef.entities.ListadoDeMunicipios;
 import ar.utn.aceleradora.gestion.socios.servicios.georef.entities.Provincia;
+import org.springframework.stereotype.Service;
 import retrofit2.Call;
 import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
+@Service
 public class ServicioGeoref {
   private static ServicioGeoref instancia = null;
   private static int maximaCantidadRegistrosDefault = 500;
