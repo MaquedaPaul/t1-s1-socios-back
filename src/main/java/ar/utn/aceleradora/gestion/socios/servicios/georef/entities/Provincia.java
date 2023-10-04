@@ -6,8 +6,7 @@ import lombok.Setter;
 
 @Getter
 @Setter
-
-
+@Entity
 public class Provincia{
 
     public int id;

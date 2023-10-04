@@ -70,6 +70,11 @@ public class Socio {
    // @JoinColumn(name = "idSocio")
     private Membresia membresia;
 
+
+    private String rutaImagen; // Campo para almacenar la ruta de la imagen
+
+
+
     public Socio() {
 
         this.categorias = new ArrayList<>();
