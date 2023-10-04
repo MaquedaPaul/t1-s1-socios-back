@@ -41,7 +41,7 @@ public class UbicacionController {
         return new ResponseEntity<>(nombresProvincias, HttpStatus.OK);
 
     }
-    
+
 
     @GetMapping("/provinciasCompletas")
     public ResponseEntity<ListadoDeProvincias> obtenerProvincias() throws IOException {
