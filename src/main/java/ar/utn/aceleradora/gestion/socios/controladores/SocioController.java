@@ -67,7 +67,7 @@ public class SocioController {
 
     @PostMapping("/nuevo")
     public ResponseEntity<SocioDTO> crearSocio2(
-            @Valid @RequestPart("socio") SocioPostDTO socio,
+            @Valid @RequestBody SocioPostDTO socio,
             @RequestPart(value = "imagen", required = false) MultipartFile imagen) throws IOException {
 
         SocioDTO nuevoSocio;
