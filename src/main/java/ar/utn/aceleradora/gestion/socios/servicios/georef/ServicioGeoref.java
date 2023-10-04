@@ -7,10 +7,7 @@ import java.util.List;
 //import domain.services.georef.entities.ListadoDeMunicipios;
 //import domain.services.georef.entities.ListadoDeProvincias;
 //import domain.services.georef.entities.Provincia;
-import ar.utn.aceleradora.gestion.socios.servicios.georef.entities.GeorefService;
-import ar.utn.aceleradora.gestion.socios.servicios.georef.entities.ListadoDeProvincias;
-import ar.utn.aceleradora.gestion.socios.servicios.georef.entities.ListadoDeMunicipios;
-import ar.utn.aceleradora.gestion.socios.servicios.georef.entities.Provincia;
+import ar.utn.aceleradora.gestion.socios.servicios.georef.entities.*;
 import org.springframework.stereotype.Service;
 import retrofit2.Call;
 import retrofit2.Response;
@@ -54,4 +51,14 @@ public class ServicioGeoref {
     Response<ListadoDeMunicipios> responseListadoDeMunicipios = requestListadoDeMunicipios.execute();
     return responseListadoDeMunicipios.body();
   }
+
+  public ListadoDeLocalidades listadoDeLocalidadesDeMunicipios(Municipio municipio) throws IOException {
+    GeorefService georefService = this.retrofit.create(GeorefService.class);
+    Call<ListadoDeLocalidades> requestListadoDeLocalidades = georefService.localidades(municipio.getId(), "id, nombre", maximaCantidadRegistrosDefault);
+    Response<ListadoDeLocalidades> responseListadoDeLocalidades = requestListadoDeLocalidades.execute();
+    return responseListadoDeLocalidades.body();
+  }
+
+
+
 }

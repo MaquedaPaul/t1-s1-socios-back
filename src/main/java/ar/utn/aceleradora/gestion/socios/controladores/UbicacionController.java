@@ -66,7 +66,7 @@ public class UbicacionController {
         }
     }
     @GetMapping("/nombresMunicipio")
-    public ResponseEntity<List<String>> obtenerNombresDeProvincias(@RequestParam("nombre") String nombre) throws IOException {
+    public ResponseEntity<List<String>> obtenerNombresDeMunicipios(@RequestParam("nombre") String nombre) throws IOException {
         ListadoDeProvincias provincias = servicioGeoref.listadoDeProvincias();
 
         List<String> nombresDeMunicipios = new ArrayList<>();
@@ -87,6 +87,45 @@ public class UbicacionController {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
     }
+
+    @GetMapping("/nombresLocalidades")
+    public ResponseEntity<List<String>> obtenerNombresDeLocaldidades(@RequestParam("nombreProvincia") String nombreProvincia,@RequestParam("nombreMunicipio") String nombreMunicipio) throws IOException {
+        ListadoDeProvincias provincias = servicioGeoref.listadoDeProvincias();
+
+        List<String> nombresDeLocalidades = new ArrayList<>();
+
+
+        for (Provincia provincia : provincias.getProvincias()) {
+            if (provincia.getNombre().equalsIgnoreCase(nombreProvincia)) {
+                ListadoDeMunicipios municipios = servicioGeoref.listadoDeMunicipiosDeProvincia(provincia);
+                for(Municipio municipio : municipios.getMunicipios()){
+                    if(municipio.getNombre().equalsIgnoreCase(nombreMunicipio)){
+                        ListadoDeLocalidades localidades = servicioGeoref.listadoDeLocalidadesDeMunicipios(municipio);
+                        for(Localidad localidad : localidades.getLocalidades()){
+                            nombresDeLocalidades.add(localidad.getNombre());
+                        }
+                        break;
+                    }
+
+                }
+                break; // Terminar la búsqueda después de encontrar la provincia
+            }
+        }
+
+        if (!nombresDeLocalidades.isEmpty()) {
+            return new ResponseEntity<>(nombresDeLocalidades, HttpStatus.OK);
+        } else {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+    }
+
+
+
+
+
+
+
+
 
 }
 
