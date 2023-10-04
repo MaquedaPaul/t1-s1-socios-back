@@ -48,7 +48,7 @@ public class Socio {
     private String telefono;//Puede ser string
 
     @NotBlank(message = "El mail no puede estar vacío")
-    @Email(message = "El mail es inválido")
+    @Email(message = "El mail es inválido ")
     private String mail;
 
     @ManyToMany(fetch = FetchType.EAGER)
