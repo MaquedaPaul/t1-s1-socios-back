@@ -88,7 +88,7 @@ public class UbicacionController {
         }
     }
 
-    @GetMapping("/nombresLocalidades")
+   /* @GetMapping("/nombresLocalidades")
     public ResponseEntity<List<String>> obtenerNombresDeLocaldidades(@RequestParam("nombreProvincia") String nombreProvincia,@RequestParam("nombreMunicipio") String nombreMunicipio) throws IOException {
         ListadoDeProvincias provincias = servicioGeoref.listadoDeProvincias();
 
@@ -112,6 +112,30 @@ public class UbicacionController {
             }
         }
 
+        if (!nombresDeLocalidades.isEmpty()) {
+            return new ResponseEntity<>(nombresDeLocalidades, HttpStatus.OK);
+        } else {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+    }*/
+
+    @GetMapping("/nombresLocalidades")
+    public ResponseEntity<List<String>> obtenerNombresDeLocaldidadesDeUnaProvincia(@RequestParam("nombreProvincia") String nombreProvincia) throws IOException {
+        ListadoDeProvincias provincias = servicioGeoref.listadoDeProvincias();
+
+        List<String> nombresDeLocalidades = new ArrayList<>();
+
+
+        for (Provincia provincia : provincias.getProvincias()) {
+            if (provincia.getNombre().equalsIgnoreCase(nombreProvincia)) {
+                        ListadoDeLocalidades localidades = servicioGeoref.listadoDeLocalidadesDeMunicipios1(provincia);
+                        for(Localidad localidad : localidades.getLocalidades()){
+                            nombresDeLocalidades.add(localidad.getNombre());
+                        }
+                        break;
+                    }
+
+                }
         if (!nombresDeLocalidades.isEmpty()) {
             return new ResponseEntity<>(nombresDeLocalidades, HttpStatus.OK);
         } else {

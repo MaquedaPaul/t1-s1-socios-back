@@ -28,6 +28,9 @@ public interface GeorefService {
   @GET("localidades")
   Call<ListadoDeLocalidades> localidades(@Query("municipio") int idMunicipio, @Query("campos") String campos,@Query("max") int max);
 
+  @GET("localidades")
+  Call<ListadoDeLocalidades> localidades1(@Query("provincia") int idProvincia, @Query("campos") String campos,@Query("max") int max);
+
 
 
 

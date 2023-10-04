@@ -59,6 +59,13 @@ public class ServicioGeoref {
     return responseListadoDeLocalidades.body();
   }
 
+  public ListadoDeLocalidades listadoDeLocalidadesDeMunicipios1(Provincia provincia) throws IOException {
+    GeorefService georefService = this.retrofit.create(GeorefService.class);
+    Call<ListadoDeLocalidades> requestListadoDeLocalidades = georefService.localidades1(provincia.getId(), "id, nombre", maximaCantidadRegistrosDefault);
+    Response<ListadoDeLocalidades> responseListadoDeLocalidades = requestListadoDeLocalidades.execute();
+    return responseListadoDeLocalidades.body();
+  }
+
 
 
 }
