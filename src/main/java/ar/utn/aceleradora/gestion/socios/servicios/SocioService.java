@@ -18,6 +18,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import java.time.LocalDate;
 import java.time.Period;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
@@ -77,6 +78,12 @@ public class SocioService {
     }else{
       return socios.stream().map(Socio::getNombre).collect(Collectors.toList());
     }
+  }
+
+  public List<String> getTodosLosEstadoSocio() {
+    return Arrays.stream(TipoSocio.values())
+        .map(Enum::name)
+        .collect(Collectors.toList());
   }
 
   private Pair<List<Socio>, Long> filtrarYContarSocios(Pageable pageable,
@@ -269,8 +276,10 @@ public class SocioService {
     return null;
   }
 
-  public List<String> getAllTipoSocio(){
-    return List.of(TipoSocio.values()).stream().map(TipoSocio::name).collect(Collectors.toList());
+  public List<String> getAllTipoSocio() {
+    return List.of(TipoSocio.values()).stream()
+        .map(TipoSocio::getDescripcion)
+        .collect(Collectors.toList());
   }
 
 }
