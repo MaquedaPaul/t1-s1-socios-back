@@ -8,6 +8,8 @@ import lombok.Setter;
 @Setter
 public class SocioPostDTO{
   private String nombre;
+  private String cuit;
+  private String rutaImagen;
   private String nombrePresidente;
   private TipoSocio tipoSocio;
   private String mail;

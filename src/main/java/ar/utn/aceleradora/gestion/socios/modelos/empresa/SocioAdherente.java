@@ -29,8 +29,8 @@ public class SocioAdherente extends Socio{
   public SocioAdherente() {
   }
 
-  public SocioAdherente(String nombreEmpresa, String telefono, String mail, Ubicacion ubicacion) {
-    super(nombreEmpresa, TipoSocio.SOCIO_ADHERENTE, telefono, mail, ubicacion);
+  public SocioAdherente(String nombreEmpresa, String cuit, String telefono, String mail, Ubicacion ubicacion) {
+    super(nombreEmpresa,cuit, TipoSocio.SOCIO_ADHERENTE, telefono, mail, ubicacion);
   }
 
 

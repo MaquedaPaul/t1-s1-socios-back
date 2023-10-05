@@ -98,13 +98,13 @@ public class AceleradoraUtnBaGestionDeSociosApplication {
 						"Piso " + (i + 1),
 						"Depto " + (i + 1),
 						"Ciudad Ficticia",
-						"Provincia Ficticia",
-						"País Ficticio"
+						"Provincia Ficticia"
 				);
 
 				// Crea un socio con datos de prueba
 				Socio socio = new Socio(
 						"Socio de Prueba " + (i + 1),
+						   "00-34567890-0" , // CUIT ficticio
 						tipoSocio,
 						"123456789", // Número de teléfono ficticio
 						"socio" + (i + 1) + "@ejemplo.com", // Correo electrónico ficticio

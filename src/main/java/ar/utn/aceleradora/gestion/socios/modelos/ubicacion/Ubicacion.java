@@ -21,20 +21,19 @@ public class Ubicacion {
     private String localidad;
     @Column
     private String provincia;
-    @Column
-    private String pais;
+
 
 
     public Ubicacion() {
     }
 
-    public Ubicacion(String direccion,String piso,String departamento,String localidad,String provincia,String pais){
+    public Ubicacion(String direccion,String piso,String departamento,String localidad,String provincia){
 
         this.direccion = direccion;
         this.piso=piso;
         this.departamento = departamento;
         this.localidad = localidad;
         this.provincia = provincia;
-        this.pais = pais;
+
     }
 }

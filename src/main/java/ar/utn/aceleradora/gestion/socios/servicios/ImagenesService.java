@@ -13,6 +13,7 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.UUID;
 
 @Service
 public class ImagenesService {
@@ -71,6 +72,13 @@ public class ImagenesService {
     } catch (IOException e) {
       throw new RuntimeException("Error al eliminar la imagen", e);
     }
+  }
+
+  public String guardarImagenSinId(MultipartFile archivo) throws IOException {
+    String nombreArchivo = "imagen_" + UUID.randomUUID() + ".JPEG"; // Genera un nombre único
+    Path ubicacionCopia = Paths.get(path_imagenes + File.separator + nombreArchivo);
+    optimizarImagen(archivo, ubicacionCopia.toString());
+    return ubicacionCopia.toString();
   }
 
 

@@ -5,6 +5,7 @@ import ar.utn.aceleradora.gestion.socios.dto.SocioDTO;
 import ar.utn.aceleradora.gestion.socios.dto.SocioPlenarioDTO;
 import ar.utn.aceleradora.gestion.socios.dto.SocioPostDTO;
 import ar.utn.aceleradora.gestion.socios.modelos.empresa.TipoSocio;
+import ar.utn.aceleradora.gestion.socios.servicios.ImagenesService;
 import ar.utn.aceleradora.gestion.socios.servicios.SocioService;
 
 import com.mysql.cj.protocol.Message;
@@ -18,8 +19,10 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.server.ResponseStatusException;
 
+import java.io.IOException;
 import java.util.List;
 import java.util.Optional;
 
@@ -30,8 +33,12 @@ public class SocioController {
     @Autowired
     private SocioService socioService;
 
-    public SocioController(SocioService socioService) {
+    @Autowired
+    private ImagenesService imagenesService;
+
+    public SocioController(SocioService socioService, ImagenesService imagenesService) {
       this.socioService = socioService;
+      this.imagenesService = imagenesService;
     }
 
     @GetMapping("/{id}")
@@ -58,13 +65,23 @@ public class SocioController {
 
     }
 
-    @PostMapping("/ingresarSocio")
-    public SocioDTO crearSocio2(@Valid @RequestBody SocioPostDTO socio) {
+    @PostMapping("/nuevo")
+    public ResponseEntity<SocioDTO> crearSocio2(
+            @Valid @RequestBody SocioPostDTO socio,
+            @RequestPart(value = "imagen", required = false) MultipartFile imagen) throws IOException {
 
-        SocioDTO nuevoSocio = socioService.guardarSocio(socio);
-        return nuevoSocio;
+        SocioDTO nuevoSocio;
 
+        if (imagen != null) {
+            // Si se proporciona una imagen, guárdala y asocia su ruta al socio
+            String rutaImagen = imagenesService.guardarImagenSinId(imagen);
+            socio.setRutaImagen(rutaImagen); // Suponiendo que SocioPostDTO tiene un campo "rutaImagen"
+        }
+
+        nuevoSocio = socioService.guardarSocio(socio);
+        return new ResponseEntity<>(nuevoSocio, HttpStatus.CREATED);
     }
+
 
     @GetMapping("/obtenerNombres")
     public ResponseEntity<List<String>> obtenerNombres() {
@@ -160,6 +177,10 @@ public class SocioController {
         List<String> tiposDeSocio = socioService.getAllTipoSocio();
         return new ResponseEntity<>(tiposDeSocio, HttpStatus.OK);
     }
+
+
+
+
 
 
 }

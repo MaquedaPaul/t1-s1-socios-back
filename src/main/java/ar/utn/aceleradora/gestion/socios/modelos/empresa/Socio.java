@@ -5,9 +5,7 @@ import ar.utn.aceleradora.gestion.socios.modelos.evento.Evento;
 import ar.utn.aceleradora.gestion.socios.modelos.membresia.Membresia;
 import ar.utn.aceleradora.gestion.socios.modelos.ubicacion.Ubicacion;
 import jakarta.persistence.*;
-import jakarta.validation.constraints.Email;
-import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.*;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -32,6 +30,12 @@ public class Socio {
 
     private String nombrePresidente;
 
+    @Column(length = 13)
+    @NotBlank(message = "El cuit no puede estar vacío")
+    @Pattern(regexp = "^[0-9\\-]+$", message = "El CUIT debe contener solo números y guiones.")
+    @Size(min = 13, max = 13, message = "Error en la cantidad de caracteres del CUIT.")
+    private String cuit;
+
 
     @Enumerated(EnumType.STRING)
     private TipoSocio tipoSocio;
@@ -44,7 +48,7 @@ public class Socio {
     private String telefono;//Puede ser string
 
     @NotBlank(message = "El mail no puede estar vacío")
-    @Email(message = "El mail es inválido")
+    @Email(message = "El mail es inválido ")
     private String mail;
 
     @ManyToMany(fetch = FetchType.EAGER)
@@ -66,14 +70,20 @@ public class Socio {
    // @JoinColumn(name = "idSocio")
     private Membresia membresia;
 
+
+    private String rutaImagen; // Campo para almacenar la ruta de la imagen
+
+
+
     public Socio() {
 
         this.categorias = new ArrayList<>();
         this.activo = true;
     }
 
-    public Socio(String nombre, TipoSocio tipoSocio, String telefono, String mail ,Ubicacion ubicacion) {
+    public Socio(String nombre, String cuit,  TipoSocio tipoSocio, String telefono, String mail ,Ubicacion ubicacion) {
         this.nombre = nombre;
+        this.cuit = cuit;
         this.tipoSocio = tipoSocio;
         this.activo = true; // Suponemos que al dar de alta, el socio está activo por defecto
         this.categorias = new ArrayList<>();
