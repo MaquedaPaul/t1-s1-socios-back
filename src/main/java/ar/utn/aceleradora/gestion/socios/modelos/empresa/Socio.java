@@ -2,6 +2,7 @@ package ar.utn.aceleradora.gestion.socios.modelos.empresa;
 
 import ar.utn.aceleradora.gestion.socios.modelos.departamento.Categoria;
 import ar.utn.aceleradora.gestion.socios.modelos.evento.Evento;
+import ar.utn.aceleradora.gestion.socios.modelos.imagen.Imagen;
 import ar.utn.aceleradora.gestion.socios.modelos.membresia.Membresia;
 import ar.utn.aceleradora.gestion.socios.modelos.ubicacion.Ubicacion;
 import jakarta.persistence.*;
@@ -30,10 +31,10 @@ public class Socio {
 
     private String nombrePresidente;
 
-    @Column(length = 13)
+    @Column(length = 11)
     @NotBlank(message = "El cuit no puede estar vacío")
     @Pattern(regexp = "^[0-9\\-]+$", message = "El CUIT debe contener solo números y guiones.")
-    @Size(min = 13, max = 13, message = "Error en la cantidad de caracteres del CUIT.")
+    @Size(min =11, max = 11, message = "Error en la cantidad de caracteres del CUIT.")
     private String cuit;
 
 
@@ -70,8 +71,9 @@ public class Socio {
    // @JoinColumn(name = "idSocio")
     private Membresia membresia;
 
-
-    private String rutaImagen; // Campo para almacenar la ruta de la imagen
+//    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+//    @JoinColumn(name = "imagen_id") // Agregar una columna de imagen_id en la tabla socio
+//    private Imagen imagen; // Agregar una relación con la entidad Imagen
 
 
 

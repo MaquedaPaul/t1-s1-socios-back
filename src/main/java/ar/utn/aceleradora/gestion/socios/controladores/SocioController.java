@@ -5,6 +5,7 @@ import ar.utn.aceleradora.gestion.socios.dto.SocioDTO;
 import ar.utn.aceleradora.gestion.socios.dto.SocioPlenarioDTO;
 import ar.utn.aceleradora.gestion.socios.dto.SocioPostDTO;
 import ar.utn.aceleradora.gestion.socios.modelos.empresa.TipoSocio;
+import ar.utn.aceleradora.gestion.socios.modelos.imagen.Imagen;
 import ar.utn.aceleradora.gestion.socios.servicios.ImagenesService;
 import ar.utn.aceleradora.gestion.socios.servicios.SocioService;
 import jakarta.persistence.EntityNotFoundException;
@@ -99,22 +100,7 @@ public class SocioController {
 
     }
 
-    @PostMapping("/nuevo")
-    public ResponseEntity<SocioDTO> crearSocio2(
-            @Valid @RequestBody SocioPostDTO socio,
-            @RequestPart(value = "imagen", required = false) MultipartFile imagen) throws IOException {
 
-        SocioDTO nuevoSocio;
-
-        if (imagen != null) {
-            // Si se proporciona una imagen, guárdala y asocia su ruta al socio
-            String rutaImagen = imagenesService.guardarImagenSinId(imagen);
-            socio.setRutaImagen(rutaImagen); // Suponiendo que SocioPostDTO tiene un campo "rutaImagen"
-        }
-
-        nuevoSocio = socioService.guardarSocio(socio);
-        return new ResponseEntity<>(nuevoSocio, HttpStatus.CREATED);
-    }
 
     @PostMapping("/{id}/categorias")
     public ResponseEntity<SocioDTO> agregarCategoriasASocio(@PathVariable Integer id, @Valid @RequestBody List<String> categorias) {
@@ -179,5 +165,25 @@ public class SocioController {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Socio no encontrado", e);
         }
     }
+/*
+    @PostMapping("/crearSocio")
+    public ResponseEntity<SocioDTO> crearSocio2(@Valid @RequestBody SocioPostDTO socioPostDTO,
+                                               @RequestParam(value = "imagen", required = false) MultipartFile imagen) {
+        // Procesar los datos del socio y crear una instancia de Socio
+        SocioDTO nuevoSocio = socioService.guardarSocio(socioPostDTO);
+
+        // Si se proporciona una imagen, guardarla y asociarla al socio
+        if (imagen != null) {
+            try {
+                String rutaImagen = imagenesService.guardarImagen(imagen, nuevoSocio.getId()); // Suponiendo que getId() devuelve el ID del nuevo socio
+            } catch (IOException e) {
+                throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Error de imagen", e);
+            }
+        }
+
+        return new ResponseEntity<>(nuevoSocio, HttpStatus.CREATED);
+    }
+*/
+
 
 }

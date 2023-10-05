@@ -47,6 +47,8 @@ public class SocioService {
     return socioDTO;
   }
 
+
+
   public SocioDTO obtenerSocio(Integer id) {
     Optional<Socio> socioOptional = socioRepository.findById(id);
 

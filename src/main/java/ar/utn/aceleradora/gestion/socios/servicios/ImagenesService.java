@@ -28,6 +28,13 @@ public class ImagenesService {
     return ubicacionCopia.toString();
   }
 
+  public String guardarImagenSinId(MultipartFile archivo) throws IOException {
+    String nombreArchivo = UUID.randomUUID().toString() + ".JPEG"; // Genera un nombre único para la imagen
+    Path ubicacionCopia = Paths.get(path_imagenes + File.separator + nombreArchivo);
+    optimizarImagen(archivo, ubicacionCopia.toString());
+    return nombreArchivo; // Devuelve el nombre único de la imagen
+  }
+
   private void optimizarImagen(MultipartFile archivo, String rutaDestino) throws IOException {
     Thumbnails.of(archivo.getInputStream())
         .size(640, 360)
@@ -72,13 +79,6 @@ public class ImagenesService {
     } catch (IOException e) {
       throw new RuntimeException("Error al eliminar la imagen", e);
     }
-  }
-
-  public String guardarImagenSinId(MultipartFile archivo) throws IOException {
-    String nombreArchivo = "imagen_" + UUID.randomUUID() + ".JPEG"; // Genera un nombre único
-    Path ubicacionCopia = Paths.get(path_imagenes + File.separator + nombreArchivo);
-    optimizarImagen(archivo, ubicacionCopia.toString());
-    return ubicacionCopia.toString();
   }
 
 
