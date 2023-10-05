@@ -24,7 +24,7 @@ public class SocioDTO {
   private String nombrePresidente;  //solo para socios plenarios
   private List<Categoria> categorias;
   private Ubicacion ubicacion;
-  private Imagen imagen;
+
     public SocioDTO() {
     //this.categorias = new ArrayList<>();
     }
