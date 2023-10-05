@@ -94,7 +94,6 @@ public class SocioService {
                                                        Optional<Boolean> activoOptional) {
 
     List<Socio> sociosFiltrados;
-    Long totalSocios;
 
     TipoSocio tipoSocio = tipoSocioOptional.orElse(null);
     List<Categoria> categorias = null;
@@ -106,45 +105,38 @@ public class SocioService {
     LocalDate fechaInicio = fechaInicioMembresia.orElse(null);
 
     if (categorias != null && fechaInicio != null && tipoSocio != null) {
-      totalSocios = socioRepository.countByTipoSocioAndCategoriasInAndMembresia_FechaInicioBefore(tipoSocio, categorias, fechaInicio);
-      sociosFiltrados = socioRepository.findByTipoSocioAndCategoriasInAndMembresia_FechaInicioBefore(tipoSocio, categorias, fechaInicio, pageable);
+      sociosFiltrados = socioRepository.findByTipoSocioAndCategoriasInAndMembresia_FechaInicioBefore(tipoSocio, categorias, fechaInicio);
     } else if (categorias != null && tipoSocio != null) {
-      totalSocios = socioRepository.countByTipoSocioAndCategoriasIn(tipoSocio, categorias);
-      sociosFiltrados = socioRepository.findByTipoSocioAndCategoriasIn(tipoSocio, categorias, pageable);
+      sociosFiltrados = socioRepository.findByTipoSocioAndCategoriasIn(tipoSocio, categorias);
     } else if (categorias != null && fechaInicio != null) {
-      totalSocios = socioRepository.countByCategoriasInAndMembresia_FechaInicioBefore(categorias, fechaInicio);
-      sociosFiltrados = socioRepository.findByCategoriasInAndMembresia_FechaInicioBefore(categorias, fechaInicio, pageable);
+      sociosFiltrados = socioRepository.findByCategoriasInAndMembresia_FechaInicioBefore(categorias, fechaInicio);
     } else if (tipoSocio != null && fechaInicio != null) {
-      totalSocios = socioRepository.countByTipoSocioAndMembresia_FechaInicioBefore(tipoSocio, fechaInicio);
-      sociosFiltrados = socioRepository.findByTipoSocioAndMembresia_FechaInicioBefore(tipoSocio, fechaInicio, pageable);
+      sociosFiltrados = socioRepository.findByTipoSocioAndMembresia_FechaInicioBefore(tipoSocio, fechaInicio);
     } else if (tipoSocio != null && nombre !=null) {
-      totalSocios = socioRepository.countByTipoSocioAndNombreContaining(tipoSocio, nombre);
-      sociosFiltrados = socioRepository.findByTipoSocioAndNombreContaining(tipoSocio, nombre, pageable);
+      sociosFiltrados = socioRepository.findByTipoSocioAndNombreContaining(tipoSocio, nombre);
     } else if (tipoSocio != null && activo != null) {
-      totalSocios = socioRepository.countByTipoSocioAndActivo(tipoSocio, activo);
-      sociosFiltrados = socioRepository.findByTipoSocioAndActivo(tipoSocio, activo, pageable);
+      sociosFiltrados = socioRepository.findByTipoSocioAndActivo(tipoSocio, activo);
     } else if (categorias != null && activo != null) {
-      totalSocios = socioRepository.countByCategoriasInAndActivo(categorias, activo);
-      sociosFiltrados = socioRepository.findByCategoriasInAndActivo(categorias, activo, pageable);
+      sociosFiltrados = socioRepository.findByCategoriasInAndActivo(categorias, activo);
     } else if (tipoSocio != null) {
-      totalSocios = socioRepository.countByTipoSocio(tipoSocio);
-      sociosFiltrados = socioRepository.findByTipoSocio(tipoSocio, pageable);
+      sociosFiltrados = socioRepository.findByTipoSocio(tipoSocio);
     } else if (categorias != null) {
-      totalSocios = socioRepository.countByCategoriasIn(categorias);
-      sociosFiltrados = socioRepository.findByCategoriasIn(categorias, pageable);
+      sociosFiltrados = socioRepository.findByCategoriasIn(categorias);
     } else if (fechaInicio != null) {
-      totalSocios = socioRepository.countByMembresia_FechaInicioBefore(fechaInicio);
-      sociosFiltrados = socioRepository.findByMembresia_FechaInicioBefore(fechaInicio, pageable);
+      sociosFiltrados = socioRepository.findByMembresia_FechaInicioBefore(fechaInicio);
     } else if (nombre != null) {
-      totalSocios = socioRepository.countByNombreContaining(nombre);
-      sociosFiltrados = socioRepository.findByNombreContaining(nombre, pageable);
+      sociosFiltrados = socioRepository.findByNombreContaining(nombre);
     } else if (activo != null) {
-      totalSocios = socioRepository.countByActivo(activo);
-      sociosFiltrados = socioRepository.findByActivo(activo, pageable);
+      sociosFiltrados = socioRepository.findByActivo(activo);
     } else {
-      totalSocios = (long) socioRepository.findAll().size();
-      sociosFiltrados = socioRepository.findAll(pageable).getContent();
+      sociosFiltrados = socioRepository.findAll();
     }
+
+    Long totalSocios = (long) sociosFiltrados.size();
+    sociosFiltrados = sociosFiltrados.stream()
+        .skip(pageable.getOffset())
+        .limit(pageable.getPageSize())
+        .collect(Collectors.toList());
 
     return Pair.of(sociosFiltrados, totalSocios);
   }

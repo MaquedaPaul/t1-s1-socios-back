@@ -88,7 +88,7 @@ public class SocioController {
         List<String> tiposDeSocio = socioService.getAllTipoSocio();
         return new ResponseEntity<>(tiposDeSocio, HttpStatus.OK);
     }
-    
+
     // ----------------> POST
 
     @PostMapping()
