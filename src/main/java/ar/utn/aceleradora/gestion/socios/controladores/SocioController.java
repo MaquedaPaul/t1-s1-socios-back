@@ -125,7 +125,7 @@ public class SocioController {
     }
 
     @PutMapping("/{id}/actualizar/categorias")
-    public ResponseEntity<Void> actualizarCategoriasDeSocio(@PathVariable Integer id, @RequestBody List<String> categorias) {
+    public ResponseEntity<Void> CategoriasDeSocio(@PathVariable Integer id, @RequestBody List<String> categorias) {
         try {
             socioService.actualizarCategoriasDeSocio(id, categorias);
             return new ResponseEntity<>(HttpStatus.OK);
