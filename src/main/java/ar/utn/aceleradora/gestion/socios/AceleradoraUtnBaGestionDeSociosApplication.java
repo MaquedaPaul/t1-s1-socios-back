@@ -126,6 +126,16 @@ public class AceleradoraUtnBaGestionDeSociosApplication {
 				}
 				socio.setCategorias(subconjuntoCategorias);
 
+				// Generar un número aleatorio de 11 dígitos
+				StringBuilder sb = new StringBuilder(11);
+				for (int j = 0; j < 11; j++) {
+					int digito = random.nextInt(10); // Genera un dígito aleatorio entre 0 y 9
+					sb.append(digito);
+				}
+
+				// Asignar el número aleatorio a la cadena
+				socio.setCuit(sb.toString());
+
 				// Guarda el socio en la base de datos
 				socioRepo.save(socio);
 			}
