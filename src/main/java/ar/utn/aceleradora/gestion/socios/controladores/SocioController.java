@@ -124,8 +124,10 @@ public class SocioController {
             .orElse(new ResponseEntity<>(HttpStatus.NOT_FOUND));
     }
 
+
     @PutMapping("/{id}/categorias")
     public ResponseEntity<Void> actualizarCategoriasDeSocio(@PathVariable Integer id, @RequestBody List<String> categorias) {
+
         try {
             socioService.actualizarCategoriasDeSocio(id, categorias);
             return new ResponseEntity<>(HttpStatus.OK);
