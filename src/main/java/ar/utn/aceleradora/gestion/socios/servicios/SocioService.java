@@ -223,6 +223,9 @@ public class SocioService {
       if(socioDTO.getActivo() == null) {
         socioDTO.setActivo(existingSocio.getActivo());
       }
+      if (socioDTO.getUbicacion() != null && socioDTO.getUbicacion().equals(existingSocio.getUbicacion())) {
+        socioDTO.setUbicacion(existingSocio.getUbicacion());
+      }
       modelMapper.map(socioDTO, existingSocio);
       Socio updatedSocio = socioRepository.save(existingSocio);
       return modelMapper.map(updatedSocio, SocioDTO.class);
