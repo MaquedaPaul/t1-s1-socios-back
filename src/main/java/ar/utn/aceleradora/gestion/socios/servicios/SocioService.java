@@ -223,8 +223,14 @@ public class SocioService {
       if(socioDTO.getActivo() == null) {
         socioDTO.setActivo(existingSocio.getActivo());
       }
-      if (socioDTO.getUbicacion() != null && socioDTO.getUbicacion().equals(existingSocio.getUbicacion())) {
-        socioDTO.setUbicacion(existingSocio.getUbicacion());
+      if (socioDTO.getUbicacion() != null
+              && socioDTO.getUbicacion().getDireccion().equals(existingSocio.getUbicacion().getDireccion())
+              && socioDTO.getUbicacion().getPiso().equals(existingSocio.getUbicacion().getPiso())
+              && socioDTO.getUbicacion().getDepartamento().equals(existingSocio.getUbicacion().getDepartamento())
+              && socioDTO.getUbicacion().getLocalidad().equals(existingSocio.getUbicacion().getLocalidad())
+              && socioDTO.getUbicacion().getProvincia().equals(existingSocio.getUbicacion().getProvincia())
+      ) {
+        socioDTO.getUbicacion().setId(existingSocio.getUbicacion().getId());
       }
       modelMapper.map(socioDTO, existingSocio);
       Socio updatedSocio = socioRepository.save(existingSocio);
