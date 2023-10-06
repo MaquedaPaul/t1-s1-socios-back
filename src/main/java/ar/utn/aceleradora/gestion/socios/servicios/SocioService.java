@@ -7,6 +7,7 @@ import ar.utn.aceleradora.gestion.socios.modelos.departamento.Categoria;
 import ar.utn.aceleradora.gestion.socios.modelos.empresa.Socio;
 import ar.utn.aceleradora.gestion.socios.modelos.empresa.TipoSocio;
 import ar.utn.aceleradora.gestion.socios.repositorios.SocioRepository;
+import ar.utn.aceleradora.gestion.socios.repositorios.UbicacionRepository;
 import jakarta.persistence.EntityNotFoundException;
 import org.modelmapper.ModelMapper;
 import org.apache.commons.lang3.tuple.Pair;
@@ -29,11 +30,14 @@ public class SocioService {
   private final SocioRepository socioRepository;
   private final ModelMapper modelMapper;
   private final CategoriaService categoriaService;
+
+  private final UbicacionRepository ubicacionRepository;
   @Autowired
-  public SocioService(SocioRepository socioRepository, ModelMapper modelMapper, CategoriaService categoriaService) {
+  public SocioService(SocioRepository socioRepository, ModelMapper modelMapper, CategoriaService categoriaService, UbicacionRepository ubicacionRepository) {
     this.socioRepository = socioRepository;
     this.modelMapper = modelMapper;
     this.categoriaService = categoriaService;
+    this.ubicacionRepository = ubicacionRepository;
   }
 
   public SocioDTO guardarSocio(SocioPostDTO socioPostDTO) {
@@ -214,6 +218,7 @@ public class SocioService {
       return null;
     }
   }
+
 
   public SocioDTO actualizarSocio(Integer id, SocioDTO socioDTO) {
     Optional<Socio> existingSocioOpt = socioRepository.findById(id);
