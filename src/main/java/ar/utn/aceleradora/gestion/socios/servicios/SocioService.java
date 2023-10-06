@@ -219,6 +219,7 @@ public class SocioService {
     Optional<Socio> existingSocioOpt = socioRepository.findById(id);
     if (existingSocioOpt.isPresent()) {
       Socio existingSocio = existingSocioOpt.get();
+      socioDTO.setId(id);
       if(socioDTO.getActivo() == null) {
         socioDTO.setActivo(existingSocio.getActivo());
       }
