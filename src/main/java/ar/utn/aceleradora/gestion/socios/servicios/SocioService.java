@@ -7,6 +7,7 @@ import ar.utn.aceleradora.gestion.socios.modelos.departamento.Categoria;
 import ar.utn.aceleradora.gestion.socios.modelos.empresa.Socio;
 import ar.utn.aceleradora.gestion.socios.modelos.empresa.TipoSocio;
 import ar.utn.aceleradora.gestion.socios.repositorios.SocioRepository;
+import ar.utn.aceleradora.gestion.socios.utilidades.SocioEspecificacion;
 import jakarta.persistence.EntityNotFoundException;
 import org.modelmapper.ModelMapper;
 import org.apache.commons.lang3.tuple.Pair;
@@ -15,6 +16,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 import java.time.LocalDate;
 import java.time.Period;
@@ -87,59 +89,33 @@ public class SocioService {
   }
 
   private Pair<List<Socio>, Long> filtrarYContarSocios(Pageable pageable,
-                                                       Optional<List<String>> categoriaOptional,
-                                                       Optional<LocalDate> fechaInicioMembresia,
-                                                       Optional<TipoSocio> tipoSocioOptional,
-                                                       Optional<String> nombreOptional,
-                                                       Optional<Boolean> activoOptional) {
+                                                       Optional<List<String>> opcionesCategoria,
+                                                       Optional<LocalDate> opcionesFechaInicioMembresia,
+                                                       Optional<TipoSocio> opcionesTipoSocio,
+                                                       Optional<String> opcionesNombre,
+                                                       Optional<Boolean> opcionesActivo) {
 
-    List<Socio> sociosFiltrados;
+    TipoSocio tipoSocio = opcionesTipoSocio.orElse(null);
+    List<Categoria> categorias = opcionesCategoria.isPresent() ? categoriaService.obtenerCategoriasPorNombres(opcionesCategoria.get()) : null;
+    String nombre = opcionesNombre.orElse(null);
+    Boolean activo = opcionesActivo.orElse(null);
+    LocalDate fechaInicio = opcionesFechaInicioMembresia.orElse(null);
 
-    TipoSocio tipoSocio = tipoSocioOptional.orElse(null);
-    List<Categoria> categorias = null;
-    if(categoriaOptional.isPresent()) {
-      categorias = categoriaService.obtenerCategoriasPorNombres(categoriaOptional.get());
-    }
-    String nombre = nombreOptional.orElse(null);
-    Boolean activo = activoOptional.orElse(null);
-    LocalDate fechaInicio = fechaInicioMembresia.orElse(null);
+    Specification<Socio> spec = Specification.where(
+            SocioEspecificacion.tieneCategoria(categorias))
+        .and(SocioEspecificacion.tieneFechaInicioAntesDe(fechaInicio))
+        .and(SocioEspecificacion.tieneTipoSocio(tipoSocio))
+        .and(SocioEspecificacion.tieneNombre(nombre))
+        .and(SocioEspecificacion.estaActivo(activo)
+        );
 
-    if (categorias != null && fechaInicio != null && tipoSocio != null) {
-      sociosFiltrados = socioRepository.findByTipoSocioAndCategoriasInAndMembresia_FechaInicioBefore(tipoSocio, categorias, fechaInicio);
-    } else if (categorias != null && tipoSocio != null) {
-      sociosFiltrados = socioRepository.findByTipoSocioAndCategoriasIn(tipoSocio, categorias);
-    } else if (categorias != null && fechaInicio != null) {
-      sociosFiltrados = socioRepository.findByCategoriasInAndMembresia_FechaInicioBefore(categorias, fechaInicio);
-    } else if (tipoSocio != null && fechaInicio != null) {
-      sociosFiltrados = socioRepository.findByTipoSocioAndMembresia_FechaInicioBefore(tipoSocio, fechaInicio);
-    } else if (tipoSocio != null && nombre !=null) {
-      sociosFiltrados = socioRepository.findByTipoSocioAndNombreContaining(tipoSocio, nombre);
-    } else if (tipoSocio != null && activo != null) {
-      sociosFiltrados = socioRepository.findByTipoSocioAndActivo(tipoSocio, activo);
-    } else if (categorias != null && activo != null) {
-      sociosFiltrados = socioRepository.findByCategoriasInAndActivo(categorias, activo);
-    } else if (tipoSocio != null) {
-      sociosFiltrados = socioRepository.findByTipoSocio(tipoSocio);
-    } else if (categorias != null) {
-      sociosFiltrados = socioRepository.findByCategoriasIn(categorias);
-    } else if (fechaInicio != null) {
-      sociosFiltrados = socioRepository.findByMembresia_FechaInicioBefore(fechaInicio);
-    } else if (nombre != null) {
-      sociosFiltrados = socioRepository.findByNombreContaining(nombre);
-    } else if (activo != null) {
-      sociosFiltrados = socioRepository.findByActivo(activo);
-    } else {
-      sociosFiltrados = socioRepository.findAll();
-    }
-
-    Long totalSocios = (long) sociosFiltrados.size();
-    sociosFiltrados = sociosFiltrados.stream()
-        .skip(pageable.getOffset())
-        .limit(pageable.getPageSize())
-        .collect(Collectors.toList());
+    List<Socio> sociosFiltrados = socioRepository.findAll(spec, pageable).getContent();
+    Long totalSocios = (long) socioRepository.findAll(spec).size();
 
     return Pair.of(sociosFiltrados, totalSocios);
   }
+
+
 
   public Page<ResumenSocioDTO> obtenerResumenSociosPaginados(int pagina, int tamanio,
                                                              Optional<List<String>> categoriaOptional,
