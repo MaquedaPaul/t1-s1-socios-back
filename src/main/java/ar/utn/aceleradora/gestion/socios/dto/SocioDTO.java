@@ -2,6 +2,7 @@ package ar.utn.aceleradora.gestion.socios.dto;
 
 import ar.utn.aceleradora.gestion.socios.modelos.departamento.Categoria;
 import ar.utn.aceleradora.gestion.socios.modelos.empresa.TipoSocio;
+import ar.utn.aceleradora.gestion.socios.modelos.imagen.Imagen;
 import ar.utn.aceleradora.gestion.socios.modelos.ubicacion.Ubicacion;
 import lombok.Getter;
 import lombok.Setter;
@@ -17,7 +18,7 @@ public class SocioDTO {
   private TipoSocio tipoSocio;
   private String cuit;
   private Boolean activo;
-  private String rutaImagen;
+
   private String telefono;
   private String mail;
   private String nombrePresidente;  //solo para socios plenarios

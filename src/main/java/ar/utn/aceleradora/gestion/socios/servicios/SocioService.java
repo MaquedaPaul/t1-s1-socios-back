@@ -8,6 +8,7 @@ import ar.utn.aceleradora.gestion.socios.modelos.empresa.Socio;
 import ar.utn.aceleradora.gestion.socios.modelos.empresa.TipoSocio;
 import ar.utn.aceleradora.gestion.socios.repositorios.SocioRepository;
 import ar.utn.aceleradora.gestion.socios.utilidades.SocioEspecificacion;
+import ar.utn.aceleradora.gestion.socios.repositorios.UbicacionRepository;
 import jakarta.persistence.EntityNotFoundException;
 import org.modelmapper.ModelMapper;
 import org.apache.commons.lang3.tuple.Pair;
@@ -31,11 +32,14 @@ public class SocioService {
   private final SocioRepository socioRepository;
   private final ModelMapper modelMapper;
   private final CategoriaService categoriaService;
+
+  private final UbicacionRepository ubicacionRepository;
   @Autowired
-  public SocioService(SocioRepository socioRepository, ModelMapper modelMapper, CategoriaService categoriaService) {
+  public SocioService(SocioRepository socioRepository, ModelMapper modelMapper, CategoriaService categoriaService, UbicacionRepository ubicacionRepository) {
     this.socioRepository = socioRepository;
     this.modelMapper = modelMapper;
     this.categoriaService = categoriaService;
+    this.ubicacionRepository = ubicacionRepository;
   }
 
   public SocioDTO guardarSocio(SocioPostDTO socioPostDTO) {
@@ -48,6 +52,8 @@ public class SocioService {
 
     return socioDTO;
   }
+
+
 
   public SocioDTO obtenerSocio(Integer id) {
     Optional<Socio> socioOptional = socioRepository.findById(id);
@@ -189,12 +195,23 @@ public class SocioService {
     }
   }
 
+
   public SocioDTO actualizarSocio(Integer id, SocioDTO socioDTO) {
     Optional<Socio> existingSocioOpt = socioRepository.findById(id);
     if (existingSocioOpt.isPresent()) {
       Socio existingSocio = existingSocioOpt.get();
+      socioDTO.setId(id);
       if(socioDTO.getActivo() == null) {
         socioDTO.setActivo(existingSocio.getActivo());
+      }
+      if (socioDTO.getUbicacion() != null
+              && socioDTO.getUbicacion().getDireccion().equals(existingSocio.getUbicacion().getDireccion())
+              && socioDTO.getUbicacion().getPiso().equals(existingSocio.getUbicacion().getPiso())
+              && socioDTO.getUbicacion().getDepartamento().equals(existingSocio.getUbicacion().getDepartamento())
+              && socioDTO.getUbicacion().getLocalidad().equals(existingSocio.getUbicacion().getLocalidad())
+              && socioDTO.getUbicacion().getProvincia().equals(existingSocio.getUbicacion().getProvincia())
+      ) {
+        socioDTO.getUbicacion().setId(existingSocio.getUbicacion().getId());
       }
       modelMapper.map(socioDTO, existingSocio);
       Socio updatedSocio = socioRepository.save(existingSocio);
