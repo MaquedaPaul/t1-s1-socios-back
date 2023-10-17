@@ -15,7 +15,7 @@ services:
       - mysql-data:/var/lib/mysql
 
   socios-back:
-    build: .
+    image: 4lexander/aceleradora_utn:latest
     ports:
       - "8080:8080"
     depends_on:
@@ -27,7 +27,7 @@ services:
       - SPRING_JPA_HIBERNATE_DDL_AUTO=update
       - PORT=8080
 
-    command: ["/wait-for-it.sh", "mysql-tabla:3306", "--", "java", "-jar", "/app.jar"]
+    command: ["/wait-for-it.sh", "mysql-tabla:3306", "java", "-jar", "/app/app.jar"]
 
 volumes:
   mysql-data:

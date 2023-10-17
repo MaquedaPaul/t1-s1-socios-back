@@ -1,0 +1,39 @@
+package ar.utn.aceleradora.gestion.socios.modelos.ubicacion;
+
+import jakarta.persistence.*;
+import lombok.Getter;
+import lombok.Setter;
+
+@Setter
+@Getter
+@Entity
+public class Ubicacion {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Integer id;
+    @Column
+    private String direccion;
+    @Column
+    private String piso;
+    @Column
+    private String departamento;
+    @Column
+    private String localidad;
+    @Column
+    private String provincia;
+
+
+
+    public Ubicacion() {
+    }
+
+    public Ubicacion(String direccion,String piso,String departamento,String localidad,String provincia){
+
+        this.direccion = direccion;
+        this.piso=piso;
+        this.departamento = departamento;
+        this.localidad = localidad;
+        this.provincia = provincia;
+
+    }
+}
