@@ -1,10 +1,8 @@
 package ar.utn.aceleradora.gestion.socios.controladores;
 
 
-import ar.utn.aceleradora.gestion.socios.dto.SocioDTO;
-import ar.utn.aceleradora.gestion.socios.dto.SocioPostDTO;
 import ar.utn.aceleradora.gestion.socios.modelos.departamento.Departamento;
-import ar.utn.aceleradora.gestion.socios.servicios.DepartamentoService;
+import ar.utn.aceleradora.gestion.socios.servicios.DepartamentoServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -18,9 +16,9 @@ import java.util.Optional;
 public class DepartamentoController {
 
     @Autowired
-    private DepartamentoService departamentoService;
+    private DepartamentoServiceImpl departamentoService;
 
-    public DepartamentoController(DepartamentoService departamentoService) {
+    public DepartamentoController(DepartamentoServiceImpl departamentoService) {
       this.departamentoService = departamentoService;
     }
 
