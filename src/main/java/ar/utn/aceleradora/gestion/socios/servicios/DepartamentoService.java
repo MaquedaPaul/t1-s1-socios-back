@@ -14,4 +14,5 @@ public interface DepartamentoService {
     Departamento agregarDepartamento(Departamento dpto);
 
     List<String> obtenerNombres();
+    void agregarAutoridades(AutoridadDTO autoridadDTO, Integer id);
 }

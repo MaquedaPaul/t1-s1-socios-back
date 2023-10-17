@@ -1,12 +1,9 @@
 package ar.utn.aceleradora.gestion.socios.controladores;
 
 
-import ar.utn.aceleradora.gestion.socios.dto.SocioDTO;
 import ar.utn.aceleradora.gestion.socios.error.DepartamentoNotFoundException;
 import ar.utn.aceleradora.gestion.socios.modelos.departamento.Departamento;
 import ar.utn.aceleradora.gestion.socios.servicios.DepartamentoService;
-import ar.utn.aceleradora.gestion.socios.servicios.DepartamentoServiceImpl;
-import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -15,7 +12,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 import java.util.Optional;
 
-@RequestMapping("/api/departamento")
+@RequestMapping("/api/departamentos")
 @RestController
 public class DepartamentoController {
 
@@ -74,4 +71,26 @@ public class DepartamentoController {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(ex.getMessage());
         }
     }
+/*
+    @PatchMapping({"{id}/autoridades"})
+    public ResponseEntity<String> agregarAutoridades (@RequestBody AutoridadDTO autoridadDTO, @PathVariable Integer id) {
+        try {
+            departamentoService.agregarAutoridades(autoridadDTO, id);
+            return ResponseEntity.ok(new ResponseDTO("Socio editado satisfactoriamente", "SECCESS", 200));
+        } catch (Exception e) {
+            return new ResponseEntity<>(new ResponseDTO(e.getMessage(), "INTERNAL_SERVER_ERROR", 500),HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
+ */
+    @PatchMapping("/{id}/autoridades")
+    public ResponseEntity<String> agregarAutoridades(@RequestBody AutoridadDTO autoridadDTO, @PathVariable Integer id) {
+        try {
+            departamentoService.agregarAutoridades(autoridadDTO, id);
+            return ResponseEntity.ok("Autoridad añadida satisfactoriamente");
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(e.getMessage());
+        }
+    }
+
 }

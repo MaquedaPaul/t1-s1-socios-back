@@ -67,4 +67,9 @@ public class DepartamentoServiceImpl implements DepartamentoService {
         return socios.stream().map(Departamento::getNombre).collect(Collectors.toList());
     }
 
+    @Override
+    public void agregarAutoridades(AutoridadDTO autoridadDTO, Integer id) {
+
+    }
+
 }
