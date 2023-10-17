@@ -33,8 +33,13 @@ public class Departamento {
         this.nombre = nombreDepto;
 
     }
+    public void agregarAutoridades(Departamento autoridad){
+        //this.autoridades.add(autoridad);
+    }
+    public void agregarAutoridades(List<Departamento> autoridades){
+        //this.autoridades.addAll(autoridades);
 
-
+    }
   // public void asignarEtiqutaSocioEmpresa(Etiqueta etiqueta, SocioEmpresa socio){
  //       socio.recibirEtiqueta(etiqueta);
  //  }

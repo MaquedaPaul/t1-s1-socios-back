@@ -84,10 +84,13 @@ public class DepartamentoController {
 
  */
     @PatchMapping("/{id}/autoridades")
-    public ResponseEntity<String> agregarAutoridades(@RequestBody AutoridadDTO autoridadDTO, @PathVariable Integer id) {
+    public ResponseEntity<String> agregarAutoridades(@RequestBody List<Integer> autoridadesIds, @PathVariable Integer id) {
         try {
-            departamentoService.agregarAutoridades(autoridadDTO, id);
-            return ResponseEntity.ok("Autoridad añadida satisfactoriamente");
+            boolean agregadas = departamentoService.agregarAutoridades(autoridadesIds, id);
+            if(!agregadas){
+                throw new DepartamentoNotFoundException("No se encontro departamento con id: "+id);
+            }
+            return ResponseEntity.ok("Autoridades añadidas satisfactoriamente");
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(e.getMessage());
         }
