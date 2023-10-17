@@ -1,8 +1,12 @@
 package ar.utn.aceleradora.gestion.socios.controladores;
 
 
+import ar.utn.aceleradora.gestion.socios.dto.SocioDTO;
+import ar.utn.aceleradora.gestion.socios.error.DepartamentoNotFoundException;
 import ar.utn.aceleradora.gestion.socios.modelos.departamento.Departamento;
+import ar.utn.aceleradora.gestion.socios.servicios.DepartamentoService;
 import ar.utn.aceleradora.gestion.socios.servicios.DepartamentoServiceImpl;
+import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -15,10 +19,10 @@ import java.util.Optional;
 @RestController
 public class DepartamentoController {
 
-    @Autowired
-    private DepartamentoServiceImpl departamentoService;
 
-    public DepartamentoController(DepartamentoServiceImpl departamentoService) {
+    private DepartamentoService departamentoService;
+    @Autowired
+    public DepartamentoController(DepartamentoService departamentoService) {
       this.departamentoService = departamentoService;
     }
 
@@ -42,6 +46,32 @@ public class DepartamentoController {
         return new ResponseEntity<>(nombres, HttpStatus.OK);
     }
 
-
-
+/*    @DeleteMapping("/{id}")
+    public ResponseEntity<String> delete(@PathVariable Integer id) {
+        try {
+            Boolean deleted = departamentoService.eliminarDepartamento(id);
+            if (deleted)
+            {
+                return new ResponseEntity<>("El departamento ha sido borrado",HttpStatus.NO_CONTENT);
+            }
+            return new ResponseEntity<>("Departamento con " + id + " no encontrado",HttpStatus.NOT_FOUND);
+        } catch (Exception e) {
+            return new ResponseEntity<>(e.getMessage(),HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+*/
+    @DeleteMapping("/{id}")
+    public ResponseEntity<String> delete(@PathVariable Integer id) {
+        try {
+            Boolean deleted = departamentoService.eliminarDepartamento(id);
+            if (deleted) {
+                return ResponseEntity.noContent().build();
+            }
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Departamento con " + id + " no encontrado");
+        } catch (DepartamentoNotFoundException ex) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(ex.getMessage());
+        } catch (Exception ex) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(ex.getMessage());
+        }
+    }
 }
