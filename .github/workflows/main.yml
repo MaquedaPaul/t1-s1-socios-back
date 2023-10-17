@@ -1,0 +1,17 @@
+name: prueba
+on:
+  push:
+    branches:
+      - 'main'
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+     - uses: actions/checkout@v4
+     - name: Build and push dockerimage
+       run: |
+          COMMIT_HASH=$(git rev-parse HEAD)
+          docker login ghcr.io -u fedealvarenga --password ${{secrets.TOKEN}}
+          docker build . --tag ghcr.io/fedealvarenga/backsquad1:$COMMIT_HASH
+          docker push ghcr.io/fedealvarenga/backsquad1:$COMMIT_HASH

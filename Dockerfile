@@ -1,13 +1,13 @@
-# Usa una imagen base de JDK 17
-FROM openjdk:17-alpine
 
-# Instala Bash
-RUN apk add --no-cache bash
-
-# Directorio donde nuestra aplicación se ejecutará dentro del contenedor
+FROM maven as stage1
+ENV MAVEN_OPTS="-XX:+TieredCompilation -XX:TieredStopAtLevel=1"
 WORKDIR /app
-
-# Copio cualquier JAR compilado al contenedor
-COPY target/*.jar /app/app.jar
-
-ENTRYPOINT ["java", "-jar", "/app/app.jar"]
+COPY pom.xml .
+RUN mvn dependency:go-offline
+COPY ./src ./src
+RUN mvn clean install -Dmaven.test.skip=true
+FROM openjdk:17-alpine
+WORKDIR /app
+COPY --from=stage1 /app/target/*.jar ./app.jar
+EXPOSE 80
+CMD ["java", "-jar", "app.jar"]
