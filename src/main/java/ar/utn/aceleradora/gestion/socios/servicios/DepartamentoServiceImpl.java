@@ -69,27 +69,25 @@ public class DepartamentoServiceImpl implements DepartamentoService {
     }
 
     @Override
-    public void agregarAutoridades(List<Integer> autoridadesIds, Integer id) throws Exception {
-        try {
+    public void agregarAutoridades(List<Integer> autoridadesIds, Integer id){
             Optional<Departamento> optionalDepartamento = departamentoRepository.findById(id);
 
             if (optionalDepartamento.isEmpty())
                 throw new DepartamentoNotFoundException("No se encontro departamento con id: "+id);
+
             List<Optional<Autoridad>> optionalsAutoridades = autoridadesIds.stream()
                     .map(autoridadRepository::findById)
                     .toList();
             boolean todosPresentes = optionalsAutoridades.stream()
                     .allMatch(Optional::isPresent);
             if(!todosPresentes){
-                throw new AutoridadNotFoundException("No se encontro alguno de las autoridades");
+                throw new AutoridadNotFoundException("No se encontro alguna de las autoridades");
             }
             Departamento departamento = optionalDepartamento.get();
             List<Autoridad> autoridades = optionalsAutoridades.stream().map(Optional::get).toList();
             departamento.agregarAutoridades(autoridades);
             departamentoRepository.save(departamento);
-        } catch (Exception e) {
-            throw new Exception("Error al agregar una autoridad, por favor intentelo más tarde");
-        }
+
     }
 
 }
