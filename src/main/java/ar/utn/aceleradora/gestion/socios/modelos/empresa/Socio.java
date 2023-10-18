@@ -55,9 +55,9 @@ public class Socio {
     @OneToMany(mappedBy = "socio", cascade = CascadeType.REFRESH)
     private List<MembresiaParticular> membresias;
 
-    @OneToOne
-    @JoinColumn(name = "id_imagen", referencedColumnName = "id")
-    private Imagen imagen;
+//    @OneToOne
+//    @JoinColumn(name = "id_imagen", referencedColumnName = "id")
+//    private Imagen imagen;
 
     public Socio() {
         this.categorias = new ArrayList<>();
@@ -75,14 +75,14 @@ public class Socio {
     }
 
 
-    public Socio(String nombre, String nombrePresidente, String cuit, TipoSocio tipoSocio, String telefono, String mail, Imagen imagen) {
+    public Socio(String nombre, String nombrePresidente, String cuit, TipoSocio tipoSocio, String telefono, String mail) {
         this.nombre = nombre;
         this.nombrePresidente = nombrePresidente;
         this.cuit = cuit;
         this.tipoSocio = tipoSocio;
         this.telefono = telefono;
         this.mail = mail;
-        this.imagen = imagen;
+//        this.imagen = imagen;
         this.categorias = new ArrayList<>();
         this.membresias = new ArrayList<>();
     }

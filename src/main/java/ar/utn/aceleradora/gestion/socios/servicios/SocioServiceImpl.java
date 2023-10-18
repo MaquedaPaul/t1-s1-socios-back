@@ -71,8 +71,8 @@ public class SocioServiceImpl implements SocioService {
       existingSocio.getUbicacion().setDepartamento(socioUpdate.getDepartamento());
       existingSocio.getUbicacion().setLocalidad(socioUpdate.getLocalidad());
       existingSocio.getUbicacion().setProvincia(socioUpdate.getProvincia());
-      Imagen imagen = new Imagen(socioUpdate.getImagen().getRutaImagen());
-      existingSocio.setImagen(imagen);
+//      Imagen imagen = new Imagen(socioUpdate.getImagen().getRutaImagen());
+//      existingSocio.setImagen(imagen);
 
       socioRepository.save(existingSocio);
 
@@ -86,9 +86,9 @@ public class SocioServiceImpl implements SocioService {
   public Boolean createSocio(SocioCreateDTO socio) throws Exception {
     try {
       TipoSocio tipoSocio = ("0".equals(socio.getTipoSocio())) ? TipoSocio.SOCIO_PLENARIO : TipoSocio.SOCIO_ADHERENTE;
-      Imagen imagen = new Imagen(socio.getImagen().getRutaImagen());
+//      Imagen imagen = new Imagen(socio.getImagen().getRutaImagen());
 
-      Socio nuevoSocio = new Socio(socio.getNombre(), socio.getNombrePresidente(), socio.getCuit(), tipoSocio, socio.getTelefono(), socio.getMail(), imagen);
+      Socio nuevoSocio = new Socio(socio.getNombre(), socio.getNombrePresidente(), socio.getCuit(), tipoSocio, socio.getTelefono(), socio.getMail());
 
       Ubicacion ubicacion = new Ubicacion(socio.getDireccion(), socio.getPiso(), socio.getDepartamento(), socio.getLocalidad(), socio.getProvincia());
       ubicacionRepository.save(ubicacion);

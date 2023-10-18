@@ -44,8 +44,7 @@ public class Coordinacion{
     @Setter @Getter
     private Autoridad autoridad;
 
-    @OneToMany(mappedBy = "coordinacion", cascade = CascadeType.ALL)
-    @JoinColumn(name = "id_departamentos", referencedColumnName = "id")
+    @OneToMany(mappedBy = "CoordinacionDepartamental", cascade = CascadeType.ALL)
     @Setter @Getter
     private List<Departamento> departamentos;
 

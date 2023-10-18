@@ -36,7 +36,7 @@ public class Departamento{
     @Setter @Getter
     private String icono;
 
-    @OneToOne
+
     @Setter @Getter
     private Integer jerarquia;//El IDE me tira waring con el Integer en OneToOne
 
@@ -59,6 +59,7 @@ public class Departamento{
     private List<Socio> sociosSuscritos;
 
     @ManyToOne
+    @JoinColumn(name = "id_departamentos", referencedColumnName = "id")
     @Setter @Getter
     private Coordinacion CoordinacionDepartamental;
 
