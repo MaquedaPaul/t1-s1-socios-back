@@ -61,11 +61,8 @@ public class DepartamentoController {
     @DeleteMapping("/{id}")
     public ResponseEntity<String> delete(@PathVariable Integer id) {
         try {
-            Boolean deleted = departamentoService.eliminarDepartamento(id);
-            if (deleted) {
-                return ResponseEntity.noContent().build();
-            }
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Departamento con " + id + " no encontrado");
+            departamentoService.eliminarDepartamento(id);
+            return ResponseEntity.noContent().build();
         } catch (DepartamentoNotFoundException ex) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(ex.getMessage());
         } catch (Exception ex) {

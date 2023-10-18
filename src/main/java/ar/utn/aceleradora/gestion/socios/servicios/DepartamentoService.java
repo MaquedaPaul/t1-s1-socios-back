@@ -7,7 +7,7 @@ import java.util.List;
 
 @Service
 public interface DepartamentoService {
-    Boolean eliminarDepartamento(Integer id) throws Exception;
+    void eliminarDepartamento(Integer id) throws Exception;
 
     Departamento obtenerDepartamento(Integer id);
 

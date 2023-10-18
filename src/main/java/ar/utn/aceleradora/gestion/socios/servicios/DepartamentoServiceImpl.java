@@ -32,12 +32,11 @@ public class DepartamentoServiceImpl implements DepartamentoService {
         return departamentoRepository.save(departamento);
     }
 
-    public Boolean eliminarDepartamento(Integer id) {
+    public void eliminarDepartamento(Integer id) {
         Optional<Departamento> departamento = departamentoRepository.findById(id);
         if(departamento.isPresent())
         {
             departamentoRepository.deleteById(id);
-            return true;
         }
         else{
             throw new DepartamentoNotFoundException("no se encontro departamento con id: "+id+"para borrar");
