@@ -1,7 +1,10 @@
 package ar.utn.aceleradora.gestion.socios.modelos;
 
+import ar.utn.aceleradora.gestion.socios.converters.LocalDateTimeAttributeConverter;
 import ar.utn.aceleradora.gestion.socios.modelos.empresa.Socio;
 import jakarta.persistence.*;
+
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Date;
@@ -19,10 +22,11 @@ public class Departamento{
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    @Temporal(TemporalType.DATE)
+
     @Column(name = "fechaBaja")
     @Setter @Getter
-    private Date fechaBaja;
+    @Convert(converter = LocalDateTimeAttributeConverter.class)
+    private LocalDateTime fechaBaja;
 
     @Column(name = "nombre")
     @Setter @Getter
