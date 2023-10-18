@@ -1,7 +1,6 @@
 package ar.utn.aceleradora.gestion.socios.servicios;
-
-import ar.utn.aceleradora.gestion.socios.error.AutoridadNotFoundException;
 import ar.utn.aceleradora.gestion.socios.error.DepartamentoNotFoundException;
+import ar.utn.aceleradora.gestion.socios.error.AutoridadNotFoundException;
 import ar.utn.aceleradora.gestion.socios.modelos.departamento.Departamento;
 import ar.utn.aceleradora.gestion.socios.repositorios.DepartamentoRepository;
 import jakarta.persistence.EntityNotFoundException;
@@ -11,6 +10,7 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
+
 
 @Service
 public class DepartamentoServiceImpl implements DepartamentoService {
@@ -32,15 +32,11 @@ public class DepartamentoServiceImpl implements DepartamentoService {
         Optional<Departamento> departamento = departamentoRepository.findById(id);
         if(departamento.isPresent())
         {
-            /*
-            departamento.get().setDeleteDate(LocalDateTime.now());
-            departamentoRepository.save(departamento.get())
-            //departamentoRepository.deleteById(id);
-            */
+            departamentoRepository.deleteById(id);
             return true;
         }
         else{
-            throw new EntityNotFoundException("no se encontro departamento con id: "+id+"para borrar");
+            throw new DepartamentoNotFoundException("no se encontro departamento con id: "+id+"para borrar");
         }
     }
 
