@@ -11,6 +11,9 @@ import ar.utn.aceleradora.gestion.socios.modelos.membresia.MembresiaParticular;
 import ar.utn.aceleradora.gestion.socios.modelos.ubicacion.Ubicacion;
 import ar.utn.aceleradora.gestion.socios.repositorios.*;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
@@ -38,6 +41,17 @@ public class SocioServiceImpl implements SocioService {
   public List<Socio> findAllSocios() throws Exception {
     try{
       return socioRepository.findAll();
+    } catch (Exception e) {
+      throw new Exception("Error al buscar socios");
+    }
+  }
+
+  @Override
+  public Page<Socio> findAllSociosPaginado(int page) throws Exception {
+    //funcion que le pasa un numero y me devuelve una pagina
+    Pageable pageable = PageRequest.of(page, 10);
+    try{
+      return socioRepository.findAll(pageable);
     } catch (Exception e) {
       throw new Exception("Error al buscar socios");
     }
