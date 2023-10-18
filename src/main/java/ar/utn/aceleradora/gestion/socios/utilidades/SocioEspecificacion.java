@@ -1,6 +1,6 @@
 package ar.utn.aceleradora.gestion.socios.utilidades;
 
-import ar.utn.aceleradora.gestion.socios.modelos.departamento.Categoria;
+import ar.utn.aceleradora.gestion.socios.modelos.empresa.Categoria;
 import ar.utn.aceleradora.gestion.socios.modelos.empresa.Socio;
 import ar.utn.aceleradora.gestion.socios.modelos.empresa.TipoSocio;
 import jakarta.persistence.criteria.Join;

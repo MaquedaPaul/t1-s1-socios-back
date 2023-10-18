@@ -1,5 +1,6 @@
 package ar.utn.aceleradora.gestion.socios.modelos;
 
+import ar.utn.aceleradora.gestion.socios.modelos.empresa.Socio;
 import jakarta.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -12,7 +13,12 @@ import org.springframework.data.relational.core.sql.In;
 
 @Entity
 @Table(name = "departamento")
-public class Departamento extends Persistence {
+public class Departamento{
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Integer id;
+
     @Temporal(TemporalType.DATE)
     @Column(name = "fechaBaja")
     @Setter @Getter
@@ -56,14 +62,8 @@ public class Departamento extends Persistence {
     @Setter @Getter
     private Coordinacion CoordinacionDepartamental;
 
-    public Departamento() { }
-
-    public Departamento() {
-        super();
-    }
 
     public Departamento(){
-        super();
         this.sociosSuscritos = new ArrayList<>();
         this.autoridades = new ArrayList<>();
     }
@@ -82,5 +82,13 @@ public class Departamento extends Persistence {
     public void desuscribirSocio(Socio unSocio) {
         /*sociosSuscritos.remove(unSocio);
         unSocio.getDepartamentosSuscritos().remove(this);*/
+    }
+
+    public void agregarAutoridades(Autoridad autoridad){
+        this.autoridades.add(autoridad);
+    }
+    public void agregarAutoridades(List<Autoridad> autoridades){
+        this.autoridades.addAll(autoridades);
+
     }
 }

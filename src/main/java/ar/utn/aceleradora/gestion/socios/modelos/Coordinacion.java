@@ -11,7 +11,12 @@ import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 @Entity
 @Table(name = "coordinaciones")
-public class Coordinacion extends Persistence{
+public class Coordinacion{
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Integer id;
+
 
     @Temporal(TemporalType.DATE)
     @Column(name = "fechaBaja")
@@ -45,10 +50,6 @@ public class Coordinacion extends Persistence{
     private List<Departamento> departamentos;
 
     public Coordinacion() {}
-
-    public Coordinacion() {
-        super();
-    }
 
     public Coordinacion(Date fechaBaja, String nombre, String descripcion, String icono, int jerarquia, Autoridad autoridad) {
         this.fechaBaja = fechaBaja;

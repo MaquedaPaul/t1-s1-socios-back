@@ -1,4 +1,4 @@
-package ar.utn.aceleradora.gestion.socios.modelos.departamento;
+package ar.utn.aceleradora.gestion.socios.modelos.empresa;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;

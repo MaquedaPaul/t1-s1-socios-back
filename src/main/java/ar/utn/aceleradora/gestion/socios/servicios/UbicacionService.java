@@ -1,8 +1,6 @@
 package ar.utn.aceleradora.gestion.socios.servicios;
 
-import ar.utn.aceleradora.gestion.socios.modelos.departamento.Departamento;
 import ar.utn.aceleradora.gestion.socios.modelos.ubicacion.Ubicacion;
-import ar.utn.aceleradora.gestion.socios.repositorios.DepartamentoRepository;
 import ar.utn.aceleradora.gestion.socios.repositorios.UbicacionRepository;
 import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;

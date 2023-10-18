@@ -1,16 +1,13 @@
 package ar.utn.aceleradora.gestion.socios.servicios;
 
 import ar.utn.aceleradora.gestion.socios.dto.CategoriaDTO;
-import ar.utn.aceleradora.gestion.socios.modelos.departamento.Categoria;
+import ar.utn.aceleradora.gestion.socios.modelos.empresa.Categoria;
 
 import ar.utn.aceleradora.gestion.socios.repositorios.CategoriaRepository;
-import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Optional;
-import java.util.stream.Collectors;
 
 @Service
 public class CategoriaServiceImpl implements CategoriaService {

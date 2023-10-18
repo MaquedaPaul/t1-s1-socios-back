@@ -2,7 +2,7 @@ package ar.utn.aceleradora.gestion.socios.controladores;
 
 import ar.utn.aceleradora.gestion.socios.dto.CategoriaDTO;
 import ar.utn.aceleradora.gestion.socios.dto.ResponseDTO;
-import ar.utn.aceleradora.gestion.socios.modelos.departamento.Categoria;
+import ar.utn.aceleradora.gestion.socios.modelos.empresa.Categoria;
 import ar.utn.aceleradora.gestion.socios.servicios.CategoriaServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
