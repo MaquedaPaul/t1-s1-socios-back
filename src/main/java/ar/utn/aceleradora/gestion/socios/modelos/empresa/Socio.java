@@ -1,10 +1,10 @@
 package ar.utn.aceleradora.gestion.socios.modelos.empresa;
 
 import ar.utn.aceleradora.gestion.socios.modelos.departamento.Categoria;
-import ar.utn.aceleradora.gestion.socios.modelos.evento.Evento;
 import ar.utn.aceleradora.gestion.socios.modelos.imagen.Imagen;
-import ar.utn.aceleradora.gestion.socios.modelos.membresia.Membresia;
+import ar.utn.aceleradora.gestion.socios.modelos.membresia.MembresiaParticular;
 import ar.utn.aceleradora.gestion.socios.modelos.ubicacion.Ubicacion;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.*;
 import lombok.Getter;
@@ -13,90 +13,82 @@ import lombok.Setter;
 import java.util.ArrayList;
 import java.util.List;
 
-import static ar.utn.aceleradora.gestion.socios.modelos.empresa.TipoSocio.SOCIO_ADHERENTE;
-
 @Entity
-@Getter@Setter
-@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
-@DiscriminatorColumn(name = "tipo")
+@Table(name = "socios")
+@Getter @Setter
 public class Socio {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    @NotNull(message = "El nombre no puede ser nulo")
-    @NotBlank(message = "El nombre no puede estar vacío")
+    @Column(name = "nombre")
     private String nombre;
 
+    @Column(name = "nombre_presidente")
     private String nombrePresidente;
 
-    @Column(length = 11)
+    @Column(length = 11, name = "cuit")
     @NotBlank(message = "El cuit no puede estar vacío")
     @Pattern(regexp = "^[0-9\\-]+$", message = "El CUIT debe contener solo números y guiones.")
     @Size(min =11, max = 11, message = "Error en la cantidad de caracteres del CUIT.")
     private String cuit;
 
-
     @Enumerated(EnumType.STRING)
+    @Column(name = "tipo_socio")
     private TipoSocio tipoSocio;
 
+    @Column(name = "telefono")
+    private String telefono;
 
-    private Boolean activo;
-
-    @NotNull(message = "El telefono no puede ser nulo")
-    @NotBlank(message = "El telefono no puede estar vacío")
-    private String telefono;//Puede ser string
-
-    @NotBlank(message = "El mail no puede estar vacío")
+    @Column(name = "mail")
     @Email(message = "El mail es inválido ")
     private String mail;
 
-    @ManyToMany(fetch = FetchType.EAGER)
-    @JoinTable(
-        name = "socio_categorias",
-        joinColumns = @JoinColumn(name = "socio_id"),
-        inverseJoinColumns = @JoinColumn(name = "categoria_id")
-    )
+    @ManyToMany
     private List<Categoria> categorias;
 
-    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-    //@JoinColumn(name = "idSocio")
+    @OneToOne
+    @JoinColumn(name = "id_ubicacion", referencedColumnName = "id")
     private Ubicacion ubicacion;
 
-    @ManyToMany(mappedBy = "socios")
-    private List<Evento> eventoPendiente;
+    @JsonManagedReference
+    @OneToMany(mappedBy = "socio", cascade = CascadeType.REFRESH)
+    private List<MembresiaParticular> membresias;
 
-    @OneToOne()
-   // @JoinColumn(name = "idSocio")
-    private Membresia membresia;
-
-//    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-//    @JoinColumn(name = "imagen_id") // Agregar una columna de imagen_id en la tabla socio
-//    private Imagen imagen; // Agregar una relación con la entidad Imagen
-
-
+    @OneToOne
+    @JoinColumn(name = "id_imagen", referencedColumnName = "id")
+    private Imagen imagen;
 
     public Socio() {
-
         this.categorias = new ArrayList<>();
-        this.activo = true;
     }
 
     public Socio(String nombre, String cuit,  TipoSocio tipoSocio, String telefono, String mail ,Ubicacion ubicacion) {
         this.nombre = nombre;
         this.cuit = cuit;
         this.tipoSocio = tipoSocio;
-        this.activo = true; // Suponemos que al dar de alta, el socio está activo por defecto
         this.categorias = new ArrayList<>();
         this.telefono = telefono;
         this.mail = mail;
         this.ubicacion = ubicacion;
-    }
-
-    public boolean isActivo() {
-        return activo;
+        this.membresias = new ArrayList<>();
     }
 
 
+    public Socio(String nombre, String nombrePresidente, String cuit, TipoSocio tipoSocio, String telefono, String mail, Imagen imagen) {
+        this.nombre = nombre;
+        this.nombrePresidente = nombrePresidente;
+        this.cuit = cuit;
+        this.tipoSocio = tipoSocio;
+        this.telefono = telefono;
+        this.mail = mail;
+        this.imagen = imagen;
+        this.categorias = new ArrayList<>();
+        this.membresias = new ArrayList<>();
+    }
+
+    public void agregarMembresia(MembresiaParticular membresiaParticular) {
+        membresias.add(membresiaParticular);
+    }
 }

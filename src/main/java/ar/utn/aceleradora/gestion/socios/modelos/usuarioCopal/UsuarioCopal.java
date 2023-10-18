@@ -16,40 +16,23 @@ import java.util.List;
 
 @Setter
 @Getter
-@Entity
-@Table
 public class UsuarioCopal {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+
     private Integer id;
-    @NotBlank
-    @NotNull(message = "El nombre no puede estar vacío")
+
     private String nombre;
-    @NotNull
-    @NotBlank(message = "El apellido no puede estar vacío")
+
     private String apellido;
 
-    @OneToMany(cascade = CascadeType.ALL)
-    @JoinColumn(name = "idUsuario")
     private List<Socio> socios;
 
-    @OneToMany(cascade = CascadeType.ALL)
-    @JoinColumn(name = "idUsuario")
     private List<Departamento> departamentos;
 
-     @OneToMany(cascade = CascadeType.ALL)
-     @JoinColumn(name = "idUsuario")
     private List <Informe> informes;
 
-    @OneToMany(cascade = CascadeType.ALL)
-    @JoinColumn(name = "idUsuario")
     private List<Evento> eventos;
 
-    // @OneToMany(cascade = CascadeType.ALL)
-    // @JoinColumn(name = "idUsuario")
     //private List<Registro> registros;
-
-
 
     public UsuarioCopal() {
     }
