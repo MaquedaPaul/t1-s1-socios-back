@@ -1,10 +1,13 @@
 package ar.utn.aceleradora.gestion.socios.servicios;
+import ar.utn.aceleradora.gestion.socios.dto.CreacionEdicionDepartamentoDTO;
 import ar.utn.aceleradora.gestion.socios.error.DepartamentoNotFoundException;
 import ar.utn.aceleradora.gestion.socios.error.AutoridadNotFoundException;
 import ar.utn.aceleradora.gestion.socios.modelos.Autoridad;
 import ar.utn.aceleradora.gestion.socios.modelos.Departamento;
+import ar.utn.aceleradora.gestion.socios.modelos.empresa.Socio;
 import ar.utn.aceleradora.gestion.socios.repositorios.AutoridadRepository;
 import ar.utn.aceleradora.gestion.socios.repositorios.DepartamentoRepository;
+import ar.utn.aceleradora.gestion.socios.repositorios.SocioRepository;
 import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -20,10 +23,13 @@ public class DepartamentoServiceImpl implements DepartamentoService {
 
     private final DepartamentoRepository departamentoRepository;
     private final AutoridadRepository autoridadRepository;
+
+    private final SocioRepository socioRepository;
     @Autowired
-    public DepartamentoServiceImpl(DepartamentoRepository departamentoRepository, AutoridadRepository autoridadRepository) {
+    public DepartamentoServiceImpl(DepartamentoRepository departamentoRepository, AutoridadRepository autoridadRepository, SocioRepository socioRepository) {
         this.departamentoRepository = departamentoRepository;
         this.autoridadRepository = autoridadRepository;
+        this.socioRepository = socioRepository;
     }
 
 /*
@@ -66,7 +72,7 @@ public class DepartamentoServiceImpl implements DepartamentoService {
         }
         else{throw new EntityNotFoundException("no se encontro departamento : "+departamento+"para actualizar");}
     }
-    
+
      */
 
     public List<String> obtenerNombres() {
@@ -96,6 +102,78 @@ public class DepartamentoServiceImpl implements DepartamentoService {
         } catch (Exception e) {
             throw new Exception("Error al agregar una autoridad, por favor intentelo más tarde");
         }
+    }
+
+    @Override
+    public Departamento crearDepartamento(CreacionEdicionDepartamentoDTO departamento) throws Exception{
+        try {
+            Departamento nuevoDepartamento = new Departamento();
+            nuevoDepartamento.setNombre(departamento.getNombre());
+            nuevoDepartamento.setJerarquia(departamento.getJerarquia());
+            nuevoDepartamento.setDescripcion(departamento.getDescripcion());
+            departamento.getAutoridades().stream().forEach(id -> {
+                try {
+                    nuevoDepartamento.agregarAutoridades(buscarAutoridadDeLaBase(id));
+                } catch (Exception e) {
+                    throw new RuntimeException(e);
+                }
+            });
+
+            departamento.getIdSocios().stream().forEach(id -> {
+                try {
+                    nuevoDepartamento.suscribirSocio(buscarSocioDeLaBase(id));
+                } catch (Exception e) {
+                    throw new RuntimeException(e);
+                }
+            });
+
+            return departamentoRepository.save(nuevoDepartamento);
+        } catch (Exception e) {
+            throw new Exception("No se pudo crear el departamento");
+        }
+
+    }
+
+
+    @Override
+    public Departamento editarDepartamento(CreacionEdicionDepartamentoDTO departamento, Integer id) throws Exception{
+
+
+        try {
+            Optional<Departamento> nuevoDepartamento = departamentoRepository.findById(id);
+            if(nuevoDepartamento.isEmpty()){
+                throw new Exception("No existe un departamento con el id: " + id);
+            }
+
+            nuevoDepartamento.get().setNombre(departamento.getNombre());
+            nuevoDepartamento.get().setJerarquia(departamento.getJerarquia());
+            nuevoDepartamento.get().setDescripcion(departamento.getDescripcion());
+
+            return departamentoRepository.save(nuevoDepartamento.get());
+        } catch (Exception e) {
+            throw new Exception("No se pudo editar el departamento");
+        }
+
+    }
+
+    private Autoridad buscarAutoridadDeLaBase(Integer id) throws Exception {
+
+        try {
+            return autoridadRepository.findById(id).get();
+        } catch (Exception e){
+            throw new EntityNotFoundException("No se encontro la autoridad con id: " + id);
+        }
+
+    }
+
+    private Socio buscarSocioDeLaBase(Integer id) throws Exception {
+
+        try {
+            return socioRepository.findById(id).get();
+        } catch (Exception e){
+            throw new EntityNotFoundException("No se encontro el socio con id: " + id);
+        }
+
     }
 
 }
