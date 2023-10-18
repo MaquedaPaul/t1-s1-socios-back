@@ -28,8 +28,7 @@ public class seguridadConfiguracion {
 
     // Mapeo de SocioPostDTO a Socio
     modelMapper.createTypeMap(SocioPostDTO.class, Socio.class)
-        .addMappings(mapping -> mapping.skip(Socio::setId))
-        .addMappings(mapping -> mapping.skip(Socio::setActivo));
+        .addMappings(mapping -> mapping.skip(Socio::setId));
 
     return modelMapper;
   }

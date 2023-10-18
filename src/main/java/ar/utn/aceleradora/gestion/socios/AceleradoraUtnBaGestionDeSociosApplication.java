@@ -1,26 +1,8 @@
 package ar.utn.aceleradora.gestion.socios;
 
 
-import ar.utn.aceleradora.gestion.socios.dto.SocioDTO;
-import ar.utn.aceleradora.gestion.socios.modelos.departamento.Categoria;
-import ar.utn.aceleradora.gestion.socios.modelos.departamento.Departamento;
-import ar.utn.aceleradora.gestion.socios.modelos.empresa.Socio;
-import ar.utn.aceleradora.gestion.socios.modelos.empresa.TipoSocio;
-import ar.utn.aceleradora.gestion.socios.modelos.ubicacion.Ubicacion;
-import ar.utn.aceleradora.gestion.socios.repositorios.CategoriaRepository;
-import ar.utn.aceleradora.gestion.socios.repositorios.DepartamentoRepository;
-import ar.utn.aceleradora.gestion.socios.repositorios.SocioRepository;
-import ar.utn.aceleradora.gestion.socios.servicios.SocioService;
-import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.context.annotation.Bean;
-
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.List;
-import java.util.Random;
 
 @SpringBootApplication
 public class AceleradoraUtnBaGestionDeSociosApplication {
@@ -29,7 +11,7 @@ public class AceleradoraUtnBaGestionDeSociosApplication {
 	}
 
 
-
+	/*
 	@Bean
 	public CommandLineRunner dataInicial(CategoriaRepository categoriaRepo,
 										 DepartamentoRepository departamentoRepo,
@@ -111,10 +93,7 @@ public class AceleradoraUtnBaGestionDeSociosApplication {
 						ubicacion // Asigna la ubicación ficticia al socio
 				);
 
-				//TODO: BORRAR, lo puso Mati para probar
-				if (socio.getNombre().contains("3") || socio.getNombre().contains("6") || socio.getNombre().contains("9")){
-					socio.setActivo(false);
-				}
+
 				//*******************************************************
 
 				// Agrega un subconjunto aleatorio de categorías
@@ -157,7 +136,7 @@ public class AceleradoraUtnBaGestionDeSociosApplication {
 
 
 	}
-
+*/
 
 
 }
