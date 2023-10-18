@@ -28,9 +28,9 @@ public class Socio {
     private String nombrePresidente;
 
     @Column(length = 11, name = "cuit")
-    @NotBlank(message = "El cuit no puede estar vacío")
-    @Pattern(regexp = "^[0-9\\-]+$", message = "El CUIT debe contener solo números y guiones.")
-    @Size(min =11, max = 11, message = "Error en la cantidad de caracteres del CUIT.")
+//    @NotBlank(message = "El cuit no puede estar vacío")
+//    @Pattern(regexp = "^[0-9\\-]+$", message = "El CUIT debe contener solo números y guiones.")
+//    @Size(min =11, max = 11, message = "Error en la cantidad de caracteres del CUIT.")
     private String cuit;
 
     @Enumerated(EnumType.STRING)

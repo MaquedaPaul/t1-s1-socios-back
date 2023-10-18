@@ -4,6 +4,7 @@ import ar.utn.aceleradora.gestion.socios.dto.ResponseDTO;
 import ar.utn.aceleradora.gestion.socios.dto.SocioCreateDTO;
 import ar.utn.aceleradora.gestion.socios.dto.SocioUpdateDTO;
 import ar.utn.aceleradora.gestion.socios.modelos.empresa.Socio;
+import ar.utn.aceleradora.gestion.socios.repositorios.SocioRepository;
 import ar.utn.aceleradora.gestion.socios.servicios.SocioService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -19,14 +20,28 @@ public class SocioController {
     @Autowired
     private SocioService socioService;
 
+    @Autowired
+    private SocioRepository socioRepository;
+
     @GetMapping({"", "/"})
     public ResponseEntity<List<Socio>> findAll() {
         try {
-            List<Socio> socios = socioService.findAllSocios();
+            List<Socio> socios = socioRepository.findAll();
 
             return ResponseEntity.ok(socios);
         } catch (Exception e) {
-            return ResponseEntity.status(500).build();
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+        }
+    }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<Socio> findById(@PathVariable Integer id) {
+        try {
+            Socio socio = socioRepository.findById(id).orElseThrow();
+
+            return ResponseEntity.ok(socio);
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
         }
     }
 

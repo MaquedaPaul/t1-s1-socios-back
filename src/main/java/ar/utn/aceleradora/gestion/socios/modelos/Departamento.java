@@ -59,7 +59,7 @@ public class Departamento{
     private List<Socio> sociosSuscritos;
 
     @ManyToOne
-    @JoinColumn(name = "id_departamentos", referencedColumnName = "id")
+    @JoinColumn(name = "id_cordinacion", referencedColumnName = "id")
     @Setter @Getter
     private Coordinacion CoordinacionDepartamental;
 

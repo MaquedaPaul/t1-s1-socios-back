@@ -36,7 +36,11 @@ public class SocioServiceImpl implements SocioService {
 
   @Override
   public List<Socio> findAllSocios() throws Exception {
-    return socioRepository.findAll();
+    try{
+      return socioRepository.findAll();
+    } catch (Exception e) {
+      throw new Exception("Error al buscar socios");
+    }
   }
 
   @Override
