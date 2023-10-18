@@ -22,6 +22,9 @@ public class Departamento {
     @NotNull@NotBlank
     private String nombre;
 
+    @ManyToMany
+    private List<Autoridad> autoridades;
+
     //@OneToMany(mappedBy = "departamentoPerteneciente")
     //private List<Categoria> etiquetas;
 
@@ -33,11 +36,11 @@ public class Departamento {
         this.nombre = nombreDepto;
 
     }
-    public void agregarAutoridades(Departamento autoridad){
-        //this.autoridades.add(autoridad);
+    public void agregarAutoridades(Autoridad autoridad){
+        this.autoridades.add(autoridad);
     }
-    public void agregarAutoridades(List<Departamento> autoridades){
-        //this.autoridades.addAll(autoridades);
+    public void agregarAutoridades(List<Autoridad> autoridades){
+        this.autoridades.addAll(autoridades);
 
     }
   // public void asignarEtiqutaSocioEmpresa(Etiqueta etiqueta, SocioEmpresa socio){
