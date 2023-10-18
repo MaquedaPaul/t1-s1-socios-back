@@ -1,6 +1,7 @@
 package ar.utn.aceleradora.gestion.socios.controladores;
 
 
+import ar.utn.aceleradora.gestion.socios.error.AutoridadNotFoundException;
 import ar.utn.aceleradora.gestion.socios.error.DepartamentoNotFoundException;
 import ar.utn.aceleradora.gestion.socios.modelos.departamento.Departamento;
 import ar.utn.aceleradora.gestion.socios.servicios.DepartamentoService;
@@ -86,11 +87,11 @@ public class DepartamentoController {
     @PatchMapping("/{id}/autoridades")
     public ResponseEntity<String> agregarAutoridades(@RequestBody List<Integer> autoridadesIds, @PathVariable Integer id) {
         try {
-            boolean agregadas = departamentoService.agregarAutoridades(autoridadesIds, id);
-            if(!agregadas){
-                throw new DepartamentoNotFoundException("No se encontro departamento con id: "+id);
-            }
+            departamentoService.agregarAutoridades(autoridadesIds, id);
             return ResponseEntity.ok("Autoridades añadidas satisfactoriamente");
+
+        }catch (DepartamentoNotFoundException | AutoridadNotFoundException e){
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e.getMessage());
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(e.getMessage());
         }

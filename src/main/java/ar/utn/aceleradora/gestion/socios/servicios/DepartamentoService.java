@@ -14,5 +14,5 @@ public interface DepartamentoService {
     Departamento agregarDepartamento(Departamento dpto);
 
     List<String> obtenerNombres();
-    Boolean agregarAutoridades(List<Integer> autoridades, Integer id) throws Exception;
+    void agregarAutoridades(List<Integer> autoridades, Integer id) throws Exception;
 }

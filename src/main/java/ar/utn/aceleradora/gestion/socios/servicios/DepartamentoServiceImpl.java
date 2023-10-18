@@ -1,5 +1,7 @@
 package ar.utn.aceleradora.gestion.socios.servicios;
 
+import ar.utn.aceleradora.gestion.socios.error.AutoridadNotFoundException;
+import ar.utn.aceleradora.gestion.socios.error.DepartamentoNotFoundException;
 import ar.utn.aceleradora.gestion.socios.modelos.departamento.Departamento;
 import ar.utn.aceleradora.gestion.socios.repositorios.DepartamentoRepository;
 import jakarta.persistence.EntityNotFoundException;
@@ -68,27 +70,24 @@ public class DepartamentoServiceImpl implements DepartamentoService {
     }
 
     @Override
-    public Boolean agregarAutoridades(List<Integer> autoridadesIds, Integer id) throws Exception {
+    public void agregarAutoridades(List<Integer> autoridadesIds, Integer id) throws Exception {
         try {
             Optional<Departamento> optionalDepartamento = departamentoRepository.findById(id);
 
             if (optionalDepartamento.isEmpty())
-                return false;
+                throw new DepartamentoNotFoundException("No se encontro departamento con id: "+id);
             List<Optional<Departamento>> optionalsAutoridades = autoridadesIds.stream()
                     .map(departamentoRepository::findById)
                     .toList();
-
             boolean todosPresentes = optionalsAutoridades.stream()
                     .allMatch(Optional::isPresent);
-
             if(!todosPresentes){
-                return false;
+                throw new AutoridadNotFoundException("No se encontro alguno de las autoridades");
             }
             Departamento departamento = optionalDepartamento.get();
             List<Departamento> autoridades = optionalsAutoridades.stream().map(Optional::get).toList();
             departamento.agregarAutoridades(autoridades);
             departamentoRepository.save(departamento);
-            return true;
         } catch (Exception e) {
             throw new Exception("Error al agregar una autoridad, por favor intentelo más tarde");
         }
