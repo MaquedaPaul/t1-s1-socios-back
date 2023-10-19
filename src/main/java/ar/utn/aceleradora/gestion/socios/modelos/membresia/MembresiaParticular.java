@@ -18,7 +18,7 @@ public class MembresiaParticular {
     private Integer id;
 
     @JsonManagedReference
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.PERSIST)
     @JoinColumn(name = "id_membresia")
     @Getter @Setter
     private Membresia membresia;
@@ -32,7 +32,7 @@ public class MembresiaParticular {
     private Double valor;
 
     @JsonBackReference
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.MERGE)
     @JoinColumn(name = "id_socio")
     @Getter @Setter
     private Socio socio;
