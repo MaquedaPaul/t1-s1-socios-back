@@ -11,7 +11,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-public class socioDataMembresias {
+public class SocioDataMembresias {
     List<Membresia> membresias = Arrays.asList(new Membresia("semestrual",6),new Membresia("anual",12));
     MembresiaParticular membresiaParticular1 = new MembresiaParticular(membresias.get(0), LocalDate.now(), 723450.65);
     MembresiaParticular membresiaParticular2 = new MembresiaParticular(membresias.get(1), LocalDate.now(), 123456.78);

@@ -14,7 +14,7 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Random;
 
-public class socioDataSocios {
+public class SocioDataSocios {
 
     Socio socio1 = new Socio(
             "Luisa Pérez",
@@ -513,7 +513,7 @@ public class socioDataSocios {
             new Ubicacion("Av. 9 de Julio 789", "9no piso", "Departamento 55", "Buenos Aires", "Buenos Aires")
     );
     List<Socio> sociosCargados = new ArrayList<>();
-    void cargarSocios(SocioRepository socioRepository, MembresiaParticularRepository membresiaParticularRepository, CategoriaRepository categoriaRepository, socioDataMembresias dataMembresias) {
+    void cargarSocios(SocioRepository socioRepository, MembresiaParticularRepository membresiaParticularRepository, CategoriaRepository categoriaRepository, SocioDataMembresias dataMembresias) {
 
         List<MembresiaParticular> membresias = dataMembresias.getMembresiaParticulares();
         for (int i = 1; i <= 50; i++) {

@@ -6,7 +6,7 @@ import ar.utn.aceleradora.gestion.socios.repositorios.CategoriaRepository;
 import java.util.Arrays;
 import java.util.List;
 
-public class socioDataCategorias {
+public class SocioDataCategorias {
     Categoria lacteos = new Categoria("Productos Lácteos");
     Categoria panaderia = new Categoria("Productos de Panadería");
     Categoria carnesYaves = new Categoria("Carnes y Aves");

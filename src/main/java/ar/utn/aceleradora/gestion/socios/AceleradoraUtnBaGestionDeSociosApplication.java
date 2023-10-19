@@ -6,7 +6,7 @@ import ar.utn.aceleradora.gestion.socios.repositorios.CategoriaRepository;
 import ar.utn.aceleradora.gestion.socios.repositorios.MembresiaParticularRepository;
 import ar.utn.aceleradora.gestion.socios.repositorios.MembresiaRepository;
 import ar.utn.aceleradora.gestion.socios.repositorios.SocioRepository;
-import ar.utn.aceleradora.gestion.socios.seeds.socioInitializer;
+import ar.utn.aceleradora.gestion.socios.seeds.SocioInitializer;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -19,7 +19,7 @@ public class AceleradoraUtnBaGestionDeSociosApplication {
 	}
 	@Bean
 	public CommandLineRunner dataInicial(SocioRepository socioRepository, MembresiaRepository membresiaRepository, MembresiaParticularRepository membresiaParticularRepository, CategoriaRepository categoriaRepository) throws Exception {
-		socioInitializer socioInitializer = new socioInitializer(socioRepository,categoriaRepository,membresiaRepository,membresiaParticularRepository);
+		SocioInitializer socioInitializer = new SocioInitializer(socioRepository,categoriaRepository,membresiaRepository,membresiaParticularRepository);
 		socioInitializer.run();
         return null;
     }

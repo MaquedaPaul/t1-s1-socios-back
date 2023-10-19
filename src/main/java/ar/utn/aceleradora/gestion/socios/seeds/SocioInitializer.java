@@ -1,11 +1,6 @@
 package ar.utn.aceleradora.gestion.socios.seeds;
 
-import ar.utn.aceleradora.gestion.socios.modelos.empresa.Categoria;
 import ar.utn.aceleradora.gestion.socios.modelos.empresa.Socio;
-import ar.utn.aceleradora.gestion.socios.modelos.empresa.TipoSocio;
-import ar.utn.aceleradora.gestion.socios.modelos.membresia.Membresia;
-import ar.utn.aceleradora.gestion.socios.modelos.membresia.MembresiaParticular;
-import ar.utn.aceleradora.gestion.socios.modelos.ubicacion.Ubicacion;
 import ar.utn.aceleradora.gestion.socios.repositorios.CategoriaRepository;
 import ar.utn.aceleradora.gestion.socios.repositorios.MembresiaParticularRepository;
 import ar.utn.aceleradora.gestion.socios.repositorios.MembresiaRepository;
@@ -14,20 +9,17 @@ import org.springframework.stereotype.Component;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 
-import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
-import java.util.Random;
 
 @Component
-public class socioInitializer implements CommandLineRunner {
+public class SocioInitializer implements CommandLineRunner {
     private final SocioRepository socioRepository;
     private final CategoriaRepository categoriaRepository;
     private final MembresiaRepository membresiaRepository;
     private final MembresiaParticularRepository membresiaParticularRepository;
     @Autowired
-    public socioInitializer(SocioRepository repositorioEjemplo, CategoriaRepository categoriaRepository, MembresiaRepository membresiaRepository, MembresiaParticularRepository membresiaParticularRepository) {
+    public SocioInitializer(SocioRepository repositorioEjemplo, CategoriaRepository categoriaRepository, MembresiaRepository membresiaRepository, MembresiaParticularRepository membresiaParticularRepository) {
         this.socioRepository = repositorioEjemplo;
         this.categoriaRepository = categoriaRepository;
         this.membresiaRepository = membresiaRepository;
@@ -35,9 +27,9 @@ public class socioInitializer implements CommandLineRunner {
     }
     public void run() throws Exception {
         List<Socio> sociosAGuardar = new ArrayList<>();
-            socioDataSocios dataSocios = new socioDataSocios();
-            socioDataMembresias dataMembresias = new socioDataMembresias();
-            socioDataCategorias dataCategorias = new socioDataCategorias();
+            SocioDataSocios dataSocios = new SocioDataSocios();
+            SocioDataMembresias dataMembresias = new SocioDataMembresias();
+            SocioDataCategorias dataCategorias = new SocioDataCategorias();
             dataCategorias.cargarCategorias(this.categoriaRepository);
             dataMembresias.cargarMembresias(membresiaParticularRepository);
             dataSocios.cargarSocios(socioRepository, membresiaParticularRepository, categoriaRepository,dataMembresias);
