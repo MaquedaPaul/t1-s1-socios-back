@@ -60,4 +60,7 @@ public class DepartamentoService {
         return socios.stream().map(Departamento::getNombre).collect(Collectors.toList());
     }
 
+    public List<Departamento> obtenerTodosLosDepartamentos(){
+        return departamentoRepository.findAll();
+    }
 }
