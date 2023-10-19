@@ -10,6 +10,8 @@ import ar.utn.aceleradora.gestion.socios.repositorios.DepartamentoRepository;
 import ar.utn.aceleradora.gestion.socios.repositorios.SocioRepository;
 import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -41,6 +43,13 @@ public class DepartamentoServiceImpl implements DepartamentoService {
 
  */
 
+    @Override
+    public Page<Departamento> obtenerDepartamentoPaginado(int page){
+        Pageable pageable = Pageable.ofSize(10).withPage(page);
+        return departamentoRepository.findAll(pageable);
+
+    }
+    @Override
     public void eliminarDepartamento(Integer id) {
         Optional<Departamento> departamento = departamentoRepository.findById(id);
         if(departamento.isPresent())
@@ -57,6 +66,7 @@ public class DepartamentoServiceImpl implements DepartamentoService {
         return departamentoRepository.findById(id).orElse(null);
     }*/
 
+    @Override
     public Departamento obtenerDepartamento(Integer id) {
         Optional<Departamento> departamento = departamentoRepository.findById(id);
         if(departamento.isPresent()){
@@ -75,6 +85,7 @@ public class DepartamentoServiceImpl implements DepartamentoService {
 
      */
 
+    @Override
     public List<String> obtenerNombres() {
         List<Departamento> socios = departamentoRepository.findAll();
         return socios.stream().map(Departamento::getNombre).collect(Collectors.toList());

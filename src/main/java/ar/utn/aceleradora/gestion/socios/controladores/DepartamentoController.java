@@ -1,11 +1,13 @@
 package ar.utn.aceleradora.gestion.socios.controladores;
 
 
+import ar.utn.aceleradora.gestion.socios.dto.CreacionEdicionDepartamentoDTO;
 import ar.utn.aceleradora.gestion.socios.error.AutoridadNotFoundException;
 import ar.utn.aceleradora.gestion.socios.error.DepartamentoNotFoundException;
-import ar.utn.aceleradora.gestion.socios.modelos.departamento.Departamento;
+import ar.utn.aceleradora.gestion.socios.modelos.Departamento;
 import ar.utn.aceleradora.gestion.socios.servicios.DepartamentoService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -13,7 +15,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 import java.util.Optional;
 
-@RequestMapping("/api/departamentos")
+@RequestMapping("/departamentos")
 @RestController
 public class DepartamentoController {
 
@@ -32,10 +34,35 @@ public class DepartamentoController {
                 .orElse(new ResponseEntity<>(HttpStatus.NOT_FOUND));
     }
 
+    @GetMapping("/paginado")
+    public ResponseEntity<Page<Departamento>> obtenerDepartamentoPaginado(@RequestParam(name = "page", defaultValue = "0") int page) {
+        Page<Departamento> departamento = departamentoService.obtenerDepartamentoPaginado(page);
+        return Optional.ofNullable(departamento)
+                .map(s -> new ResponseEntity<>(s, HttpStatus.OK))
+                .orElse(new ResponseEntity<>(HttpStatus.NOT_FOUND));
+    }
+
+    @PatchMapping("/{id}")
+    public ResponseEntity<Departamento> editarDepartamento(@PathVariable Integer id, @RequestBody CreacionEdicionDepartamentoDTO dpto) {
+        try {
+            Departamento dptoEditado = departamentoService.editarDepartamento(dpto, id);
+            return new ResponseEntity<>(dptoEditado, HttpStatus.OK);
+        } catch (DepartamentoNotFoundException e) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        } catch (Exception e) {
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
     @PostMapping()
-    public ResponseEntity<Departamento> crearDepartamento(@RequestBody Departamento dpto) {
-        Departamento nuevoDpto = departamentoService.agregarDepartamento(dpto);
-        return new ResponseEntity<>(nuevoDpto, HttpStatus.CREATED);
+    public ResponseEntity<Departamento> crearDepartamento(@RequestBody CreacionEdicionDepartamentoDTO dpto) {
+        try {
+            Departamento nuevoDpto = departamentoService.crearDepartamento(dpto);
+            return new ResponseEntity<>(nuevoDpto, HttpStatus.CREATED);
+        } catch (Exception e) {
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+
     }
 
     @GetMapping("/obtenerNombres")
