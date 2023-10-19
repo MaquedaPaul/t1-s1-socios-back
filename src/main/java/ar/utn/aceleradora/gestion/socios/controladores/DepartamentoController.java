@@ -118,6 +118,17 @@ public class DepartamentoController {
     }
 
  */
+
+    @PatchMapping("/{id}/autoridades/{idAutoridad}")
+    public ResponseEntity<String> removerAutoridades(@PathVariable Integer id, @PathVariable Integer idAutoridad) {
+        try {
+            departamentoService.removerAutoridades(id, idAutoridad);
+            return ResponseEntity.ok("Autoridad removida satisfactoriamente");
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(e.getMessage());
+        }
+    }
+
     @PatchMapping("/{id}/autoridades")
     public ResponseEntity<String> agregarAutoridades(@RequestBody List<Integer> autoridadesIds, @PathVariable Integer id) {
         try {

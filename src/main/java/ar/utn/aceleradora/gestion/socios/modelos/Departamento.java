@@ -95,4 +95,8 @@ public class Departamento{
         this.autoridades.addAll(autoridades);
 
     }
+
+    public void removerAutoridades(Autoridad autoridad){
+        this.autoridades.remove(autoridad);
+    }
 }

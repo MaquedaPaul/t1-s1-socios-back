@@ -218,4 +218,25 @@ public class DepartamentoServiceImpl implements DepartamentoService {
         }
     }
 
+    @Override
+    public Departamento removerAutoridades(Integer idDepartamento, Integer idAutoridad){
+
+        Optional<Departamento> departamentoAModificar = departamentoRepository.findById(idDepartamento);
+
+        if (departamentoAModificar.isEmpty()){
+            throw new DepartamentoNotFoundException("No se encontro el departamento con el id: "+idDepartamento);
+        }
+
+        if (departamentoAModificar.get().getAutoridades().stream().map(Autoridad::getId).noneMatch(id -> id.equals(idAutoridad))){
+            throw new AutoridadNotFoundException("No existe una autoridad con el id: "+idAutoridad + " en el departamento");
+        }
+
+        Autoridad autoridad = autoridadRepository.findById(idAutoridad).get();
+
+        departamentoAModificar.get().removerAutoridades(autoridad);
+
+        return departamentoRepository.save(departamentoAModificar.get());
+
+    }
+
 }

@@ -10,6 +10,8 @@ import java.util.List;
 @Service
 public interface DepartamentoService {
 
+    Departamento removerAutoridades(Integer idDepartamento, Integer idAutoridad);
+
     List<Departamento> obtenerDepartamentos();
 
     public Page<Departamento> obtenerDepartamentoPaginado(int page);
