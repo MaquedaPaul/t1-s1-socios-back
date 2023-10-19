@@ -34,6 +34,16 @@ public class DepartamentoController {
                 .orElse(new ResponseEntity<>(HttpStatus.NOT_FOUND));
     }
 
+    @GetMapping({"/", ""})
+    public ResponseEntity<Departamento> obtenerTodos() {
+        try {
+            List<Departamento> departamentos = departamentoService.obtenerDepartamentos();
+            return new ResponseEntity(departamentos, HttpStatus.OK);
+        } catch (Exception e) {
+            return new ResponseEntity(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
     @GetMapping("/paginado")
     public ResponseEntity<Page<Departamento>> obtenerDepartamentoPaginado(@RequestParam(name = "page", defaultValue = "0") int page) {
         Page<Departamento> departamento = departamentoService.obtenerDepartamentoPaginado(page);
@@ -54,7 +64,7 @@ public class DepartamentoController {
         }
     }
 
-    @PostMapping()
+    @PostMapping({"/", ""})
     public ResponseEntity<Departamento> crearDepartamento(@RequestBody CreacionEdicionDepartamentoDTO dpto) {
         try {
             Departamento nuevoDpto = departamentoService.crearDepartamento(dpto);

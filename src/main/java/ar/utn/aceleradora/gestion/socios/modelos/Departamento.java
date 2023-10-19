@@ -61,6 +61,7 @@ public class Departamento{
     @Setter @Getter
     private List<Socio> sociosSuscritos;
 
+    @JsonManagedReference
     @ManyToOne
     @JoinColumn(name = "id_cordinacion", referencedColumnName = "id")
     @Setter @Getter
@@ -79,8 +80,7 @@ public class Departamento{
     }
 
     public void suscribirSocio(Socio unSocio) {
-        /*sociosSuscritos.add(unSocio);
-        unSocio.getDepartamentosSuscritos().add(this);*/
+        sociosSuscritos.add(unSocio);
     }
 
     public void desuscribirSocio(Socio unSocio) {

@@ -10,6 +10,8 @@ import java.util.List;
 @Service
 public interface DepartamentoService {
 
+    List<Departamento> obtenerDepartamentos();
+
     public Page<Departamento> obtenerDepartamentoPaginado(int page);
     void eliminarDepartamento(Integer id) throws Exception;
 
