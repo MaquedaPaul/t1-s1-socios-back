@@ -6,11 +6,9 @@ import jakarta.persistence.*;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Date;
-import java.util.List;
 import lombok.Getter;
 import lombok.Setter;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 
 @Entity
 @Table(name = "coordinaciones")
@@ -30,7 +28,7 @@ public class Coordinacion{
     @Setter @Getter
     private String nombre;
 
-    @Column(name = "descripcion")
+    @Column(name = "descripcion", length = 1000)
     @Setter @Getter
     private String descripcion;
 
@@ -47,7 +45,7 @@ public class Coordinacion{
     @Setter @Getter
     private Autoridad autoridad;
 
-    @OneToMany(mappedBy = "CoordinacionDepartamental", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "coordinacionDepartamental", cascade = CascadeType.ALL)
     @Setter @Getter
     private List<Departamento> departamentos;
 
@@ -60,6 +58,16 @@ public class Coordinacion{
         this.icono = icono;
         this.jerarquia = jerarquia;
         this.autoridad = autoridad;
+        this.departamentos = new ArrayList<>();
+    }
+    public Coordinacion(String nombre, String descripcion, String icono, int jerarquia, Autoridad autoridad) {
+        this.fechaBaja = fechaBaja;
+        this.nombre = nombre;
+        this.descripcion = descripcion;
+        this.icono = icono;
+        this.jerarquia = jerarquia;
+        this.autoridad = autoridad;
+        this.departamentos = new ArrayList<>();
     }
 
     public Coordinacion(List<Departamento> departamentos) {
@@ -67,13 +75,13 @@ public class Coordinacion{
     }
 
     public void agregarDepartamento(Departamento departamento) {
-       /* this.departamentos.add(departamento);
-        departamento.setCoordinacion(this);*/
+        this.departamentos.add(departamento);
+        departamento.setCoordinacionDepartamental(this);
     }
 
     public void eliminarDepartamento(Departamento departamento) {
-        /*this.departamentos.remove(departamento);
-        departamento.setCoordinacion(null);*/
+        this.departamentos.remove(departamento);
+        departamento.setCoordinacionDepartamental(null);
     }
 }
 

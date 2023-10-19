@@ -3,15 +3,11 @@ package ar.utn.aceleradora.gestion.socios.modelos;
 import ar.utn.aceleradora.gestion.socios.converters.LocalDateTimeAttributeConverter;
 import ar.utn.aceleradora.gestion.socios.modelos.empresa.Socio;
 import jakarta.persistence.*;
-
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Date;
-import java.util.List;
 import lombok.Getter;
 import lombok.Setter;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 @Entity
 @Table(name = "departamento")
@@ -31,9 +27,9 @@ public class Departamento{
     @Setter @Getter
     private String nombre;
 
-    @Column(name = "descripcion")
+    @Column(name = "descripcion", length =  2000)
     @Setter @Getter
-    private String descripcion;
+    @Lob    private String descripcion;
 
     @Column(name = "icono")
     @Setter @Getter
@@ -64,18 +60,20 @@ public class Departamento{
     @ManyToOne
     @JoinColumn(name = "id_cordinacion", referencedColumnName = "id")
     @Setter @Getter
-    private Coordinacion CoordinacionDepartamental;
+    private Coordinacion coordinacionDepartamental;
 
 
     public Departamento(){
         this.sociosSuscritos = new ArrayList<>();
         this.autoridades = new ArrayList<>();
     }
-    public Departamento(String id, String nombre, String descripcion, String icono, Integer jerarquia) {
+    public Departamento(String nombre, String descripcion, String icono, Integer jerarquia) {
         this.nombre = nombre;
         this.descripcion = descripcion;
         this.icono = icono;
         this.jerarquia = jerarquia;
+        this.sociosSuscritos = new ArrayList<>();
+        this.autoridades = new ArrayList<>();
     }
 
     public void suscribirSocio(Socio unSocio) {
