@@ -21,5 +21,5 @@ public class SocioCreateDTO {
     private Double valor;
     private Integer membresiaId;
     public String fechaInicio;
-    private ImagenDTO imagen;
+//    private ImagenDTO imagen;
 }

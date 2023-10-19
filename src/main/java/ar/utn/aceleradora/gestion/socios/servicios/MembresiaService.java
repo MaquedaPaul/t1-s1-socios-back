@@ -6,4 +6,6 @@ import java.util.List;
 
 public interface MembresiaService {
     List<Membresia> findAllMembresias();
+
+    List<Membresia> guardarMembresia(Membresia membresia);
 }

@@ -16,5 +16,12 @@ public class MembresiaServiceImpl implements MembresiaService{
     public List<Membresia> findAllMembresias() {
         return membresiaRepository.findAll();
     }
+
+    @Override
+    public List<Membresia> guardarMembresia(Membresia membresia) {
+        membresiaRepository.save(membresia);
+        return membresiaRepository.findAll();
+    }
 }
+
 

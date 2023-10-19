@@ -110,6 +110,7 @@ public class SocioServiceImpl implements SocioService {
 
       Ubicacion ubicacion = new Ubicacion(socio.getDireccion(), socio.getPiso(), socio.getDepartamento(), socio.getLocalidad(), socio.getProvincia());
       ubicacionRepository.save(ubicacion);
+      socioRepository.save(nuevoSocio);
 
       Optional<Membresia> membresiaSeleccionada = membresiaRepository.findById(socio.getMembresiaId());
       LocalDate fechaInicio = DateConverter.parse(socio.getFechaInicio());
