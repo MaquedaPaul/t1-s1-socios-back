@@ -119,6 +119,8 @@ public class DepartamentoServiceImpl implements DepartamentoService {
 
     }
 
+
+
     @Override
     public Departamento crearDepartamento(CreacionEdicionDepartamentoDTO departamento) throws Exception{
         try {
@@ -219,7 +221,7 @@ public class DepartamentoServiceImpl implements DepartamentoService {
     }
 
     @Override
-    public Departamento removerAutoridades(Integer idDepartamento, Integer idAutoridad){
+    public void removerAutoridades(Integer idDepartamento, Integer idAutoridad){
 
         Optional<Departamento> departamentoAModificar = departamentoRepository.findById(idDepartamento);
 
@@ -233,9 +235,67 @@ public class DepartamentoServiceImpl implements DepartamentoService {
 
         Autoridad autoridad = autoridadRepository.findById(idAutoridad).get();
 
-        departamentoAModificar.get().removerAutoridades(autoridad);
+        try {
+            departamentoAModificar.get().removerAutoridades(autoridad);
+            departamentoRepository.save(departamentoAModificar.get());
+        } catch (Exception e) {
+            throw new RuntimeException("No se pudo guardar el departamento");
+        }
 
-        return departamentoRepository.save(departamentoAModificar.get());
+    }
+
+    @Override
+    public void removerSocios(Integer idDepartamento, Integer idSocio) {
+        Optional<Departamento> departamentoAModificar = departamentoRepository.findById(idDepartamento);
+
+        if (departamentoAModificar.isEmpty()){
+            throw new DepartamentoNotFoundException("No se encontro el departamento con el id: "+idDepartamento);
+        }
+
+        if (departamentoAModificar.get().getSociosSuscritos().stream().map(Socio::getId).noneMatch(id -> id.equals(idSocio))){
+            throw new AutoridadNotFoundException("No existe una socio con el id: "+idSocio + " en el departamento");
+        }
+
+        Socio socio = socioRepository.findById(idSocio).get();
+
+        try {
+            departamentoAModificar.get().removerSocio(socio);
+            departamentoRepository.save(departamentoAModificar.get());
+        } catch (Exception e) {
+            throw new RuntimeException("No se pudo guardar el departamento");
+        }
+
+    }
+
+    @Override
+    public void agregarSocios(List<Integer> sociosIds, Integer id) {
+        Optional<Departamento> departamentoAModificar = departamentoRepository.findById(id);
+
+        if (departamentoAModificar.isEmpty()){
+            throw new DepartamentoNotFoundException("No se encontro el departamento con el id: "+id);
+        }
+
+        List<Optional<Socio>> optionalsSocios = sociosIds.stream()
+                .map(socioRepository::findById)
+                .toList();
+
+        boolean todosPresentes = optionalsSocios.stream()
+                .allMatch(Optional::isPresent);
+
+        if(!todosPresentes){
+            throw new DepartamentoNotFoundException("No se encontro alguno de los socios");
+        }
+
+        Departamento departamento = departamentoAModificar.get();
+        List<Socio> socios = optionalsSocios.stream().map(Optional::get).toList();
+        departamento.agregarSocios(socios);
+
+        try{
+            departamentoRepository.save(departamento);
+        } catch (Exception e){
+            throw new RuntimeException("No se pudo guardar el departamento");
+        }
+
 
     }
 

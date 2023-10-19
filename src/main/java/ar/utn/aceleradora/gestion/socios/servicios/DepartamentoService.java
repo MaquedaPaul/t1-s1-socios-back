@@ -10,7 +10,7 @@ import java.util.List;
 @Service
 public interface DepartamentoService {
 
-    Departamento removerAutoridades(Integer idDepartamento, Integer idAutoridad);
+    void removerAutoridades(Integer idDepartamento, Integer idAutoridad);
 
     List<Departamento> obtenerDepartamentos();
 
@@ -25,4 +25,8 @@ public interface DepartamentoService {
 
     List<String> obtenerNombres();
     void agregarAutoridades(List<Integer> autoridades, Integer id) throws Exception;
+
+    void removerSocios(Integer id, Integer idSocio);
+
+    void agregarSocios(List<Integer> sociosIds, Integer id);
 }

@@ -99,4 +99,12 @@ public class Departamento{
     public void removerAutoridades(Autoridad autoridad){
         this.autoridades.remove(autoridad);
     }
+
+    public void removerSocio(Socio socio) {
+        this.sociosSuscritos.remove(socio);
+    }
+
+    public void agregarSocios(List<Socio> socios) {
+        this.sociosSuscritos.addAll(socios);
+    }
 }

@@ -129,6 +129,7 @@ public class DepartamentoController {
         }
     }
 
+
     @PatchMapping("/{id}/autoridades")
     public ResponseEntity<String> agregarAutoridades(@RequestBody List<Integer> autoridadesIds, @PathVariable Integer id) {
         try {
@@ -137,6 +138,28 @@ public class DepartamentoController {
 
         }catch (DepartamentoNotFoundException | AutoridadNotFoundException e){
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e.getMessage());
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(e.getMessage());
+        }
+    }
+    @PatchMapping("/{id}/socios")
+    public ResponseEntity<String> agregarASocios(@RequestBody List<Integer> sociosIds, @PathVariable Integer id) {
+        try {
+            departamentoService.agregarSocios(sociosIds, id);
+            return ResponseEntity.ok("Autoridades añadidas satisfactoriamente");
+
+        }catch (DepartamentoNotFoundException | AutoridadNotFoundException e){
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e.getMessage());
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(e.getMessage());
+        }
+    }
+
+    @PatchMapping("/{id}/socios/{idSocio}")
+    public ResponseEntity<String> removerSocios(@PathVariable Integer id, @PathVariable Integer idSocio) {
+        try {
+            departamentoService.removerSocios(id, idSocio);
+            return ResponseEntity.ok("Socio removido satisfactoriamente");
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(e.getMessage());
         }
