@@ -528,6 +528,7 @@ public class SocioDataSocios {
                 sociosCargados.add(socio);
 
                 socioRepository.save(socio);
+                membresiaParticularRepository.save(membresias.get(i-1));
             } catch (NoSuchFieldException | IllegalAccessException e) {
                 e.printStackTrace(); // Maneja las excepciones apropiadamente
             }
@@ -564,7 +565,6 @@ public class SocioDataSocios {
             try {
                 socio = (Socio) getClass().getDeclaredField(nombreVariable).get(this);
                 socio.agregarMembresia(membresias.get(i-1));
-                membresias.get(i-1).setSocio(socio);
                 this.agregarCategoriasASocio(socio, categoriaRepository);
                 sociosCargados.add(socio);
                 socioRepository.save(socio);

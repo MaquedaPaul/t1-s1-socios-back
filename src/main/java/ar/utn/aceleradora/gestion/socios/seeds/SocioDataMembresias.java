@@ -4,6 +4,7 @@ import ar.utn.aceleradora.gestion.socios.modelos.membresia.Membresia;
 import ar.utn.aceleradora.gestion.socios.modelos.membresia.MembresiaParticular;
 import ar.utn.aceleradora.gestion.socios.repositorios.MembresiaParticularRepository;
 
+import ar.utn.aceleradora.gestion.socios.repositorios.MembresiaRepository;
 import lombok.Getter;
 
 import java.time.LocalDate;
@@ -66,7 +67,8 @@ public class SocioDataMembresias {
     @Getter
     List<MembresiaParticular> membresiaParticulares = new ArrayList<>();
 
-    void cargarMembresias(MembresiaParticularRepository membresiaRepository){
+    void cargarMembresias(MembresiaParticularRepository membresiaParticularRepository, MembresiaRepository membresiaRepository){
+        membresiaRepository.saveAll(membresias);
         for (int i = 1; i <= 50; i++) {
             // Obtén el nombre de la variable del socio usando reflexión
             String nombreVariable = "membresiaParticular" + i;
@@ -75,7 +77,6 @@ public class SocioDataMembresias {
                 // Utiliza reflexión para obtener el valor de la variable del socio
                 membresiaParticular = (MembresiaParticular) getClass().getDeclaredField(nombreVariable).get(this);
                 membresiaParticulares.add(membresiaParticular);
-                //membresiaRepository.save(membresiaParticular);
             } catch (NoSuchFieldException | IllegalAccessException e) {
                 e.printStackTrace(); // Maneja las excepciones apropiadamente
             }

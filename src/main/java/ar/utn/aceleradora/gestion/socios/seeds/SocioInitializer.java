@@ -1,6 +1,5 @@
 package ar.utn.aceleradora.gestion.socios.seeds;
 
-import ar.utn.aceleradora.gestion.socios.modelos.empresa.Socio;
 import ar.utn.aceleradora.gestion.socios.repositorios.CategoriaRepository;
 import ar.utn.aceleradora.gestion.socios.repositorios.MembresiaParticularRepository;
 import ar.utn.aceleradora.gestion.socios.repositorios.MembresiaRepository;
@@ -9,8 +8,7 @@ import org.springframework.stereotype.Component;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 
-import java.util.ArrayList;
-import java.util.List;
+
 
 @Component
 public class SocioInitializer implements CommandLineRunner {
@@ -26,12 +24,11 @@ public class SocioInitializer implements CommandLineRunner {
         this.membresiaParticularRepository =  membresiaParticularRepository;
     }
     public void run() throws Exception {
-        List<Socio> sociosAGuardar = new ArrayList<>();
             SocioDataSocios dataSocios = new SocioDataSocios();
             SocioDataMembresias dataMembresias = new SocioDataMembresias();
             SocioDataCategorias dataCategorias = new SocioDataCategorias();
             dataCategorias.cargarCategorias(this.categoriaRepository);
-            dataMembresias.cargarMembresias(membresiaParticularRepository);
+            dataMembresias.cargarMembresias(membresiaParticularRepository, membresiaRepository);
             dataSocios.cargarSocios(socioRepository, membresiaParticularRepository, categoriaRepository,dataMembresias);
         }
 

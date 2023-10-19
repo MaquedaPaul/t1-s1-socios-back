@@ -53,7 +53,7 @@ public class Socio {
     private Ubicacion ubicacion;
 
     @JsonManagedReference
-    @OneToMany(mappedBy = "socio", cascade = CascadeType.MERGE)
+    @OneToMany(mappedBy = "socio", cascade = CascadeType.REFRESH)
     private List<MembresiaParticular> membresias;
 
     @OneToOne
@@ -101,8 +101,8 @@ public class Socio {
     }
 
     public void agregarMembresia(MembresiaParticular membresiaParticular) {
-        membresias.add(membresiaParticular);
         membresiaParticular.setSocio(this);
+        membresias.add(membresiaParticular);
     }
     public void agregarCategoria(Categoria categoria) {
         categorias.add(categoria);

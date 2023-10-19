@@ -2,7 +2,6 @@ package ar.utn.aceleradora.gestion.socios.modelos.membresia;
 
 import ar.utn.aceleradora.gestion.socios.modelos.empresa.Socio;
 import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
@@ -17,8 +16,8 @@ public class MembresiaParticular {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    @JsonManagedReference
-    @ManyToOne(cascade = CascadeType.PERSIST)
+
+    @ManyToOne
     @JoinColumn(name = "id_membresia")
     @Getter @Setter
     private Membresia membresia;
@@ -32,7 +31,7 @@ public class MembresiaParticular {
     private Double valor;
 
     @JsonBackReference
-    @ManyToOne(cascade = CascadeType.MERGE)
+    @ManyToOne
     @JoinColumn(name = "id_socio")
     @Getter @Setter
     private Socio socio;
