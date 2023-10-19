@@ -44,7 +44,7 @@ public class Socio {
     @Email(message = "El mail es inválido ")
     private String mail;
 
-    @ManyToMany
+    @ManyToMany(cascade = CascadeType.ALL)
     private List<Categoria> categorias;
 
     @OneToOne
@@ -52,12 +52,12 @@ public class Socio {
     private Ubicacion ubicacion;
 
     @JsonManagedReference
-    @OneToMany(mappedBy = "socio", cascade = CascadeType.REFRESH)
+    @OneToMany(mappedBy = "socio", cascade = CascadeType.REMOVE)
     private List<MembresiaParticular> membresias;
 
-    @OneToOne
-    @JoinColumn(name = "id_imagen", referencedColumnName = "id")
-    private Imagen imagen;
+//    @OneToOne
+//    @JoinColumn(name = "id_imagen", referencedColumnName = "id")
+//    private Imagen imagen;
 
     public Socio() {
         this.categorias = new ArrayList<>();
@@ -82,7 +82,7 @@ public class Socio {
         this.tipoSocio = tipoSocio;
         this.telefono = telefono;
         this.mail = mail;
-        this.imagen = imagen;
+//        this.imagen = imagen;
         this.categorias = new ArrayList<>();
         this.membresias = new ArrayList<>();
     }
