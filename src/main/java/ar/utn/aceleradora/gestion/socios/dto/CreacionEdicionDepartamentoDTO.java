@@ -14,4 +14,6 @@ public class CreacionEdicionDepartamentoDTO {
     public Integer jerarquia;
     @Getter
     public List<Integer> idSocios;
+    @Getter
+    public Integer idCoordinacion;
 }
