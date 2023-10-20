@@ -1,31 +1,17 @@
 #!/bin/bash
 
-echo "Reconstruyendo la aplicación Spring Boot..."
-
-./mvnw clean
-./mvnw validate
-./mvnw package -DskipTests
-
-if [ $? -ne 0 ]; then
-  echo "Error al reconstruir la aplicación Spring Boot."
-  exit 1
-fi
-
-echo "Usando Docker Compose para reconstruir y reiniciar los servicios..."
+# Detenemos y eliminamos los contenedores actuales
+echo "Deteniendo y eliminando contenedores actuales..."
 docker-compose down
-docker-compose up --build -d
 
-if [ $? -ne 0 ]; then
-  echo "Error al usar Docker Compose."
-  exit 1
-fi
+# Construimos y levantamos los contenedores nuevamente
+echo "Construyendo y levantando nuevos contenedores..."
+read -p "Introduce la ruta donde quieres guardar las imágenes: " ruta_imagenes
+# si el directorio no esta yo lo creo para que no hay error
+[ ! -d "$ruta_imagenes" ] && mkdir -p "$ruta_imagenes"
 
-# Pequeña pausa para dar tiempo a los contenedores de iniciar
-sleep 10
+chmod +x wait-for-it.sh
 
-# Mostrar logs de MySQL para diagnóstico
-echo "Mostrando logs de MySQL..."
-docker-compose logs mysql-tabla
-
-# Finalizado
-echo "Aplicación Spring Boot y MySQL han sido reiniciados correctamente."
+# Uso Docker Compose para construir y ejecutar los servicios
+echo "Usando Docker Compose para construir y ejecutar los servicios..."
+PATH_IMAGENES=$ruta_imagenes docker-compose up --build -d

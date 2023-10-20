@@ -1,36 +1,41 @@
 package ar.utn.aceleradora.gestion.socios.modelos;
 
+import ar.utn.aceleradora.gestion.socios.converters.LocalDateTimeAttributeConverter;
+import ar.utn.aceleradora.gestion.socios.modelos.empresa.Socio;
 import jakarta.persistence.*;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
-import java.util.List;
-import java.util.Date;
 import java.util.List;
 import lombok.Getter;
 import lombok.Setter;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
-import org.springframework.data.relational.core.sql.In;
 
 @Entity
 @Table(name = "departamento")
-public class Departamento extends Persistence {
-    @Temporal(TemporalType.DATE)
+public class Departamento{
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Integer id;
+
+
     @Column(name = "fechaBaja")
     @Setter @Getter
-    private Date fechaBaja;
+    @Convert(converter = LocalDateTimeAttributeConverter.class)
+    private LocalDateTime fechaBaja;
 
     @Column(name = "nombre")
     @Setter @Getter
     private String nombre;
 
-    @Column(name = "descripcion")
+    @Column(name = "descripcion", length =  2000)
     @Setter @Getter
-    private String descripcion;
+    @Lob    private String descripcion;
 
     @Column(name = "icono")
     @Setter @Getter
     private String icono;
 
-    @OneToOne
+
     @Setter @Getter
     private Integer jerarquia;//El IDE me tira waring con el Integer en OneToOne
 
@@ -52,35 +57,52 @@ public class Departamento extends Persistence {
     @Setter @Getter
     private List<Socio> sociosSuscritos;
 
+    @JsonManagedReference
     @ManyToOne
+    @JoinColumn(name = "id_cordinacion", referencedColumnName = "id")
     @Setter @Getter
-    private Coordinacion CoordinacionDepartamental;
+    private Coordinacion coordinacionDepartamental;
 
-    public Departamento() { }
-
-    public Departamento() {
-        super();
-    }
 
     public Departamento(){
-        super();
         this.sociosSuscritos = new ArrayList<>();
         this.autoridades = new ArrayList<>();
     }
-    public Departamento(String id, String nombre, String descripcion, String icono, Integer jerarquia) {
+    public Departamento(String nombre, String descripcion, String icono, Integer jerarquia) {
         this.nombre = nombre;
         this.descripcion = descripcion;
         this.icono = icono;
         this.jerarquia = jerarquia;
+        this.sociosSuscritos = new ArrayList<>();
+        this.autoridades = new ArrayList<>();
     }
 
     public void suscribirSocio(Socio unSocio) {
-        /*sociosSuscritos.add(unSocio);
-        unSocio.getDepartamentosSuscritos().add(this);*/
+        sociosSuscritos.add(unSocio);
     }
 
     public void desuscribirSocio(Socio unSocio) {
         /*sociosSuscritos.remove(unSocio);
         unSocio.getDepartamentosSuscritos().remove(this);*/
+    }
+
+    public void agregarAutoridades(Autoridad autoridad){
+        this.autoridades.add(autoridad);
+    }
+    public void agregarAutoridades(List<Autoridad> autoridades){
+        this.autoridades.addAll(autoridades);
+
+    }
+
+    public void removerAutoridades(Autoridad autoridad){
+        this.autoridades.remove(autoridad);
+    }
+
+    public void removerSocio(Socio socio) {
+        this.sociosSuscritos.remove(socio);
+    }
+
+    public void agregarSocios(List<Socio> socios) {
+        this.sociosSuscritos.addAll(socios);
     }
 }

@@ -5,11 +5,15 @@ import java.util.List;
 
 public class CreacionEdicionDepartamentoDTO {
     @Getter
-    public String nombreDepartamento;
+    public String nombre;
     @Getter
-    public List<AutoridadDTO> autoridades;
+    public String descripcion;
     @Getter
-    public JerarquiaDTO jerarquia;
+    public List<Integer> autoridades;
     @Getter
-    public List<Long> idSocios;
+    public Integer jerarquia;
+    @Getter
+    public List<Integer> idSocios;
+    @Getter
+    public Integer idCoordinacion;
 }
