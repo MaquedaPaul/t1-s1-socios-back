@@ -48,7 +48,7 @@ public class Coordinacion{
 
 
     @JsonBackReference
-    @OneToMany(mappedBy = "CoordinacionDepartamental", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "coordinacionDepartamental", cascade = CascadeType.ALL)
     @Setter @Getter
     private List<Departamento> departamentos;
 
