@@ -3,7 +3,7 @@ package ar.utn.aceleradora.gestion.socios;
 
 
 import ar.utn.aceleradora.gestion.socios.repositorios.*;
-import ar.utn.aceleradora.gestion.socios.seeds.SocioInitializer;
+import ar.utn.aceleradora.gestion.socios.seeds.socios.SocioInitializer;
 import ar.utn.aceleradora.gestion.socios.seeds.departamentos.DepartamentoInitializer;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;

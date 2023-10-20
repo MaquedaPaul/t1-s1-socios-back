@@ -2,8 +2,10 @@ package ar.utn.aceleradora.gestion.socios.seeds.departamentos;
 
 import ar.utn.aceleradora.gestion.socios.modelos.Autoridad;
 import ar.utn.aceleradora.gestion.socios.modelos.Departamento;
+import ar.utn.aceleradora.gestion.socios.modelos.empresa.Socio;
 import ar.utn.aceleradora.gestion.socios.repositorios.AutoridadRepository;
 import ar.utn.aceleradora.gestion.socios.repositorios.DepartamentoRepository;
+import ar.utn.aceleradora.gestion.socios.repositorios.SocioRepository;
 import lombok.Getter;
 
 import java.util.Arrays;
@@ -60,11 +62,15 @@ public class DepartamentoDataDepartamentos {
     @Getter
 
     List<Departamento> departamentos = asList(departamento1,departamento2,departamento3,departamento4,departamento5,departamento6,departamento7);
-    void cargarDepartamentos(DepartamentoRepository departamentoRepository, AutoridadRepository autoridadRepository){
+    void cargarDepartamentos(DepartamentoRepository departamentoRepository, AutoridadRepository autoridadRepository, SocioRepository socioRepository){
         List<Autoridad> autoridades = autoridadRepository.findAll();
+        List<Socio> socios = socioRepository.findAll();
         departamentos.forEach(depa -> this.agregarAutoridadesADepartamento(depa, autoridades));
-        departamentoRepository.saveAll(this.departamentos);
+        departamentos.forEach(depa -> this.agregarSociosSuscritosADepartamento(depa, socios));
+        //departamentoRepository.saveAll(this.departamentos);
     }
+
+
     void agregarAutoridadesADepartamento(Departamento unDepartamento, List<Autoridad> autoridades){
         int tamanioArray = autoridades.size();
         // Crear una instancia de la clase Random
@@ -80,5 +86,23 @@ public class DepartamentoDataDepartamentos {
         Autoridad autoridad4 = autoridades.get(cuartoAleatorio);
         unDepartamento.agregarAutoridades(Arrays.asList(autoridad1,autoridad2,autoridad3,autoridad4));
     }
+
+    private void agregarSociosSuscritosADepartamento(Departamento unDepartamento, List<Socio> socios) {
+        int tamanioArray = socios.size();
+        // Crear una instancia de la clase Random
+        Random random = new Random();
+        // Generar un número aleatorio entre 1 y 20 (inclusive)
+        int numeroAleatorio = random.nextInt(tamanioArray);
+        int otroAleatorio = random.nextInt(tamanioArray);
+        int tercerAleatorio = random.nextInt(tamanioArray);
+        int cuartoAleatorio = random.nextInt(tamanioArray);
+        Socio socio1 = socios.get(numeroAleatorio);
+        Socio socio2 = socios.get(otroAleatorio);
+        Socio socio3 = socios.get(tercerAleatorio);
+        Socio socio4 = socios.get(cuartoAleatorio);
+        unDepartamento.setSociosSuscritos(Arrays.asList(socio1,socio2,socio3,socio4));
+
+    }
+
 
 }

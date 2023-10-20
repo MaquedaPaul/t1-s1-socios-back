@@ -1,4 +1,4 @@
-package ar.utn.aceleradora.gestion.socios.seeds;
+package ar.utn.aceleradora.gestion.socios.seeds.socios;
 
 import ar.utn.aceleradora.gestion.socios.modelos.membresia.Membresia;
 import ar.utn.aceleradora.gestion.socios.modelos.membresia.MembresiaParticular;

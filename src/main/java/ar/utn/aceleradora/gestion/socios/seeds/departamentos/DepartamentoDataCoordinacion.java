@@ -15,9 +15,9 @@ public class DepartamentoDataCoordinacion {
     Coordinacion coordinacion1 = new Coordinacion("Coordinación Departamentos Técnicos", "Supervisa cada uno de los departamentos técnicos en pos de que se cumplan sus respectivos objetivos", "icono_coordinacion_departamentos.png", 1, autoridadCoordinacionDepartamental);
 
 
-    public void cargarCoordinaciones(CoorDepartamentoRepository coorDepartamentoRepository, AutoridadRepository autoridadRepository, DepartamentoRepository departamentoRepository) {
-        List<Departamento> departamentos = departamentoRepository.findAll();
-        //epartamentos.forEach(depa -> coordinacion1.agregarDepartamento(depa));
+    public void cargarCoordinaciones(CoorDepartamentoRepository coorDepartamentoRepository, AutoridadRepository autoridadRepository, DepartamentoRepository departamentoRepository, DepartamentoDataDepartamentos dataDepartamentos) {
+        List<Departamento> departamentos = dataDepartamentos.getDepartamentos();
+        departamentos.forEach(depa -> coordinacion1.agregarDepartamento(depa));
         autoridadRepository.save(autoridadCoordinacionDepartamental);
         coorDepartamentoRepository.save(coordinacion1);
 

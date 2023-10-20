@@ -19,8 +19,8 @@ public class DepartamentoInitializer {
        DepartamentoDataAutoridad dataAutoridad = new DepartamentoDataAutoridad();
        DepartamentoDataCoordinacion dataCoordinacion = new DepartamentoDataCoordinacion();
        dataAutoridad.cargarAutoridades(autoridadRepository);
-       dataDepartamentos.cargarDepartamentos(departamentoRepository, autoridadRepository);
-       dataCoordinacion.cargarCoordinaciones(coorDepartamentoRepository, autoridadRepository, departamentoRepository);
+       dataDepartamentos.cargarDepartamentos(departamentoRepository, autoridadRepository, socioRepository);
+       dataCoordinacion.cargarCoordinaciones(coorDepartamentoRepository, autoridadRepository, departamentoRepository, dataDepartamentos);
     }
 
 }
