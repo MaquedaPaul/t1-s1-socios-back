@@ -44,10 +44,11 @@ public class Socio {
     @Email(message = "El mail es inválido ")
     private String mail;
 
-    @ManyToMany(cascade = CascadeType.ALL)
+    @ManyToMany(cascade = CascadeType.MERGE)
+    @Setter @Getter
     private List<Categoria> categorias;
 
-    @OneToOne
+    @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "id_ubicacion", referencedColumnName = "id")
     private Ubicacion ubicacion;
 
@@ -73,8 +74,6 @@ public class Socio {
         this.ubicacion = ubicacion;
         this.membresias = new ArrayList<>();
     }
-
-
     public Socio(String nombre, String nombrePresidente, String cuit, TipoSocio tipoSocio, String telefono, String mail) {
         this.nombre = nombre;
         this.nombrePresidente = nombrePresidente;
@@ -85,10 +84,30 @@ public class Socio {
 //        this.imagen = imagen;
         this.categorias = new ArrayList<>();
         this.membresias = new ArrayList<>();
+        this.ubicacion = ubicacion;
+    }
+
+    public Socio(String nombre, String nombrePresidente, String cuit, TipoSocio tipoSocio, String telefono, String mail, Ubicacion ubicacion) {
+        this.nombre = nombre;
+        this.nombrePresidente = nombrePresidente;
+        this.cuit = cuit;
+        this.tipoSocio = tipoSocio;
+        this.telefono = telefono;
+        this.mail = mail;
+//        this.imagen = imagen;
+        this.categorias = new ArrayList<>();
+        this.membresias = new ArrayList<>();
+        this.ubicacion = ubicacion;
     }
 
     public void agregarMembresia(MembresiaParticular membresiaParticular) {
-        membresias.add(membresiaParticular);
         membresiaParticular.setSocio(this);
+        membresias.add(membresiaParticular);
+    }
+    public void agregarCategoria(Categoria categoria) {
+        categorias.add(categoria);
+    }
+    public void agregarCategoria(List<Categoria> categoria) {
+        categorias.addAll(categoria);
     }
 }
