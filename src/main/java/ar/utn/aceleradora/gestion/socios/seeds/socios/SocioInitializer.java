@@ -1,4 +1,4 @@
-package ar.utn.aceleradora.gestion.socios.seeds;
+package ar.utn.aceleradora.gestion.socios.seeds.socios;
 
 import ar.utn.aceleradora.gestion.socios.repositorios.CategoriaRepository;
 import ar.utn.aceleradora.gestion.socios.repositorios.MembresiaParticularRepository;
