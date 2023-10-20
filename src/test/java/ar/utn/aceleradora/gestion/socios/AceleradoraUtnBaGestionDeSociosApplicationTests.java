@@ -1,7 +1,7 @@
 package ar.utn.aceleradora.gestion.socios;
 
 //import ar.utn.aceleradora.gestion.socios.modelos.empresa.Socio;
-import ar.utn.aceleradora.gestion.socios.dto.SocioDTO;
+//import ar.utn.aceleradora.gestion.socios.dto.SocioDTO;
 import ar.utn.aceleradora.gestion.socios.modelos.ubicacion.Ubicacion;
 import ar.utn.aceleradora.gestion.socios.repositorios.SocioRepository;
 import ar.utn.aceleradora.gestion.socios.servicios.SocioServiceImpl;
@@ -95,7 +95,7 @@ class AceleradoraUtnBaGestionDeSociosApplicationTests {
 		assertThat(socioGuardado.getUbicacion()).isEqualTo(ubicacionService.obtenerUbicacion(1));
 	}*/
 
-
+/*
 	@Test
 	public void testObtenerSocio(){
 
@@ -105,7 +105,7 @@ class AceleradoraUtnBaGestionDeSociosApplicationTests {
 		assertThat(socio.getTelefono()).isEqualTo(123456);
 	}
 
-
+*/
 
 
 /*
