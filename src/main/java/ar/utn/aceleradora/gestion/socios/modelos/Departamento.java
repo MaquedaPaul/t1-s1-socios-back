@@ -1,5 +1,5 @@
 package ar.utn.aceleradora.gestion.socios.modelos;
-
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import ar.utn.aceleradora.gestion.socios.converters.LocalDateTimeAttributeConverter;
 import ar.utn.aceleradora.gestion.socios.modelos.empresa.Socio;
 import jakarta.persistence.*;
