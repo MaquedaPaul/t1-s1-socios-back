@@ -2,11 +2,9 @@ package ar.utn.aceleradora.gestion.socios;
 
 
 
-import ar.utn.aceleradora.gestion.socios.repositorios.CategoriaRepository;
-import ar.utn.aceleradora.gestion.socios.repositorios.MembresiaParticularRepository;
-import ar.utn.aceleradora.gestion.socios.repositorios.MembresiaRepository;
-import ar.utn.aceleradora.gestion.socios.repositorios.SocioRepository;
-import ar.utn.aceleradora.gestion.socios.seeds.SocioInitializer;
+import ar.utn.aceleradora.gestion.socios.repositorios.*;
+import ar.utn.aceleradora.gestion.socios.seeds.socios.SocioInitializer;
+import ar.utn.aceleradora.gestion.socios.seeds.departamentos.DepartamentoInitializer;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -18,9 +16,11 @@ public class AceleradoraUtnBaGestionDeSociosApplication {
 		SpringApplication.run(AceleradoraUtnBaGestionDeSociosApplication.class, args);
 	}
 	@Bean
-	public CommandLineRunner dataInicial(SocioRepository socioRepository, MembresiaRepository membresiaRepository, MembresiaParticularRepository membresiaParticularRepository, CategoriaRepository categoriaRepository) throws Exception {
+	public CommandLineRunner dataInicial(SocioRepository socioRepository, MembresiaRepository membresiaRepository, MembresiaParticularRepository membresiaParticularRepository, CategoriaRepository categoriaRepository, DepartamentoRepository departamentoRepository, AutoridadRepository autoridadRepository, CoorDepartamentoRepository coorDepartamentoRepository ) throws Exception {
 		SocioInitializer socioInitializer = new SocioInitializer(socioRepository,categoriaRepository,membresiaRepository,membresiaParticularRepository);
 		socioInitializer.run();
+		DepartamentoInitializer departamentoInitializer = new DepartamentoInitializer(socioRepository, departamentoRepository, autoridadRepository, coorDepartamentoRepository);
+		departamentoInitializer.run();
         return null;
     }
 
