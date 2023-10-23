@@ -1,11 +1,10 @@
-package ar.utn.aceleradora.gestion.socios.controladores;
+package ar.utn.aceleradora.gestion.socios.controladores.socios;
 
 import ar.utn.aceleradora.gestion.socios.dto.ResponseDTO;
 import ar.utn.aceleradora.gestion.socios.dto.SocioCreateDTO;
 import ar.utn.aceleradora.gestion.socios.dto.SocioUpdateDTO;
-import ar.utn.aceleradora.gestion.socios.modelos.empresa.Socio;
-import ar.utn.aceleradora.gestion.socios.repositorios.SocioRepository;
-import ar.utn.aceleradora.gestion.socios.servicios.SocioService;
+import ar.utn.aceleradora.gestion.socios.modelos.socios.Socio;
+import ar.utn.aceleradora.gestion.socios.servicios.socios.SocioService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;

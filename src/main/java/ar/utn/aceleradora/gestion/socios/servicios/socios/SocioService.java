@@ -1,8 +1,8 @@
-package ar.utn.aceleradora.gestion.socios.servicios;
+package ar.utn.aceleradora.gestion.socios.servicios.socios;
 
 import ar.utn.aceleradora.gestion.socios.dto.SocioCreateDTO;
 import ar.utn.aceleradora.gestion.socios.dto.SocioUpdateDTO;
-import ar.utn.aceleradora.gestion.socios.modelos.empresa.Socio;
+import ar.utn.aceleradora.gestion.socios.modelos.socios.Socio;
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Service;
 

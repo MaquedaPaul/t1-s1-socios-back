@@ -1,4 +1,4 @@
-package ar.utn.aceleradora.gestion.socios.modelos.empresa;
+package ar.utn.aceleradora.gestion.socios.modelos.socios;
 
 public enum TipoSocio {
   SOCIO_PLENARIO,

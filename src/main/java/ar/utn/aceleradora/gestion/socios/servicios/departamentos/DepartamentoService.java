@@ -1,7 +1,7 @@
-package ar.utn.aceleradora.gestion.socios.servicios;
+package ar.utn.aceleradora.gestion.socios.servicios.departamentos;
 
 import ar.utn.aceleradora.gestion.socios.dto.CreacionEdicionDepartamentoDTO;
-import ar.utn.aceleradora.gestion.socios.modelos.Departamento;
+import ar.utn.aceleradora.gestion.socios.modelos.departamentos.Departamento;
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Service;
 

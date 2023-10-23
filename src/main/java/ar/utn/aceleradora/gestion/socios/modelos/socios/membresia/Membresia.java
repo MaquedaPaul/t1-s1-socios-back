@@ -1,4 +1,4 @@
-package ar.utn.aceleradora.gestion.socios.modelos.membresia;
+package ar.utn.aceleradora.gestion.socios.modelos.socios.membresia;
 
 import jakarta.persistence.*;
 import lombok.Getter;

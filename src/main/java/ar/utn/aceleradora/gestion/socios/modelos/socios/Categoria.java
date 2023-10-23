@@ -1,12 +1,10 @@
-package ar.utn.aceleradora.gestion.socios.modelos.empresa;
+package ar.utn.aceleradora.gestion.socios.modelos.socios;
 
 import jakarta.persistence.*;
-import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.NotNull;
+
 import lombok.Getter;
 import lombok.Setter;
 
-import java.util.List;
 
 @Entity
 @Table(name = "categorias")

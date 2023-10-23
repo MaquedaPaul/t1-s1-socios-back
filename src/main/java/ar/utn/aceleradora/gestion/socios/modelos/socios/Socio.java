@@ -1,7 +1,6 @@
-package ar.utn.aceleradora.gestion.socios.modelos.empresa;
+package ar.utn.aceleradora.gestion.socios.modelos.socios;
 
-import ar.utn.aceleradora.gestion.socios.modelos.imagen.Imagen;
-import ar.utn.aceleradora.gestion.socios.modelos.membresia.MembresiaParticular;
+import ar.utn.aceleradora.gestion.socios.modelos.socios.membresia.MembresiaParticular;
 import ar.utn.aceleradora.gestion.socios.modelos.ubicacion.Ubicacion;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;

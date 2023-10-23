@@ -1,7 +1,7 @@
-package ar.utn.aceleradora.gestion.socios.controladores;
+package ar.utn.aceleradora.gestion.socios.controladores.socios;
 
-import ar.utn.aceleradora.gestion.socios.modelos.membresia.Membresia;
-import ar.utn.aceleradora.gestion.socios.servicios.MembresiaServiceImpl;
+import ar.utn.aceleradora.gestion.socios.modelos.socios.membresia.Membresia;
+import ar.utn.aceleradora.gestion.socios.servicios.socios.MembresiaServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

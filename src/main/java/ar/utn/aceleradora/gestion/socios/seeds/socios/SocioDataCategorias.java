@@ -1,6 +1,6 @@
 package ar.utn.aceleradora.gestion.socios.seeds.socios;
 
-import ar.utn.aceleradora.gestion.socios.modelos.empresa.Categoria;
+import ar.utn.aceleradora.gestion.socios.modelos.socios.Categoria;
 import ar.utn.aceleradora.gestion.socios.repositorios.CategoriaRepository;
 
 import java.util.Arrays;

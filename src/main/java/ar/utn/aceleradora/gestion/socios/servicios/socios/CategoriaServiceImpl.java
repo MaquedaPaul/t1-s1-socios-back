@@ -1,7 +1,7 @@
-package ar.utn.aceleradora.gestion.socios.servicios;
+package ar.utn.aceleradora.gestion.socios.servicios.socios;
 
 import ar.utn.aceleradora.gestion.socios.dto.CategoriaDTO;
-import ar.utn.aceleradora.gestion.socios.modelos.empresa.Categoria;
+import ar.utn.aceleradora.gestion.socios.modelos.socios.Categoria;
 
 import ar.utn.aceleradora.gestion.socios.repositorios.CategoriaRepository;
 import org.springframework.beans.factory.annotation.Autowired;

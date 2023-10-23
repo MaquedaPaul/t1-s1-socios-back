@@ -1,9 +1,4 @@
-package ar.utn.aceleradora.gestion.socios.servicios;
-
-import ar.utn.aceleradora.gestion.socios.modelos.evento.Evento;
-import ar.utn.aceleradora.gestion.socios.repositorios.EventoRepository;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
+package ar.utn.aceleradora.gestion.socios.servicios.eventos;
 
 //@Service
 public class EventoService {

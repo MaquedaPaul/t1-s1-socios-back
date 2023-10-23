@@ -1,11 +1,11 @@
-package ar.utn.aceleradora.gestion.socios.controladores;
+package ar.utn.aceleradora.gestion.socios.controladores.departamentos;
 
 
 import ar.utn.aceleradora.gestion.socios.dto.CreacionEdicionDepartamentoDTO;
 import ar.utn.aceleradora.gestion.socios.error.AutoridadNotFoundException;
 import ar.utn.aceleradora.gestion.socios.error.DepartamentoNotFoundException;
-import ar.utn.aceleradora.gestion.socios.modelos.Departamento;
-import ar.utn.aceleradora.gestion.socios.servicios.DepartamentoService;
+import ar.utn.aceleradora.gestion.socios.modelos.departamentos.Departamento;
+import ar.utn.aceleradora.gestion.socios.servicios.departamentos.DepartamentoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;

@@ -1,8 +1,8 @@
-package ar.utn.aceleradora.gestion.socios.modelos;
+package ar.utn.aceleradora.gestion.socios.modelos.departamentos;
 
 import ar.utn.aceleradora.gestion.socios.converters.LocalDateTimeAttributeConverter;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
-import ar.utn.aceleradora.gestion.socios.modelos.empresa.Socio;
+import ar.utn.aceleradora.gestion.socios.modelos.socios.Socio;
 import jakarta.persistence.*;
 import java.time.LocalDateTime;
 import java.util.ArrayList;

@@ -1,13 +1,12 @@
-package ar.utn.aceleradora.gestion.socios.servicios;
+package ar.utn.aceleradora.gestion.socios.servicios.socios;
 
 import ar.utn.aceleradora.gestion.socios.converters.DateConverter;
 import ar.utn.aceleradora.gestion.socios.dto.SocioCreateDTO;
 import ar.utn.aceleradora.gestion.socios.dto.SocioUpdateDTO;
-import ar.utn.aceleradora.gestion.socios.modelos.empresa.Socio;
-import ar.utn.aceleradora.gestion.socios.modelos.empresa.TipoSocio;
-import ar.utn.aceleradora.gestion.socios.modelos.imagen.Imagen;
-import ar.utn.aceleradora.gestion.socios.modelos.membresia.Membresia;
-import ar.utn.aceleradora.gestion.socios.modelos.membresia.MembresiaParticular;
+import ar.utn.aceleradora.gestion.socios.modelos.socios.Socio;
+import ar.utn.aceleradora.gestion.socios.modelos.socios.TipoSocio;
+import ar.utn.aceleradora.gestion.socios.modelos.socios.membresia.Membresia;
+import ar.utn.aceleradora.gestion.socios.modelos.socios.membresia.MembresiaParticular;
 import ar.utn.aceleradora.gestion.socios.modelos.ubicacion.Ubicacion;
 import ar.utn.aceleradora.gestion.socios.repositorios.*;
 import org.springframework.beans.factory.annotation.Autowired;

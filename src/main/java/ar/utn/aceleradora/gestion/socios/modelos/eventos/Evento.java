@@ -1,7 +1,7 @@
-package ar.utn.aceleradora.gestion.socios.modelos.evento;
+package ar.utn.aceleradora.gestion.socios.modelos.eventos;
 
 
-import ar.utn.aceleradora.gestion.socios.modelos.empresa.Socio;
+import ar.utn.aceleradora.gestion.socios.modelos.socios.Socio;
 import lombok.Getter;
 import lombok.Setter;
 

@@ -1,4 +1,4 @@
-package ar.utn.aceleradora.gestion.socios.servicios;
+package ar.utn.aceleradora.gestion.socios.servicios.departamentos;
 
 //import ar.utn.aceleradora.gestion.socios.repositorios.DepartamentoAutoridadRepository;
 

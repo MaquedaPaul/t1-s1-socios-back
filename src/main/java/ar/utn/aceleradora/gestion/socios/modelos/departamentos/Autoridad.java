@@ -1,16 +1,11 @@
-package ar.utn.aceleradora.gestion.socios.modelos;
+package ar.utn.aceleradora.gestion.socios.modelos.departamentos;
 
 import ar.utn.aceleradora.gestion.socios.converters.LocalDateTimeAttributeConverter;
 import jakarta.persistence.*;
 
 import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Date;
-import java.util.List;
 import lombok.Getter;
 import lombok.Setter;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 @Entity
 @Table(name = "autoridades")
