@@ -53,7 +53,7 @@ public class Socio {
     private Ubicacion ubicacion;
 
     @JsonManagedReference
-    @OneToMany(mappedBy = "socio", cascade = CascadeType.REMOVE)
+    @OneToMany(mappedBy = "socio", cascade = {CascadeType.REMOVE, CascadeType.REFRESH})
     private List<MembresiaParticular> membresias;
 
 //    @OneToOne
