@@ -1,4 +1,4 @@
-name: prueba
+name: Generar y publicar dockerImage
 on:
   push:
     branches:
