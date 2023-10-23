@@ -1,4 +1,4 @@
-package ar.utn.aceleradora.gestion.socios.controladores;
+package ar.utn.aceleradora.gestion.socios.controladores.socios;
 
 import ar.utn.aceleradora.gestion.socios.servicios.ImagenesService;
 import org.springframework.beans.factory.annotation.Autowired;
