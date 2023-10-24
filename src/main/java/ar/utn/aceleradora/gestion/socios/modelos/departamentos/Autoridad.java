@@ -16,7 +16,6 @@ public class Autoridad{
     @Getter
     private Integer id;
 
-
     @Column(name = "fechaBaja")
     @Setter @Getter
     @Convert(converter = LocalDateTimeAttributeConverter.class)

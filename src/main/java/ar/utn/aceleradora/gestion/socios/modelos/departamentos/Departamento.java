@@ -1,6 +1,7 @@
 package ar.utn.aceleradora.gestion.socios.modelos.departamentos;
 
 import ar.utn.aceleradora.gestion.socios.converters.LocalDateTimeAttributeConverter;
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import ar.utn.aceleradora.gestion.socios.modelos.socios.Socio;
 import jakarta.persistence.*;
@@ -16,8 +17,8 @@ public class Departamento{
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Getter
     private Integer id;
-
 
     @Column(name = "fechaBaja")
     @Setter @Getter
@@ -30,40 +31,28 @@ public class Departamento{
 
     @Column(name = "descripcion", length =  2000)
     @Setter @Getter
-    @Lob    private String descripcion;
+    private String descripcion;
 
     @Column(name = "icono")
     @Setter @Getter
     private String icono;
 
-
     @Setter @Getter
     private Integer jerarquia;//El IDE me tira waring con el Integer en OneToOne
 
     @ManyToMany
-    @JoinTable(
-            name = "departamento_autoridad",
-            joinColumns = @JoinColumn(name = "departamento_id"),
-            inverseJoinColumns = @JoinColumn(name = "autoridad_id")
-    )
     @Setter @Getter
     private List<Autoridad> autoridades;
 
     @ManyToMany
-    @JoinTable(
-            name = "departamento_socio",
-            joinColumns = @JoinColumn(name = "departamento_id"),
-            inverseJoinColumns = @JoinColumn(name = "socio_id")
-    )
     @Setter @Getter
     private List<Socio> sociosSuscritos;
 
-    @JsonManagedReference
+    @JsonBackReference
     @ManyToOne
-    @JoinColumn(name = "id_cordinacion", referencedColumnName = "id")
+    @JoinColumn(name = "id_coordinacion")
     @Setter @Getter
     private Coordinacion coordinacionDepartamental;
-
 
     public Departamento(){
         this.sociosSuscritos = new ArrayList<>();
@@ -83,8 +72,7 @@ public class Departamento{
     }
 
     public void desuscribirSocio(Socio unSocio) {
-        /*sociosSuscritos.remove(unSocio);
-        unSocio.getDepartamentosSuscritos().remove(this);*/
+        sociosSuscritos.remove(unSocio);
     }
 
     public void agregarAutoridades(Autoridad autoridad){

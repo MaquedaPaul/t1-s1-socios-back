@@ -43,17 +43,6 @@ public class SocioController {
         }
     }
 
-//    @GetMapping("/{id}")
-//    public ResponseEntity<Socio> findById(@PathVariable Integer id) {
-//        try {
-//            Socio socio = socioRepository.findById(id).orElseThrow();
-//
-//            return ResponseEntity.ok(socio);
-//        } catch (Exception e) {
-//            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
-//        }
-//    }
-
     @PostMapping({"", "/"})
     public ResponseEntity<ResponseDTO> createPartner(@RequestBody SocioCreateDTO partner) {
         try {
@@ -87,6 +76,21 @@ public class SocioController {
             return new ResponseEntity<>(new ResponseDTO("socio con " + id + " no encontrado", "INTERNAL_SERVER_ERROR", 404),HttpStatus.NOT_FOUND);
         } catch (Exception e) {
             return new ResponseEntity<>(new ResponseDTO(e.getMessage(), "INTERNAL_SERVER_ERROR", 500),HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<?> findSocioById(@PathVariable Integer id) {
+        try {
+            Socio socio = socioService.findSocioById(id);
+
+            if (socio != null) {
+                return ResponseEntity.ok(socio);
+            } else {
+                return new ResponseEntity<>(new ResponseDTO("Socio con ID " + id + " no encontrado", "NOT_FOUND", 404), HttpStatus.NOT_FOUND);
+            }
+        } catch (Exception e) {
+            return new ResponseEntity<>(new ResponseDTO(e.getMessage(), "INTERNAL_SERVER_ERROR", 500), HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 }

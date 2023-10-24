@@ -7,6 +7,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public interface SocioService {
@@ -18,5 +19,6 @@ public interface SocioService {
     Boolean updateSocio(SocioUpdateDTO partner, Integer id) throws Exception;
 
     Boolean createSocio(SocioCreateDTO partner) throws Exception;
+    Socio findSocioById(Integer id) throws Exception;
 
 }
