@@ -3,6 +3,7 @@ package ar.utn.aceleradora.gestion.socios.servicios.socios;
 import ar.utn.aceleradora.gestion.socios.converters.DateConverter;
 import ar.utn.aceleradora.gestion.socios.dto.SocioCreateDTO;
 import ar.utn.aceleradora.gestion.socios.dto.SocioUpdateDTO;
+import ar.utn.aceleradora.gestion.socios.modelos.imagen.Imagen;
 import ar.utn.aceleradora.gestion.socios.modelos.socios.Socio;
 import ar.utn.aceleradora.gestion.socios.modelos.socios.TipoSocio;
 import ar.utn.aceleradora.gestion.socios.modelos.socios.membresia.Membresia;
@@ -38,7 +39,7 @@ public class SocioServiceImpl implements SocioService {
 
   @Override
   public List<Socio> findAllSocios() throws Exception {
-    try{
+    try {
       return socioRepository.findAll();
     } catch (Exception e) {
       throw new Exception("Error al buscar socios");
@@ -49,7 +50,7 @@ public class SocioServiceImpl implements SocioService {
   public Page<Socio> findAllSociosPaginado(int page) throws Exception {
     //funcion que le pasa un numero y me devuelve una pagina
     Pageable pageable = PageRequest.of(page, 10);
-    try{
+    try {
       return socioRepository.findAll(pageable);
     } catch (Exception e) {
       throw new Exception("Error al buscar socios");
@@ -57,7 +58,7 @@ public class SocioServiceImpl implements SocioService {
   }
 
   @Override
-  public Boolean deleteSocioById(Integer id) throws Exception{
+  public Boolean deleteSocioById(Integer id) throws Exception {
     Optional<Socio> partner = socioRepository.findById(id);
 
     if (partner.isEmpty())
@@ -88,8 +89,8 @@ public class SocioServiceImpl implements SocioService {
       existingSocio.getUbicacion().setDepartamento(socioUpdate.getDepartamento());
       existingSocio.getUbicacion().setLocalidad(socioUpdate.getLocalidad());
       existingSocio.getUbicacion().setProvincia(socioUpdate.getProvincia());
-//      Imagen imagen = new Imagen(socioUpdate.getImagen().getRutaImagen());
-//      existingSocio.setImagen(imagen);
+      //Imagen imagen = new Imagen(socioUpdate.getImagen().getRutaImagen());
+      //existingSocio.setImagen(imagen);
 
       socioRepository.save(existingSocio);
 
@@ -103,7 +104,7 @@ public class SocioServiceImpl implements SocioService {
   public Boolean createSocio(SocioCreateDTO socio) throws Exception {
     try {
       TipoSocio tipoSocio = ("0".equals(socio.getTipoSocio())) ? TipoSocio.SOCIO_PLENARIO : TipoSocio.SOCIO_ADHERENTE;
-//      Imagen imagen = new Imagen(socio.getImagen().getRutaImagen());
+      //Imagen imagen = new Imagen(socio.getImagen().getRutaImagen());
 
       Socio nuevoSocio = new Socio(socio.getNombre(), socio.getNombrePresidente(), socio.getCuit(), tipoSocio, socio.getTelefono(), socio.getMail());
 
@@ -125,6 +126,22 @@ public class SocioServiceImpl implements SocioService {
       return true;
     } catch (Exception e) {
       throw new Exception("Error al crear el socio, por favor inténtelo más tarde");
+    }
+  }
+
+  @Override
+  public Socio findSocioById(Integer id) throws Exception {
+    try {
+      Optional<Socio> optionalSocio = socioRepository.findById(id);
+
+      if (optionalSocio.isPresent()) {
+        return optionalSocio.get();
+      } else {
+        throw new Exception("Socio no encontrado");
+      }
+
+    } catch(Exception e){
+        throw new Exception("Error al buscar socio");
     }
   }
 }

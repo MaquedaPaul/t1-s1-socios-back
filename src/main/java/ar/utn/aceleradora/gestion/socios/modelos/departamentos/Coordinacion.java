@@ -2,6 +2,7 @@ package ar.utn.aceleradora.gestion.socios.modelos.departamentos;
 
 import ar.utn.aceleradora.gestion.socios.converters.LocalDateTimeAttributeConverter;
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 
 import java.time.LocalDateTime;
@@ -17,8 +18,8 @@ public class Coordinacion{
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Getter
     private Integer id;
-
 
     @Column(name = "fechaBaja")
     @Setter @Getter
@@ -46,8 +47,7 @@ public class Coordinacion{
     @Setter @Getter
     private Autoridad autoridad;
 
-
-    @JsonBackReference
+    @JsonManagedReference
     @OneToMany(mappedBy = "coordinacionDepartamental", cascade = CascadeType.ALL)
     @Setter @Getter
     private List<Departamento> departamentos;

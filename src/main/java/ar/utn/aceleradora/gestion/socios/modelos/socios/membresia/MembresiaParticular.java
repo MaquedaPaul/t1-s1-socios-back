@@ -16,7 +16,6 @@ public class MembresiaParticular {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-
     @ManyToOne
     @JoinColumn(name = "id_membresia")
     @Getter @Setter

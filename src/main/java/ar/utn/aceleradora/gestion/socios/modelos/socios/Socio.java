@@ -1,5 +1,6 @@
 package ar.utn.aceleradora.gestion.socios.modelos.socios;
 
+import ar.utn.aceleradora.gestion.socios.modelos.imagen.Imagen;
 import ar.utn.aceleradora.gestion.socios.modelos.socios.membresia.MembresiaParticular;
 import ar.utn.aceleradora.gestion.socios.modelos.ubicacion.Ubicacion;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
@@ -27,9 +28,6 @@ public class Socio {
     private String nombrePresidente;
 
     @Column(length = 11, name = "cuit")
-//    @NotBlank(message = "El cuit no puede estar vacío")
-//    @Pattern(regexp = "^[0-9\\-]+$", message = "El CUIT debe contener solo números y guiones.")
-//    @Size(min =11, max = 11, message = "Error en la cantidad de caracteres del CUIT.")
     private String cuit;
 
     @Enumerated(EnumType.STRING)
@@ -55,9 +53,9 @@ public class Socio {
     @OneToMany(mappedBy = "socio", cascade = {CascadeType.REMOVE, CascadeType.REFRESH})
     private List<MembresiaParticular> membresias;
 
-//    @OneToOne
-//    @JoinColumn(name = "id_imagen", referencedColumnName = "id")
-//    private Imagen imagen;
+    /*@OneToOne
+    @JoinColumn(name = "id_imagen", referencedColumnName = "id")
+    private Imagen imagen;*/
 
     public Socio() {
         this.categorias = new ArrayList<>();
