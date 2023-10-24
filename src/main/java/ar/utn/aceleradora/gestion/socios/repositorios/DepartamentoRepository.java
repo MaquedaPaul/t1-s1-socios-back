@@ -1,6 +1,6 @@
 package ar.utn.aceleradora.gestion.socios.repositorios;
 
-import ar.utn.aceleradora.gestion.socios.modelos.Departamento;
+import ar.utn.aceleradora.gestion.socios.modelos.departamentos.Departamento;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
