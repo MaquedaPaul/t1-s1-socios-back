@@ -2,7 +2,8 @@ name: Creacion imagen Docker
 on:
   push:
     branches:
-      - 'temporal'
+      #- 'temporal'
+      - 'main'
 jobs:
   build:
     runs-on: ubuntu-latest
