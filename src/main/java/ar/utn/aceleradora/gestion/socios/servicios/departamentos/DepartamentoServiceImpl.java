@@ -1,7 +1,6 @@
 package ar.utn.aceleradora.gestion.socios.servicios.departamentos;
 import ar.utn.aceleradora.gestion.socios.dto.CreacionEdicionDepartamentoDTO;
-import ar.utn.aceleradora.gestion.socios.error.DepartamentoNotFoundException;
-import ar.utn.aceleradora.gestion.socios.error.AutoridadNotFoundException;
+import ar.utn.aceleradora.gestion.socios.error.*;
 import ar.utn.aceleradora.gestion.socios.modelos.departamentos.Autoridad;
 import ar.utn.aceleradora.gestion.socios.modelos.departamentos.Coordinacion;
 import ar.utn.aceleradora.gestion.socios.modelos.departamentos.Departamento;
@@ -10,7 +9,6 @@ import ar.utn.aceleradora.gestion.socios.repositorios.AutoridadRepository;
 import ar.utn.aceleradora.gestion.socios.repositorios.CoorDepartamentoRepository;
 import ar.utn.aceleradora.gestion.socios.repositorios.DepartamentoRepository;
 import ar.utn.aceleradora.gestion.socios.repositorios.SocioRepository;
-import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -72,13 +70,10 @@ public class DepartamentoServiceImpl implements DepartamentoService {
         return departamentoRepository.findById(id).orElse(null);
     }*/
 
-    @Override
     public Departamento obtenerDepartamento(Integer id) {
-        Optional<Departamento> departamento = departamentoRepository.findById(id);
-        if(departamento.isPresent()){
-            return departamentoRepository.findById(id).orElse(null);}
-        else{throw new EntityNotFoundException("no se encontro departamento con id: "+id+"para borrar");
-        }
+        return departamentoRepository.findById(id)
+                .orElseThrow(() -> new DepartamentoNotFoundException("No se ha encontrado el departamento con id "+ id + "."));
+
     }
 
     /*
@@ -121,6 +116,7 @@ public class DepartamentoServiceImpl implements DepartamentoService {
 
 
 
+
     @Override
     public Departamento crearDepartamento(CreacionEdicionDepartamentoDTO departamento) throws Exception{
         try {
@@ -132,7 +128,7 @@ public class DepartamentoServiceImpl implements DepartamentoService {
             Optional<Coordinacion> coordinacionEncontrada = coordinacionRepository.findById(departamento.getIdCoordinacion());
 
             if(coordinacionEncontrada.isEmpty()){
-                throw new Exception("No se encontro la coordinacion");
+                throw new CoordinacionNotFoundException("No se encontro la coordinacion.");
             }
 
             nuevoDepartamento.setCoordinacionDepartamental(coordinacionEncontrada.get());
@@ -159,7 +155,7 @@ public class DepartamentoServiceImpl implements DepartamentoService {
             return departamentoRepository.save(nuevoDepartamento);
         } catch (Exception e) {
             System.out.println(e.getMessage());
-            throw new Exception("No se pudo crear el departamento");
+            throw new DepartamentoNotCreatedException("No se pudo crear el departamento.");
         }
 
     }
@@ -172,7 +168,7 @@ public class DepartamentoServiceImpl implements DepartamentoService {
         try {
             Optional<Departamento> nuevoDepartamento = departamentoRepository.findById(id);
             if(nuevoDepartamento.isEmpty()){
-                throw new Exception("No existe un departamento con el id: " + id);
+                throw new DepartamentoNotFoundException("No existe un departamento con el id " + id + ".");
             }
 
             nuevoDepartamento.get().setNombre(departamento.getNombre());
@@ -182,7 +178,7 @@ public class DepartamentoServiceImpl implements DepartamentoService {
             return departamentoRepository.save(nuevoDepartamento.get());
         } catch (Exception e) {
             System.out.println(e.getMessage());
-            throw new Exception("No se pudo editar el departamento");
+            throw new Exception("No se pudo editar el departamento.");
         }
 
     }
@@ -193,7 +189,7 @@ public class DepartamentoServiceImpl implements DepartamentoService {
             return autoridadRepository.findById(id).get();
         } catch (Exception e){
             System.out.println(e.getMessage());
-            throw new EntityNotFoundException("No se encontro la autoridad con id: " + id);
+            throw new AutoridadNotFoundException("No se encontro la autoridad con id: " + id);
         }
 
     }
@@ -204,7 +200,7 @@ public class DepartamentoServiceImpl implements DepartamentoService {
             return socioRepository.findById(id).get();
         } catch (Exception e){
             System.out.println(e.getMessage());
-            throw new EntityNotFoundException("No se encontro el socio con id: " + id);
+            throw new SocioNotFoundException("No se encontro el socio con id: " + id);
         }
 
     }
@@ -216,7 +212,7 @@ public class DepartamentoServiceImpl implements DepartamentoService {
         }
         catch (Exception e){
             System.out.println(e.getMessage());
-            throw new EntityNotFoundException("No se encontraron departamentos");
+                throw new DepartamentoNotFoundException("No se encontraron departamentos.");
         }
     }
 
@@ -262,7 +258,7 @@ public class DepartamentoServiceImpl implements DepartamentoService {
             departamentoAModificar.get().removerSocio(socio);
             departamentoRepository.save(departamentoAModificar.get());
         } catch (Exception e) {
-            throw new RuntimeException("No se pudo guardar el departamento");
+            throw new DepartamentoNotSavedException("No se pudo guardar el departamento");
         }
 
     }
@@ -293,7 +289,7 @@ public class DepartamentoServiceImpl implements DepartamentoService {
         try{
             departamentoRepository.save(departamento);
         } catch (Exception e){
-            throw new RuntimeException("No se pudo guardar el departamento");
+            throw new DepartamentoNotSavedException("No se pudo guardar el departamento");
         }
 
 

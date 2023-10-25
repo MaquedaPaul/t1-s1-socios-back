@@ -1,6 +1,7 @@
 package ar.utn.aceleradora.gestion.socios.servicios.socios;
 
 import ar.utn.aceleradora.gestion.socios.dto.CategoriaDTO;
+import ar.utn.aceleradora.gestion.socios.error.CategoriaNotCreatedException;
 import ar.utn.aceleradora.gestion.socios.modelos.socios.Categoria;
 
 import ar.utn.aceleradora.gestion.socios.repositorios.CategoriaRepository;
@@ -15,13 +16,13 @@ public class CategoriaServiceImpl implements CategoriaService {
     private CategoriaRepository categoriaRepository;
 
     @Override
-    public Categoria createCategoria(CategoriaDTO categoryDTO) throws Exception{
+    public Categoria createCategoria(CategoriaDTO categoryDTO) throws CategoriaNotCreatedException{
         try{
             Categoria categoria = new Categoria();
             categoria.setNombre(categoryDTO.getNombre());
             return categoriaRepository.save(categoria);
         } catch (Exception e) {
-            throw new Exception("Error al crear la categoria");
+            throw new CategoriaNotCreatedException("Error al crear la categoria");
         }
 
     }

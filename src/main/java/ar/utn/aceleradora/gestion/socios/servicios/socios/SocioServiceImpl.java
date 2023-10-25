@@ -3,6 +3,7 @@ package ar.utn.aceleradora.gestion.socios.servicios.socios;
 import ar.utn.aceleradora.gestion.socios.converters.DateConverter;
 import ar.utn.aceleradora.gestion.socios.dto.SocioCreateDTO;
 import ar.utn.aceleradora.gestion.socios.dto.SocioUpdateDTO;
+import ar.utn.aceleradora.gestion.socios.error.SocioNotFoundException;
 import ar.utn.aceleradora.gestion.socios.modelos.imagen.Imagen;
 import ar.utn.aceleradora.gestion.socios.modelos.socios.Socio;
 import ar.utn.aceleradora.gestion.socios.modelos.socios.TipoSocio;
@@ -132,13 +133,8 @@ public class SocioServiceImpl implements SocioService {
   @Override
   public Socio findSocioById(Integer id) throws Exception {
     try {
-      Optional<Socio> optionalSocio = socioRepository.findById(id);
-
-      if (optionalSocio.isPresent()) {
-        return optionalSocio.get();
-      } else {
-        throw new Exception("Socio no encontrado");
-      }
+      return socioRepository.findById(id)
+              .orElseThrow(() -> new SocioNotFoundException("No se ha encontrado el Socio con id "+ id + "."));
 
     } catch(Exception e){
         throw new Exception("Error al buscar socio");
