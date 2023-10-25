@@ -81,20 +81,6 @@ public class DepartamentoController {
         return new ResponseEntity<>(nombres, HttpStatus.OK);
     }
 
-/*    @DeleteMapping("/{id}")
-    public ResponseEntity<String> delete(@PathVariable Integer id) {
-        try {
-            Boolean deleted = departamentoService.eliminarDepartamento(id);
-            if (deleted)
-            {
-                return new ResponseEntity<>("El departamento ha sido borrado",HttpStatus.NO_CONTENT);
-            }
-            return new ResponseEntity<>("Departamento con " + id + " no encontrado",HttpStatus.NOT_FOUND);
-        } catch (Exception e) {
-            return new ResponseEntity<>(e.getMessage(),HttpStatus.INTERNAL_SERVER_ERROR);
-        }
-    }
-*/
     @DeleteMapping("/{id}")
     public ResponseEntity<String> delete(@PathVariable Integer id) {
         try {
@@ -106,21 +92,11 @@ public class DepartamentoController {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(ex.getMessage());
         }
     }
-/*
-    @PatchMapping({"{id}/autoridades"})
-    public ResponseEntity<String> agregarAutoridades (@RequestBody AutoridadDTO autoridadDTO, @PathVariable Integer id) {
-        try {
-            departamentoService.agregarAutoridades(autoridadDTO, id);
-            return ResponseEntity.ok(new ResponseDTO("Socio editado satisfactoriamente", "SECCESS", 200));
-        } catch (Exception e) {
-            return new ResponseEntity<>(new ResponseDTO(e.getMessage(), "INTERNAL_SERVER_ERROR", 500),HttpStatus.INTERNAL_SERVER_ERROR);
-        }
-    }
 
- */
+
 
     @PatchMapping("/{id}/autoridades/{idAutoridad}")
-    public ResponseEntity<String> removerAutoridades(@PathVariable Integer id, @PathVariable Integer idAutoridad) {
+    public ResponseEntity<String> removerAutoridad(@PathVariable Integer id, @PathVariable Integer idAutoridad) {
         try {
             departamentoService.removerAutoridades(id, idAutoridad);
             return ResponseEntity.ok("Autoridad removida satisfactoriamente");
