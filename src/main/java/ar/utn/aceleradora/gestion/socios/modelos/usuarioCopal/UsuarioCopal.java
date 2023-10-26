@@ -1,15 +1,7 @@
 package ar.utn.aceleradora.gestion.socios.modelos.usuarioCopal;
 
-import ar.utn.aceleradora.gestion.socios.modelos.Departamento;
-import ar.utn.aceleradora.gestion.socios.modelos.empresa.Socio;
-import ar.utn.aceleradora.gestion.socios.modelos.empresa.TipoSocio;
-import ar.utn.aceleradora.gestion.socios.modelos.evento.Evento;
-import ar.utn.aceleradora.gestion.socios.modelos.informe.Informe;
-import ar.utn.aceleradora.gestion.socios.modelos.membresia.Membresia;
 import lombok.Getter;
 import lombok.Setter;
-
-import java.util.List;
 
 @Setter
 @Getter
