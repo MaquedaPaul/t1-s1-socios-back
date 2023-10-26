@@ -1,5 +1,6 @@
-package ar.utn.aceleradora.gestion.socios.dto;
+package ar.utn.aceleradora.gestion.socios.dto.socios;
 
+import ar.utn.aceleradora.gestion.socios.dto.socios.ImagenDTO;
 import lombok.Getter;
 
 import java.util.List;
