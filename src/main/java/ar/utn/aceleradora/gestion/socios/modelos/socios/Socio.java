@@ -1,6 +1,5 @@
 package ar.utn.aceleradora.gestion.socios.modelos.socios;
 
-import ar.utn.aceleradora.gestion.socios.modelos.imagen.Imagen;
 import ar.utn.aceleradora.gestion.socios.modelos.socios.membresia.MembresiaParticular;
 import ar.utn.aceleradora.gestion.socios.modelos.ubicacion.Ubicacion;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
@@ -61,16 +60,6 @@ public class Socio {
         this.categorias = new ArrayList<>();
     }
 
-    public Socio(String nombre, String cuit,  TipoSocio tipoSocio, String telefono, String mail ,Ubicacion ubicacion) {
-        this.nombre = nombre;
-        this.cuit = cuit;
-        this.tipoSocio = tipoSocio;
-        this.categorias = new ArrayList<>();
-        this.telefono = telefono;
-        this.mail = mail;
-        this.ubicacion = ubicacion;
-        this.membresias = new ArrayList<>();
-    }
     public Socio(String nombre, String nombrePresidente, String cuit, TipoSocio tipoSocio, String telefono, String mail) {
         this.nombre = nombre;
         this.nombrePresidente = nombrePresidente;

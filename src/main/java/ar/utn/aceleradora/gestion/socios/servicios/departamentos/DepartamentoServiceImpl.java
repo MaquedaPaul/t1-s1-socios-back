@@ -40,14 +40,6 @@ public class DepartamentoServiceImpl implements DepartamentoService {
         this.coordinacionRepository = coordinacionRepository;
     }
 
-/*
-    public Departamento agregarDepartamento(Departamento departamento) {
-        departamento.setId(null); // Establece el ID como nulo para crear un nuevo registro
-        return departamentoRepository.save(departamento);
-    }
-
-
- */
 
     @Override
     public Page<Departamento> obtenerDepartamentoPaginado(int page){
@@ -67,10 +59,6 @@ public class DepartamentoServiceImpl implements DepartamentoService {
         }
     }
 
-   /* public Departamento obtenerDepartamento(Integer id) {
-
-        return departamentoRepository.findById(id).orElse(null);
-    }*/
 
     @Override
     public Departamento obtenerDepartamento(Integer id) {
@@ -80,16 +68,6 @@ public class DepartamentoServiceImpl implements DepartamentoService {
         else{throw new EntityNotFoundException("no se encontro departamento con id: "+id+"para borrar");
         }
     }
-
-    /*
-    public Departamento actualizarDepartamento(Departamento departamento) {
-        if (departamento.getId() != null) {
-            return departamentoRepository.save(departamento);
-        }
-        else{throw new EntityNotFoundException("no se encontro departamento : "+departamento+"para actualizar");}
-    }
-
-     */
 
     @Override
     public List<String> obtenerNombres() {
