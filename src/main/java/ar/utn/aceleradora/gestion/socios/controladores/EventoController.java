@@ -6,8 +6,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import ar.utn.aceleradora.gestion.socios.servicios.EventoServiceImpl;
-import ar.utn.aceleradora.gestion.socios.modelos.evento.Evento;
+import ar.utn.aceleradora.gestion.socios.servicios.eventos.EventoServiceImpl;
+import ar.utn.aceleradora.gestion.socios.modelos.eventos.Evento;
 
 import java.util.List;
 

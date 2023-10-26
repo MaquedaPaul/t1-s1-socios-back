@@ -1,16 +1,17 @@
-package ar.utn.aceleradora.gestion.socios.servicios;
+package ar.utn.aceleradora.gestion.socios.servicios.eventos;
 
 import ar.utn.aceleradora.gestion.socios.dto.EventoCreateDTO;
 import ar.utn.aceleradora.gestion.socios.dto.EventoUpdateDTO;
+import ar.utn.aceleradora.gestion.socios.modelos.eventos.Evento;
 import ar.utn.aceleradora.gestion.socios.repositorios.EventoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import ar.utn.aceleradora.gestion.socios.modelos.evento.Evento;
+
 import java.util.List;
 import java.util.Optional;
 
 @Service
-public class EventoServiceImpl implements EventoService{
+public class EventoServiceImpl implements EventoService {
     private EventoRepository eventoRepository;
 
     @Autowired

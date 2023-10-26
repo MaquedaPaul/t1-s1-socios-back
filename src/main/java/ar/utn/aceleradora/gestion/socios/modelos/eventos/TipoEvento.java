@@ -1,4 +1,4 @@
-package ar.utn.aceleradora.gestion.socios.modelos.evento;
+package ar.utn.aceleradora.gestion.socios.modelos.eventos;
 
 public enum TipoEvento {
     PENDIENTE,

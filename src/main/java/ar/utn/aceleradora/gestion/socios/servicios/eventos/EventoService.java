@@ -1,8 +1,8 @@
-package ar.utn.aceleradora.gestion.socios.servicios;
+package ar.utn.aceleradora.gestion.socios.servicios.eventos;
 
 import ar.utn.aceleradora.gestion.socios.dto.EventoCreateDTO;
 import ar.utn.aceleradora.gestion.socios.dto.EventoUpdateDTO;
-import ar.utn.aceleradora.gestion.socios.modelos.evento.Evento;
+import ar.utn.aceleradora.gestion.socios.modelos.eventos.Evento;
 import org.springframework.stereotype.Service;
 
 import java.util.List;

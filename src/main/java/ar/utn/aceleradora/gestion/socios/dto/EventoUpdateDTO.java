@@ -1,9 +1,10 @@
 package ar.utn.aceleradora.gestion.socios.dto;
 
-import ar.utn.aceleradora.gestion.socios.modelos.Departamento;
-import ar.utn.aceleradora.gestion.socios.modelos.empresa.Socio;
-import ar.utn.aceleradora.gestion.socios.modelos.evento.Estado;
-import ar.utn.aceleradora.gestion.socios.modelos.evento.TipoModalidad;
+import ar.utn.aceleradora.gestion.socios.modelos.departamentos.Departamento;
+import ar.utn.aceleradora.gestion.socios.modelos.eventos.Estado;
+import ar.utn.aceleradora.gestion.socios.modelos.eventos.TipoModalidad;
+import ar.utn.aceleradora.gestion.socios.modelos.eventos.inscriptos.Inscripto;
+import ar.utn.aceleradora.gestion.socios.modelos.socios.Socio;
 import ar.utn.aceleradora.gestion.socios.modelos.ubicacion.Ubicacion;
 import lombok.Getter;
 
