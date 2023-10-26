@@ -20,13 +20,8 @@ public class InscriptoServiceImpl implements InscriptoService{
     public Boolean createInscripto(InscriptoCreateDTO inscriptoDTO) throws Exception {
         try {
 
-            Optional<Socio> socioInvitante = socioRepository.findById(inscriptoDTO.getIdSocio());
-
-            if(socioInvitante.isEmpty()){
-                Inscripto nuevoInscripto = new Inscripto(inscriptoDTO.getNombre(), inscriptoDTO.getApellido(), inscriptoDTO.getTrabajo(), inscriptoDTO.getMail(), null);
-            }else{
-                Inscripto nuevoInscripto = new Inscripto(inscriptoDTO.getNombre(), inscriptoDTO.getApellido(), inscriptoDTO.getTrabajo(), inscriptoDTO.getMail(), socioInvitante.get());
-            }
+            Optional<Socio> socioInvitante = socioRepository.findById(inscriptoDTO.getIdSocioInvitante());
+            Inscripto nuevoInscripto = new Inscripto(inscriptoDTO.getNombre(), inscriptoDTO.getApellido(), inscriptoDTO.getTrabajo(), inscriptoDTO.getMail(), socioInvitante.get());
 
             return true;
         } catch (Exception e) {
