@@ -16,6 +16,7 @@ import java.util.List;
 import java.util.Optional;
 
 @RequestMapping("/departamentos")
+@CrossOrigin(origins= "*")
 @RestController
 public class DepartamentoController {
 
