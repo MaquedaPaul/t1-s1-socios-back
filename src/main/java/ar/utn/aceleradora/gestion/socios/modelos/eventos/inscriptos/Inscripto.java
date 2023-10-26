@@ -30,9 +30,9 @@ public class Inscripto {
     private String trabajo;
 
     @ManyToOne
-    @JoinColumn(name = "id_socio")
+    @JoinColumn(name = "id_socio_invitante")
     @Getter @Setter
-    private Socio socioRepresentado;
+    private Socio socioInvitante;
 
     @OneToMany
     @JoinColumn(name = "id_estado_inscripto")
@@ -54,7 +54,7 @@ public class Inscripto {
         this.apellido = apellido;
         this.trabajo = trabajo;
         this.mail = mail;
-        this.socioRepresentado = socio;
+        this.socioInvitante = socio;
         this.estados = new ArrayList<>();
         this.estados.add(new EstadoInscripto(TipoEstadoInscripto.PENDIENTE, LocalDateTime.now(), "Recien inscripto"));
     }
