@@ -1,6 +1,6 @@
 package ar.utn.aceleradora.gestion.socios.seeds.departamentos;
 
-import ar.utn.aceleradora.gestion.socios.modelos.Autoridad;
+import ar.utn.aceleradora.gestion.socios.modelos.departamentos.Autoridad;
 import ar.utn.aceleradora.gestion.socios.repositorios.AutoridadRepository;
 
 public class DepartamentoDataAutoridad {
