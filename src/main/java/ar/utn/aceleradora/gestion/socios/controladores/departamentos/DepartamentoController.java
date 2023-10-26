@@ -4,6 +4,7 @@ package ar.utn.aceleradora.gestion.socios.controladores.departamentos;
 import ar.utn.aceleradora.gestion.socios.dto.CreacionEdicionDepartamentoDTO;
 import ar.utn.aceleradora.gestion.socios.error.AutoridadNotFoundException;
 import ar.utn.aceleradora.gestion.socios.error.DepartamentoNotFoundException;
+import ar.utn.aceleradora.gestion.socios.modelos.departamentos.Autoridad;
 import ar.utn.aceleradora.gestion.socios.modelos.departamentos.Departamento;
 import ar.utn.aceleradora.gestion.socios.servicios.departamentos.DepartamentoService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -94,6 +95,12 @@ public class DepartamentoController {
     }
 
 
+    @GetMapping("/{id}/autoridades")
+    public ResponseEntity<Departamento> obtenerAutoridades() {
+        List<Autoridad> autoridades = departamentoService.obtenerAutoridades();
+        return new ResponseEntity(autoridades, HttpStatus.OK);
+    }
+
 
     @PatchMapping("/{id}/autoridades/{idAutoridad}")
     public ResponseEntity<String> removerAutoridad(@PathVariable Integer id, @PathVariable Integer idAutoridad) {
@@ -140,5 +147,7 @@ public class DepartamentoController {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(e.getMessage());
         }
     }
+
+
 
 }

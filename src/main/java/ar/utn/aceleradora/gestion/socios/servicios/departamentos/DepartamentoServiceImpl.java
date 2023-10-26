@@ -40,15 +40,6 @@ public class DepartamentoServiceImpl implements DepartamentoService {
         this.coordinacionRepository = coordinacionRepository;
     }
 
-/*
-    public Departamento agregarDepartamento(Departamento departamento) {
-        departamento.setId(null); // Establece el ID como nulo para crear un nuevo registro
-        return departamentoRepository.save(departamento);
-    }
-
-
- */
-
     @Override
     public Page<Departamento> obtenerDepartamentoPaginado(int page){
         Pageable pageable = Pageable.ofSize(10).withPage(page);
@@ -67,10 +58,6 @@ public class DepartamentoServiceImpl implements DepartamentoService {
         }
     }
 
-   /* public Departamento obtenerDepartamento(Integer id) {
-
-        return departamentoRepository.findById(id).orElse(null);
-    }*/
 
     @Override
     public Departamento obtenerDepartamento(Integer id) {
@@ -81,15 +68,6 @@ public class DepartamentoServiceImpl implements DepartamentoService {
         }
     }
 
-    /*
-    public Departamento actualizarDepartamento(Departamento departamento) {
-        if (departamento.getId() != null) {
-            return departamentoRepository.save(departamento);
-        }
-        else{throw new EntityNotFoundException("no se encontro departamento : "+departamento+"para actualizar");}
-    }
-
-     */
 
     @Override
     public List<String> obtenerNombres() {
@@ -298,5 +276,19 @@ public class DepartamentoServiceImpl implements DepartamentoService {
 
 
     }
+
+    @Override
+    public List<Autoridad> obtenerAutoridades() {
+        try {
+            return autoridadRepository.findAll();
+        }
+        catch (Exception e){
+            System.out.println(e.getMessage());
+            throw new AutoridadNotFoundException("No se encontraron autoridades en la base de datos");
+        }
+
+    }
+
+
 
 }
