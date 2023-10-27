@@ -1,6 +1,6 @@
 package ar.utn.aceleradora.gestion.socios.controladores.socios;
 
-import ar.utn.aceleradora.gestion.socios.dto.CategoriaDTO;
+import ar.utn.aceleradora.gestion.socios.dto.socios.CategoriaDTO;
 import ar.utn.aceleradora.gestion.socios.dto.ResponseDTO;
 import ar.utn.aceleradora.gestion.socios.modelos.socios.Categoria;
 import ar.utn.aceleradora.gestion.socios.servicios.socios.CategoriaServiceImpl;
@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
+@CrossOrigin(origins= "*")
 @RequestMapping("/categorias")
 public class CategoriaController {
 
