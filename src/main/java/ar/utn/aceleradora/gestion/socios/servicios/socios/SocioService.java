@@ -1,13 +1,12 @@
 package ar.utn.aceleradora.gestion.socios.servicios.socios;
 
-import ar.utn.aceleradora.gestion.socios.dto.SocioCreateDTO;
-import ar.utn.aceleradora.gestion.socios.dto.SocioUpdateDTO;
+import ar.utn.aceleradora.gestion.socios.dto.socios.SocioCreateDTO;
+import ar.utn.aceleradora.gestion.socios.dto.socios.SocioUpdateDTO;
 import ar.utn.aceleradora.gestion.socios.modelos.socios.Socio;
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Optional;
 
 @Service
 public interface SocioService {

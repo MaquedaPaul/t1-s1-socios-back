@@ -25,7 +25,4 @@ public class AceleradoraUtnBaGestionDeSociosApplication {
 		departamentoInitializer.run();
         return null;
     }
-
-
-
 }

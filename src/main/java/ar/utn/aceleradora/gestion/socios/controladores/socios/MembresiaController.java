@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
+@CrossOrigin(origins= "*")
 @RequestMapping("/membresias")
 public class MembresiaController {
 
@@ -23,7 +24,7 @@ public class MembresiaController {
     }
 
     @PostMapping({"", "/"})
-    public ResponseEntity<List<Membresia>> guardarCategorias(@RequestBody Membresia membresia) {
+    public ResponseEntity<List<Membresia>> guardarMembresia(@RequestBody Membresia membresia) {
         List<Membresia> membresias = membresiaService.guardarMembresia(membresia);
         return new ResponseEntity<>(membresias, HttpStatus.OK);
     }
