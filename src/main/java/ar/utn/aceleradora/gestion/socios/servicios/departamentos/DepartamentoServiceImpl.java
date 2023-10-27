@@ -65,7 +65,7 @@ public class DepartamentoServiceImpl implements DepartamentoService {
         Optional<Departamento> departamento = departamentoRepository.findById(id);
         if(departamento.isPresent()){
             return departamentoRepository.findById(id).orElse(null);}
-        else{throw new EntityNotFoundException("no se encontro departamento con id: "+id+"para borrar");
+        else{throw new DepartamentoNotFoundException("no se encontro departamento con id: "+id);
         }
     }
 
@@ -194,7 +194,7 @@ public class DepartamentoServiceImpl implements DepartamentoService {
         }
         catch (Exception e){
             System.out.println(e.getMessage());
-            throw new EntityNotFoundException("No se encontraron departamentos");
+            throw new DepartamentoNotFoundException("No se encontraron departamentos");
         }
     }
 
