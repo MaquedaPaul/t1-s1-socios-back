@@ -40,7 +40,6 @@ public class DepartamentoServiceImpl implements DepartamentoService {
         this.coordinacionRepository = coordinacionRepository;
     }
 
-
     @Override
     public Page<Departamento> obtenerDepartamentoPaginado(int page){
         Pageable pageable = Pageable.ofSize(10).withPage(page);
@@ -69,6 +68,7 @@ public class DepartamentoServiceImpl implements DepartamentoService {
         }
     }
 
+ 
     @Override
     public List<String> obtenerNombres() {
         List<Departamento> socios = departamentoRepository.findAll();
@@ -276,5 +276,19 @@ public class DepartamentoServiceImpl implements DepartamentoService {
 
 
     }
+
+    @Override
+    public List<Autoridad> obtenerAutoridades() {
+        try {
+            return autoridadRepository.findAll();
+        }
+        catch (Exception e){
+            System.out.println(e.getMessage());
+            throw new AutoridadNotFoundException("No se encontraron autoridades en la base de datos");
+        }
+
+    }
+
+
 
 }
