@@ -1,5 +1,7 @@
 package ar.utn.aceleradora.gestion.socios.servicios.departamentos;
 
+
+import ar.utn.aceleradora.gestion.socios.modelos.departamentos.Autoridad;
 import ar.utn.aceleradora.gestion.socios.dto.departamentos.CreacionEdicionDepartamentoDTO;
 import ar.utn.aceleradora.gestion.socios.modelos.departamentos.Departamento;
 import org.springframework.data.domain.Page;
@@ -29,4 +31,6 @@ public interface DepartamentoService {
     void removerSocios(Integer id, Integer idSocio);
 
     void agregarSocios(List<Integer> sociosIds, Integer id);
+
+    List<Autoridad> obtenerAutoridades();
 }
