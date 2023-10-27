@@ -9,8 +9,9 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
+
 @Entity
-@Table(name="inscriptos")
+@Table(name = "inscriptos")
 public class Inscripto {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -25,9 +26,11 @@ public class Inscripto {
     @Getter @Setter
     private String apellido;
 
+
     @Column(name = "trabajo")
     @Getter @Setter
     private String trabajo;
+
 
     @ManyToOne
     @JoinColumn(name = "id_socio_invitante")
