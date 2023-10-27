@@ -1,8 +1,10 @@
 package ar.utn.aceleradora.gestion.socios.servicios.socios;
 
 import ar.utn.aceleradora.gestion.socios.converters.DateConverter;
-import ar.utn.aceleradora.gestion.socios.dto.socios.SocioCreateDTO;
-import ar.utn.aceleradora.gestion.socios.dto.socios.SocioUpdateDTO;
+import ar.utn.aceleradora.gestion.socios.dto.SocioCreateDTO;
+import ar.utn.aceleradora.gestion.socios.dto.SocioUpdateDTO;
+import ar.utn.aceleradora.gestion.socios.error.SocioNotFoundException;
+import ar.utn.aceleradora.gestion.socios.modelos.imagen.Imagen;
 import ar.utn.aceleradora.gestion.socios.modelos.socios.Socio;
 import ar.utn.aceleradora.gestion.socios.modelos.socios.TipoSocio;
 import ar.utn.aceleradora.gestion.socios.modelos.socios.membresia.Membresia;
@@ -57,11 +59,11 @@ public class SocioServiceImpl implements SocioService {
   }
 
   @Override
-  public Boolean deleteSocioById(Integer id) throws Exception {
+  public Boolean deleteSocioById(Integer id){
     Optional<Socio> partner = socioRepository.findById(id);
 
     if (partner.isEmpty())
-      return false;
+      throw new SocioNotFoundException("No se ha encontrado el socio con el id "+id+".");
 
     socioRepository.delete(partner.get());
 
@@ -129,18 +131,10 @@ public class SocioServiceImpl implements SocioService {
   }
 
   @Override
-  public Socio findSocioById(Integer id) throws Exception {
-    try {
-      Optional<Socio> optionalSocio = socioRepository.findById(id);
+  public Socio findSocioById(Integer id){
 
-      if (optionalSocio.isPresent()) {
-        return optionalSocio.get();
-      } else {
-        throw new Exception("Socio no encontrado");
-      }
+      return socioRepository.findById(id)
+              .orElseThrow(() -> new SocioNotFoundException("No se ha encontrado el Socio con id "+ id + "."));
 
-    } catch(Exception e){
-        throw new Exception("Error al buscar socio");
-    }
   }
 }

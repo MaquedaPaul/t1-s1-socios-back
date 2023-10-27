@@ -23,25 +23,15 @@ public class SocioController {
 
 
     @GetMapping({"", "/"})
-    public ResponseEntity<List<Socio>> findAll() {
-        try {
+    public ResponseEntity<List<Socio>> findAll() throws Exception {
             List<Socio> socios = socioService.findAllSocios();
-
             return ResponseEntity.ok(socios);
-        } catch (Exception e) {
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
-        }
     }
 
     @GetMapping({"/paginado"})
-    public ResponseEntity<Page<Socio>> findAllPaginado(@RequestParam(name = "page", defaultValue = "0") int page) {
-        try {
+    public ResponseEntity<Page<Socio>> findAllPaginado(@RequestParam(name = "page", defaultValue = "0") int page) throws Exception {
             Page<Socio> socios = socioService.findAllSociosPaginado(page);
-
             return ResponseEntity.ok(socios);
-        } catch (Exception e) {
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
-        }
     }
 
     @PostMapping({"", "/"})
@@ -51,7 +41,7 @@ public class SocioController {
 
             return ResponseEntity.ok(new ResponseDTO("Socio creado satisfactoriamente", "CREATE", 200));
         } catch (Exception e) {
-            return new ResponseEntity<>(new ResponseDTO(e.getMessage(), "SECCESS", 500), HttpStatus.INTERNAL_SERVER_ERROR);
+            return new ResponseEntity<>(new ResponseDTO(e.getMessage(), "SUCCESS", 500), HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 
@@ -69,29 +59,14 @@ public class SocioController {
 
     @DeleteMapping("/{id}")
     public ResponseEntity<ResponseDTO> delete(@PathVariable Integer id) {
-        try {
-            Boolean deleted = socioService.deleteSocioById(id);
-
-            if (deleted)
+            socioService.deleteSocioById(id);
                 return new ResponseEntity<>(new ResponseDTO("El socio ha sido borrado", "SUCCESS", 200),HttpStatus.OK);
-            return new ResponseEntity<>(new ResponseDTO("socio con " + id + " no encontrado", "INTERNAL_SERVER_ERROR", 404),HttpStatus.NOT_FOUND);
-        } catch (Exception e) {
-            return new ResponseEntity<>(new ResponseDTO(e.getMessage(), "INTERNAL_SERVER_ERROR", 500),HttpStatus.INTERNAL_SERVER_ERROR);
-        }
+
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<?> findSocioById(@PathVariable Integer id) {
-        try {
+    public ResponseEntity<?> findSocioById(@PathVariable Integer id){
             Socio socio = socioService.findSocioById(id);
-
-            if (socio != null) {
                 return ResponseEntity.ok(socio);
-            } else {
-                return new ResponseEntity<>(new ResponseDTO("Socio con ID " + id + " no encontrado", "NOT_FOUND", 404), HttpStatus.NOT_FOUND);
             }
-        } catch (Exception e) {
-            return new ResponseEntity<>(new ResponseDTO(e.getMessage(), "INTERNAL_SERVER_ERROR", 500), HttpStatus.INTERNAL_SERVER_ERROR);
-        }
-    }
 }
