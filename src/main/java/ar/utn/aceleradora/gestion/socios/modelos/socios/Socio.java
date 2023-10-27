@@ -42,6 +42,11 @@ public class Socio {
 
     @ManyToMany(cascade = CascadeType.MERGE)
     @Setter @Getter
+    @JoinTable(
+            name = "socios_categorias",
+            joinColumns = @JoinColumn(name = "socio_id"),
+            inverseJoinColumns = @JoinColumn(name = "categorias_id")
+    )
     private List<Categoria> categorias;
 
     @OneToOne(cascade = CascadeType.ALL)

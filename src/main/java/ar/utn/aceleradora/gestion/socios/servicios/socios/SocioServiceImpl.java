@@ -3,6 +3,7 @@ package ar.utn.aceleradora.gestion.socios.servicios.socios;
 import ar.utn.aceleradora.gestion.socios.converters.DateConverter;
 import ar.utn.aceleradora.gestion.socios.dto.socios.SocioCreateDTO;
 import ar.utn.aceleradora.gestion.socios.dto.socios.SocioUpdateDTO;
+import ar.utn.aceleradora.gestion.socios.modelos.departamentos.Departamento;
 import ar.utn.aceleradora.gestion.socios.modelos.socios.Socio;
 import ar.utn.aceleradora.gestion.socios.modelos.socios.TipoSocio;
 import ar.utn.aceleradora.gestion.socios.modelos.socios.membresia.Membresia;
@@ -18,6 +19,7 @@ import org.springframework.stereotype.Service;
 import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 public class SocioServiceImpl implements SocioService {
@@ -26,14 +28,16 @@ public class SocioServiceImpl implements SocioService {
   private final UbicacionRepository ubicacionRepository;
   private final MembresiaParticularRepository membresiaParticularRepository;
   private final MembresiaRepository membresiaRepository;
+  private final DepartamentoRepository departamentoRepository;
 
   @Autowired
-  public SocioServiceImpl(SocioRepository socioRepository, CategoriaRepository categoriaRepository, UbicacionRepository ubicacionRepository, MembresiaParticularRepository membresiaParticularRepository, MembresiaRepository membresiaRepository) {
+  public SocioServiceImpl(SocioRepository socioRepository, CategoriaRepository categoriaRepository, UbicacionRepository ubicacionRepository, MembresiaParticularRepository membresiaParticularRepository, MembresiaRepository membresiaRepository, DepartamentoRepository departamentoRepository) {
     this.socioRepository = socioRepository;
     this.categoriaRepository = categoriaRepository;
     this.ubicacionRepository = ubicacionRepository;
     this.membresiaParticularRepository = membresiaParticularRepository;
     this.membresiaRepository = membresiaRepository;
+    this.departamentoRepository = departamentoRepository;
   }
 
   @Override
@@ -59,15 +63,18 @@ public class SocioServiceImpl implements SocioService {
   @Override
   public Boolean deleteSocioById(Integer id) throws Exception {
     Optional<Socio> partner = socioRepository.findById(id);
-
     if (partner.isEmpty())
       return false;
-
+    this.removerSuscritoDeDepartamentos(partner.get());
     socioRepository.delete(partner.get());
-
     return true;
   }
-
+  private void removerSuscritoDeDepartamentos(Socio socio){
+    List<Departamento> departamentos = departamentoRepository.findAll();
+    List<Departamento> departamentosQueTienenAlSocio = departamentos.stream().filter(depa -> depa.getSociosSuscritos().contains(socio)).collect(Collectors.toList());
+    departamentosQueTienenAlSocio.forEach(depa -> depa.removerSocio(socio));
+    departamentoRepository.saveAll(departamentosQueTienenAlSocio);
+  }
   @Override
   public Boolean updateSocio(SocioUpdateDTO socioUpdate, Integer id) throws Exception {
     try {
