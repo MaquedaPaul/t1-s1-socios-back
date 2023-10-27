@@ -59,11 +59,11 @@ public class SocioServiceImpl implements SocioService {
   }
 
   @Override
-  public Boolean deleteSocioById(Integer id) throws Exception {
+  public Boolean deleteSocioById(Integer id){
     Optional<Socio> partner = socioRepository.findById(id);
 
     if (partner.isEmpty())
-      return false;
+      throw new SocioNotFoundException("No se ha encontrado el socio con el id "+id+".");
 
     socioRepository.delete(partner.get());
 
@@ -131,13 +131,10 @@ public class SocioServiceImpl implements SocioService {
   }
 
   @Override
-  public Socio findSocioById(Integer id) throws Exception {
-    try {
+  public Socio findSocioById(Integer id){
+
       return socioRepository.findById(id)
               .orElseThrow(() -> new SocioNotFoundException("No se ha encontrado el Socio con id "+ id + "."));
 
-    } catch(Exception e){
-        throw new Exception("Error al buscar socio");
-    }
   }
 }

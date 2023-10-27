@@ -61,7 +61,7 @@ public class DepartamentoServiceImpl implements DepartamentoService {
             departamentoRepository.deleteById(id);
         }
         else{
-            throw new DepartamentoNotFoundException("no se encontro departamento con id: "+id+"para borrar");
+            throw new DepartamentoNotFoundException("no se encontro departamento con id: "+id+" para borrar");
         }
     }
 
@@ -235,7 +235,7 @@ public class DepartamentoServiceImpl implements DepartamentoService {
             departamentoAModificar.get().removerAutoridades(autoridad);
             departamentoRepository.save(departamentoAModificar.get());
         } catch (Exception e) {
-            throw new RuntimeException("No se pudo guardar el departamento");
+            throw new DepartamentoNotSavedException("No se pudo guardar el departamento");
         }
 
     }

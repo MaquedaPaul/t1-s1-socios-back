@@ -14,11 +14,11 @@ public interface SocioService {
     public Page<Socio> findAllSociosPaginado(int page) throws Exception;
     List<Socio> findAllSocios() throws Exception;
 
-    Boolean deleteSocioById(Integer id) throws Exception;
+    Boolean deleteSocioById(Integer id);
 
     Boolean updateSocio(SocioUpdateDTO partner, Integer id) throws Exception;
 
     Boolean createSocio(SocioCreateDTO partner) throws Exception;
-    Socio findSocioById(Integer id) throws Exception;
+    Socio findSocioById(Integer id);
 
 }
