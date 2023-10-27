@@ -1,9 +1,8 @@
 package ar.utn.aceleradora.gestion.socios.servicios.socios;
 
 import ar.utn.aceleradora.gestion.socios.converters.DateConverter;
-import ar.utn.aceleradora.gestion.socios.dto.SocioCreateDTO;
-import ar.utn.aceleradora.gestion.socios.dto.SocioUpdateDTO;
-import ar.utn.aceleradora.gestion.socios.modelos.imagen.Imagen;
+import ar.utn.aceleradora.gestion.socios.dto.socios.SocioCreateDTO;
+import ar.utn.aceleradora.gestion.socios.dto.socios.SocioUpdateDTO;
 import ar.utn.aceleradora.gestion.socios.modelos.socios.Socio;
 import ar.utn.aceleradora.gestion.socios.modelos.socios.TipoSocio;
 import ar.utn.aceleradora.gestion.socios.modelos.socios.membresia.Membresia;

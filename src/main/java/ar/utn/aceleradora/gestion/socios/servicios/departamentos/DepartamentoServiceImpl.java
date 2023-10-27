@@ -1,5 +1,5 @@
 package ar.utn.aceleradora.gestion.socios.servicios.departamentos;
-import ar.utn.aceleradora.gestion.socios.dto.CreacionEdicionDepartamentoDTO;
+import ar.utn.aceleradora.gestion.socios.dto.departamentos.CreacionEdicionDepartamentoDTO;
 import ar.utn.aceleradora.gestion.socios.error.DepartamentoNotFoundException;
 import ar.utn.aceleradora.gestion.socios.error.AutoridadNotFoundException;
 import ar.utn.aceleradora.gestion.socios.modelos.departamentos.Autoridad;
@@ -40,14 +40,6 @@ public class DepartamentoServiceImpl implements DepartamentoService {
         this.coordinacionRepository = coordinacionRepository;
     }
 
-/*
-    public Departamento agregarDepartamento(Departamento departamento) {
-        departamento.setId(null); // Establece el ID como nulo para crear un nuevo registro
-        return departamentoRepository.save(departamento);
-    }
-
-
- */
 
     @Override
     public Page<Departamento> obtenerDepartamentoPaginado(int page){
@@ -67,29 +59,15 @@ public class DepartamentoServiceImpl implements DepartamentoService {
         }
     }
 
-   /* public Departamento obtenerDepartamento(Integer id) {
-
-        return departamentoRepository.findById(id).orElse(null);
-    }*/
 
     @Override
     public Departamento obtenerDepartamento(Integer id) {
         Optional<Departamento> departamento = departamentoRepository.findById(id);
         if(departamento.isPresent()){
             return departamentoRepository.findById(id).orElse(null);}
-        else{throw new EntityNotFoundException("no se encontro departamento con id: "+id+"para borrar");
+        else{throw new DepartamentoNotFoundException("no se encontro departamento con id: "+id);
         }
     }
-
-    /*
-    public Departamento actualizarDepartamento(Departamento departamento) {
-        if (departamento.getId() != null) {
-            return departamentoRepository.save(departamento);
-        }
-        else{throw new EntityNotFoundException("no se encontro departamento : "+departamento+"para actualizar");}
-    }
-
-     */
 
     @Override
     public List<String> obtenerNombres() {
@@ -216,7 +194,7 @@ public class DepartamentoServiceImpl implements DepartamentoService {
         }
         catch (Exception e){
             System.out.println(e.getMessage());
-            throw new EntityNotFoundException("No se encontraron departamentos");
+            throw new DepartamentoNotFoundException("No se encontraron departamentos");
         }
     }
 

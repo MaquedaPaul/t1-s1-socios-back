@@ -1,7 +1,6 @@
 package ar.utn.aceleradora.gestion.socios.modelos.departamentos;
 
 import ar.utn.aceleradora.gestion.socios.converters.LocalDateTimeAttributeConverter;
-import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 
@@ -54,15 +53,6 @@ public class Coordinacion{
 
     public Coordinacion() {}
 
-    public Coordinacion(LocalDateTime fechaBaja, String nombre, String descripcion, String icono, int jerarquia, Autoridad autoridad) {
-        this.fechaBaja = fechaBaja;
-        this.nombre = nombre;
-        this.descripcion = descripcion;
-        this.icono = icono;
-        this.jerarquia = jerarquia;
-        this.autoridad = autoridad;
-        this.departamentos = new ArrayList<>();
-    }
     public Coordinacion(String nombre, String descripcion, String icono, int jerarquia, Autoridad autoridad) {
         this.fechaBaja = fechaBaja;
         this.nombre = nombre;
@@ -73,15 +63,10 @@ public class Coordinacion{
         this.departamentos = new ArrayList<>();
     }
 
-    public Coordinacion(List<Departamento> departamentos) {
-        this.departamentos = new ArrayList<>();
-    }
-
     public void agregarDepartamento(Departamento departamento) {
         this.departamentos.add(departamento);
         departamento.setCoordinacionDepartamental(this);
     }
-
     public void eliminarDepartamento(Departamento departamento) {
         this.departamentos.remove(departamento);
         departamento.setCoordinacionDepartamental(null);
