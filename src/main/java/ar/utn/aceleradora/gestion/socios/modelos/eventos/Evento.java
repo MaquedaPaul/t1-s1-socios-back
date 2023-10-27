@@ -79,5 +79,17 @@ public class Evento {
 
     public Evento(String nombre, String descripcion, Date fechaComienzo, Date fechaFin, TipoModalidad modalidad, Ubicacion ubicacion, Estado estado, List<Departamento> departamentos) {
     }
+
+    public void finalizar() {
+    }
+
+    public void cancelar() {
+    }
+
+    public void confirmar(Socio socio) {
+    }
+
+    public void invitar(Socio socio) {
+    }
 }
 

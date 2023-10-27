@@ -3,6 +3,7 @@ package ar.utn.aceleradora.gestion.socios.servicios.eventos;
 import ar.utn.aceleradora.gestion.socios.dto.EventoCreateDTO;
 import ar.utn.aceleradora.gestion.socios.dto.EventoUpdateDTO;
 import ar.utn.aceleradora.gestion.socios.modelos.eventos.Evento;
+import ar.utn.aceleradora.gestion.socios.modelos.socios.Socio;
 import ar.utn.aceleradora.gestion.socios.repositorios.EventoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -66,7 +67,47 @@ public class EventoServiceImpl implements EventoService {
     @Override
     public List<Evento> listarEventos() throws Exception {
         try{//HARDCODEADO
-        return eventoRepository.findAll();
+            return eventoRepository.findAll();
+        } catch (Exception e) {
+            throw new Exception("Error al listar los eventos, por favor intentelo más tarde");
+        }
+    }
+
+    @Override
+    public void invitar(Evento evento, Socio socio) throws Exception {
+        try{//HARDCODEADO
+            evento.invitar(socio);
+            eventoRepository.save(evento);
+        } catch (Exception e) {
+            throw new Exception("Error al listar los eventos, por favor intentelo más tarde");
+        }
+    }
+
+    @Override
+    public void confirmar(Evento evento, Socio socio) throws Exception {
+        try{//HARDCODEADO
+            evento.confirmar(socio);
+            eventoRepository.save(evento);
+        } catch (Exception e) {
+            throw new Exception("Error al listar los eventos, por favor intentelo más tarde");
+        }
+    }
+
+    @Override
+    public void cancelar(Evento evento) throws Exception {
+        try{//HARDCODEADO
+            evento.cancelar();
+            eventoRepository.save(evento);
+        } catch (Exception e) {
+            throw new Exception("Error al listar los eventos, por favor intentelo más tarde");
+        }
+    }
+
+    @Override
+    public void finalizar(Evento evento) throws Exception {
+        try{//HARDCODEADO
+            evento.finalizar();
+            eventoRepository.save(evento);
         } catch (Exception e) {
             throw new Exception("Error al listar los eventos, por favor intentelo más tarde");
         }
