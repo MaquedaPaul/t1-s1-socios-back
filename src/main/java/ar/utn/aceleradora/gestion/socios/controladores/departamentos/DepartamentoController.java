@@ -38,12 +38,8 @@ public class DepartamentoController {
 
     @GetMapping({"/", ""})
     public ResponseEntity<Departamento> obtenerTodos() {
-        try {
             List<Departamento> departamentos = departamentoService.obtenerDepartamentos();
             return new ResponseEntity(departamentos, HttpStatus.OK);
-        } catch (Exception e) {
-            return new ResponseEntity(HttpStatus.INTERNAL_SERVER_ERROR);
-        }
     }
 
     @GetMapping("/paginado")
@@ -51,7 +47,7 @@ public class DepartamentoController {
         Page<Departamento> departamento = departamentoService.obtenerDepartamentoPaginado(page);
         return Optional.ofNullable(departamento)
                 .map(s -> new ResponseEntity<>(s, HttpStatus.OK))
-                .orElse(new ResponseEntity<>(HttpStatus.NOT_FOUND));
+                .orElseThrow(() -> new DepartamentoNotFoundException("No se ha encontrado el departamento."));
     }
 
     @PatchMapping("/{id}")

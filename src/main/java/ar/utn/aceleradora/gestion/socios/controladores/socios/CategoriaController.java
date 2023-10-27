@@ -21,12 +21,8 @@ public class CategoriaController {
 
     @PostMapping({"", "/"})
     public ResponseEntity<ResponseDTO> createCategory(@RequestBody CategoriaDTO categoriaDTO){
-        try{
             categoriaService.createCategoria(categoriaDTO);
-            return new ResponseEntity<>(new ResponseDTO("Categoria creada", "SECCESS", 200),HttpStatus.OK);
-        } catch (Exception e) {
-            return new ResponseEntity<>(new ResponseDTO(e.getMessage(), "INTERNAL_SERVER_ERROR", 500),HttpStatus.INTERNAL_SERVER_ERROR);
-        }
+            return new ResponseEntity<>(new ResponseDTO("Categoria creada", "SUCCESS", 200),HttpStatus.OK);
     }
 
     @GetMapping({"", "/"})
