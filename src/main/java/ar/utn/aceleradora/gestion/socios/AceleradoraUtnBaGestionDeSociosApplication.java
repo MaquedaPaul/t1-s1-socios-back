@@ -18,11 +18,14 @@ public class AceleradoraUtnBaGestionDeSociosApplication {
 
 
 	@Bean
-	public CommandLineRunner dataInicial(SocioRepository socioRepository, MembresiaRepository membresiaRepository, MembresiaParticularRepository membresiaParticularRepository, CategoriaRepository categoriaRepository, DepartamentoRepository departamentoRepository, AutoridadRepository autoridadRepository, CoorDepartamentoRepository coorDepartamentoRepository ) throws Exception {
-		SocioInitializer socioInitializer = new SocioInitializer(socioRepository,categoriaRepository,membresiaRepository,membresiaParticularRepository);
-		socioInitializer.run();
-		DepartamentoInitializer departamentoInitializer = new DepartamentoInitializer(socioRepository, departamentoRepository, autoridadRepository, coorDepartamentoRepository);
-		departamentoInitializer.run();
-        return null;
+	public CommandLineRunner dataInicial(SocioRepository socioRepository, MembresiaRepository membresiaRepository, MembresiaParticularRepository membresiaParticularRepository, CategoriaRepository categoriaRepository, DepartamentoRepository departamentoRepository, AutoridadRepository autoridadRepository, CoorDepartamentoRepository coorDepartamentoRepository )  {
+		Boolean quieroDataInicial = true;
+		if(quieroDataInicial){
+			SocioInitializer socioInitializer = new SocioInitializer(socioRepository,categoriaRepository,membresiaRepository,membresiaParticularRepository);
+			socioInitializer.run();
+			DepartamentoInitializer departamentoInitializer = new DepartamentoInitializer(socioRepository, autoridadRepository, coorDepartamentoRepository);
+			departamentoInitializer.run();
+		}
+		return null;
     }
 }
