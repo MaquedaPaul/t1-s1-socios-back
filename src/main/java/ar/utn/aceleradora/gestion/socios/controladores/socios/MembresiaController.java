@@ -2,7 +2,7 @@ package ar.utn.aceleradora.gestion.socios.controladores.socios;
 
 import ar.utn.aceleradora.gestion.socios.modelos.socios.membresia.Membresia;
 import ar.utn.aceleradora.gestion.socios.servicios.socios.MembresiaServiceImpl;
-import org.springframework.beans.factory.annotation.Autowired;
+
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -14,8 +14,11 @@ import java.util.List;
 @RequestMapping("/membresias")
 public class MembresiaController {
 
-    @Autowired
-    private MembresiaServiceImpl membresiaService;
+    private final MembresiaServiceImpl membresiaService;
+
+    public MembresiaController(MembresiaServiceImpl membresiaService) {
+        this.membresiaService = membresiaService;
+    }
 
     @GetMapping({"", "/"})
     public ResponseEntity<List<Membresia>> getAllMembresias() {

@@ -5,7 +5,6 @@ import ar.utn.aceleradora.gestion.socios.dto.socios.SocioCreateDTO;
 import ar.utn.aceleradora.gestion.socios.dto.socios.SocioUpdateDTO;
 import ar.utn.aceleradora.gestion.socios.modelos.socios.Socio;
 import ar.utn.aceleradora.gestion.socios.servicios.socios.SocioService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -18,8 +17,11 @@ import java.util.List;
 @RequestMapping("/socios")
 public class SocioController {
 
-    @Autowired
-    private SocioService socioService;
+    private final SocioService socioService;
+
+    public SocioController(SocioService socioService) {
+        this.socioService = socioService;
+    }
 
 
     @GetMapping({"", "/"})

@@ -2,7 +2,7 @@ package ar.utn.aceleradora.gestion.socios.servicios.socios;
 
 import ar.utn.aceleradora.gestion.socios.modelos.socios.membresia.Membresia;
 import ar.utn.aceleradora.gestion.socios.repositorios.MembresiaRepository;
-import org.springframework.beans.factory.annotation.Autowired;
+
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -10,8 +10,12 @@ import java.util.List;
 @Service
 public class MembresiaServiceImpl implements MembresiaService{
 
-    @Autowired
-    private MembresiaRepository membresiaRepository;
+    private final MembresiaRepository membresiaRepository;
+
+    public MembresiaServiceImpl(MembresiaRepository membresiaRepository) {
+        this.membresiaRepository = membresiaRepository;
+    }
+
     @Override
     public List<Membresia> findAllMembresias() {
         return membresiaRepository.findAll();
