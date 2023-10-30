@@ -75,7 +75,7 @@ public class Socio {
 //        this.imagen = imagen;
         this.categorias = new ArrayList<>();
         this.membresias = new ArrayList<>();
-        this.ubicacion = ubicacion;
+        //this.ubicacion = ubicacion; NO DEBERIA ASIGNARSE A SI MISMO SIN QUE EXISTA COMO PARAMETRO
     }
 
     public Socio(String nombre, String nombrePresidente, String cuit, TipoSocio tipoSocio, String telefono, String mail, Ubicacion ubicacion) {

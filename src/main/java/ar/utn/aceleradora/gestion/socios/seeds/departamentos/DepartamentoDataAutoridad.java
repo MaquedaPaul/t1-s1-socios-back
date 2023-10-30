@@ -2,9 +2,11 @@ package ar.utn.aceleradora.gestion.socios.seeds.departamentos;
 
 import ar.utn.aceleradora.gestion.socios.modelos.departamentos.Autoridad;
 import ar.utn.aceleradora.gestion.socios.repositorios.AutoridadRepository;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class DepartamentoDataAutoridad {
-
+    private static final Logger logger = LoggerFactory.getLogger(DepartamentoDataAutoridad.class);
     Autoridad autoridad1 = new Autoridad(
             "Paulina",
             "Campion",
@@ -560,13 +562,13 @@ public class DepartamentoDataAutoridad {
         for (int i = 1; i <= 79; i++) {
             // Obtén el nombre de la variable del socio usando reflexión
             String nombreVariable = "autoridad" + i;
-            Autoridad autoridad = null;
+            Autoridad autoridad;
             try {
                 // Utiliza reflexión para obtener el valor de la variable del socio
                 autoridad = (Autoridad) getClass().getDeclaredField(nombreVariable).get(this);
                 autoridadRepository.save(autoridad);
             } catch (NoSuchFieldException | IllegalAccessException e) {
-                e.printStackTrace();
+                logger.error("Error al cargar la autoridad " + nombreVariable, e);
             }
         }
     }

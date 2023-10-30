@@ -11,50 +11,50 @@ import lombok.Getter;
 import lombok.Setter;
 
 
+@Getter
 @Entity
 @Table(name = "coordinaciones")
 public class Coordinacion{
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Getter
     private Integer id;
 
     @Column(name = "fechaBaja")
-    @Setter @Getter
+    @Setter
     @Convert(converter = LocalDateTimeAttributeConverter.class)
     private LocalDateTime fechaBaja;
 
     @Column(name = "nombre")
-    @Setter @Getter
+    @Setter
     private String nombre;
 
     @Column(name = "descripcion", length = 1000)
-    @Setter @Getter
+    @Setter
     private String descripcion;
 
     @Column(name = "icono")
-    @Setter @Getter
+    @Setter
     private String icono;
 
     @Column(name = "jerarquia")
-    @Setter @Getter
+    @Setter
     private int jerarquia;
 
     @OneToOne
     @JoinColumn(name = "id_autoridad", referencedColumnName = "id")
-    @Setter @Getter
+    @Setter
     private Autoridad autoridad;
 
     @JsonManagedReference
     @OneToMany(mappedBy = "coordinacionDepartamental", cascade = CascadeType.ALL)
-    @Setter @Getter
+    @Setter
     private List<Departamento> departamentos;
 
     public Coordinacion() {}
 
     public Coordinacion(String nombre, String descripcion, String icono, int jerarquia, Autoridad autoridad) {
-        this.fechaBaja = fechaBaja;
+        //this.fechaBaja = fechaBaja;
         this.nombre = nombre;
         this.descripcion = descripcion;
         this.icono = icono;

@@ -7,34 +7,34 @@ import java.time.LocalDateTime;
 import lombok.Getter;
 import lombok.Setter;
 
+@Getter
 @Entity
 @Table(name = "autoridades")
 public class Autoridad{
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Getter
     private Integer id;
 
     @Column(name = "fechaBaja")
-    @Setter @Getter
+    @Setter
     @Convert(converter = LocalDateTimeAttributeConverter.class)
     private LocalDateTime fechaBaja;
 
     @Column(name = "nombre")
-    @Setter @Getter
+    @Setter
     private String nombre;
 
     @Column(name = "apellido")
-    @Setter @Getter
+    @Setter
     private String apellido;
 
     @Column(name = "fotoPerfil")
-    @Setter @Getter
+    @Setter
     private String fotoPerfil;
 
     @Column(name = "puesto")
-    @Setter @Getter
+    @Setter
     private String puesto;
 
     public Autoridad() {}

@@ -15,7 +15,7 @@ import java.util.Optional;
 
 @Service
 public class EventoServiceImpl implements EventoService {
-    private EventoRepository eventoRepository;
+    private final EventoRepository eventoRepository;
 
     @Autowired
     public EventoServiceImpl(EventoRepository eventoRepository) {
@@ -23,7 +23,7 @@ public class EventoServiceImpl implements EventoService {
     }
 
     @Override
-    public Boolean crearEvento(EventoCreateDTO evento) throws Exception {
+    public void crearEvento(EventoCreateDTO evento) throws Exception {
         try{//Faltan verificaciones
             LocalDate fechaComienzo = DateConverter.parse(evento.getFechaComienzo());
             LocalDate fechaFin = DateConverter.parse(evento.getFechaFin());
@@ -35,7 +35,6 @@ public class EventoServiceImpl implements EventoService {
                 throw new Exception("Faltan datos obligatorios para crear el evento.");
 
             eventoRepository.save(nuevoEvento);
-            return true;
         } catch (Exception e) {
             throw new Exception("Error al crear el evento, por favor intentelo más tarde");
         }

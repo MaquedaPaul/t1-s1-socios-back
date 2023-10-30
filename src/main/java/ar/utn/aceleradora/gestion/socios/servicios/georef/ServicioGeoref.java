@@ -1,7 +1,7 @@
 package ar.utn.aceleradora.gestion.socios.servicios.georef;
 
 import java.io.IOException;
-import java.util.List;
+
 
 
 //import domain.services.georef.entities.ListadoDeMunicipios;
@@ -17,9 +17,9 @@ import retrofit2.converter.gson.GsonConverterFactory;
 @Service
 public class ServicioGeoref {
   private static ServicioGeoref instancia = null;
-  private static int maximaCantidadRegistrosDefault = 500;
+  private static final int maximaCantidadRegistrosDefault = 500;
   private static final String urlApi = "https://apis.datos.gob.ar/georef/api/";//TODO Sacar url de un archivo de configuracion
-  private Retrofit retrofit;
+  private final Retrofit retrofit;
 
   private ServicioGeoref() {
     this.retrofit = new Retrofit.Builder()

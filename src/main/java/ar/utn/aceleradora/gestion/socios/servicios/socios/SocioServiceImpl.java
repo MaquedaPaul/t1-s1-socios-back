@@ -3,7 +3,6 @@ package ar.utn.aceleradora.gestion.socios.servicios.socios;
 import ar.utn.aceleradora.gestion.socios.converters.DateConverter;
 
 import ar.utn.aceleradora.gestion.socios.error.SocioNotFoundException;
-import ar.utn.aceleradora.gestion.socios.modelos.imagen.Imagen;
 import ar.utn.aceleradora.gestion.socios.dto.socios.SocioCreateDTO;
 import ar.utn.aceleradora.gestion.socios.dto.socios.SocioUpdateDTO;
 import ar.utn.aceleradora.gestion.socios.modelos.departamentos.Departamento;
@@ -64,14 +63,13 @@ public class SocioServiceImpl implements SocioService {
   }
 
   @Override
-  public Boolean deleteSocioById(Integer id){
+  public void deleteSocioById(Integer id){
     Optional<Socio> partner = socioRepository.findById(id);
     if (partner.isEmpty())
       throw new SocioNotFoundException("No se ha encontrado el socio con el id "+id+".");
 
     this.removerSuscritoDeDepartamentos(partner.get());
     socioRepository.delete(partner.get());
-    return true;
   }
   private void removerSuscritoDeDepartamentos(Socio socio){
     List<Departamento> departamentos = departamentoRepository.findAll();
@@ -80,12 +78,12 @@ public class SocioServiceImpl implements SocioService {
     departamentoRepository.saveAll(departamentosQueTienenAlSocio);
   }
   @Override
-  public Boolean updateSocio(SocioUpdateDTO socioUpdate, Integer id) throws Exception {
+  public void updateSocio(SocioUpdateDTO socioUpdate, Integer id) throws Exception {
     try {
       Optional<Socio> optionalSocio = socioRepository.findById(id);
 
       if (optionalSocio.isEmpty())
-        return false;
+        return;
 
       Socio existingSocio = optionalSocio.get();
 
@@ -104,14 +102,13 @@ public class SocioServiceImpl implements SocioService {
 
       socioRepository.save(existingSocio);
 
-      return true;
     } catch (Exception e) {
       throw new Exception("Error al editar el socio, por favor intentelo más tarde");
     }
   }
 
   @Override
-  public Boolean createSocio(SocioCreateDTO socio) throws Exception {
+  public void createSocio(SocioCreateDTO socio) throws Exception {
     try {
       TipoSocio tipoSocio = ("0".equals(socio.getTipoSocio())) ? TipoSocio.SOCIO_PLENARIO : TipoSocio.SOCIO_ADHERENTE;
       //Imagen imagen = new Imagen(socio.getImagen().getRutaImagen());
@@ -133,7 +130,6 @@ public class SocioServiceImpl implements SocioService {
       socioRepository.save(nuevoSocio);
       membresiaParticularRepository.save(membresiaParticular);
 
-      return true;
     } catch (Exception e) {
       throw new Exception("Error al crear el socio, por favor inténtelo más tarde");
     }
