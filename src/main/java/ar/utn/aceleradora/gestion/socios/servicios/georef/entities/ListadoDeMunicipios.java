@@ -13,7 +13,7 @@ public class ListadoDeMunicipios {
   public Parametro parametros;
   public List<Municipio> municipios;
 
-  private class Parametro {
+  private static class Parametro {
     public  List<String> campos;
     public  int max;
     public  List<String> provincia;

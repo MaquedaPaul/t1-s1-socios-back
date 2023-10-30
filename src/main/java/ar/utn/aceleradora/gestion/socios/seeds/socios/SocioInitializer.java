@@ -23,7 +23,7 @@ public class SocioInitializer implements CommandLineRunner {
         this.membresiaRepository = membresiaRepository;
         this.membresiaParticularRepository =  membresiaParticularRepository;
     }
-    public void run() throws Exception {
+    public void run() {
             SocioDataSocios dataSocios = new SocioDataSocios();
             SocioDataMembresias dataMembresias = new SocioDataMembresias();
             SocioDataCategorias dataCategorias = new SocioDataCategorias();
@@ -33,7 +33,7 @@ public class SocioInitializer implements CommandLineRunner {
         }
 
     @Override
-    public void run(String... args) throws Exception {
+    public void run(String... args){
 
     }
 }

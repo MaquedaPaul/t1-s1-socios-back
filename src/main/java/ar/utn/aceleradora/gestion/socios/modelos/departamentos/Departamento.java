@@ -10,47 +10,47 @@ import java.util.List;
 import lombok.Getter;
 import lombok.Setter;
 
+@Getter
 @Entity
 @Table(name = "departamento")
 public class Departamento{
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Getter
     private Integer id;
 
     @Column(name = "fechaBaja")
-    @Setter @Getter
+    @Setter
     @Convert(converter = LocalDateTimeAttributeConverter.class)
     private LocalDateTime fechaBaja;
 
     @Column(name = "nombre")
-    @Setter @Getter
+    @Setter
     private String nombre;
 
     @Column(name = "descripcion", length =  2000)
-    @Setter @Getter
+    @Setter
     private String descripcion;
 
     @Column(name = "icono")
-    @Setter @Getter
+    @Setter
     private String icono;
 
-    @Setter @Getter
+    @Setter
     private Integer jerarquia;//El IDE me tira waring con el Integer en OneToOne
 
     @ManyToMany
-    @Setter @Getter
+    @Setter
     private List<Autoridad> autoridades;
 
     @ManyToMany
-    @Setter @Getter
+    @Setter
     private List<Socio> sociosSuscritos;
 
     @JsonBackReference
     @ManyToOne
     @JoinColumn(name = "id_coordinacion")
-    @Setter @Getter
+    @Setter
     private Coordinacion coordinacionDepartamental;
 
     public Departamento(){

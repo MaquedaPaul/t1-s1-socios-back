@@ -36,13 +36,13 @@ El proyecto sigue el siguiente modelo de carpetas:
 ### Instrucciones de Despliegue:
 1. Abre la Terminal de Git.
 2. Navega hasta la carpeta del proyecto usando el comando `cd [ruta-a-tu-carpeta]`.
-3. Ejecuta el script `./start.sh`. Este script compila y lanza el contenedor Docker, instalando todas las dependencias automáticamente.
+3a. Ejecuta el script `./start.sh`. Este script compila y lanza el contenedor Docker, instalando todas las dependencias automáticamente.
    
    ```bash
    ./start.sh
 
 ### Instrucciones de Reseteo:
-3. Ejecuta el script `./restart.sh`. Este script recompila y lanza el contenedor Docker.
+3b. Ejecuta el script `./restart.sh`. Este script recompila y lanza el contenedor Docker.
 
    ```bash
    ./restart.sh

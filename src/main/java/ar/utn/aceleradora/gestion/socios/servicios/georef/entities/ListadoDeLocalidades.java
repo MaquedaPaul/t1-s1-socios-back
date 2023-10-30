@@ -16,7 +16,7 @@ import java.util.List;
         public Parametro parametros;
         public List<Localidad> localidades;
 
-        private class Parametro {
+        private static class Parametro {
             public  List<String> campos;
             public  int max;
             public  List<String> municipio;

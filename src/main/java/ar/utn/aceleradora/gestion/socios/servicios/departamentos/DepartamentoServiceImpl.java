@@ -95,7 +95,7 @@ public class DepartamentoServiceImpl implements DepartamentoService {
 
 
     @Override
-    public Departamento crearDepartamento(CreacionEdicionDepartamentoDTO departamento) throws Exception{
+    public Departamento crearDepartamento(CreacionEdicionDepartamentoDTO departamento){
         try {
             Departamento nuevoDepartamento = new Departamento();
             nuevoDepartamento.setNombre(departamento.getNombre());
@@ -110,7 +110,7 @@ public class DepartamentoServiceImpl implements DepartamentoService {
 
             nuevoDepartamento.setCoordinacionDepartamental(coordinacionEncontrada.get());
 
-            departamento.getAutoridades().stream().forEach(id -> {
+            departamento.getAutoridades().forEach(id -> {
                 try {
                     nuevoDepartamento.agregarAutoridades(buscarAutoridadDeLaBase(id));
                 } catch (Exception e) {
@@ -120,7 +120,7 @@ public class DepartamentoServiceImpl implements DepartamentoService {
             });
 
 
-            departamento.getIdSocios().stream().forEach(id -> {
+            departamento.getIdSocios().forEach(id -> {
                 try {
                     nuevoDepartamento.suscribirSocio(buscarSocioDeLaBase(id));
                 } catch (Exception e) {
@@ -139,7 +139,7 @@ public class DepartamentoServiceImpl implements DepartamentoService {
 
 
     @Override
-    public Departamento editarDepartamento(CreacionEdicionDepartamentoDTO departamento, Integer id) throws Exception{
+    public Departamento editarDepartamento(CreacionEdicionDepartamentoDTO departamento, Integer id) throws Exception {
 
 
         try {
@@ -160,25 +160,14 @@ public class DepartamentoServiceImpl implements DepartamentoService {
 
     }
 
-    private Autoridad buscarAutoridadDeLaBase(Integer id) throws Exception {
-
-        try {
-            return autoridadRepository.findById(id).get();
-        } catch (Exception e){
-            System.out.println(e.getMessage());
-            throw new AutoridadNotFoundException("No se encontro la autoridad con id: " + id);
-        }
-
+    private Autoridad buscarAutoridadDeLaBase(Integer id){
+        return autoridadRepository.findById(id).orElseThrow(() -> new AutoridadNotFoundException("No se encontró la autoridad con ID: " + id));
     }
 
-    private Socio buscarSocioDeLaBase(Integer id) throws Exception {
+    private Socio buscarSocioDeLaBase(Integer id){
 
-        try {
-            return socioRepository.findById(id).get();
-        } catch (Exception e){
-            System.out.println(e.getMessage());
-            throw new SocioNotFoundException("No se encontro el socio con id: " + id);
-        }
+        return socioRepository.findById(id)
+                .orElseThrow(() -> new SocioNotFoundException("No se encontró el socio con ID: " + id));
 
     }
 
@@ -207,7 +196,8 @@ public class DepartamentoServiceImpl implements DepartamentoService {
             throw new AutoridadNotFoundException("No existe una autoridad con el id: "+idAutoridad + " en el departamento");
         }
 
-        Autoridad autoridad = autoridadRepository.findById(idAutoridad).get();
+        Autoridad autoridad = autoridadRepository.findById(idAutoridad)
+                .orElseThrow(() -> new AutoridadNotFoundException("No se encontró la autoridad con ID: " + idAutoridad));
 
         try {
             departamentoAModificar.get().removerAutoridades(autoridad);
@@ -230,7 +220,8 @@ public class DepartamentoServiceImpl implements DepartamentoService {
             throw new AutoridadNotFoundException("No existe una socio con el id: "+idSocio + " en el departamento");
         }
 
-        Socio socio = socioRepository.findById(idSocio).get();
+        Socio socio = socioRepository.findById(idSocio)
+                .orElseThrow(() -> new SocioNotFoundException("No se encontró el socio con ID: " + idSocio));
 
         try {
             departamentoAModificar.get().removerSocio(socio);

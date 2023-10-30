@@ -18,6 +18,7 @@ import java.util.Optional;
 
 @Service
 public class EventoServiceImpl implements EventoService {
+
     private EventoRepository eventoRepository;
     private DepartamentoRepository departamentoRepository;
 
@@ -27,15 +28,14 @@ public class EventoServiceImpl implements EventoService {
     }
 
     @Override
-    public Boolean crearEvento(EventoCreateDTO evento) throws Exception {
-        try{
+    public void crearEvento(EventoCreateDTO evento) throws Exception {
+        try{//Faltan verificaciones
             LocalDate fechaComienzo = DateConverter.parse(evento.getFechaComienzo());
             LocalDate fechaFin = DateConverter.parse(evento.getFechaFin());
             Ubicacion ubicacion = new Ubicacion(evento.getDireccion(), evento.getPiso(), evento.getDepartamento(), evento.getLocalidad(), evento.getProvincia());
             List<Departamento> departamentos = obtenerDepartamentosPorIDs(evento.getDepartamentos());
             Evento nuevoEvento = new Evento(evento.getNombre(), evento.getDescripcion(), fechaComienzo, fechaFin, evento.getModalidad(), ubicacion, departamentos);
             eventoRepository.save(nuevoEvento);
-            return true;
         } catch (Exception e) {
             throw new Exception("Error al crear el evento, por favor intentelo más tarde");
         }

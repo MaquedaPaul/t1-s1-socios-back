@@ -11,7 +11,7 @@ import java.util.List;
 @Service
 public interface EventoService {
 
-    Boolean crearEvento(EventoCreateDTO evento) throws Exception;
+    void crearEvento(EventoCreateDTO evento) throws Exception;
 
     Boolean editarEvento(EventoUpdateDTO evento, Integer id) throws Exception;
 

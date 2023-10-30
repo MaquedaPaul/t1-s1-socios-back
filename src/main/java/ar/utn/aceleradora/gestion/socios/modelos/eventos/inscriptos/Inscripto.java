@@ -10,40 +10,39 @@ import java.util.ArrayList;
 import java.util.List;
 
 
+@Getter
 @Entity
 @Table(name = "inscriptos")
 public class Inscripto {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Getter
     private Integer id;
 
     @Column(name = "nombre")
-    @Getter @Setter
+    @Setter
     private String nombre;
 
     @Column(name = "apellido")
-    @Getter @Setter
+    @Setter
     private String apellido;
 
 
     @Column(name = "trabajo")
-    @Getter @Setter
+    @Setter
     private String trabajo;
 
 
     @ManyToOne
     @JoinColumn(name = "id_socio_invitante")
-    @Getter @Setter
+    @Setter
     private Socio socioInvitante;
 
     @OneToMany
     @JoinColumn(name = "id_estado_inscripto")
-    @Getter @Setter
+    @Setter
     private List<EstadoInscripto> estados;
 
     @Column(name = "mail")
-    @Getter
     @Setter
     private String mail;
 

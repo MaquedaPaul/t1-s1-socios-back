@@ -22,7 +22,7 @@ import java.util.Optional;
 public class DepartamentoController {
 
 
-    private DepartamentoService departamentoService;
+    private final DepartamentoService departamentoService;
     @Autowired
     public DepartamentoController(DepartamentoService departamentoService) {
       this.departamentoService = departamentoService;
@@ -37,9 +37,9 @@ public class DepartamentoController {
     }
 
     @GetMapping({"/", ""})
-    public ResponseEntity<Departamento> obtenerTodos() {
+    public ResponseEntity<List<Departamento>> obtenerTodos() {
             List<Departamento> departamentos = departamentoService.obtenerDepartamentos();
-            return new ResponseEntity(departamentos, HttpStatus.OK);
+            return new ResponseEntity<>(departamentos, HttpStatus.OK);
     }
 
     @GetMapping("/paginado")

@@ -16,16 +16,16 @@ import java.util.List;
 @RestController
 @RequestMapping("/eventos")
 public class EventoController {
+
+    private final EventoServiceImpl  eventoService;
+
     @Autowired
-    private EventoService eventoService;
-
-
     public EventoController(EventoServiceImpl eventoService) {
         this.eventoService = eventoService;
     }
 
     @PostMapping({"", "/"})
-    public Boolean crearEvento(@RequestBody EventoCreateDTO evento) throws Exception {
+    public Boolean crearEvento(@RequestBody EventoCreateDTO evento) {
         try {
          eventoService.crearEvento(evento);
             return ResponseEntity.ok(new ResponseDTO("Evento creado satisfactoriamente", "CREATE", 200)).hasBody();
@@ -35,7 +35,7 @@ public class EventoController {
     }
 
     @PatchMapping({"{id}"})
-    public Boolean editarEvento(@RequestBody EventoUpdateDTO evento, @PathVariable Integer id) throws Exception {
+    public Boolean editarEvento(@RequestBody EventoUpdateDTO evento, @PathVariable Integer id) {
         try {
         eventoService.editarEvento(evento, id);
             return ResponseEntity.ok(new ResponseDTO("Evento editado satisfactoriamente", "SUCCESS", 200)).hasBody();
@@ -45,7 +45,7 @@ public class EventoController {
     }
 
     @GetMapping({"", "/"})
-    public List<Evento> listarEventos() throws Exception {//Creo que falta parametro en listar
+    public List<Evento> listarEventos() {//Creo que falta parametro en listar
         try {
         eventoService.listarEventos();
             return (List<Evento>) ResponseEntity.ok();

@@ -4,7 +4,6 @@ import ar.utn.aceleradora.gestion.socios.dto.socios.CategoriaDTO;
 import ar.utn.aceleradora.gestion.socios.dto.ResponseDTO;
 import ar.utn.aceleradora.gestion.socios.modelos.socios.Categoria;
 import ar.utn.aceleradora.gestion.socios.servicios.socios.CategoriaServiceImpl;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -16,8 +15,11 @@ import java.util.List;
 @RequestMapping("/categorias")
 public class CategoriaController {
 
-    @Autowired
-    private CategoriaServiceImpl categoriaService;
+    private final CategoriaServiceImpl categoriaService;
+
+    public CategoriaController(CategoriaServiceImpl categoriaService) {
+        this.categoriaService = categoriaService;
+    }
 
     @PostMapping({"", "/"})
     public ResponseEntity<ResponseDTO> createCategory(@RequestBody CategoriaDTO categoriaDTO){
