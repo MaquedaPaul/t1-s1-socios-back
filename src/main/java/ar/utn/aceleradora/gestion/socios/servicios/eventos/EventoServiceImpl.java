@@ -25,7 +25,9 @@ public class EventoServiceImpl implements EventoService {
     @Override
     public Boolean crearEvento(EventoCreateDTO evento) throws Exception {
         try{//Faltan verificaciones
-            Evento nuevoEvento = new Evento(evento.getNombre(), evento.getDescripcion(), evento.getFechaComienzo(), evento.getFechaFin(), evento.getModalidad(), evento.getUbicacion(), evento.getEstado(), evento.getDepartamentos());
+            LocalDate fechaComienzo = DateConverter.parse(evento.getFechaComienzo());
+            LocalDate fechaFin = DateConverter.parse(evento.getFechaFin());
+            Evento nuevoEvento = new Evento(evento.getNombre(), evento.getDescripcion(), fechaComienzo, fechaFin, evento.getModalidad(), evento.getUbicacion(), evento.getEstado(), evento.getDepartamentos());
             if (evento.getNombre() == null || evento.getDescripcion() == null
                     || evento.getFechaComienzo() == null || evento.getFechaFin() == null
                     || evento.getModalidad() == null || evento.getUbicacion() == null

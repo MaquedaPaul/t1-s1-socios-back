@@ -75,10 +75,10 @@ public class Evento {
     public Evento() {
     }
 
-    public Evento(String nombre, String descripcion, Date fechaComienzo, Date fechaFin, TipoModalidad modalidad, Ubicacion ubicacion, List<Socio> invitados, List<Inscripto> inscriptos, Estado estado, List<Departamento> departamentos) {
+    public Evento(String nombre, String descripcion, LocalDate fechaComienzo, LocalDate fechaFin, TipoModalidad modalidad, Ubicacion ubicacion, List<Socio> invitados, List<Inscripto> inscriptos, Estado estado, List<Departamento> departamentos) {
     }
 
-    public Evento(String nombre, String descripcion, Date fechaComienzo, Date fechaFin, TipoModalidad modalidad, Ubicacion ubicacion, Estado estado, List<Departamento> departamentos) {
+    public Evento(String nombre, String descripcion, LocalDate fechaComienzo, LocalDate fechaFin, TipoModalidad modalidad, Ubicacion ubicacion, Estado estado, List<Departamento> departamentos) {
     }
 
     public void finalizar() {
