@@ -274,6 +274,18 @@ public class DepartamentoServiceImpl implements DepartamentoService {
     }
 
     @Override
+    public List<Autoridad> obtenerAutoridadesDe(Integer id) {
+        try {
+            Departamento departamento = obtenerDepartamento(id);
+            return departamento.getAutoridades();
+        }
+        catch (Exception e){
+            System.out.println(e.getMessage());
+            throw new AutoridadNotFoundException("No se encontraron autoridades en la base de datos");
+        }
+
+    }
+    @Override
     public List<Autoridad> obtenerAutoridades() {
         try {
             return autoridadRepository.findAll();
