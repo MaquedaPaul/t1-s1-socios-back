@@ -4,7 +4,6 @@ import net.coobird.thumbnailator.Thumbnails;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.io.Resource;
 import org.springframework.core.io.UrlResource;
-import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.util.StringUtils;
 
@@ -29,7 +28,7 @@ public class ImagenesService {
   }
 
   public String guardarImagenSinId(MultipartFile archivo) throws IOException {
-    String nombreArchivo = UUID.randomUUID().toString() + ".JPEG"; // Genera un nombre único para la imagen
+    String nombreArchivo = UUID.randomUUID() + ".JPEG"; // Genera un nombre único para la imagen
     Path ubicacionCopia = Paths.get(path_imagenes + File.separator + nombreArchivo);
     optimizarImagen(archivo, ubicacionCopia.toString());
     return nombreArchivo; // Devuelve el nombre único de la imagen

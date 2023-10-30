@@ -2,15 +2,13 @@ package ar.utn.aceleradora.gestion.socios.dto;
 
 import lombok.Getter;
 
+@Getter
 public class ResponseDTO {
-    @Getter
-    private String message;
+    private final String message;
 
-    @Getter
-    private String status;
+    private final String status;
 
-    @Getter
-    private Integer codeHttp;
+    private final Integer codeHttp;
 
     public ResponseDTO(String message, String status, Integer codeHttp) {
         this.message = message;

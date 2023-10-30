@@ -1,13 +1,16 @@
 package ar.utn.aceleradora.gestion.socios.seeds.socios;
 
-import ar.utn.aceleradora.gestion.socios.modelos.empresa.Categoria;
-import ar.utn.aceleradora.gestion.socios.modelos.empresa.Socio;
-import ar.utn.aceleradora.gestion.socios.modelos.empresa.TipoSocio;
-import ar.utn.aceleradora.gestion.socios.modelos.membresia.MembresiaParticular;
+import ar.utn.aceleradora.gestion.socios.modelos.socios.Categoria;
+import ar.utn.aceleradora.gestion.socios.modelos.socios.Socio;
+import ar.utn.aceleradora.gestion.socios.modelos.socios.TipoSocio;
+import ar.utn.aceleradora.gestion.socios.modelos.socios.membresia.MembresiaParticular;
 import ar.utn.aceleradora.gestion.socios.modelos.ubicacion.Ubicacion;
 import ar.utn.aceleradora.gestion.socios.repositorios.CategoriaRepository;
 import ar.utn.aceleradora.gestion.socios.repositorios.MembresiaParticularRepository;
 import ar.utn.aceleradora.gestion.socios.repositorios.SocioRepository;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -15,6 +18,7 @@ import java.util.List;
 import java.util.Random;
 
 public class SocioDataSocios {
+    private static final Logger logger = LoggerFactory.getLogger(SocioDataSocios.class);
 
     Socio socio1 = new Socio(
             "Luisa Pérez",
@@ -512,14 +516,14 @@ public class SocioDataSocios {
             "marianogomez@gmail.com",
             new Ubicacion("Av. 9 de Julio 789", "9no piso", "Departamento 55", "Buenos Aires", "Buenos Aires")
     );
-    List<Socio> sociosCargados = new ArrayList<>();
+    final List<Socio> sociosCargados = new ArrayList<>();
     void cargarSocios(SocioRepository socioRepository, MembresiaParticularRepository membresiaParticularRepository, CategoriaRepository categoriaRepository, SocioDataMembresias dataMembresias) {
 
         List<MembresiaParticular> membresias = dataMembresias.getMembresiaParticulares();
         for (int i = 1; i <= 50; i++) {
             // Obtén el nombre de la variable del socio usando reflexión
             String nombreVariable = "socio" + i;
-            Socio socio = null;
+            Socio socio;
             try {
                 socio = (Socio) getClass().getDeclaredField(nombreVariable).get(this);
                 socio.agregarMembresia(membresias.get(i-1));
@@ -530,7 +534,7 @@ public class SocioDataSocios {
                 socioRepository.save(socio);
                 membresiaParticularRepository.save(membresias.get(i-1));
             } catch (NoSuchFieldException | IllegalAccessException e) {
-                e.printStackTrace(); // Maneja las excepciones apropiadamente
+                logger.error("Error al cargar " + nombreVariable, e);
             }
         }
     }
@@ -561,7 +565,7 @@ public class SocioDataSocios {
         for (int i = 1; i <= 50; i++) {
             // Obtén el nombre de la variable del socio usando reflexión
             String nombreVariable = "socio" + i;
-            Socio socio = null;
+            Socio socio;
             try {
                 socio = (Socio) getClass().getDeclaredField(nombreVariable).get(this);
                 socio.agregarMembresia(membresias.get(i-1));
@@ -569,7 +573,7 @@ public class SocioDataSocios {
                 sociosCargados.add(socio);
                 socioRepository.save(socio);
             } catch (NoSuchFieldException | IllegalAccessException e) {
-                e.printStackTrace(); // Maneja las excepciones apropiadamente
+                logger.error("Error al cargar " + nombreVariable, e);
             }
         }
     }

@@ -22,11 +22,11 @@ public class ListadoDeProvincias {
 
   public Optional<Provincia> provinciaDeNombre(String nombre){
     return this.provincias.stream()
-            .filter(p -> p.getNombre() == nombre)
+            .filter(p -> p.getNombre().equals(nombre))
             .findFirst();
   }
 
-  private class Parametro {
+  private static class Parametro {
     public  List<String> campos;
   }
 }

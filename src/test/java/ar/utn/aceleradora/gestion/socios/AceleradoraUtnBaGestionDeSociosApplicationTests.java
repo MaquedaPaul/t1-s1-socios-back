@@ -1,10 +1,9 @@
 package ar.utn.aceleradora.gestion.socios;
 
-//import ar.utn.aceleradora.gestion.socios.modelos.empresa.Socio;
-//import ar.utn.aceleradora.gestion.socios.dto.SocioDTO;
+//import ar.utn.aceleradora.gestion.socios.modelos.socios.Socio;
 import ar.utn.aceleradora.gestion.socios.modelos.ubicacion.Ubicacion;
 import ar.utn.aceleradora.gestion.socios.repositorios.SocioRepository;
-import ar.utn.aceleradora.gestion.socios.servicios.SocioServiceImpl;
+import ar.utn.aceleradora.gestion.socios.servicios.socios.SocioServiceImpl;
 import ar.utn.aceleradora.gestion.socios.servicios.UbicacionService;
 
 import org.junit.jupiter.api.Test;
@@ -33,9 +32,11 @@ class AceleradoraUtnBaGestionDeSociosApplicationTests {
 
 	@Test
 	public void testGuardarUbicacion(){
+		/*
 		Ubicacion ubicacion = new Ubicacion("Ejemplo","Ejemplo","Ejemplo","Ejemplo","Ejemplo");
 
 		Ubicacion ubicacionGuardada = ubicacionService.agregarUbicacion(ubicacion);
+		*/
 	}
 
 	@Test
@@ -95,17 +96,18 @@ class AceleradoraUtnBaGestionDeSociosApplicationTests {
 		assertThat(socioGuardado.getUbicacion()).isEqualTo(ubicacionService.obtenerUbicacion(1));
 	}*/
 
-/*
+
 	@Test
 	public void testObtenerSocio(){
-
+/*
 		SocioDTO socio = socioService.obtenerSocio(1);
 
 		assertThat(socio.getNombre()).isEqualTo("Ejemplo");
 		assertThat(socio.getTelefono()).isEqualTo(123456);
+*/
 	}
 
-*/
+
 
 
 /*

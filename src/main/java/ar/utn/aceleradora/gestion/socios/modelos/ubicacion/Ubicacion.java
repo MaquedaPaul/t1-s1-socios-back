@@ -35,12 +35,10 @@ public class Ubicacion {
     }
 
     public Ubicacion(String direccion,String piso,String departamento,String localidad,String provincia){
-
         this.direccion = direccion;
         this.piso = piso;
         this.departamento = departamento;
         this.localidad = localidad;
         this.provincia = provincia;
-
     }
 }
