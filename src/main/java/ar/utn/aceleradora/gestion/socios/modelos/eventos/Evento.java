@@ -10,6 +10,7 @@ import lombok.Setter;
 import ar.utn.aceleradora.gestion.socios.modelos.eventos.TipoModalidad;
 import ar.utn.aceleradora.gestion.socios.modelos.eventos.Estado;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -29,10 +30,10 @@ public class Evento {
     private String descripcion;
 
     @Column(name = "fechaComienzo")
-    private Date fechaComienzo;
+    private LocalDate fechaComienzo;
 
     @Column(name = "fechaFin")
-    private Date fechaFin;
+    private LocalDate fechaFin;
 
     @Enumerated(EnumType.STRING)
     @Column(name = "modalidad")
@@ -57,7 +58,7 @@ public class Evento {
     @ManyToMany(cascade = CascadeType.MERGE)
     private List<Departamento> departamentos;
 
-    public Evento(Integer id, String nombre, String descripcion, Date fechaComienzo, Date fechaFin, TipoModalidad modalidad, Ubicacion ubicacion, List<Socio> invitados, List<Inscripto> inscriptos, Estado estado, List<Departamento> departamentos) {
+    public Evento(Integer id, String nombre, String descripcion, LocalDate fechaComienzo, LocalDate fechaFin, TipoModalidad modalidad, Ubicacion ubicacion, List<Socio> invitados, List<Inscripto> inscriptos, Estado estado, List<Departamento> departamentos) {
         this.id = id;
         this.nombre = nombre;
         this.descripcion = descripcion;
