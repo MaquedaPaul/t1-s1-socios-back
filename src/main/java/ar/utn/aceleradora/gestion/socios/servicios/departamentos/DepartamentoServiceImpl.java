@@ -283,7 +283,6 @@ public class DepartamentoServiceImpl implements DepartamentoService {
             return autoridadRepository.findAll();
         }
         catch (Exception e){
-            System.out.println(e.getMessage());
             throw new AutoridadNotFoundException("No se encontraron autoridades en la base de datos");
         }
 
