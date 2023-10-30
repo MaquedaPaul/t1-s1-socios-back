@@ -1,6 +1,7 @@
 package ar.utn.aceleradora.gestion.socios.servicios.departamentos;
 
 
+import ar.utn.aceleradora.gestion.socios.error.DepartamentoNotFoundException;
 import ar.utn.aceleradora.gestion.socios.modelos.departamentos.Autoridad;
 import ar.utn.aceleradora.gestion.socios.dto.departamentos.CreacionEdicionDepartamentoDTO;
 import ar.utn.aceleradora.gestion.socios.modelos.departamentos.Departamento;
@@ -16,17 +17,17 @@ public interface DepartamentoService {
 
     List<Departamento> obtenerDepartamentos();
 
-    public Page<Departamento> obtenerDepartamentoPaginado(int page);
-    void eliminarDepartamento(Integer id) throws Exception;
+    Page<Departamento> obtenerDepartamentoPaginado(int page);
+    void eliminarDepartamento(Integer id) throws DepartamentoNotFoundException;
 
     Departamento obtenerDepartamento(Integer id);
 
-    Departamento crearDepartamento(CreacionEdicionDepartamentoDTO departamento) throws Exception;
+    Departamento crearDepartamento(CreacionEdicionDepartamentoDTO departamento);
 
-    public Departamento editarDepartamento(CreacionEdicionDepartamentoDTO departamento, Integer id) throws Exception;
+    Departamento editarDepartamento(CreacionEdicionDepartamentoDTO departamento, Integer id) throws Exception;
 
     List<String> obtenerNombres();
-    void agregarAutoridades(List<Integer> autoridades, Integer id) throws Exception;
+    void agregarAutoridades(List<Integer> autoridades, Integer id);
 
     void removerSocios(Integer id, Integer idSocio);
 
