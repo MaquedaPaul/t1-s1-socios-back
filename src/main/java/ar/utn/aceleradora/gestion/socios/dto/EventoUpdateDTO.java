@@ -14,8 +14,8 @@ import java.util.List;
 @Getter
 public class EventoUpdateDTO {//Tal vez algunos atributos sobran
     private String nombre;
-    private Date fechaComienzo;
-    private Date fechaFin;
+    private String fechaComienzo;
+    private String fechaFin;
     private TipoModalidad modalidad;
     private Ubicacion ubicacion;
     private List<Socio> invitados;

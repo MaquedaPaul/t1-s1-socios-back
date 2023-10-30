@@ -1,5 +1,6 @@
 package ar.utn.aceleradora.gestion.socios.servicios.eventos;
 
+import ar.utn.aceleradora.gestion.socios.converters.DateConverter;
 import ar.utn.aceleradora.gestion.socios.dto.EventoCreateDTO;
 import ar.utn.aceleradora.gestion.socios.dto.EventoUpdateDTO;
 import ar.utn.aceleradora.gestion.socios.modelos.eventos.Evento;
@@ -8,6 +9,7 @@ import ar.utn.aceleradora.gestion.socios.repositorios.EventoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 
@@ -23,7 +25,9 @@ public class EventoServiceImpl implements EventoService {
     @Override
     public void crearEvento(EventoCreateDTO evento) throws Exception {
         try{//Faltan verificaciones
-            Evento nuevoEvento = new Evento(evento.getNombre(), evento.getDescripcion(), evento.getFechaComienzo(), evento.getFechaFin(), evento.getModalidad(), evento.getUbicacion(), evento.getEstado(), evento.getDepartamentos());
+            LocalDate fechaComienzo = DateConverter.parse(evento.getFechaComienzo());
+            LocalDate fechaFin = DateConverter.parse(evento.getFechaFin());
+            Evento nuevoEvento = new Evento(evento.getNombre(), evento.getDescripcion(), fechaComienzo, fechaFin, evento.getModalidad(), evento.getUbicacion(), evento.getEstado(), evento.getDepartamentos());
             if (evento.getNombre() == null || evento.getDescripcion() == null
                     || evento.getFechaComienzo() == null || evento.getFechaFin() == null
                     || evento.getModalidad() == null || evento.getUbicacion() == null
@@ -47,8 +51,12 @@ public class EventoServiceImpl implements EventoService {
             Evento existingEvento = optionalEvento.get();
 
             existingEvento.setNombre(eventoUpdate.getNombre());
-            existingEvento.setFechaComienzo(eventoUpdate.getFechaComienzo());
-            existingEvento.setFechaFin(eventoUpdate.getFechaFin());
+
+            LocalDate fechaComienzo = DateConverter.parse(eventoUpdate.getFechaComienzo());
+            existingEvento.setFechaComienzo(fechaComienzo);
+            LocalDate fechaFin = DateConverter.parse(eventoUpdate.getFechaFin());
+            existingEvento.setFechaFin(fechaFin);
+
             existingEvento.setModalidad(eventoUpdate.getModalidad());
             existingEvento.setUbicacion(eventoUpdate.getUbicacion());
             existingEvento.setInvitados(eventoUpdate.getInvitados());

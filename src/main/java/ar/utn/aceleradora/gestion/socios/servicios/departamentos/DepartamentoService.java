@@ -33,5 +33,7 @@ public interface DepartamentoService {
 
     void agregarSocios(List<Integer> sociosIds, Integer id);
 
+    List<Autoridad> obtenerAutoridadesDe(Integer id);
+
     List<Autoridad> obtenerAutoridades();
 }
