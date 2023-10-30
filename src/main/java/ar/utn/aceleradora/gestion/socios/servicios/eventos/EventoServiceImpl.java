@@ -3,8 +3,11 @@ package ar.utn.aceleradora.gestion.socios.servicios.eventos;
 import ar.utn.aceleradora.gestion.socios.converters.DateConverter;
 import ar.utn.aceleradora.gestion.socios.dto.EventoCreateDTO;
 import ar.utn.aceleradora.gestion.socios.dto.EventoUpdateDTO;
+import ar.utn.aceleradora.gestion.socios.modelos.departamentos.Departamento;
 import ar.utn.aceleradora.gestion.socios.modelos.eventos.Evento;
 import ar.utn.aceleradora.gestion.socios.modelos.socios.Socio;
+import ar.utn.aceleradora.gestion.socios.modelos.ubicacion.Ubicacion;
+import ar.utn.aceleradora.gestion.socios.repositorios.DepartamentoRepository;
 import ar.utn.aceleradora.gestion.socios.repositorios.EventoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -16,6 +19,7 @@ import java.util.Optional;
 @Service
 public class EventoServiceImpl implements EventoService {
     private EventoRepository eventoRepository;
+    private DepartamentoRepository departamentoRepository;
 
     @Autowired
     public EventoServiceImpl(EventoRepository eventoRepository) {
@@ -24,16 +28,12 @@ public class EventoServiceImpl implements EventoService {
 
     @Override
     public Boolean crearEvento(EventoCreateDTO evento) throws Exception {
-        try{//Faltan verificaciones
+        try{
             LocalDate fechaComienzo = DateConverter.parse(evento.getFechaComienzo());
             LocalDate fechaFin = DateConverter.parse(evento.getFechaFin());
-            Evento nuevoEvento = new Evento(evento.getNombre(), evento.getDescripcion(), fechaComienzo, fechaFin, evento.getModalidad(), evento.getUbicacion(), evento.getEstado(), evento.getDepartamentos());
-            if (evento.getNombre() == null || evento.getDescripcion() == null
-                    || evento.getFechaComienzo() == null || evento.getFechaFin() == null
-                    || evento.getModalidad() == null || evento.getUbicacion() == null
-                    || evento.getEstado() == null)
-                throw new Exception("Faltan datos obligatorios para crear el evento.");
-
+            Ubicacion ubicacion = new Ubicacion(evento.getDireccion(), evento.getPiso(), evento.getDepartamento(), evento.getLocalidad(), evento.getProvincia());
+            List<Departamento> departamentos = obtenerDepartamentosPorIDs(evento.getDepartamentos());
+            Evento nuevoEvento = new Evento(evento.getNombre(), evento.getDescripcion(), fechaComienzo, fechaFin, evento.getModalidad(), ubicacion, departamentos);
             eventoRepository.save(nuevoEvento);
             return true;
         } catch (Exception e) {
@@ -41,10 +41,23 @@ public class EventoServiceImpl implements EventoService {
         }
     }
 
+    private List<Departamento> obtenerDepartamentosPorIDs(List<Integer> departamentoIDs) {
+        return departamentoRepository.findAllById(departamentoIDs);
+    }
+
+    @Override
+    public Evento obtenerEventoPorId(Integer eventoId) throws Exception {
+        try{
+            return eventoRepository.findById(eventoId).orElse(null);
+        } catch (Exception e) {
+            throw new Exception("Error al obtener evento por id, por favor intentelo más tarde");
+        }
+    }
+
     @Override
     public Boolean editarEvento(EventoUpdateDTO eventoUpdate, Integer id) throws Exception {
         try{
-            Optional<Evento> optionalEvento = eventoRepository.findById(Long.valueOf(id));
+            Optional<Evento> optionalEvento = eventoRepository.findById(id);
 
             if (optionalEvento.isEmpty())
                 return false;
@@ -62,7 +75,7 @@ public class EventoServiceImpl implements EventoService {
             existingEvento.setUbicacion(eventoUpdate.getUbicacion());
             existingEvento.setInvitados(eventoUpdate.getInvitados());
             existingEvento.setInscriptos(eventoUpdate.getInscriptos());
-            existingEvento.setEstado(eventoUpdate.getEstado());
+            //existingEvento.setEstado(eventoUpdate.getEstadoEvento());
             existingEvento.setDepartamentos(eventoUpdate.getDepartamentos());
 
             eventoRepository.save(existingEvento);

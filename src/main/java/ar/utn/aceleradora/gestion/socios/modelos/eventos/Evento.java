@@ -7,12 +7,10 @@ import ar.utn.aceleradora.gestion.socios.modelos.ubicacion.Ubicacion;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
-import ar.utn.aceleradora.gestion.socios.modelos.eventos.TipoModalidad;
-import ar.utn.aceleradora.gestion.socios.modelos.eventos.Estado;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 @Entity
@@ -51,14 +49,14 @@ public class Evento {
     @JoinTable(name = "evento_inscripto", joinColumns = @JoinColumn(name = "evento_id"), inverseJoinColumns = @JoinColumn(name = "inscripto_id"))
     private List<Inscripto> inscriptos;
 
-    @OneToOne
+    @OneToMany
     @JoinColumn(name = "estado")
-    private Estado estado;
+    private List<EstadoEvento> estadoEvento;
 
     @ManyToMany(cascade = CascadeType.MERGE)
     private List<Departamento> departamentos;
 
-    public Evento(Integer id, String nombre, String descripcion, LocalDate fechaComienzo, LocalDate fechaFin, TipoModalidad modalidad, Ubicacion ubicacion, List<Socio> invitados, List<Inscripto> inscriptos, Estado estado, List<Departamento> departamentos) {
+    public Evento(Integer id, String nombre, String descripcion, LocalDate fechaComienzo, LocalDate fechaFin, TipoModalidad modalidad, Ubicacion ubicacion, List<Socio> invitados, List<Inscripto> inscriptos, EstadoEvento estadoEvento, List<Departamento> departamentos) {
         this.id = id;
         this.nombre = nombre;
         this.descripcion = descripcion;
@@ -68,18 +66,20 @@ public class Evento {
         this.ubicacion = ubicacion;
         this.invitados = new ArrayList<>();
         this.inscriptos = new ArrayList<>();
-        this.estado = estado;
+        this.estadoEvento = new ArrayList<>();;
         this.departamentos = new ArrayList<>();
     }
 
     public Evento() {
+        this.estadoEvento = new ArrayList<>();
+        this.estadoEvento.add(new EstadoEvento(TipoEvento.PENDIENTE, LocalDateTime.now(), "Recien agregado"));
     }
 
-    public Evento(String nombre, String descripcion, LocalDate fechaComienzo, LocalDate fechaFin, TipoModalidad modalidad, Ubicacion ubicacion, List<Socio> invitados, List<Inscripto> inscriptos, Estado estado, List<Departamento> departamentos) {
+    public Evento(String nombre, String descripcion, LocalDate fechaComienzo, LocalDate fechaFin, Integer modalidad, Ubicacion ubicacion, List<Departamento> departamentos) {
+        this.estadoEvento = new ArrayList<>();
+        this.estadoEvento.add(new EstadoEvento(TipoEvento.PENDIENTE, LocalDateTime.now(), "Recien agregado"));
     }
 
-    public Evento(String nombre, String descripcion, LocalDate fechaComienzo, LocalDate fechaFin, TipoModalidad modalidad, Ubicacion ubicacion, Estado estado, List<Departamento> departamentos) {
-    }
 
     public void finalizar() {
     }
@@ -91,6 +91,10 @@ public class Evento {
     }
 
     public void invitar(Socio socio) {
+    }
+
+    public EstadoEvento estadoActual(){
+        return this.estadoEvento.get(this.estadoEvento.size()-1);
     }
 }
 
