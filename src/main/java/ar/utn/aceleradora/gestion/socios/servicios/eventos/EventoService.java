@@ -24,4 +24,6 @@ public interface EventoService {
     void cancelar(Evento evento) throws Exception;
 
     void finalizar(Evento evento) throws Exception;
+
+    Evento obtenerEventoPorId(Integer eventoId) throws Exception;
 }
