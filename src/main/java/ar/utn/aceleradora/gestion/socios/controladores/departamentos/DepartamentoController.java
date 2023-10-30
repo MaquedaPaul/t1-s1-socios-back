@@ -93,9 +93,9 @@ public class DepartamentoController {
 
 
     @GetMapping("/{id}/autoridades")
-    public ResponseEntity<Departamento> obtenerAutoridades() {
-        List<Autoridad> autoridades = departamentoService.obtenerAutoridades();
-        return new ResponseEntity(autoridades, HttpStatus.OK);
+    public ResponseEntity<List<Autoridad>> obtenerAutoridades(@PathVariable Integer id) {
+        List<Autoridad> autoridades = departamentoService.obtenerAutoridadesDe(id);
+        return new ResponseEntity<>(autoridades, HttpStatus.OK);
     }
 
 
