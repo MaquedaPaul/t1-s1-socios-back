@@ -23,8 +23,9 @@ public class EventoServiceImpl implements EventoService {
     private DepartamentoRepository departamentoRepository;
 
     @Autowired
-    public EventoServiceImpl(EventoRepository eventoRepository) {
+    public EventoServiceImpl(EventoRepository eventoRepository, DepartamentoRepository departamentoRepository) {
         this.eventoRepository = eventoRepository;
+        this.departamentoRepository = departamentoRepository;
     }
 
     @Override
@@ -33,16 +34,12 @@ public class EventoServiceImpl implements EventoService {
             LocalDate fechaComienzo = DateConverter.parse(evento.getFechaComienzo());
             LocalDate fechaFin = DateConverter.parse(evento.getFechaFin());
             Ubicacion ubicacion = new Ubicacion(evento.getDireccion(), evento.getPiso(), evento.getDepartamento(), evento.getLocalidad(), evento.getProvincia());
-            List<Departamento> departamentos = obtenerDepartamentosPorIDs(evento.getDepartamentos());
+            List<Departamento> departamentos = this.departamentoRepository.findAllById(evento.getId_departamentos());
             Evento nuevoEvento = new Evento(evento.getNombre(), evento.getDescripcion(), fechaComienzo, fechaFin, evento.getModalidad(), ubicacion, departamentos);
             eventoRepository.save(nuevoEvento);
         } catch (Exception e) {
             throw new Exception("Error al crear el evento, por favor intentelo más tarde");
         }
-    }
-
-    private List<Departamento> obtenerDepartamentosPorIDs(List<Integer> departamentoIDs) {
-        return departamentoRepository.findAllById(departamentoIDs);
     }
 
     @Override

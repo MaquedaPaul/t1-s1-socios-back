@@ -6,7 +6,7 @@ import ar.utn.aceleradora.gestion.socios.modelos.eventos.inscriptos.Inscripto;
 import ar.utn.aceleradora.gestion.socios.modelos.socios.Socio;
 import ar.utn.aceleradora.gestion.socios.repositorios.InscriptoRepository;
 import ar.utn.aceleradora.gestion.socios.repositorios.SocioRepository;
-
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;
@@ -16,6 +16,7 @@ public class InscriptoServiceImpl implements InscriptoService{
     private final SocioRepository socioRepository;
     private final InscriptoRepository inscriptoRepository;
 
+    @Autowired
     public InscriptoServiceImpl(SocioRepository socioRepository, InscriptoRepository inscriptoRepository) {
         this.socioRepository = socioRepository;
         this.inscriptoRepository = inscriptoRepository;
