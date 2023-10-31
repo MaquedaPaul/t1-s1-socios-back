@@ -19,6 +19,7 @@ import org.springframework.stereotype.Service;
 import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 public class EventoServiceImpl implements EventoService {
@@ -41,23 +42,15 @@ public class EventoServiceImpl implements EventoService {
             LocalDate fechaFin = DateConverter.parse(evento.getFechaFin());
             Ubicacion ubicacion = new Ubicacion(evento.getDireccion(), evento.getPiso(), evento.getDepartamento(), evento.getLocalidad(), evento.getProvincia());
             List<Departamento> departamentos = this.departamentoRepository.findAllById(evento.getId_departamentos());
-            List<Socio> socios = this.socioRepository.findAllById(evento.getId_socios_invitados());
+            List<Socio> socios = departamentos.stream()
+                    .flatMap(departamento -> departamento.getSociosSuscritos().stream())
+                    .collect(Collectors.toList());
             Evento nuevoEvento = new Evento(evento.getNombre(), evento.getDescripcion(), fechaComienzo, fechaFin, obtenerTipoModalidad(evento.getModalidad()), ubicacion, socios, departamentos);
 
             eventoRepository.save(nuevoEvento);
         } catch (Exception e) {
             throw new Exception("Error al crear el evento, por favor intentelo más tarde");
         }
-    }
-
-    @Override
-    public TipoModalidad obtenerTipoModalidad(Integer modalidadInteger) {
-        return switch (modalidadInteger) {
-            case 0 -> TipoModalidad.HIBRIDO;
-            case 1 -> TipoModalidad.VIRTUAL;
-            case 2 -> TipoModalidad.PRESENCIAL;
-            default -> throw new IllegalArgumentException("Valor de modalidad no válido: " + modalidadInteger);
-        };
     }
 
     @Override
@@ -91,11 +84,13 @@ public class EventoServiceImpl implements EventoService {
 
             Ubicacion ubicacion = new Ubicacion(eventoUpdate.getDireccion(), eventoUpdate.getPiso(), eventoUpdate.getDepartamento(), eventoUpdate.getLocalidad(), eventoUpdate.getProvincia());
 
-            List<Socio> invitados = this.socioRepository.findAllById(eventoUpdate.getId_invitados());
-            existingEvento.setInvitados(invitados);
-
             List<Departamento> departamentos = this.departamentoRepository.findAllById(eventoUpdate.getId_departamentos());
             existingEvento.setDepartamentos(departamentos);
+
+            List<Socio> invitados = departamentos.stream()
+                    .flatMap(departamento -> departamento.getSociosSuscritos().stream())
+                    .collect(Collectors.toList());
+            existingEvento.setInvitados(invitados);
 
             EstadoEvento estado = new EstadoEvento(obtenerTipoEstadoEvento(eventoUpdate.getTipoEstadoEvento()), LocalDate.now(), eventoUpdate.getMotivo());
             existingEvento.agregarEstado(estado);

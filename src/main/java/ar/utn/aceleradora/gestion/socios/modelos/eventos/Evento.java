@@ -66,7 +66,7 @@ public class Evento {
         this.inscriptos = new ArrayList<>();
         this.estadoEvento = new ArrayList<>();;
         this.departamentos = new ArrayList<>();
-        this.estadoEvento.add(new EstadoEvento(TipoEvento.PENDIENTE, LocalDateTime.now(), "Recien agregado"));
+        this.estadoEvento.add(new EstadoEvento(TipoEstadoEvento.PENDIENTE, LocalDateTime.now(), "Recien agregado"));
     }
 
     public Evento() {
@@ -102,7 +102,7 @@ public class Evento {
         this.inscriptos = new ArrayList<>();
         this.estadoEvento = new ArrayList<>();
         this.departamentos = new ArrayList<>();
-        this.estadoEvento.add(new EstadoEvento(TipoEvento.PENDIENTE, LocalDateTime.now(), "Recien agregado"));
+        this.estadoEvento.add(new EstadoEvento(TipoEstadoEvento.PENDIENTE, LocalDateTime.now(), "Recien agregado"));
 
     }
 
@@ -118,7 +118,7 @@ public class Evento {
         this.estadoEvento = new ArrayList<>();
         this.departamentos = new ArrayList<>();
         this.invitados.addAll(departamentos.stream().flatMap(departamento ->  departamento.getSociosSuscritos().stream()).toList());
-        this.estadoEvento.add(new EstadoEvento(TipoEvento.PENDIENTE, LocalDateTime.now(), "Recien agregado"));
+        this.estadoEvento.add(new EstadoEvento(TipoEstadoEvento.PENDIENTE, LocalDateTime.now(), "Recien agregado"));
     }
 
     public void finalizar() {

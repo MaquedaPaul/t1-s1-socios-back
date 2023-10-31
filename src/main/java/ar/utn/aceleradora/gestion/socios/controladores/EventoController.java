@@ -17,7 +17,7 @@ import java.util.List;
 @RequestMapping("/eventos")
 public class EventoController {
 
-    private final EventoServiceImpl  eventoService;
+    private final EventoService  eventoService;
 
     @Autowired
     public EventoController(EventoServiceImpl eventoService) {
