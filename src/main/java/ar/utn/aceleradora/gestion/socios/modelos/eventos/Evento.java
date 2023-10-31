@@ -42,11 +42,9 @@ public class Evento {
     private Ubicacion ubicacion;
 
     @ManyToMany(cascade = CascadeType.MERGE)
-    @JoinTable(name = "evento_socio", joinColumns = @JoinColumn(name = "evento_id"), inverseJoinColumns = @JoinColumn(name = "socio_id"))
     private List<Socio> invitados;
 
-    @ManyToMany
-    @JoinTable(name = "evento_inscripto", joinColumns = @JoinColumn(name = "evento_id"), inverseJoinColumns = @JoinColumn(name = "inscripto_id"))
+    @ManyToMany(cascade = CascadeType.MERGE)
     private List<Inscripto> inscriptos;
 
     @OneToMany(cascade = CascadeType.ALL)
@@ -72,7 +70,7 @@ public class Evento {
 
     public Evento() {
         this.estadoEvento = new ArrayList<>();
-        this.estadoEvento.add(new EstadoEvento(TipoEvento.PENDIENTE, LocalDateTime.now(), "Recien agregado"));
+        this.estadoEvento.add(new EstadoEvento(TipoEstadoEvento.PENDIENTE, LocalDateTime.now(), "Recien agregado"));
     }
 
     public Evento(String nombre, String descripcion, LocalDate fechaComienzo, LocalDate fechaFin, TipoModalidad modalidad, Ubicacion ubicacion, List<Departamento> departamentos) {
@@ -87,7 +85,7 @@ public class Evento {
         this.inscriptos = new ArrayList<>();
         this.invitados.addAll(departamentos.stream().flatMap(departamento ->  departamento.getSociosSuscritos().stream()).toList());
         this.estadoEvento = new ArrayList<>();
-        this.estadoEvento.add(new EstadoEvento(TipoEvento.PENDIENTE, LocalDateTime.now(), "Recien agregado"));
+        this.estadoEvento.add(new EstadoEvento(TipoEstadoEvento.PENDIENTE, LocalDateTime.now(), "Recien agregado"));
     }
 
     public Evento(String nombre, String descripcion, LocalDate fechaComienzo, LocalDate fechaFin, TipoModalidad modalidad) {

@@ -26,11 +26,9 @@ public class Inscripto {
     @Setter
     private String apellido;
 
-
     @Column(name = "trabajo")
     @Setter
     private String trabajo;
-
 
     @ManyToOne
     @JoinColumn(name = "id_socio_invitante")
