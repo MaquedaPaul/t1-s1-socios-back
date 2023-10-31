@@ -15,38 +15,47 @@ import java.util.List;
 
 @Entity
 @Table(name = "eventos")
-@Getter @Setter
+@Getter
 public class Evento {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
+    @Setter
     @Column(name = "nombre")
     private String nombre;
 
+    @Setter
     @Column(name = "descripcion")
     private String descripcion;
 
+    @Setter
     @Column(name = "fechaComienzo")
     private LocalDate fechaComienzo;
 
+    @Setter
     @Column(name = "fechaFin")
     private LocalDate fechaFin;
 
+    @Setter
     @Enumerated(EnumType.STRING)
     @Column(name = "modalidad")
     private TipoModalidad modalidad;
 
+    @Setter
     @OneToOne
     @JoinColumn(name = "ubicacion_id")
     private Ubicacion ubicacion;
 
+    @Setter
     @ManyToMany(cascade = CascadeType.MERGE)
     private List<Socio> invitados;
 
+    @Setter
     @ManyToMany(cascade = CascadeType.MERGE)
     private List<Inscripto> inscriptos;
 
+    @Setter
     @OneToMany(cascade = CascadeType.ALL)
     @JoinColumn(name = "estado")
     private List<EstadoEvento> estadosEvento;
@@ -91,6 +100,11 @@ public class Evento {
         this.departamentos = new ArrayList<>();
         this.estadosEvento.add(new EstadoEvento(TipoEstadoEvento.PENDIENTE, LocalDateTime.now(), "Recien agregado"));
 
+    }
+
+    public void setDepartamentos(List<Departamento> departamentos){
+        this.departamentos = departamentos;
+        this.invitados.addAll(departamentos.stream().flatMap(departamento ->  departamento.getSociosSuscritos().stream()).toList());
     }
 
     public void finalizar() {
