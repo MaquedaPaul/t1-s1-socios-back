@@ -37,7 +37,7 @@ public class Inscripto {
     @Setter
     private Socio socioInvitante;
 
-    @OneToMany
+    @OneToMany(cascade = CascadeType.ALL)
     @JoinColumn(name = "id_estado_inscripto")
     @Setter
     private List<EstadoInscripto> estados;
@@ -59,6 +59,13 @@ public class Inscripto {
         this.socioInvitante = socio;
         this.estados = new ArrayList<>();
         this.estados.add(new EstadoInscripto(TipoEstadoInscripto.PENDIENTE, LocalDateTime.now(), "Recien inscripto"));
+    }
+    public Inscripto(String nombre, String apellido, String trabajo, String mail){
+        this.nombre = nombre;
+        this.apellido = apellido;
+        this.trabajo = trabajo;
+        this.mail = mail;
+        this.estados = new ArrayList<>();
     }
 
     public void agregarEstado(EstadoInscripto estado){

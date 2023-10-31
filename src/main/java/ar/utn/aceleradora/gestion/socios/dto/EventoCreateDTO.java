@@ -1,5 +1,6 @@
 package ar.utn.aceleradora.gestion.socios.dto;
 
+import ar.utn.aceleradora.gestion.socios.modelos.eventos.TipoModalidad;
 import lombok.Getter;
 
 import java.util.List;
@@ -10,7 +11,7 @@ public class EventoCreateDTO {
     private String descripcion;
     private String fechaComienzo;
     private String fechaFin;
-    private Integer modalidad;
+    private TipoModalidad modalidad;
     private String direccion;
     private String piso;
     private String departamento;

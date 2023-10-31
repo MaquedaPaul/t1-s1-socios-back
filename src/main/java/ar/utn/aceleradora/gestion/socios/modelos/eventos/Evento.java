@@ -49,11 +49,11 @@ public class Evento {
     @JoinTable(name = "evento_inscripto", joinColumns = @JoinColumn(name = "evento_id"), inverseJoinColumns = @JoinColumn(name = "inscripto_id"))
     private List<Inscripto> inscriptos;
 
-    @OneToMany
+    @OneToMany(cascade = CascadeType.ALL)
     @JoinColumn(name = "estado")
     private List<EstadoEvento> estadoEvento;
 
-    @ManyToMany(cascade = CascadeType.MERGE)
+    @ManyToMany
     private List<Departamento> departamentos;
 
     public Evento(Integer id, String nombre, String descripcion, LocalDate fechaComienzo, LocalDate fechaFin, TipoModalidad modalidad, Ubicacion ubicacion, List<Socio> invitados, List<Inscripto> inscriptos, EstadoEvento estadoEvento, List<Departamento> departamentos) {
@@ -75,12 +75,32 @@ public class Evento {
         this.estadoEvento.add(new EstadoEvento(TipoEvento.PENDIENTE, LocalDateTime.now(), "Recien agregado"));
     }
 
-    public Evento(String nombre, String descripcion, LocalDate fechaComienzo, LocalDate fechaFin, Integer modalidad, Ubicacion ubicacion, List<Departamento> departamentos) {
+    public Evento(String nombre, String descripcion, LocalDate fechaComienzo, LocalDate fechaFin, TipoModalidad modalidad, Ubicacion ubicacion, List<Departamento> departamentos) {
+        this.nombre = nombre;
+        this.descripcion = descripcion;
+        this.fechaComienzo = fechaComienzo;
+        this.fechaFin = fechaFin;
+        this.modalidad = modalidad;
+        this.ubicacion = ubicacion;
+        this.departamentos = departamentos;
+        this.invitados = new ArrayList<>();
+        this.inscriptos = new ArrayList<>();
+        this.invitados.addAll(departamentos.stream().flatMap(departamento ->  departamento.getSociosSuscritos().stream()).toList());
         this.estadoEvento = new ArrayList<>();
         this.estadoEvento.add(new EstadoEvento(TipoEvento.PENDIENTE, LocalDateTime.now(), "Recien agregado"));
     }
 
-
+    public Evento(String nombre, String descripcion, LocalDate fechaComienzo, LocalDate fechaFin, TipoModalidad modalidad) {
+        this.nombre = nombre;
+        this.descripcion = descripcion;
+        this.fechaComienzo = fechaComienzo;
+        this.fechaFin = fechaFin;
+        this.modalidad = modalidad;
+        this.invitados = new ArrayList<>();
+        this.inscriptos = new ArrayList<>();
+        this.estadoEvento = new ArrayList<>();
+        this.departamentos = new ArrayList<>();
+    }
     public void finalizar() {
     }
 
@@ -95,6 +115,23 @@ public class Evento {
 
     public EstadoEvento estadoActual(){
         return this.estadoEvento.get(this.estadoEvento.size()-1);
+    }
+
+    public void addDepartamento(Departamento departamento){
+        getDepartamentos().add(departamento);
+        getInvitados().addAll(departamento.getSociosSuscritos());
+    }
+    public void addDepartamentos(List<Departamento> departamentos){
+        getDepartamentos().addAll(departamentos);
+        getInvitados().addAll(departamentos.stream().flatMap(departamento ->  departamento.getSociosSuscritos().stream()).toList());
+    }
+    //Esta función solamente esta para el SEED
+    public void agregarEstado(EstadoEvento estadoEvento){
+        getEstadoEvento().add(estadoEvento);
+    }
+    //Esta función solamente esta para el SEED
+    public void agregarInscripto(Inscripto inscripto){
+        getInscriptos().add(inscripto);
     }
 }
 

@@ -43,7 +43,7 @@ public class Departamento{
     @Setter
     private List<Autoridad> autoridades;
 
-    @ManyToMany
+    @ManyToMany(fetch = FetchType.EAGER)
     @Setter
     private List<Socio> sociosSuscritos;
 
