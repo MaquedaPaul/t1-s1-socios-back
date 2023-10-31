@@ -4,7 +4,9 @@ import ar.utn.aceleradora.gestion.socios.converters.DateConverter;
 import ar.utn.aceleradora.gestion.socios.dto.EventoCreateDTO;
 import ar.utn.aceleradora.gestion.socios.dto.EventoUpdateDTO;
 import ar.utn.aceleradora.gestion.socios.modelos.departamentos.Departamento;
+import ar.utn.aceleradora.gestion.socios.modelos.eventos.EstadoEvento;
 import ar.utn.aceleradora.gestion.socios.modelos.eventos.Evento;
+import ar.utn.aceleradora.gestion.socios.modelos.eventos.TipoEstadoEvento;
 import ar.utn.aceleradora.gestion.socios.modelos.eventos.TipoModalidad;
 import ar.utn.aceleradora.gestion.socios.modelos.socios.Socio;
 import ar.utn.aceleradora.gestion.socios.modelos.ubicacion.Ubicacion;
@@ -41,6 +43,7 @@ public class EventoServiceImpl implements EventoService {
             List<Departamento> departamentos = this.departamentoRepository.findAllById(evento.getId_departamentos());
             List<Socio> socios = this.socioRepository.findAllById(evento.getId_socios_invitados());
             Evento nuevoEvento = new Evento(evento.getNombre(), evento.getDescripcion(), fechaComienzo, fechaFin, obtenerTipoModalidad(evento.getModalidad()), ubicacion, socios, departamentos);
+
             eventoRepository.save(nuevoEvento);
         } catch (Exception e) {
             throw new Exception("Error al crear el evento, por favor intentelo más tarde");
@@ -77,24 +80,50 @@ public class EventoServiceImpl implements EventoService {
             Evento existingEvento = optionalEvento.get();
 
             existingEvento.setNombre(eventoUpdate.getNombre());
+            existingEvento.setDescripcion(eventoUpdate.getDescripcion());
 
             LocalDate fechaComienzo = DateConverter.parse(eventoUpdate.getFechaComienzo());
             existingEvento.setFechaComienzo(fechaComienzo);
             LocalDate fechaFin = DateConverter.parse(eventoUpdate.getFechaFin());
             existingEvento.setFechaFin(fechaFin);
 
-            existingEvento.setModalidad(eventoUpdate.getModalidad());
-            existingEvento.setUbicacion(eventoUpdate.getUbicacion());
-            existingEvento.setInvitados(eventoUpdate.getInvitados());
-            existingEvento.setInscriptos(eventoUpdate.getInscriptos());
-            //existingEvento.setEstado(eventoUpdate.getEstadoEvento());
-            existingEvento.setDepartamentos(eventoUpdate.getDepartamentos());
+            existingEvento.setModalidad(obtenerTipoModalidad(eventoUpdate.getModalidad()));
+
+            Ubicacion ubicacion = new Ubicacion(eventoUpdate.getDireccion(), eventoUpdate.getPiso(), eventoUpdate.getDepartamento(), eventoUpdate.getLocalidad(), eventoUpdate.getProvincia());
+
+            List<Socio> invitados = this.socioRepository.findAllById(eventoUpdate.getId_invitados());
+            existingEvento.setInvitados(invitados);
+
+            List<Departamento> departamentos = this.departamentoRepository.findAllById(eventoUpdate.getId_departamentos());
+            existingEvento.setDepartamentos(departamentos);
+
+            EstadoEvento estado = new EstadoEvento(obtenerTipoEstadoEvento(eventoUpdate.getTipoEstadoEvento()), LocalDate.now(), eventoUpdate.getMotivo());
+            existingEvento.agregarEstado(estado);
 
             eventoRepository.save(existingEvento);
             return true;
         } catch (Exception e) {
             throw new Exception("Error al editar el evento, por favor intentelo más tarde");
         }
+    }
+
+    private TipoEstadoEvento obtenerTipoEstadoEvento(Integer id) {
+        return switch (id) {
+            case 0 -> TipoEstadoEvento.PENDIENTE;
+            case 1 -> TipoEstadoEvento.CONFIRMADO;
+            case 2 -> TipoEstadoEvento.FINALIZADO;
+            case 3 -> TipoEstadoEvento.CANCELADO;
+            default -> throw new IllegalArgumentException("Tipo de estado de evento no válido");
+        };
+    }
+
+    public TipoModalidad obtenerTipoModalidad(Integer modalidadInteger) {
+        return switch (modalidadInteger) {
+            case 0 -> TipoModalidad.HIBRIDO;
+            case 1 -> TipoModalidad.VIRTUAL;
+            case 2 -> TipoModalidad.PRESENCIAL;
+            default -> throw new IllegalArgumentException("Valor de modalidad no válido: " + modalidadInteger);
+        };
     }
 
     @Override
@@ -145,4 +174,5 @@ public class EventoServiceImpl implements EventoService {
             throw new Exception("Error al listar los eventos, por favor intentelo más tarde");
         }
     }
+
 }

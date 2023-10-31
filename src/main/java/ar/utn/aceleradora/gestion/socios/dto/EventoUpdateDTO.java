@@ -11,14 +11,19 @@ import lombok.Getter;
 import java.util.List;
 
 @Getter
-public class EventoUpdateDTO {//Tal vez algunos atributos sobran
+public class EventoUpdateDTO {
     private String nombre;
+    private String descripcion;
     private String fechaComienzo;
     private String fechaFin;
-    private TipoModalidad modalidad;
-    private Ubicacion ubicacion;
-    private List<Socio> invitados;
-    private List<Inscripto> inscriptos;
-    private EstadoEvento estadoEvento;
-    private List<Departamento> departamentos;
+    private Integer modalidad;
+    private String direccion;
+    private String piso;
+    private String departamento;
+    private String localidad;
+    private String provincia;
+    private List<Integer> id_invitados;
+    private List<Integer> id_departamentos;
+    private Integer tipoEstadoEvento;
+    private String motivo;
 }
