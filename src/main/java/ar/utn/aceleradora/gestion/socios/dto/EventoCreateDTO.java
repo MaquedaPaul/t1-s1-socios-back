@@ -17,6 +17,6 @@ public class EventoCreateDTO {
     private String departamento;
     private String localidad;
     private String provincia;
-    private List<Integer> id_socios_invitados;
+    private List<Integer> id_socios_invitados;//Tal vez haya que eliminar
     private List<Integer> id_departamentos;
 }
