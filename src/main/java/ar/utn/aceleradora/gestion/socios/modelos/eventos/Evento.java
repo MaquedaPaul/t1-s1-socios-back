@@ -88,6 +88,7 @@ public class Evento {
         this.estadosEvento.add(new EstadoEvento(TipoEstadoEvento.PENDIENTE, LocalDateTime.now(), "Recien agregado"));
     }
 
+    //Esta constructor solamente esta para el SEED
     public Evento(String nombre, String descripcion, LocalDate fechaComienzo, LocalDate fechaFin, TipoModalidad modalidad) {
         this.nombre = nombre;
         this.descripcion = descripcion;
@@ -98,8 +99,6 @@ public class Evento {
         this.inscriptos = new ArrayList<>();
         this.estadosEvento = new ArrayList<>();
         this.departamentos = new ArrayList<>();
-        this.estadosEvento.add(new EstadoEvento(TipoEstadoEvento.PENDIENTE, LocalDateTime.now(), "Recien agregado"));
-
     }
 
     public void setDepartamentos(List<Departamento> departamentos){
