@@ -42,10 +42,7 @@ public class EventoServiceImpl implements EventoService {
             LocalDate fechaFin = DateConverter.parse(evento.getFechaFin());
             Ubicacion ubicacion = new Ubicacion(evento.getDireccion(), evento.getPiso(), evento.getDepartamento(), evento.getLocalidad(), evento.getProvincia());
             List<Departamento> departamentos = this.departamentoRepository.findAllById(evento.getId_departamentos());
-            List<Socio> socios = departamentos.stream()
-                    .flatMap(departamento -> departamento.getSociosSuscritos().stream())
-                    .collect(Collectors.toList());
-            Evento nuevoEvento = new Evento(evento.getNombre(), evento.getDescripcion(), fechaComienzo, fechaFin, obtenerTipoModalidad(evento.getModalidad()), ubicacion, socios, departamentos);
+            Evento nuevoEvento = new Evento(evento.getNombre(), evento.getDescripcion(), fechaComienzo, fechaFin, obtenerTipoModalidad(evento.getModalidad()), ubicacion, departamentos);
 
             eventoRepository.save(nuevoEvento);
         } catch (Exception e) {
