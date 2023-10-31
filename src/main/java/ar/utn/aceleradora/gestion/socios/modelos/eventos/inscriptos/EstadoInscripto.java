@@ -17,6 +17,7 @@ public class EstadoInscripto {
 
     @Column(name = "estado")
     @Enumerated(EnumType.STRING)
+    @Getter
     private TipoEstadoInscripto estado;
 
     @Column(name = "fecha_y_hora", columnDefinition = "TIMESTAMP")

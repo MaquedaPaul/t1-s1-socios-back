@@ -28,8 +28,7 @@ public class EstadoEvento {
     public EstadoEvento() {
     }
 
-    public EstadoEvento(Integer id, TipoEvento tipoEvento, LocalDate fecha, String motivo) {
-        this.id = id;
+    public EstadoEvento(TipoEvento tipoEvento, LocalDate fecha, String motivo) {
         this.tipoEvento = tipoEvento;
         this.fecha = fecha;
         this.motivo = motivo;
