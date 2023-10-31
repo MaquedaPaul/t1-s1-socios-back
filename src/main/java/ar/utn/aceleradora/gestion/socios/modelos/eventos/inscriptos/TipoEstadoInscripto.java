@@ -4,6 +4,7 @@ public enum TipoEstadoInscripto {
     PENDIENTE,
     CONFIRMADO,
     CANCELADO,
+    RECHAZADO,
     ASISTIO;
 
 }
