@@ -14,6 +14,5 @@ public class ListaEventoDTO {
     private LocalDate fechaComienzo;
     private TipoEstadoEvento tipoEstadoEvento;
     private TipoModalidad modalidad;
-    private EstadoEvento estadoEvento;
     private String direccion;
 }

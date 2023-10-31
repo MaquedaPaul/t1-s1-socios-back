@@ -44,7 +44,7 @@ public class EventoController {
         }
     }
 
-    @GetMapping("/eventos")
+    @GetMapping("/")
     public ResponseEntity<List<ListaEventoDTO>> listarEventos() {
         try {
             List<ListaEventoDTO> eventos = eventoService.listarEventos();
@@ -54,7 +54,7 @@ public class EventoController {
         }
     }
 
-    @GetMapping("/evento/{id}")
+    @GetMapping("/{id}")
     public ResponseEntity<Object> listarEvento(@PathVariable Integer id) {
         try {
             Evento evento = eventoService.listarEvento(id);

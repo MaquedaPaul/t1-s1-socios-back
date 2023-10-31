@@ -22,14 +22,15 @@ public class AceleradoraUtnBaGestionDeSociosApplication {
 	public CommandLineRunner dataInicial(
 			SocioRepository socioRepository, MembresiaRepository membresiaRepository, MembresiaParticularRepository membresiaParticularRepository,
 			CategoriaRepository categoriaRepository, DepartamentoRepository departamentoRepository, AutoridadRepository autoridadRepository,
-			CoorDepartamentoRepository coorDepartamentoRepository, EventoRepository eventoRepository, InscriptoRepository inscriptoRepository) throws NoSuchFieldException, IllegalAccessException {
+			CoorDepartamentoRepository coorDepartamentoRepository, EventoRepository eventoRepository, InscriptoRepository inscriptoRepository,
+			UbicacionRepository ubicacionRepository) throws NoSuchFieldException, IllegalAccessException {
 		Boolean quieroDataInicial = true;
 		if(quieroDataInicial){
 			SocioInitializer socioInitializer = new SocioInitializer(socioRepository,categoriaRepository,membresiaRepository,membresiaParticularRepository);
 			socioInitializer.run();
 			DepartamentoInitializer departamentoInitializer = new DepartamentoInitializer(socioRepository, autoridadRepository, coorDepartamentoRepository);
 			departamentoInitializer.run();
-			EventoInitializer eventoInitializer = new EventoInitializer(eventoRepository, inscriptoRepository, departamentoRepository);
+			EventoInitializer eventoInitializer = new EventoInitializer(eventoRepository, inscriptoRepository, departamentoRepository, ubicacionRepository);
 			eventoInitializer.run();
 		}
 		return null;

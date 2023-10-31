@@ -4,6 +4,7 @@ import ar.utn.aceleradora.gestion.socios.converters.DateConverter;
 import ar.utn.aceleradora.gestion.socios.dto.EventoCreateDTO;
 import ar.utn.aceleradora.gestion.socios.dto.EventoUpdateDTO;
 import ar.utn.aceleradora.gestion.socios.dto.eventos.ListaEventoDTO;
+import ar.utn.aceleradora.gestion.socios.error.EventoNotFoundException;
 import ar.utn.aceleradora.gestion.socios.modelos.departamentos.Departamento;
 import ar.utn.aceleradora.gestion.socios.modelos.eventos.EstadoEvento;
 import ar.utn.aceleradora.gestion.socios.modelos.eventos.Evento;
@@ -131,7 +132,6 @@ public class EventoServiceImpl implements EventoService {
                 eventoDTO.setTipoEstadoEvento(evento.estadoActual().getTipoEstadoEvento());
                 eventoDTO.setDireccion(evento.getUbicacion().getDireccion());
                 eventoDTO.setModalidad(evento.getModalidad());
-                eventoDTO.setEstadoEvento(evento.getEstadoEvento().get(evento.getEstadoEvento().size() - 1));
 
                 eventoDTOs.add(eventoDTO);
             }
@@ -143,12 +143,8 @@ public class EventoServiceImpl implements EventoService {
 
     @Override
     public Evento listarEvento(Integer id) throws Exception{
-        Evento evento = eventoRepository.findById(id).orElse(null);
-        try{
-            return evento;
-        } catch (Exception e) {
-            throw new Exception("Error al listar el evento, por favor intentelo más tarde");
-        }
+        Evento evento = eventoRepository.findById(id).orElseThrow(() -> new EventoNotFoundException("No se pudo encontrar el evento con id: "+id));
+        return evento;
     }
 
 
