@@ -1,7 +1,7 @@
 package ar.utn.aceleradora.gestion.socios.seeds.eventos;
 
 import ar.utn.aceleradora.gestion.socios.modelos.eventos.EstadoEvento;
-import ar.utn.aceleradora.gestion.socios.modelos.eventos.TipoEvento;
+import ar.utn.aceleradora.gestion.socios.modelos.eventos.TipoEstadoEvento;
 
 import lombok.Getter;
 
@@ -11,10 +11,10 @@ import java.util.Arrays;
 import java.util.List;
 
 public class EventoDataEstadosEventos {
-    TipoEvento tipoEvento1 = TipoEvento.PENDIENTE;
-    TipoEvento tipoEvento2 = TipoEvento.CONFIRMADO;
-    TipoEvento tipoEvento3 = TipoEvento.FINALIZADO;
-    TipoEvento tipoEvento4 = TipoEvento.CANCELADO;
+    TipoEstadoEvento tipoEvento1 = TipoEstadoEvento.PENDIENTE;
+    TipoEstadoEvento tipoEvento2 = TipoEstadoEvento.CONFIRMADO;
+    TipoEstadoEvento tipoEvento3 = TipoEstadoEvento.FINALIZADO;
+    TipoEstadoEvento tipoEvento4 = TipoEstadoEvento.CANCELADO;
     String motivo1 = "Nueva creación de evento";
     String motivo2 = "Revisión de evento";
     String motivo3 = "Se realizará el evento";
