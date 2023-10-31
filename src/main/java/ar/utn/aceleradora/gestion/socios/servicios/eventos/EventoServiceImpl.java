@@ -5,10 +5,12 @@ import ar.utn.aceleradora.gestion.socios.dto.EventoCreateDTO;
 import ar.utn.aceleradora.gestion.socios.dto.EventoUpdateDTO;
 import ar.utn.aceleradora.gestion.socios.modelos.departamentos.Departamento;
 import ar.utn.aceleradora.gestion.socios.modelos.eventos.Evento;
+import ar.utn.aceleradora.gestion.socios.modelos.eventos.TipoModalidad;
 import ar.utn.aceleradora.gestion.socios.modelos.socios.Socio;
 import ar.utn.aceleradora.gestion.socios.modelos.ubicacion.Ubicacion;
 import ar.utn.aceleradora.gestion.socios.repositorios.DepartamentoRepository;
 import ar.utn.aceleradora.gestion.socios.repositorios.EventoRepository;
+import ar.utn.aceleradora.gestion.socios.repositorios.SocioRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -21,25 +23,38 @@ public class EventoServiceImpl implements EventoService {
 
     private EventoRepository eventoRepository;
     private DepartamentoRepository departamentoRepository;
+    private SocioRepository socioRepository;
 
     @Autowired
-    public EventoServiceImpl(EventoRepository eventoRepository, DepartamentoRepository departamentoRepository) {
+    public EventoServiceImpl(EventoRepository eventoRepository, DepartamentoRepository departamentoRepository, SocioRepository socioRepository) {
         this.eventoRepository = eventoRepository;
         this.departamentoRepository = departamentoRepository;
+        this.socioRepository = socioRepository;
     }
 
     @Override
     public void crearEvento(EventoCreateDTO evento) throws Exception {
-        try{//Faltan verificaciones
+        try{
             LocalDate fechaComienzo = DateConverter.parse(evento.getFechaComienzo());
             LocalDate fechaFin = DateConverter.parse(evento.getFechaFin());
             Ubicacion ubicacion = new Ubicacion(evento.getDireccion(), evento.getPiso(), evento.getDepartamento(), evento.getLocalidad(), evento.getProvincia());
             List<Departamento> departamentos = this.departamentoRepository.findAllById(evento.getId_departamentos());
-            Evento nuevoEvento = new Evento(evento.getNombre(), evento.getDescripcion(), fechaComienzo, fechaFin, evento.getModalidad(), ubicacion, departamentos);
+            List<Socio> socios = this.socioRepository.findAllById(evento.getId_socios_invitados());
+            Evento nuevoEvento = new Evento(evento.getNombre(), evento.getDescripcion(), fechaComienzo, fechaFin, obtenerTipoModalidad(evento.getModalidad()), ubicacion, socios, departamentos);
             eventoRepository.save(nuevoEvento);
         } catch (Exception e) {
             throw new Exception("Error al crear el evento, por favor intentelo más tarde");
         }
+    }
+
+    @Override
+    public TipoModalidad obtenerTipoModalidad(Integer modalidadInteger) {
+        return switch (modalidadInteger) {
+            case 0 -> TipoModalidad.HIBRIDO;
+            case 1 -> TipoModalidad.VIRTUAL;
+            case 2 -> TipoModalidad.PRESENCIAL;
+            default -> throw new IllegalArgumentException("Valor de modalidad no válido: " + modalidadInteger);
+        };
     }
 
     @Override
