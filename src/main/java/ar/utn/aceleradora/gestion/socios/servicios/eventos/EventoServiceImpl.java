@@ -36,16 +36,28 @@ public class EventoServiceImpl implements EventoService {
 
     @Override
     public void crearEvento(EventoCreateDTO evento) throws Exception {
-        try{//Faltan verificaciones
+        try{
             LocalDate fechaComienzo = DateConverter.parse(evento.getFechaComienzo());
             LocalDate fechaFin = DateConverter.parse(evento.getFechaFin());
             Ubicacion ubicacion = new Ubicacion(evento.getDireccion(), evento.getPiso(), evento.getDepartamento(), evento.getLocalidad(), evento.getProvincia());
             List<Departamento> departamentos = this.departamentoRepository.findAllById(evento.getId_departamentos());
-            Evento nuevoEvento = new Evento(evento.getNombre(), evento.getDescripcion(), fechaComienzo, fechaFin, TipoModalidad.HIBRIDO, ubicacion, departamentos);
+            List<Socio> socios = this.socioRepository.findAllById(evento.getId_socios_invitados());
+            Evento nuevoEvento = new Evento(evento.getNombre(), evento.getDescripcion(), fechaComienzo, fechaFin, obtenerTipoModalidad(evento.getModalidad()), ubicacion, socios, departamentos);
+
             eventoRepository.save(nuevoEvento);
         } catch (Exception e) {
             throw new Exception("Error al crear el evento, por favor intentelo más tarde");
         }
+    }
+
+    @Override
+    public TipoModalidad obtenerTipoModalidad(Integer modalidadInteger) {
+        return switch (modalidadInteger) {
+            case 0 -> TipoModalidad.HIBRIDO;
+            case 1 -> TipoModalidad.VIRTUAL;
+            case 2 -> TipoModalidad.PRESENCIAL;
+            default -> throw new IllegalArgumentException("Valor de modalidad no válido: " + modalidadInteger);
+        };
     }
 
     @Override
