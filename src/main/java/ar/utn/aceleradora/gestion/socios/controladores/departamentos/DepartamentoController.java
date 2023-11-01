@@ -35,7 +35,17 @@ public class DepartamentoController {
         Departamento departamento = departamentoService.obtenerDepartamento(id);
         Coordinacion coordinacion = departamento.getCoordinacionDepartamental();
             DepartamentoCoordinacionDTO departamentoCoordinacionDTO = new DepartamentoCoordinacionDTO();
-            departamentoCoordinacionDTO.setDepartamento(departamento);
+
+            departamentoCoordinacionDTO.setId(departamento.getId());
+            departamentoCoordinacionDTO.setIcono(departamento.getIcono());
+            departamentoCoordinacionDTO.setDescripcion(departamento.getDescripcion());
+            departamentoCoordinacionDTO.setNombre(departamento.getNombre());
+            departamentoCoordinacionDTO.setAutoridades(departamento.getAutoridades());
+            departamentoCoordinacionDTO.setJerarquia(departamento.getJerarquia());
+            departamentoCoordinacionDTO.setFechaBaja(departamento.getFechaBaja());
+            departamentoCoordinacionDTO.setSociosSuscritos(departamento.getSociosSuscritos());
+
+
             departamentoCoordinacionDTO.setCoordinacion(coordinacion);
             return new ResponseEntity<>(departamentoCoordinacionDTO, HttpStatus.OK);
     }
