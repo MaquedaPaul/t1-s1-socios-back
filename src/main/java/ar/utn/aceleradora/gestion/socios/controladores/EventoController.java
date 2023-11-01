@@ -59,12 +59,7 @@ public class EventoController {
     @GetMapping("/{id}")
     public ResponseEntity<EventoLimitadoDTO> listarEvento(@PathVariable Integer id) {
         try {
-            Evento evento = eventoService.listarEvento(id);
-            EventoLimitadoDTO eventoLimitadoDTO = new EventoLimitadoDTO();
-            eventoLimitadoDTO.setEvento(evento);
-            eventoLimitadoDTO.setInvitados(evento.getInvitados());
-            eventoLimitadoDTO.setDepartamentos(evento.getDepartamentos());
-            eventoLimitadoDTO.setInscriptos(evento.getInscriptos());
+            EventoLimitadoDTO eventoLimitadoDTO = eventoService.listarEvento(id);
             return ResponseEntity.ok(eventoLimitadoDTO);
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();

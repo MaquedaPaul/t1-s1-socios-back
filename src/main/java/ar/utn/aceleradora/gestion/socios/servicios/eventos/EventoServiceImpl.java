@@ -3,7 +3,7 @@ package ar.utn.aceleradora.gestion.socios.servicios.eventos;
 import ar.utn.aceleradora.gestion.socios.converters.DateConverter;
 import ar.utn.aceleradora.gestion.socios.dto.EventoCreateDTO;
 import ar.utn.aceleradora.gestion.socios.dto.EventoUpdateDTO;
-import ar.utn.aceleradora.gestion.socios.dto.eventos.ListaEventoDTO;
+import ar.utn.aceleradora.gestion.socios.dto.eventos.*;
 import ar.utn.aceleradora.gestion.socios.error.EventoNotFoundException;
 import ar.utn.aceleradora.gestion.socios.modelos.departamentos.Departamento;
 import ar.utn.aceleradora.gestion.socios.modelos.eventos.EstadoEvento;
@@ -140,7 +140,6 @@ public class EventoServiceImpl implements EventoService {
                 eventoDTO.setTipoEstadoEvento(evento.estadoActual().getTipoEstadoEvento());
                 eventoDTO.setDireccion(evento.getUbicacion().getDireccion());
                 eventoDTO.setModalidad(evento.getModalidad());
-
                 eventoDTOs.add(eventoDTO);
             }
             return eventoDTOs;
@@ -150,9 +149,58 @@ public class EventoServiceImpl implements EventoService {
     }
 
     @Override
-    public Evento listarEvento(Integer id) throws Exception{
+    public EventoLimitadoDTO listarEvento(Integer id) throws Exception{
+
         Evento evento = eventoRepository.findById(id).orElseThrow(() -> new EventoNotFoundException("No se pudo encontrar el evento con id: "+id));
-        return evento;
+        EventoLimitadoDTO eventoLimitadoDTO = new EventoLimitadoDTO();
+
+        List<ProyeccionDepartamentoDTO> proyeccionesDepartamentoDTO = new ArrayList<>();
+        List<ProyeccionSocioDTO> proyeccionesSocioDTO = new ArrayList<>();
+        List<Socio> invitados = evento.getInvitados();
+        List<Departamento> departamentos = evento.getDepartamentos();
+
+        mapearDatosPrimitivos(eventoLimitadoDTO, evento);
+        mapearProyeccionDepartamentos(departamentos, proyeccionesDepartamentoDTO);
+        mapearProyeccionInvitados(invitados, proyeccionesSocioDTO);
+
+        eventoLimitadoDTO.setDepartamentos(proyeccionesDepartamentoDTO);
+        eventoLimitadoDTO.setInvitados(proyeccionesSocioDTO);
+        eventoLimitadoDTO.setInscriptos(evento.getInscriptos());
+        return eventoLimitadoDTO;
+    }
+    private void mapearDatosPrimitivos(EventoLimitadoDTO eventoLimitadoDTO, Evento evento){
+        eventoLimitadoDTO.setId(evento.getId());
+        eventoLimitadoDTO.setEstadosEvento(evento.getEstadosEvento());
+        eventoLimitadoDTO.setDescripcion(evento.getDescripcion());
+        eventoLimitadoDTO.setUbicacion(evento.getUbicacion());
+        eventoLimitadoDTO.setNombre(evento.getNombre());
+        eventoLimitadoDTO.setFechaFin(evento.getFechaFin());
+        eventoLimitadoDTO.setFechaComienzo(evento.getFechaComienzo());
+        eventoLimitadoDTO.setModalidad(evento.getModalidad());
+    }
+    private void mapearProyeccionInvitados(List<Socio> invitados, List<ProyeccionSocioDTO> proyeccionesSocioDTO){
+        invitados.forEach(invitado ->
+        {
+            ProyeccionSocioDTO proyeccionSocioDTO = new ProyeccionSocioDTO();
+            proyeccionSocioDTO.setId(invitado.getId());
+            proyeccionSocioDTO.setMail(invitado.getMail());
+            proyeccionSocioDTO.setNombre(invitado.getNombre());
+            proyeccionesSocioDTO.add(proyeccionSocioDTO);
+        });
+
+    }
+    private void mapearProyeccionDepartamentos(List<Departamento> departamentos, List<ProyeccionDepartamentoDTO> proyeccionesDepartamentoDTO){
+
+        departamentos.forEach(departamento -> {
+            ProyeccionDepartamentoDTO proyeccionDepartamentoDTO = new ProyeccionDepartamentoDTO();
+            proyeccionDepartamentoDTO.setNombre(departamento.getNombre());
+            proyeccionDepartamentoDTO.setIcono(departamento.getIcono());
+            proyeccionDepartamentoDTO.setJerarquia(departamento.getJerarquia());
+            proyeccionDepartamentoDTO.setId(departamento.getId());
+            proyeccionDepartamentoDTO.setDescripcion(departamento.getDescripcion());
+            proyeccionesDepartamentoDTO.add(proyeccionDepartamentoDTO);
+        });
+
     }
 
 
