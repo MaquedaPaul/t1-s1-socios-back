@@ -10,6 +10,7 @@ import java.time.LocalDate;
 
 @Getter @Setter
 public class ListaEventoDTO {
+    private Integer id;
     private String nombre;
     private LocalDate fechaComienzo;
     private TipoEstadoEvento tipoEstadoEvento;
