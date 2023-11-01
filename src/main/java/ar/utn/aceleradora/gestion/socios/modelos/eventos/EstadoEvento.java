@@ -20,7 +20,7 @@ public class EstadoEvento {
     private TipoEstadoEvento tipoEstadoEvento;
 
     @Column(name = "fecha")
-    private LocalDate fecha;
+    private LocalDateTime fechaYHora;
 
     @Column(name = "motivo")
     private String motivo;
@@ -28,12 +28,10 @@ public class EstadoEvento {
     public EstadoEvento() {
     }
 
-    public EstadoEvento(TipoEstadoEvento tipoEstadoEvento, LocalDate fecha, String motivo) {
+    public EstadoEvento(TipoEstadoEvento tipoEstadoEvento, LocalDateTime fechaYHora, String motivo) {
         this.tipoEstadoEvento = tipoEstadoEvento;
-        this.fecha = fecha;
+        this.fechaYHora = fechaYHora;
         this.motivo = motivo;
     }
 
-    public EstadoEvento(TipoEstadoEvento tipoEvento, LocalDateTime now, String recienInscripto) {
-    }
 }

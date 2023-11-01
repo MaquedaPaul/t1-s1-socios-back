@@ -35,7 +35,4 @@ public class EventoLimitadoDTO {
     private List<Inscripto> inscriptos;
     @JsonIgnoreProperties(value = {"autoridades", "sociosSuscritos","fechaBaja"})
     private List<Departamento> departamentos;
-
-
-
 }

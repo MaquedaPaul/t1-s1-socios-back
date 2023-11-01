@@ -6,5 +6,4 @@ public enum TipoEstadoInscripto {
     CANCELADO,
     RECHAZADO,
     ASISTIO;
-
 }
