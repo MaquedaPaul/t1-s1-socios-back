@@ -7,6 +7,7 @@ import ar.utn.aceleradora.gestion.socios.modelos.ubicacion.Ubicacion;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
+import org.hibernate.annotations.Fetch;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -56,8 +57,8 @@ public class Evento {
     private List<Inscripto> inscriptos;
 
     @Setter
-    @OneToMany(cascade = CascadeType.ALL)
-    @JoinColumn(name = "estado")
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @JoinColumn(name = "evento")
     private List<EstadoEvento> estadosEvento;
 
     @ManyToMany

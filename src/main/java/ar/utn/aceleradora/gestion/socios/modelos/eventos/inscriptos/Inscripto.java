@@ -1,6 +1,8 @@
 package ar.utn.aceleradora.gestion.socios.modelos.eventos.inscriptos;
 
 import ar.utn.aceleradora.gestion.socios.modelos.socios.Socio;
+import ar.utn.aceleradora.gestion.socios.serializers.SocioLimitadoSerializer;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
@@ -33,6 +35,7 @@ public class Inscripto {
     @ManyToOne
     @JoinColumn(name = "id_socio_invitante")
     @Setter
+    @JsonSerialize(using = SocioLimitadoSerializer.class)
     private Socio socioInvitante;
 
     @OneToMany(cascade = CascadeType.ALL)

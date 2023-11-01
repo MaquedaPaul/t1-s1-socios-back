@@ -5,8 +5,10 @@ import ar.utn.aceleradora.gestion.socios.modelos.eventos.EstadoEvento;
 import ar.utn.aceleradora.gestion.socios.modelos.eventos.Evento;
 import ar.utn.aceleradora.gestion.socios.modelos.eventos.TipoModalidad;
 import ar.utn.aceleradora.gestion.socios.modelos.eventos.inscriptos.Inscripto;
+import ar.utn.aceleradora.gestion.socios.modelos.ubicacion.Ubicacion;
 import ar.utn.aceleradora.gestion.socios.repositorios.DepartamentoRepository;
 import ar.utn.aceleradora.gestion.socios.repositorios.EventoRepository;
+import ar.utn.aceleradora.gestion.socios.repositorios.UbicacionRepository;
 
 import java.time.LocalDate;
 import java.util.Arrays;
@@ -26,8 +28,18 @@ public class EventoDataEventos {
     Evento evento8 = new Evento("Evento 8", "Descripción del evento 8", LocalDate.of(2023, 5, 20), LocalDate.of(2023, 5, 22), TipoModalidad.HIBRIDO);
 
     List<Evento> eventos = Arrays.asList(evento1,evento2,evento3,evento4,evento5,evento6,evento7,evento8);
-    public void cargarEventos(EventoDataInscriptos dataInscriptos, DepartamentoRepository departamentoRepository, EventoDataEstadosEventos dataEstadoEventos, EventoRepository eventoRepository) throws NoSuchFieldException, IllegalAccessException {
+    public void cargarEventos(EventoDataInscriptos dataInscriptos, DepartamentoRepository departamentoRepository, EventoDataEstadosEventos dataEstadoEventos, EventoRepository eventoRepository, UbicacionRepository ubicacionRepository) throws NoSuchFieldException, IllegalAccessException {
         List<Departamento> departamentos = departamentoRepository.findAll();
+        List<Ubicacion> ubicaciones = ubicacionRepository.findAll();
+        evento1.setUbicacion(ubicaciones.get(1));
+        evento2.setUbicacion(ubicaciones.get(2));
+        evento3.setUbicacion(ubicaciones.get(3));
+        evento4.setUbicacion(ubicaciones.get(4));
+        evento5.setUbicacion(ubicaciones.get(5));
+        evento6.setUbicacion(ubicaciones.get(6));
+        evento7.setUbicacion(ubicaciones.get(7));
+        evento8.setUbicacion(ubicaciones.get(8));
+
         evento1.addDepartamentos(departamentos);
         //evento2 no tendrá departamentos
         evento3.addDepartamento(departamentos.get(1)); // evento 3 solo tendrá 1 departamento
@@ -53,6 +65,7 @@ public class EventoDataEventos {
             EstadoEvento estadoAleatorio = pendientes.get(indiceAleatorio);
             evento.agregarEstado(estadoAleatorio);
         }
+        evento1.agregarEstado(pendientes.get(3));
         //evento1.agregarEstado(); solo tendrá pendiente
         evento2.agregarEstado(confirmados.get(0)); //solo tendrá confirmado
         evento3.agregarEstado(cancelados.get(0)); //solo tendrá cancelado

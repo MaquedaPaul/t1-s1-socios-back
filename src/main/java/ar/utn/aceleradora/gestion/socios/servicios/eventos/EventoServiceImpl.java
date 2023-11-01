@@ -3,6 +3,8 @@ package ar.utn.aceleradora.gestion.socios.servicios.eventos;
 import ar.utn.aceleradora.gestion.socios.converters.DateConverter;
 import ar.utn.aceleradora.gestion.socios.dto.EventoCreateDTO;
 import ar.utn.aceleradora.gestion.socios.dto.EventoUpdateDTO;
+import ar.utn.aceleradora.gestion.socios.dto.eventos.ListaEventoDTO;
+import ar.utn.aceleradora.gestion.socios.error.EventoNotFoundException;
 import ar.utn.aceleradora.gestion.socios.modelos.departamentos.Departamento;
 import ar.utn.aceleradora.gestion.socios.modelos.eventos.EstadoEvento;
 import ar.utn.aceleradora.gestion.socios.modelos.eventos.Evento;
@@ -17,6 +19,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -49,6 +52,7 @@ public class EventoServiceImpl implements EventoService {
             throw new Exception("Error al crear el evento, por favor intentelo más tarde");
         }
     }
+
 
     @Override
     public Evento obtenerEventoPorId(Integer eventoId) throws Exception {
@@ -119,13 +123,33 @@ public class EventoServiceImpl implements EventoService {
     }
 
     @Override
-    public List<Evento> listarEventos() throws Exception {
-        try{//HARDCODEADO
-            return eventoRepository.findAll();
+    public List<ListaEventoDTO> listarEventos() throws Exception {
+        List<Evento> eventos = eventoRepository.findAll();
+        List<ListaEventoDTO> eventoDTOs = new ArrayList<>();
+        try {
+            for (Evento evento : eventos) {
+                ListaEventoDTO eventoDTO = new ListaEventoDTO();
+                eventoDTO.setId(evento.getId());
+                eventoDTO.setNombre(evento.getNombre());
+                eventoDTO.setFechaComienzo(evento.getFechaComienzo());
+                eventoDTO.setTipoEstadoEvento(evento.estadoActual().getTipoEstadoEvento());
+                eventoDTO.setDireccion(evento.getUbicacion().getDireccion());
+                eventoDTO.setModalidad(evento.getModalidad());
+
+                eventoDTOs.add(eventoDTO);
+            }
+            return eventoDTOs;
         } catch (Exception e) {
             throw new Exception("Error al listar los eventos, por favor intentelo más tarde");
         }
     }
+
+    @Override
+    public Evento listarEvento(Integer id) throws Exception{
+        Evento evento = eventoRepository.findById(id).orElseThrow(() -> new EventoNotFoundException("No se pudo encontrar el evento con id: "+id));
+        return evento;
+    }
+
 
     @Override
     public void invitar(Evento evento, Socio socio) throws Exception {

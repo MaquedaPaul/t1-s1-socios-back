@@ -2,13 +2,14 @@ package ar.utn.aceleradora.gestion.socios.controladores;
 import ar.utn.aceleradora.gestion.socios.dto.EventoCreateDTO;
 import ar.utn.aceleradora.gestion.socios.dto.EventoUpdateDTO;
 import ar.utn.aceleradora.gestion.socios.dto.ResponseDTO;
-import ar.utn.aceleradora.gestion.socios.servicios.eventos.EventoService;
+import ar.utn.aceleradora.gestion.socios.dto.eventos.EventoLimitadoDTO;
+import ar.utn.aceleradora.gestion.socios.dto.eventos.ListaEventoDTO;
+import ar.utn.aceleradora.gestion.socios.modelos.eventos.Evento;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import ar.utn.aceleradora.gestion.socios.servicios.eventos.EventoServiceImpl;
-import ar.utn.aceleradora.gestion.socios.modelos.eventos.Evento;
 
 import java.util.List;
 
@@ -17,7 +18,7 @@ import java.util.List;
 @RequestMapping("/eventos")
 public class EventoController {
 
-    private final EventoService  eventoService;
+    private final EventoServiceImpl  eventoService;
 
     @Autowired
     public EventoController(EventoServiceImpl eventoService) {
@@ -44,14 +45,28 @@ public class EventoController {
         }
     }
 
-    @GetMapping({"", "/"})
-    public List<Evento> listarEventos() {//Creo que falta parametro en listar
+    @GetMapping("/")
+    public ResponseEntity<List<ListaEventoDTO>> listarEventos() {
         try {
-        eventoService.listarEventos();
-            return (List<Evento>) ResponseEntity.ok();
+            List<ListaEventoDTO> eventos = eventoService.listarEventos();
+            return ResponseEntity.ok(eventos);
         } catch (Exception e) {
-            return (List<Evento>) ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
         }
     }
 
+    @GetMapping("/{id}")
+    public ResponseEntity<EventoLimitadoDTO> listarEvento(@PathVariable Integer id) {
+        try {
+            Evento evento = eventoService.listarEvento(id);
+            EventoLimitadoDTO eventoLimitadoDTO = new EventoLimitadoDTO();
+            eventoLimitadoDTO.setEvento(evento);
+            eventoLimitadoDTO.setInvitados(evento.getInvitados());
+            eventoLimitadoDTO.setDepartamentos(evento.getDepartamentos());
+            eventoLimitadoDTO.setInscriptos(evento.getInscriptos());
+            return ResponseEntity.ok(eventoLimitadoDTO);
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+        }
+    }
 }
