@@ -123,14 +123,15 @@ public class Evento {
         return this.estadosEvento.get(this.estadosEvento.size()-1);
     }
 
+    public void addInscripto(Inscripto inscripto){
+        this.inscriptos.add(inscripto);
+    }
+
     public void addDepartamento(Departamento departamento){
         getDepartamentos().add(departamento);
         getInvitados().addAll(departamento.getSociosSuscritos());
     }
-    public void addDepartamentos(List<Departamento> departamentos){
-        getDepartamentos().addAll(departamentos);
-        getInvitados().addAll(departamentos.stream().flatMap(departamento ->  departamento.getSociosSuscritos().stream()).toList());
-    }
+
     //Esta función solamente esta para el SEED
     public void agregarEstado(EstadoEvento estadoEvento){
         getEstadosEvento().add(estadoEvento);

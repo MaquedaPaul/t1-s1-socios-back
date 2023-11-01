@@ -44,13 +44,13 @@ public class EventoDataEventos {
         evento7.setUbicacion(ubicaciones.get(7));
         evento8.setUbicacion(ubicaciones.get(8));
 
-        evento1.addDepartamentos(departamentos);
+        evento1.setDepartamentos(departamentos);
         //evento2 no tendrá departamentos
         evento3.addDepartamento(departamentos.get(1)); // evento 3 solo tendrá 1 departamento
-        evento4.addDepartamentos(departamentos);
+        evento4.setDepartamentos(departamentos);
         //evento5 no tendrá departamentos
         evento6.addDepartamento(departamentos.get(5)); // evento 6 solo tendrá 1 departamento
-        evento7.addDepartamentos(departamentos);
+        evento7.setDepartamentos(departamentos);
         //evento8 no tendrá departamentos
 
         //Todos tendrán pendientes
