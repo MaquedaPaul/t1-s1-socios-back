@@ -4,9 +4,11 @@ import ar.utn.aceleradora.gestion.socios.modelos.eventos.EstadoEvento;
 import ar.utn.aceleradora.gestion.socios.modelos.eventos.TipoEstadoEvento;
 
 import lombok.Getter;
+import lombok.Setter;
 
 import java.time.LocalDate;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -54,8 +56,21 @@ public class EventoDataEstadosEventos {
     EstadoEvento estadoEvento23 = new EstadoEvento(tipoEvento4, LocalDate.now().minusDays(360), motivo4);
     EstadoEvento estadoEvento24 = new EstadoEvento(tipoEvento4, LocalDate.now().minusDays(390), motivo5);
 
+    EstadoEvento estadoEvento25 = new EstadoEvento(tipoEvento1, LocalDate.now().minusDays(425), motivo1);
+    EstadoEvento estadoEvento26 = new EstadoEvento(tipoEvento1, LocalDate.now().minusDays(200), motivo1);
+    EstadoEvento estadoEvento27 = new EstadoEvento(tipoEvento1, LocalDate.now().minusDays(600), motivo1);
+    EstadoEvento estadoEvento28 = new EstadoEvento(tipoEvento1, LocalDate.now().minusDays(300), motivo1);
+
+    EstadoEvento estadoEvento29 = new EstadoEvento(tipoEvento1, LocalDate.now().minusDays(425), motivo1);
+    EstadoEvento estadoEvento30 = new EstadoEvento(tipoEvento1, LocalDate.now().minusDays(200), motivo1);
+    EstadoEvento estadoEvento31 = new EstadoEvento(tipoEvento1, LocalDate.now().minusDays(600), motivo1);
+    EstadoEvento estadoEvento32 = new EstadoEvento(tipoEvento1, LocalDate.now().minusDays(300), motivo1);
+
+
+
     @Getter
-    List<EstadoEvento> pendientes = Arrays.asList(estadoEvento1,estadoEvento2,estadoEvento3,estadoEvento4);
+    @Setter
+    List<EstadoEvento> pendientes = new ArrayList<>(Arrays.asList(estadoEvento1,estadoEvento2,estadoEvento3,estadoEvento4,estadoEvento25,estadoEvento26,estadoEvento27,estadoEvento28,estadoEvento29,estadoEvento30,estadoEvento31,estadoEvento32));
     @Getter
     List<EstadoEvento> pendientesRevision = Arrays.asList(estadoEvento5,estadoEvento6,estadoEvento7,estadoEvento8);
     @Getter
@@ -65,5 +80,7 @@ public class EventoDataEstadosEventos {
     @Getter
     List<EstadoEvento> cancelados = Arrays.asList(estadoEvento17,estadoEvento18,estadoEvento19,estadoEvento20,estadoEvento21,estadoEvento22,estadoEvento23,estadoEvento24);
 
-
+    public EstadoEvento removerElementoPendientes(int indice){
+        return this.pendientes.remove(indice);
+    }
 }

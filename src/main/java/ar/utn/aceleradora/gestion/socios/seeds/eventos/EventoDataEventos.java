@@ -9,6 +9,8 @@ import ar.utn.aceleradora.gestion.socios.modelos.ubicacion.Ubicacion;
 import ar.utn.aceleradora.gestion.socios.repositorios.DepartamentoRepository;
 import ar.utn.aceleradora.gestion.socios.repositorios.EventoRepository;
 import ar.utn.aceleradora.gestion.socios.repositorios.UbicacionRepository;
+import lombok.Getter;
+import lombok.Setter;
 
 import java.time.LocalDate;
 import java.util.Arrays;
@@ -27,7 +29,9 @@ public class EventoDataEventos {
     Evento evento7 = new Evento("Evento 7", "Descripción del evento 7", LocalDate.of(2023, 6, 15), LocalDate.of(2023, 6, 17), TipoModalidad.PRESENCIAL);
     Evento evento8 = new Evento("Evento 8", "Descripción del evento 8", LocalDate.of(2023, 5, 20), LocalDate.of(2023, 5, 22), TipoModalidad.HIBRIDO);
 
-    List<Evento> eventos = Arrays.asList(evento1,evento2,evento3,evento4,evento5,evento6,evento7,evento8);
+    @Setter
+    @Getter
+    public List<Evento> eventos = Arrays.asList(evento1,evento2,evento3,evento4,evento5,evento6,evento7,evento8);
     public void cargarEventos(EventoDataInscriptos dataInscriptos, DepartamentoRepository departamentoRepository, EventoDataEstadosEventos dataEstadoEventos, EventoRepository eventoRepository, UbicacionRepository ubicacionRepository) throws NoSuchFieldException, IllegalAccessException {
         List<Departamento> departamentos = departamentoRepository.findAll();
         List<Ubicacion> ubicaciones = ubicacionRepository.findAll();
@@ -62,10 +66,9 @@ public class EventoDataEventos {
                 evento = (Evento) getClass().getDeclaredField(nombreVariable).get(this);
             Random random = new Random();
             int indiceAleatorio = random.nextInt(pendientes.size());
-            EstadoEvento estadoAleatorio = pendientes.get(indiceAleatorio);
+            EstadoEvento estadoAleatorio = dataEstadoEventos.removerElementoPendientes(indiceAleatorio);
             evento.agregarEstado(estadoAleatorio);
         }
-        evento1.agregarEstado(pendientes.get(3));
         //evento1.agregarEstado(); solo tendrá pendiente
         evento2.agregarEstado(confirmados.get(0)); //solo tendrá confirmado
         evento3.agregarEstado(cancelados.get(0)); //solo tendrá cancelado
