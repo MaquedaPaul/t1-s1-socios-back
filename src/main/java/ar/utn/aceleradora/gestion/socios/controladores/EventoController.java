@@ -31,7 +31,7 @@ public class EventoController {
          eventoService.crearEvento(evento);
             return ResponseEntity.ok(new ResponseDTO("Evento creado satisfactoriamente", "CREATE", 200)).hasBody();
         } catch (Exception e) {
-            return new ResponseEntity<>(new ResponseDTO(e.getMessage(), "SECCESS", 500), HttpStatus.INTERNAL_SERVER_ERROR).hasBody();
+            return new ResponseEntity<>(new ResponseDTO(e.getMessage(), "ERROR", 500), HttpStatus.INTERNAL_SERVER_ERROR).hasBody();
         }
     }
 

@@ -15,6 +15,7 @@ import ar.utn.aceleradora.gestion.socios.modelos.ubicacion.Ubicacion;
 import ar.utn.aceleradora.gestion.socios.repositorios.DepartamentoRepository;
 import ar.utn.aceleradora.gestion.socios.repositorios.EventoRepository;
 import ar.utn.aceleradora.gestion.socios.repositorios.SocioRepository;
+import ar.utn.aceleradora.gestion.socios.repositorios.UbicacionRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -30,12 +31,14 @@ public class EventoServiceImpl implements EventoService {
     private EventoRepository eventoRepository;
     private DepartamentoRepository departamentoRepository;
     private SocioRepository socioRepository;
+    private UbicacionRepository ubicacionRepository;
 
     @Autowired
-    public EventoServiceImpl(EventoRepository eventoRepository, DepartamentoRepository departamentoRepository, SocioRepository socioRepository) {
+    public EventoServiceImpl(EventoRepository eventoRepository, DepartamentoRepository departamentoRepository, SocioRepository socioRepository, UbicacionRepository ubicacionRepository) {
         this.eventoRepository = eventoRepository;
         this.departamentoRepository = departamentoRepository;
         this.socioRepository = socioRepository;
+        this.ubicacionRepository = ubicacionRepository;
     }
 
     @Override
@@ -44,8 +47,10 @@ public class EventoServiceImpl implements EventoService {
             LocalDate fechaComienzo = DateConverter.parse(evento.getFechaComienzo());
             LocalDate fechaFin = DateConverter.parse(evento.getFechaFin());
             Ubicacion ubicacion = new Ubicacion(evento.getDireccion(), evento.getPiso(), evento.getDepartamento(), evento.getLocalidad(), evento.getProvincia());
+            ubicacionRepository.save(ubicacion);
             List<Departamento> departamentos = this.departamentoRepository.findAllById(evento.getId_departamentos());
             Evento nuevoEvento = new Evento(evento.getNombre(), evento.getDescripcion(), fechaComienzo, fechaFin, obtenerTipoModalidad(evento.getModalidad()), ubicacion, departamentos);
+
 
             eventoRepository.save(nuevoEvento);
         } catch (Exception e) {
