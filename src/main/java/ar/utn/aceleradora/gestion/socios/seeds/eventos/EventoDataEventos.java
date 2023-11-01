@@ -65,6 +65,7 @@ public class EventoDataEventos {
             EstadoEvento estadoAleatorio = pendientes.get(indiceAleatorio);
             evento.agregarEstado(estadoAleatorio);
         }
+        evento1.agregarEstado(pendientes.get(3));
         //evento1.agregarEstado(); solo tendrá pendiente
         evento2.agregarEstado(confirmados.get(0)); //solo tendrá confirmado
         evento3.agregarEstado(cancelados.get(0)); //solo tendrá cancelado
