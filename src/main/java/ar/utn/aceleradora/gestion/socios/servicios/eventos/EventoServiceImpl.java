@@ -22,6 +22,7 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 public class EventoServiceImpl implements EventoService {
@@ -44,8 +45,7 @@ public class EventoServiceImpl implements EventoService {
             LocalDate fechaFin = DateConverter.parse(evento.getFechaFin());
             Ubicacion ubicacion = new Ubicacion(evento.getDireccion(), evento.getPiso(), evento.getDepartamento(), evento.getLocalidad(), evento.getProvincia());
             List<Departamento> departamentos = this.departamentoRepository.findAllById(evento.getId_departamentos());
-            List<Socio> socios = this.socioRepository.findAllById(evento.getId_socios_invitados());
-            Evento nuevoEvento = new Evento(evento.getNombre(), evento.getDescripcion(), fechaComienzo, fechaFin, obtenerTipoModalidad(evento.getModalidad()), ubicacion, socios, departamentos);
+            Evento nuevoEvento = new Evento(evento.getNombre(), evento.getDescripcion(), fechaComienzo, fechaFin, obtenerTipoModalidad(evento.getModalidad()), ubicacion, departamentos);
 
             eventoRepository.save(nuevoEvento);
         } catch (Exception e) {
@@ -85,11 +85,13 @@ public class EventoServiceImpl implements EventoService {
 
             Ubicacion ubicacion = new Ubicacion(eventoUpdate.getDireccion(), eventoUpdate.getPiso(), eventoUpdate.getDepartamento(), eventoUpdate.getLocalidad(), eventoUpdate.getProvincia());
 
-            List<Socio> invitados = this.socioRepository.findAllById(eventoUpdate.getId_invitados());
-            existingEvento.setInvitados(invitados);
-
             List<Departamento> departamentos = this.departamentoRepository.findAllById(eventoUpdate.getId_departamentos());
             existingEvento.setDepartamentos(departamentos);
+
+            List<Socio> invitados = departamentos.stream()
+                    .flatMap(departamento -> departamento.getSociosSuscritos().stream())
+                    .collect(Collectors.toList());
+            existingEvento.setInvitados(invitados);
 
             EstadoEvento estado = new EstadoEvento(obtenerTipoEstadoEvento(eventoUpdate.getTipoEstadoEvento()), LocalDate.now(), eventoUpdate.getMotivo());
             existingEvento.agregarEstado(estado);
@@ -127,6 +129,7 @@ public class EventoServiceImpl implements EventoService {
         try {
             for (Evento evento : eventos) {
                 ListaEventoDTO eventoDTO = new ListaEventoDTO();
+                eventoDTO.setId(evento.getId());
                 eventoDTO.setNombre(evento.getNombre());
                 eventoDTO.setFechaComienzo(evento.getFechaComienzo());
                 eventoDTO.setTipoEstadoEvento(evento.estadoActual().getTipoEstadoEvento());

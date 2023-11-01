@@ -2,6 +2,7 @@ package ar.utn.aceleradora.gestion.socios.controladores;
 import ar.utn.aceleradora.gestion.socios.dto.EventoCreateDTO;
 import ar.utn.aceleradora.gestion.socios.dto.EventoUpdateDTO;
 import ar.utn.aceleradora.gestion.socios.dto.ResponseDTO;
+import ar.utn.aceleradora.gestion.socios.dto.eventos.EventoLimitadoDTO;
 import ar.utn.aceleradora.gestion.socios.dto.eventos.ListaEventoDTO;
 import ar.utn.aceleradora.gestion.socios.modelos.eventos.Evento;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -55,12 +56,15 @@ public class EventoController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Object> listarEvento(@PathVariable Integer id) {
+    public ResponseEntity<EventoLimitadoDTO> listarEvento(@PathVariable Integer id) {
         try {
             Evento evento = eventoService.listarEvento(id);
-            if (evento != null)
-                return ResponseEntity.ok(evento);
-            return ResponseEntity.notFound().build();
+            EventoLimitadoDTO eventoLimitadoDTO = new EventoLimitadoDTO();
+            eventoLimitadoDTO.setEvento(evento);
+            eventoLimitadoDTO.setInvitados(evento.getInvitados());
+            eventoLimitadoDTO.setDepartamentos(evento.getDepartamentos());
+            eventoLimitadoDTO.setInscriptos(evento.getInscriptos());
+            return ResponseEntity.ok(eventoLimitadoDTO);
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
         }
