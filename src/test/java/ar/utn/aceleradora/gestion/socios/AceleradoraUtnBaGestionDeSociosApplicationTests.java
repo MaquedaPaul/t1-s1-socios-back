@@ -9,11 +9,18 @@ import ar.utn.aceleradora.gestion.socios.servicios.UbicacionService;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.context.TestPropertySource;
 
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-@SpringBootTest
+
+@SpringBootTest(properties = {"""
+		spring.datasource.url=jdbc:h2:file:/test
+		spring.datasource.driverClassName= org.h2.Driver
+		spring.jpa.database-platform= org.hibernate.dialect.H2Dialect
+		spring.h2.console.enabled= true
+		"""})
 class AceleradoraUtnBaGestionDeSociosApplicationTests {
 
 	@Test
