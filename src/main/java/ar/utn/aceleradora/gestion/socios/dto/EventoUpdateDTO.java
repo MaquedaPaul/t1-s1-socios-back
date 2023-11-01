@@ -22,7 +22,6 @@ public class EventoUpdateDTO {
     private String departamento;
     private String localidad;
     private String provincia;
-    private List<Integer> id_invitados;
     private List<Integer> id_departamentos;
     private Integer tipoEstadoEvento;
     private String motivo;

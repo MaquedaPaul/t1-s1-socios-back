@@ -2,9 +2,11 @@ package ar.utn.aceleradora.gestion.socios.controladores.departamentos;
 
 
 import ar.utn.aceleradora.gestion.socios.dto.departamentos.CreacionEdicionDepartamentoDTO;
+import ar.utn.aceleradora.gestion.socios.dto.departamentos.DepartamentoCoordinacionDTO;
 import ar.utn.aceleradora.gestion.socios.error.AutoridadNotFoundException;
 import ar.utn.aceleradora.gestion.socios.error.DepartamentoNotFoundException;
 import ar.utn.aceleradora.gestion.socios.modelos.departamentos.Autoridad;
+import ar.utn.aceleradora.gestion.socios.modelos.departamentos.Coordinacion;
 import ar.utn.aceleradora.gestion.socios.modelos.departamentos.Departamento;
 import ar.utn.aceleradora.gestion.socios.servicios.departamentos.DepartamentoService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,11 +31,13 @@ public class DepartamentoController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Departamento> obtenerDepartamento(@PathVariable Integer id) {
+    public ResponseEntity<DepartamentoCoordinacionDTO> obtenerDepartamento(@PathVariable Integer id) {
         Departamento departamento = departamentoService.obtenerDepartamento(id);
-        return Optional.ofNullable(departamento)
-                .map(s -> new ResponseEntity<>(s, HttpStatus.OK))
-                .orElse(new ResponseEntity<>(HttpStatus.NOT_FOUND));
+        Coordinacion coordinacion = departamento.getCoordinacionDepartamental();
+            DepartamentoCoordinacionDTO departamentoCoordinacionDTO = new DepartamentoCoordinacionDTO();
+            departamentoCoordinacionDTO.setDepartamento(departamento);
+            departamentoCoordinacionDTO.setCoordinacion(coordinacion);
+            return new ResponseEntity<>(departamentoCoordinacionDTO, HttpStatus.OK);
     }
 
     @GetMapping({"/", ""})
