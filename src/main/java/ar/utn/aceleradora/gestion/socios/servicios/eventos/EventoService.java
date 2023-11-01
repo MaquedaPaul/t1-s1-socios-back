@@ -1,11 +1,11 @@
 package ar.utn.aceleradora.gestion.socios.servicios.eventos;
 
-import ar.utn.aceleradora.gestion.socios.dto.EventoCreateDTO;
-import ar.utn.aceleradora.gestion.socios.dto.EventoUpdateDTO;
+
 import ar.utn.aceleradora.gestion.socios.dto.eventos.EventoLimitadoDTO;
+import ar.utn.aceleradora.gestion.socios.dto.eventos.EventoCreateDTO;
+import ar.utn.aceleradora.gestion.socios.dto.eventos.EventoUpdateDTO;
 import ar.utn.aceleradora.gestion.socios.dto.eventos.ListaEventoDTO;
 import ar.utn.aceleradora.gestion.socios.modelos.eventos.Evento;
-import ar.utn.aceleradora.gestion.socios.modelos.eventos.TipoModalidad;
 import ar.utn.aceleradora.gestion.socios.modelos.socios.Socio;
 import org.springframework.stereotype.Service;
 
@@ -29,8 +29,6 @@ public interface EventoService {
     void cancelar(Evento evento) throws Exception;
 
     void finalizar(Evento evento) throws Exception;
-
-    TipoModalidad obtenerTipoModalidad(Integer modalidadInteger);
 
     Evento obtenerEventoPorId(Integer eventoId) throws Exception;
 }

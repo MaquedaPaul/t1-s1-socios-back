@@ -1,10 +1,11 @@
 package ar.utn.aceleradora.gestion.socios.controladores;
-import ar.utn.aceleradora.gestion.socios.dto.EventoCreateDTO;
-import ar.utn.aceleradora.gestion.socios.dto.EventoUpdateDTO;
-import ar.utn.aceleradora.gestion.socios.dto.ResponseDTO;
+import ar.utn.aceleradora.gestion.socios.dto.eventos.EventoCreateDTO;
+import ar.utn.aceleradora.gestion.socios.dto.eventos.EventoUpdateDTO;
+import ar.utn.aceleradora.gestion.socios.dto.eventos.ResponseDTO;
 import ar.utn.aceleradora.gestion.socios.dto.eventos.EventoLimitadoDTO;
 import ar.utn.aceleradora.gestion.socios.dto.eventos.ListaEventoDTO;
 import ar.utn.aceleradora.gestion.socios.modelos.eventos.Evento;
+import ar.utn.aceleradora.gestion.socios.servicios.eventos.EventoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -19,10 +20,10 @@ import java.util.List;
 @RequestMapping("/eventos")
 public class EventoController {
 
-    private final EventoServiceImpl  eventoService;
+    private final EventoService eventoService;
 
     @Autowired
-    public EventoController(EventoServiceImpl eventoService) {
+    public EventoController(EventoService eventoService) {
         this.eventoService = eventoService;
     }
 

@@ -1,9 +1,10 @@
 package ar.utn.aceleradora.gestion.socios.servicios.eventos;
 
 import ar.utn.aceleradora.gestion.socios.converters.DateConverter;
-import ar.utn.aceleradora.gestion.socios.dto.EventoCreateDTO;
-import ar.utn.aceleradora.gestion.socios.dto.EventoUpdateDTO;
 import ar.utn.aceleradora.gestion.socios.dto.eventos.*;
+import ar.utn.aceleradora.gestion.socios.dto.eventos.EventoCreateDTO;
+import ar.utn.aceleradora.gestion.socios.dto.eventos.EventoUpdateDTO;
+import ar.utn.aceleradora.gestion.socios.dto.eventos.ListaEventoDTO;
 import ar.utn.aceleradora.gestion.socios.error.EventoNotFoundException;
 import ar.utn.aceleradora.gestion.socios.modelos.departamentos.Departamento;
 import ar.utn.aceleradora.gestion.socios.modelos.eventos.EstadoEvento;
@@ -20,6 +21,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -89,6 +91,7 @@ public class EventoServiceImpl implements EventoService {
             existingEvento.setModalidad(obtenerTipoModalidad(eventoUpdate.getModalidad()));
 
             Ubicacion ubicacion = new Ubicacion(eventoUpdate.getDireccion(), eventoUpdate.getPiso(), eventoUpdate.getDepartamento(), eventoUpdate.getLocalidad(), eventoUpdate.getProvincia());
+            existingEvento.setUbicacion(ubicacion);
 
             List<Departamento> departamentos = this.departamentoRepository.findAllById(eventoUpdate.getId_departamentos());
             existingEvento.setDepartamentos(departamentos);
@@ -98,13 +101,24 @@ public class EventoServiceImpl implements EventoService {
                     .collect(Collectors.toList());
             existingEvento.setInvitados(invitados);
 
-            EstadoEvento estado = new EstadoEvento(obtenerTipoEstadoEvento(eventoUpdate.getTipoEstadoEvento()), LocalDate.now(), eventoUpdate.getMotivo());
-            existingEvento.agregarEstado(estado);
+            if(esTipoEstadoEventoValido(eventoUpdate.getTipoEstadoEvento())) {
+                EstadoEvento estado = new EstadoEvento(obtenerTipoEstadoEvento(eventoUpdate.getTipoEstadoEvento()), LocalDateTime.now(), eventoUpdate.getMotivo());
+                existingEvento.agregarEstado(estado);
+            }
 
+            ubicacionRepository.save(ubicacion);
             eventoRepository.save(existingEvento);
             return true;
         } catch (Exception e) {
             throw new Exception("Error al editar el evento, por favor intentelo más tarde");
+        }
+    }
+
+    private boolean esTipoEstadoEventoValido(Integer id) {
+        if (id == null) {
+            return false;
+        } else {
+            return id >= 0 && id <= 3;
         }
     }
 
@@ -118,7 +132,7 @@ public class EventoServiceImpl implements EventoService {
         };
     }
 
-    public TipoModalidad obtenerTipoModalidad(Integer modalidadInteger) {
+    private TipoModalidad obtenerTipoModalidad(Integer modalidadInteger) {
         return switch (modalidadInteger) {
             case 0 -> TipoModalidad.HIBRIDO;
             case 1 -> TipoModalidad.VIRTUAL;
