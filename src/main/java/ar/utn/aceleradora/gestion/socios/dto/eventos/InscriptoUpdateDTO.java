@@ -8,6 +8,6 @@ public class InscriptoUpdateDTO {
     private String apellido;
     private String trabajo;
     private String mail;
-    private Integer tipoEstadoInscripto;
+    private String tipoEstadoInscripto;
     private String motivo;
 }
