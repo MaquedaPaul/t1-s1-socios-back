@@ -1,6 +1,9 @@
 package ar.utn.aceleradora.gestion.socios.controladores;
 import ar.utn.aceleradora.gestion.socios.dto.eventos.*;
 import ar.utn.aceleradora.gestion.socios.modelos.eventos.Evento;
+import ar.utn.aceleradora.gestion.socios.modelos.eventos.TipoEstadoEvento;
+import ar.utn.aceleradora.gestion.socios.modelos.eventos.TipoModalidad;
+import ar.utn.aceleradora.gestion.socios.modelos.eventos.inscriptos.TipoEstadoInscripto;
 import ar.utn.aceleradora.gestion.socios.servicios.eventos.EventoService;
 import ar.utn.aceleradora.gestion.socios.servicios.eventos.InscriptoService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -66,6 +69,7 @@ public class EventoController {
         }
     }
 
+
     @PostMapping("/{id}/inscriptos")
     public ResponseEntity<ResponseDTO> inscribirInscripto(@PathVariable Integer id, @RequestBody InscriptoCreateDTO inscripto) {
         try {
@@ -86,4 +90,34 @@ public class EventoController {
         }
     }
 
+
+    @GetMapping("/modalidades")
+    public ResponseEntity<List<TipoModalidad>> listarModalidades() {
+        try {
+            List<TipoModalidad> modalidades = eventoService.listasModalidades();
+            return ResponseEntity.ok(modalidades);
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+        }
+    }
+
+    @GetMapping("/estadosEventos")
+    public ResponseEntity<List<TipoEstadoEvento>> listarEstadosEventos() {
+        try {
+            List<TipoEstadoEvento> estadosEventos = eventoService.listarEstadosEventos();
+            return ResponseEntity.ok(estadosEventos);
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+        }
+    }
+
+    @GetMapping("/estadosInscriptos")
+    public ResponseEntity<List<TipoEstadoInscripto>> listarEstadosInscriptos() {
+        try {
+            List<TipoEstadoInscripto> estadosInscriptos = eventoService.listarEstadosInscriptos();
+            return ResponseEntity.ok(estadosInscriptos);
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+        }
+    }
 }

@@ -5,12 +5,15 @@ import ar.utn.aceleradora.gestion.socios.dto.eventos.*;
 import ar.utn.aceleradora.gestion.socios.dto.eventos.EventoCreateDTO;
 import ar.utn.aceleradora.gestion.socios.dto.eventos.EventoUpdateDTO;
 import ar.utn.aceleradora.gestion.socios.dto.eventos.ListaEventoDTO;
+import ar.utn.aceleradora.gestion.socios.error.EstadoEventoNoValidoException;
 import ar.utn.aceleradora.gestion.socios.error.EventoNotFoundException;
+import ar.utn.aceleradora.gestion.socios.error.ModalidadNoValidaException;
 import ar.utn.aceleradora.gestion.socios.modelos.departamentos.Departamento;
 import ar.utn.aceleradora.gestion.socios.modelos.eventos.EstadoEvento;
 import ar.utn.aceleradora.gestion.socios.modelos.eventos.Evento;
 import ar.utn.aceleradora.gestion.socios.modelos.eventos.TipoEstadoEvento;
 import ar.utn.aceleradora.gestion.socios.modelos.eventos.TipoModalidad;
+import ar.utn.aceleradora.gestion.socios.modelos.eventos.inscriptos.TipoEstadoInscripto;
 import ar.utn.aceleradora.gestion.socios.modelos.socios.Socio;
 import ar.utn.aceleradora.gestion.socios.modelos.ubicacion.Ubicacion;
 import ar.utn.aceleradora.gestion.socios.repositorios.DepartamentoRepository;
@@ -71,6 +74,21 @@ public class EventoServiceImpl implements EventoService {
     }
 
     @Override
+    public List<TipoModalidad> listasModalidades() {
+        return  new ArrayList<>(List.of(TipoModalidad.values()));
+    }
+
+    @Override
+    public List<TipoEstadoEvento> listarEstadosEventos() {
+        return  new ArrayList<>(List.of(TipoEstadoEvento.values()));
+    }
+
+    @Override
+    public List<TipoEstadoInscripto> listarEstadosInscriptos() {
+        return  new ArrayList<>(List.of(TipoEstadoInscripto.values()));
+    }
+
+    @Override
     public Boolean editarEvento(EventoUpdateDTO eventoUpdate, Integer id) throws Exception {
         try{
             Optional<Evento> optionalEvento = eventoRepository.findById(id);
@@ -101,7 +119,7 @@ public class EventoServiceImpl implements EventoService {
                     .collect(Collectors.toList());
             existingEvento.setInvitados(invitados);
 
-            if(esTipoEstadoEventoValido(eventoUpdate.getTipoEstadoEvento())) {
+            if(noEsVacio(eventoUpdate.getTipoEstadoEvento())) {
                 EstadoEvento estado = new EstadoEvento(obtenerTipoEstadoEvento(eventoUpdate.getTipoEstadoEvento()), LocalDateTime.now(), eventoUpdate.getMotivo());
                 existingEvento.agregarEstado(estado);
             }
@@ -114,31 +132,27 @@ public class EventoServiceImpl implements EventoService {
         }
     }
 
-    private boolean esTipoEstadoEventoValido(Integer id) {
-        if (id == null) {
-            return false;
-        } else {
-            return id >= 0 && id <= 3;
+    private boolean noEsVacio(String id) {
+            return id != null;
+    }
+
+    private TipoEstadoEvento obtenerTipoEstadoEvento(String estadoEventoString) {
+
+        try {
+            return TipoEstadoEvento.valueOf(estadoEventoString.toUpperCase());
+        } catch (IllegalArgumentException e) {
+            throw  new EstadoEventoNoValidoException("El estado del evento: "+estadoEventoString+" no es reconocido");
         }
     }
 
-    private TipoEstadoEvento obtenerTipoEstadoEvento(Integer id) {
-        return switch (id) {
-            case 0 -> TipoEstadoEvento.PENDIENTE;
-            case 1 -> TipoEstadoEvento.CONFIRMADO;
-            case 2 -> TipoEstadoEvento.FINALIZADO;
-            case 3 -> TipoEstadoEvento.CANCELADO;
-            default -> throw new IllegalArgumentException("Tipo de estado de evento no válido");
-        };
-    }
+    private TipoModalidad obtenerTipoModalidad(String modalidadString) {
 
-    private TipoModalidad obtenerTipoModalidad(Integer modalidadInteger) {
-        return switch (modalidadInteger) {
-            case 0 -> TipoModalidad.HIBRIDO;
-            case 1 -> TipoModalidad.VIRTUAL;
-            case 2 -> TipoModalidad.PRESENCIAL;
-            default -> throw new IllegalArgumentException("Valor de modalidad no válido: " + modalidadInteger);
-        };
+        try {
+            return TipoModalidad.valueOf(modalidadString.toUpperCase());
+        } catch (IllegalArgumentException e) {
+            throw  new ModalidadNoValidaException("La modalidad: "+modalidadString+" no es reconocida");
+        }
+
     }
 
     @Override

@@ -6,6 +6,9 @@ import ar.utn.aceleradora.gestion.socios.dto.eventos.EventoCreateDTO;
 import ar.utn.aceleradora.gestion.socios.dto.eventos.EventoUpdateDTO;
 import ar.utn.aceleradora.gestion.socios.dto.eventos.ListaEventoDTO;
 import ar.utn.aceleradora.gestion.socios.modelos.eventos.Evento;
+import ar.utn.aceleradora.gestion.socios.modelos.eventos.TipoEstadoEvento;
+import ar.utn.aceleradora.gestion.socios.modelos.eventos.TipoModalidad;
+import ar.utn.aceleradora.gestion.socios.modelos.eventos.inscriptos.TipoEstadoInscripto;
 import ar.utn.aceleradora.gestion.socios.modelos.socios.Socio;
 import org.springframework.stereotype.Service;
 
@@ -31,4 +34,10 @@ public interface EventoService {
     void finalizar(Evento evento) throws Exception;
 
     Evento obtenerEventoPorId(Integer eventoId) throws Exception;
+
+    List<TipoModalidad> listasModalidades();
+
+    List<TipoEstadoEvento> listarEstadosEventos();
+
+    List<TipoEstadoInscripto> listarEstadosInscriptos();
 }
