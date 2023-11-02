@@ -16,13 +16,13 @@ public class EventoUpdateDTO {
     private String descripcion;
     private String fechaComienzo;
     private String fechaFin;
-    private Integer modalidad;
+    private String modalidad;
     private String direccion;
     private String piso;
     private String departamento;
     private String localidad;
     private String provincia;
     private List<Integer> id_departamentos;
-    private Integer tipoEstadoEvento;
+    private String tipoEstadoEvento;
     private String motivo;
 }

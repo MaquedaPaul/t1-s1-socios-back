@@ -11,7 +11,7 @@ public class EventoCreateDTO {
     private String descripcion;
     private String fechaComienzo;
     private String fechaFin;
-    private Integer modalidad;
+    private String modalidad;
     private String direccion;
     private String piso;
     private String departamento;

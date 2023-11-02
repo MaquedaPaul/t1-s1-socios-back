@@ -6,6 +6,7 @@ import ar.utn.aceleradora.gestion.socios.dto.eventos.EventoCreateDTO;
 import ar.utn.aceleradora.gestion.socios.dto.eventos.EventoUpdateDTO;
 import ar.utn.aceleradora.gestion.socios.dto.eventos.ListaEventoDTO;
 import ar.utn.aceleradora.gestion.socios.error.EventoNotFoundException;
+import ar.utn.aceleradora.gestion.socios.error.ModalidadNoValidaException;
 import ar.utn.aceleradora.gestion.socios.modelos.departamentos.Departamento;
 import ar.utn.aceleradora.gestion.socios.modelos.eventos.EstadoEvento;
 import ar.utn.aceleradora.gestion.socios.modelos.eventos.Evento;
@@ -101,7 +102,7 @@ public class EventoServiceImpl implements EventoService {
                     .collect(Collectors.toList());
             existingEvento.setInvitados(invitados);
 
-            if(esTipoEstadoEventoValido(eventoUpdate.getTipoEstadoEvento())) {
+            if(noEsVacio(eventoUpdate.getTipoEstadoEvento())) {
                 EstadoEvento estado = new EstadoEvento(obtenerTipoEstadoEvento(eventoUpdate.getTipoEstadoEvento()), LocalDateTime.now(), eventoUpdate.getMotivo());
                 existingEvento.agregarEstado(estado);
             }
@@ -114,31 +115,27 @@ public class EventoServiceImpl implements EventoService {
         }
     }
 
-    private boolean esTipoEstadoEventoValido(Integer id) {
-        if (id == null) {
-            return false;
-        } else {
-            return id >= 0 && id <= 3;
+    private boolean noEsVacio(String id) {
+            return id != null;
+    }
+
+    private TipoEstadoEvento obtenerTipoEstadoEvento(String estadoEventoString) {
+
+        try {
+            return TipoEstadoEvento.valueOf(estadoEventoString.toUpperCase());
+        } catch (IllegalArgumentException e) {
+            throw  new EstadoEventoNoValidoException("El estado del evento: "+estadoEventoString+" no es reconocido");
         }
     }
 
-    private TipoEstadoEvento obtenerTipoEstadoEvento(Integer id) {
-        return switch (id) {
-            case 0 -> TipoEstadoEvento.PENDIENTE;
-            case 1 -> TipoEstadoEvento.CONFIRMADO;
-            case 2 -> TipoEstadoEvento.FINALIZADO;
-            case 3 -> TipoEstadoEvento.CANCELADO;
-            default -> throw new IllegalArgumentException("Tipo de estado de evento no válido");
-        };
-    }
+    private TipoModalidad obtenerTipoModalidad(String modalidadString) {
 
-    private TipoModalidad obtenerTipoModalidad(Integer modalidadInteger) {
-        return switch (modalidadInteger) {
-            case 0 -> TipoModalidad.HIBRIDO;
-            case 1 -> TipoModalidad.VIRTUAL;
-            case 2 -> TipoModalidad.PRESENCIAL;
-            default -> throw new IllegalArgumentException("Valor de modalidad no válido: " + modalidadInteger);
-        };
+        try {
+            return TipoModalidad.valueOf(modalidadString.toUpperCase());
+        } catch (IllegalArgumentException e) {
+            throw  new ModalidadNoValidaException("La modalidad: "+modalidadString+" no es reconocida");
+        }
+
     }
 
     @Override
