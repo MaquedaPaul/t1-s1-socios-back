@@ -1,26 +1,32 @@
 package ar.utn.aceleradora.gestion.socios.controladores;
-import ar.utn.aceleradora.gestion.socios.dto.EventoCreateDTO;
-import ar.utn.aceleradora.gestion.socios.dto.EventoUpdateDTO;
-import ar.utn.aceleradora.gestion.socios.dto.ResponseDTO;
+import ar.utn.aceleradora.gestion.socios.dto.eventos.EventoCreateDTO;
+import ar.utn.aceleradora.gestion.socios.dto.eventos.EventoUpdateDTO;
+import ar.utn.aceleradora.gestion.socios.dto.eventos.ResponseDTO;
+import ar.utn.aceleradora.gestion.socios.dto.eventos.EventoLimitadoDTO;
+import ar.utn.aceleradora.gestion.socios.dto.eventos.ListaEventoDTO;
+import ar.utn.aceleradora.gestion.socios.modelos.eventos.Evento;
+import ar.utn.aceleradora.gestion.socios.modelos.eventos.TipoEstadoEvento;
+import ar.utn.aceleradora.gestion.socios.modelos.eventos.TipoModalidad;
+import ar.utn.aceleradora.gestion.socios.modelos.eventos.inscriptos.TipoEstadoInscripto;
 import ar.utn.aceleradora.gestion.socios.servicios.eventos.EventoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import ar.utn.aceleradora.gestion.socios.servicios.eventos.EventoServiceImpl;
-import ar.utn.aceleradora.gestion.socios.modelos.eventos.Evento;
 
 import java.util.List;
 
 
 @RestController
+@CrossOrigin(origins= "*")
 @RequestMapping("/eventos")
 public class EventoController {
 
-    private final EventoServiceImpl  eventoService;
+    private final EventoService eventoService;
 
     @Autowired
-    public EventoController(EventoServiceImpl eventoService) {
+    public EventoController(EventoService eventoService) {
         this.eventoService = eventoService;
     }
 
@@ -30,7 +36,7 @@ public class EventoController {
          eventoService.crearEvento(evento);
             return ResponseEntity.ok(new ResponseDTO("Evento creado satisfactoriamente", "CREATE", 200)).hasBody();
         } catch (Exception e) {
-            return new ResponseEntity<>(new ResponseDTO(e.getMessage(), "SECCESS", 500), HttpStatus.INTERNAL_SERVER_ERROR).hasBody();
+            return new ResponseEntity<>(new ResponseDTO(e.getMessage(), "ERROR", 500), HttpStatus.INTERNAL_SERVER_ERROR).hasBody();
         }
     }
 
@@ -44,14 +50,55 @@ public class EventoController {
         }
     }
 
-    @GetMapping({"", "/"})
-    public List<Evento> listarEventos() {//Creo que falta parametro en listar
+    @GetMapping("/")
+    public ResponseEntity<List<ListaEventoDTO>> listarEventos() {
         try {
-        eventoService.listarEventos();
-            return (List<Evento>) ResponseEntity.ok();
+            List<ListaEventoDTO> eventos = eventoService.listarEventos();
+            return ResponseEntity.ok(eventos);
         } catch (Exception e) {
-            return (List<Evento>) ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
         }
     }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<EventoLimitadoDTO> listarEvento(@PathVariable Integer id) {
+        try {
+            EventoLimitadoDTO eventoLimitadoDTO = eventoService.listarEvento(id);
+            return ResponseEntity.ok(eventoLimitadoDTO);
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+        }
+    }
+    @GetMapping("/modalidades")
+    public ResponseEntity<List<TipoModalidad>> listarModalidades() {
+        try {
+            List<TipoModalidad> modalidades = eventoService.listasModalidades();
+            return ResponseEntity.ok(modalidades);
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+        }
+    }
+
+    @GetMapping("/estadosEventos")
+    public ResponseEntity<List<TipoEstadoEvento>> listarEstadosEventos() {
+        try {
+            List<TipoEstadoEvento> estadosEventos = eventoService.listarEstadosEventos();
+            return ResponseEntity.ok(estadosEventos);
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+        }
+    }
+
+    @GetMapping("/estadosInscriptos")
+    public ResponseEntity<List<TipoEstadoInscripto>> listarEstadosInscriptos() {
+        try {
+            List<TipoEstadoInscripto> estadosInscriptos = eventoService.listarEstadosInscriptos();
+            return ResponseEntity.ok(estadosInscriptos);
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+        }
+    }
+
+
 
 }

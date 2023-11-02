@@ -15,12 +15,12 @@ public class EstadoEvento {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    @Column(name = "tipoEvento")
+    @Column(name = "tipo_estado_evento")
     @Enumerated(EnumType.STRING)
-    private TipoEvento tipoEvento;
+    private TipoEstadoEvento tipoEstadoEvento;
 
     @Column(name = "fecha")
-    private LocalDate fecha;
+    private LocalDateTime fechaYHora;
 
     @Column(name = "motivo")
     private String motivo;
@@ -28,13 +28,10 @@ public class EstadoEvento {
     public EstadoEvento() {
     }
 
-    public EstadoEvento(Integer id, TipoEvento tipoEvento, LocalDate fecha, String motivo) {
-        this.id = id;
-        this.tipoEvento = tipoEvento;
-        this.fecha = fecha;
+    public EstadoEvento(TipoEstadoEvento tipoEstadoEvento, LocalDateTime fechaYHora, String motivo) {
+        this.tipoEstadoEvento = tipoEstadoEvento;
+        this.fechaYHora = fechaYHora;
         this.motivo = motivo;
     }
 
-    public EstadoEvento(TipoEvento tipoEvento, LocalDateTime now, String recienInscripto) {
-    }
 }

@@ -1,7 +1,7 @@
 package ar.utn.aceleradora.gestion.socios.modelos.departamentos;
 
 import ar.utn.aceleradora.gestion.socios.converters.LocalDateTimeAttributeConverter;
-import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.*;
 import ar.utn.aceleradora.gestion.socios.modelos.socios.Socio;
 import jakarta.persistence.*;
 import java.time.LocalDateTime;
@@ -43,7 +43,7 @@ public class Departamento{
     @Setter
     private List<Autoridad> autoridades;
 
-    @ManyToMany
+    @ManyToMany(fetch = FetchType.EAGER)
     @Setter
     private List<Socio> sociosSuscritos;
 

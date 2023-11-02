@@ -7,6 +7,7 @@ import ar.utn.aceleradora.gestion.socios.modelos.ubicacion.Ubicacion;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
+import org.hibernate.annotations.Fetch;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -15,71 +16,96 @@ import java.util.List;
 
 @Entity
 @Table(name = "eventos")
-@Getter @Setter
+@Getter
 public class Evento {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
+    @Setter
     @Column(name = "nombre")
     private String nombre;
 
+    @Setter
     @Column(name = "descripcion")
     private String descripcion;
 
+    @Setter
     @Column(name = "fechaComienzo")
     private LocalDate fechaComienzo;
 
+    @Setter
     @Column(name = "fechaFin")
     private LocalDate fechaFin;
 
+    @Setter
     @Enumerated(EnumType.STRING)
     @Column(name = "modalidad")
     private TipoModalidad modalidad;
 
+    @Setter
     @OneToOne
     @JoinColumn(name = "ubicacion_id")
     private Ubicacion ubicacion;
 
+    @Setter
     @ManyToMany(cascade = CascadeType.MERGE)
-    @JoinTable(name = "evento_socio", joinColumns = @JoinColumn(name = "evento_id"), inverseJoinColumns = @JoinColumn(name = "socio_id"))
     private List<Socio> invitados;
 
-    @ManyToMany
-    @JoinTable(name = "evento_inscripto", joinColumns = @JoinColumn(name = "evento_id"), inverseJoinColumns = @JoinColumn(name = "inscripto_id"))
+    @Setter
+    @ManyToMany(cascade = CascadeType.MERGE)
     private List<Inscripto> inscriptos;
 
-    @OneToMany
-    @JoinColumn(name = "estado")
-    private List<EstadoEvento> estadoEvento;
+    @Setter
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @JoinColumn(name = "evento")
+    private List<EstadoEvento> estadosEvento;
 
-    @ManyToMany(cascade = CascadeType.MERGE)
+    @ManyToMany
     private List<Departamento> departamentos;
 
-    public Evento(Integer id, String nombre, String descripcion, LocalDate fechaComienzo, LocalDate fechaFin, TipoModalidad modalidad, Ubicacion ubicacion, List<Socio> invitados, List<Inscripto> inscriptos, EstadoEvento estadoEvento, List<Departamento> departamentos) {
-        this.id = id;
+    public Evento(String nombre, String descripcion, LocalDate fechaComienzo, LocalDate fechaFin, TipoModalidad modalidad, Ubicacion ubicacion, List<Departamento> departamentos) {
         this.nombre = nombre;
         this.descripcion = descripcion;
         this.fechaComienzo = fechaComienzo;
         this.fechaFin = fechaFin;
         this.modalidad = modalidad;
         this.ubicacion = ubicacion;
+        this.departamentos = departamentos;
+
         this.invitados = new ArrayList<>();
         this.inscriptos = new ArrayList<>();
-        this.estadoEvento = new ArrayList<>();;
-        this.departamentos = new ArrayList<>();
+        this.estadosEvento = new ArrayList<>();;
+
+        this.invitados.addAll(departamentos.stream().flatMap(departamento ->  departamento.getSociosSuscritos().stream()).toList());
+        this.estadosEvento.add(new EstadoEvento(TipoEstadoEvento.PENDIENTE, LocalDateTime.now(), "Recien agregado"));
     }
 
     public Evento() {
-        this.estadoEvento = new ArrayList<>();
-        this.estadoEvento.add(new EstadoEvento(TipoEvento.PENDIENTE, LocalDateTime.now(), "Recien agregado"));
+        this.invitados = new ArrayList<>();
+        this.inscriptos = new ArrayList<>();
+        this.departamentos = new ArrayList<>();
+        this.estadosEvento = new ArrayList<>();
+        this.estadosEvento.add(new EstadoEvento(TipoEstadoEvento.PENDIENTE, LocalDateTime.now(), "Recien agregado"));
     }
 
-    public Evento(String nombre, String descripcion, LocalDate fechaComienzo, LocalDate fechaFin, Integer modalidad, Ubicacion ubicacion, List<Departamento> departamentos) {
-        this.estadoEvento = new ArrayList<>();
-        this.estadoEvento.add(new EstadoEvento(TipoEvento.PENDIENTE, LocalDateTime.now(), "Recien agregado"));
+    //Esta constructor solamente esta para el SEED
+    public Evento(String nombre, String descripcion, LocalDate fechaComienzo, LocalDate fechaFin, TipoModalidad modalidad) {
+        this.nombre = nombre;
+        this.descripcion = descripcion;
+        this.fechaComienzo = fechaComienzo;
+        this.fechaFin = fechaFin;
+        this.modalidad = modalidad;
+        this.invitados = new ArrayList<>();
+        this.inscriptos = new ArrayList<>();
+        this.estadosEvento = new ArrayList<>();
+        this.departamentos = new ArrayList<>();
     }
 
+    public void setDepartamentos(List<Departamento> departamentos){
+        this.departamentos = departamentos;
+        this.invitados.addAll(departamentos.stream().flatMap(departamento ->  departamento.getSociosSuscritos().stream()).toList());
+    }
 
     public void finalizar() {
     }
@@ -94,7 +120,25 @@ public class Evento {
     }
 
     public EstadoEvento estadoActual(){
-        return this.estadoEvento.get(this.estadoEvento.size()-1);
+        return this.estadosEvento.get(this.estadosEvento.size()-1);
+    }
+
+    public void addInscripto(Inscripto inscripto){
+        this.inscriptos.add(inscripto);
+    }
+
+    public void addDepartamento(Departamento departamento){
+        getDepartamentos().add(departamento);
+        getInvitados().addAll(departamento.getSociosSuscritos());
+    }
+
+    //Esta función solamente esta para el SEED
+    public void agregarEstado(EstadoEvento estadoEvento){
+        getEstadosEvento().add(estadoEvento);
+    }
+    //Esta función solamente esta para el SEED
+    public void agregarInscripto(Inscripto inscripto){
+        getInscriptos().add(inscripto);
     }
 }
 

@@ -1,6 +1,8 @@
 package ar.utn.aceleradora.gestion.socios.modelos.eventos.inscriptos;
 
 import ar.utn.aceleradora.gestion.socios.modelos.socios.Socio;
+import ar.utn.aceleradora.gestion.socios.serializers.SocioLimitadoSerializer;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
@@ -26,18 +28,17 @@ public class Inscripto {
     @Setter
     private String apellido;
 
-
     @Column(name = "trabajo")
     @Setter
     private String trabajo;
 
-
     @ManyToOne
     @JoinColumn(name = "id_socio_invitante")
     @Setter
+    @JsonSerialize(using = SocioLimitadoSerializer.class)
     private Socio socioInvitante;
 
-    @OneToMany
+    @OneToMany(cascade = CascadeType.ALL)
     @JoinColumn(name = "id_estado_inscripto")
     @Setter
     private List<EstadoInscripto> estados;
@@ -59,6 +60,13 @@ public class Inscripto {
         this.socioInvitante = socio;
         this.estados = new ArrayList<>();
         this.estados.add(new EstadoInscripto(TipoEstadoInscripto.PENDIENTE, LocalDateTime.now(), "Recien inscripto"));
+    }
+    public Inscripto(String nombre, String apellido, String trabajo, String mail){
+        this.nombre = nombre;
+        this.apellido = apellido;
+        this.trabajo = trabajo;
+        this.mail = mail;
+        this.estados = new ArrayList<>();
     }
 
     public void agregarEstado(EstadoInscripto estado){

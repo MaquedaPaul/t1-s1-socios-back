@@ -3,6 +3,7 @@ package ar.utn.aceleradora.gestion.socios;
 
 
 import ar.utn.aceleradora.gestion.socios.repositorios.*;
+import ar.utn.aceleradora.gestion.socios.seeds.eventos.EventoInitializer;
 import ar.utn.aceleradora.gestion.socios.seeds.socios.SocioInitializer;
 import ar.utn.aceleradora.gestion.socios.seeds.departamentos.DepartamentoInitializer;
 import org.springframework.boot.CommandLineRunner;
@@ -18,13 +19,19 @@ public class AceleradoraUtnBaGestionDeSociosApplication {
 
 
 	@Bean
-	public CommandLineRunner dataInicial(SocioRepository socioRepository, MembresiaRepository membresiaRepository, MembresiaParticularRepository membresiaParticularRepository, CategoriaRepository categoriaRepository, DepartamentoRepository departamentoRepository, AutoridadRepository autoridadRepository, CoorDepartamentoRepository coorDepartamentoRepository )  {
+	public CommandLineRunner dataInicial(
+			SocioRepository socioRepository, MembresiaRepository membresiaRepository, MembresiaParticularRepository membresiaParticularRepository,
+			CategoriaRepository categoriaRepository, DepartamentoRepository departamentoRepository, AutoridadRepository autoridadRepository,
+			CoorDepartamentoRepository coorDepartamentoRepository, EventoRepository eventoRepository, InscriptoRepository inscriptoRepository,
+			UbicacionRepository ubicacionRepository) throws NoSuchFieldException, IllegalAccessException {
 		Boolean quieroDataInicial = true;
 		if(quieroDataInicial){
 			SocioInitializer socioInitializer = new SocioInitializer(socioRepository,categoriaRepository,membresiaRepository,membresiaParticularRepository);
 			socioInitializer.run();
 			DepartamentoInitializer departamentoInitializer = new DepartamentoInitializer(socioRepository, autoridadRepository, coorDepartamentoRepository);
 			departamentoInitializer.run();
+			EventoInitializer eventoInitializer = new EventoInitializer(eventoRepository, inscriptoRepository, departamentoRepository, ubicacionRepository);
+			eventoInitializer.run();
 		}
 		return null;
     }

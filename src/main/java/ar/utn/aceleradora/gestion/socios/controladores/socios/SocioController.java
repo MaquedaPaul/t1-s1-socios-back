@@ -1,6 +1,6 @@
 package ar.utn.aceleradora.gestion.socios.controladores.socios;
 
-import ar.utn.aceleradora.gestion.socios.dto.ResponseDTO;
+import ar.utn.aceleradora.gestion.socios.dto.eventos.ResponseDTO;
 import ar.utn.aceleradora.gestion.socios.dto.socios.SocioCreateDTO;
 import ar.utn.aceleradora.gestion.socios.dto.socios.SocioUpdateDTO;
 import ar.utn.aceleradora.gestion.socios.modelos.socios.Socio;

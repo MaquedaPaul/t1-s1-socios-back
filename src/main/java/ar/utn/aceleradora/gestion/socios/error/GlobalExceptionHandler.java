@@ -59,4 +59,12 @@ public class GlobalExceptionHandler {
                 .status(HttpStatus.INTERNAL_SERVER_ERROR)
                 .body(exception.getMessage());
     }
+
+    //EVENTO
+    @ExceptionHandler({EventoNotFoundException.class})
+    public ResponseEntity<Object> handleEventoNotFoundException(EventoNotFoundException exception){
+        return ResponseEntity
+                .status(HttpStatus.INTERNAL_SERVER_ERROR)
+                .body(exception.getMessage());
+    }
 }

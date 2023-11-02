@@ -25,7 +25,7 @@ public class MembresiaParticular {
     @Getter @Setter
     private LocalDate fechaInicio;
 
-    @Column(name = "value")
+    @Column(name = "valor")
     @Getter @Setter
     private Double valor;
 
