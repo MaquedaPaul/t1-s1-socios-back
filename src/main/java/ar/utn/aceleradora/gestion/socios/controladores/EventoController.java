@@ -1,14 +1,11 @@
 package ar.utn.aceleradora.gestion.socios.controladores;
-import ar.utn.aceleradora.gestion.socios.dto.eventos.EventoCreateDTO;
-import ar.utn.aceleradora.gestion.socios.dto.eventos.EventoUpdateDTO;
-import ar.utn.aceleradora.gestion.socios.dto.eventos.ResponseDTO;
-import ar.utn.aceleradora.gestion.socios.dto.eventos.EventoLimitadoDTO;
-import ar.utn.aceleradora.gestion.socios.dto.eventos.ListaEventoDTO;
+import ar.utn.aceleradora.gestion.socios.dto.eventos.*;
 import ar.utn.aceleradora.gestion.socios.modelos.eventos.Evento;
 import ar.utn.aceleradora.gestion.socios.modelos.eventos.TipoEstadoEvento;
 import ar.utn.aceleradora.gestion.socios.modelos.eventos.TipoModalidad;
 import ar.utn.aceleradora.gestion.socios.modelos.eventos.inscriptos.TipoEstadoInscripto;
 import ar.utn.aceleradora.gestion.socios.servicios.eventos.EventoService;
+import ar.utn.aceleradora.gestion.socios.servicios.eventos.InscriptoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -24,10 +21,12 @@ import java.util.List;
 public class EventoController {
 
     private final EventoService eventoService;
+    private final InscriptoService inscriptoService;
 
     @Autowired
-    public EventoController(EventoService eventoService) {
+    public EventoController(EventoService eventoService, InscriptoService inscriptoService) {
         this.eventoService = eventoService;
+        this.inscriptoService = inscriptoService;
     }
 
     @PostMapping({"", "/"})
@@ -69,6 +68,29 @@ public class EventoController {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
         }
     }
+
+
+    @PostMapping("/{id}/inscriptos")
+    public ResponseEntity<ResponseDTO> inscribirInscripto(@PathVariable Integer id, @RequestBody InscriptoCreateDTO inscripto) {
+        try {
+            inscriptoService.createInscripto(inscripto, id);
+            return ResponseEntity.ok(new ResponseDTO("Inscripción exitosa", "CREATE", 200));
+        } catch (Exception e) {
+            return new ResponseEntity<>(new ResponseDTO(e.getMessage(), "INTERNAL_SERVER_ERROR", 500), HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
+    @PatchMapping("/{id}/inscriptos/{id_inscripto}")
+    public ResponseEntity<ResponseDTO> editarInscripto(@PathVariable Integer id, @PathVariable Integer id_inscripto, @RequestBody InscriptoUpdateDTO inscripto) {
+        try {
+            inscriptoService.updateInscripto(inscripto, id_inscripto);
+            return ResponseEntity.ok(new ResponseDTO("Inscripto editado satisfactoriamente", "SUCCESS", 200));
+        } catch (Exception e) {
+            return new ResponseEntity<>(new ResponseDTO(e.getMessage(), "INTERNAL_SERVER_ERROR", 500), HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
+
     @GetMapping("/modalidades")
     public ResponseEntity<List<TipoModalidad>> listarModalidades() {
         try {
@@ -98,7 +120,4 @@ public class EventoController {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
         }
     }
-
-
-
 }
