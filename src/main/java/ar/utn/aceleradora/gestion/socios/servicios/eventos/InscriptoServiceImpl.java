@@ -44,7 +44,7 @@ public class InscriptoServiceImpl implements InscriptoService{
             Evento evento = optionalEvento.orElseThrow(() -> new EventoNotFoundException("No se encontró el evento con ID: " + idEvento));
 
             evento.addInscripto(nuevoInscripto);
-            
+
             inscriptoRepository.save(nuevoInscripto);
             eventoRepository.save(evento);
         } catch (Exception e) {
@@ -53,9 +53,9 @@ public class InscriptoServiceImpl implements InscriptoService{
     }
 
     @Override
-    public Boolean updateInscripto(InscriptoUpdateDTO inscriptoDTO, Integer id) throws Exception {
+    public Boolean updateInscripto(InscriptoUpdateDTO inscriptoDTO, Integer idInscripto) throws Exception {
         try {
-            Optional<Inscripto> optionalInscripto = inscriptoRepository.findById(id);
+            Optional<Inscripto> optionalInscripto = inscriptoRepository.findById(idInscripto);
 
             if (optionalInscripto.isEmpty())
                 return false;

@@ -5,6 +5,7 @@ import ar.utn.aceleradora.gestion.socios.dto.socios.SocioCreateDTO;
 import ar.utn.aceleradora.gestion.socios.dto.socios.SocioUpdateDTO;
 import ar.utn.aceleradora.gestion.socios.modelos.socios.Socio;
 import ar.utn.aceleradora.gestion.socios.servicios.socios.SocioService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -19,6 +20,7 @@ public class SocioController {
 
     private final SocioService socioService;
 
+    @Autowired
     public SocioController(SocioService socioService) {
         this.socioService = socioService;
     }
