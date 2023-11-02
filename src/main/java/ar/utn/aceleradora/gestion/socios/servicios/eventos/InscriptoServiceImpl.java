@@ -4,6 +4,7 @@ import ar.utn.aceleradora.gestion.socios.dto.eventos.InscriptoCreateDTO;
 import ar.utn.aceleradora.gestion.socios.dto.eventos.InscriptoUpdateDTO;
 import ar.utn.aceleradora.gestion.socios.error.EventoNotFoundException;
 import ar.utn.aceleradora.gestion.socios.error.SocioNotFoundException;
+import ar.utn.aceleradora.gestion.socios.error.TipoEstadoInscriptoNoValidoException;
 import ar.utn.aceleradora.gestion.socios.modelos.eventos.Evento;
 import ar.utn.aceleradora.gestion.socios.modelos.eventos.inscriptos.EstadoInscripto;
 import ar.utn.aceleradora.gestion.socios.modelos.eventos.inscriptos.Inscripto;
@@ -12,7 +13,6 @@ import ar.utn.aceleradora.gestion.socios.modelos.socios.Socio;
 import ar.utn.aceleradora.gestion.socios.repositorios.EventoRepository;
 import ar.utn.aceleradora.gestion.socios.repositorios.InscriptoRepository;
 import ar.utn.aceleradora.gestion.socios.repositorios.SocioRepository;
-import jdk.jfr.Event;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -67,7 +67,7 @@ public class InscriptoServiceImpl implements InscriptoService{
             existingInscripto.setTrabajo(inscriptoDTO.getTrabajo());
             existingInscripto.setMail(inscriptoDTO.getMail());
 
-            if(esTipoEstadoInscriptoValido(inscriptoDTO.getTipoEstadoInscripto())){
+            if(inscriptoDTO.getTipoEstadoInscripto() != null){
                 EstadoInscripto estado = new EstadoInscripto(obtenerTipoEstadoInscripto(inscriptoDTO.getTipoEstadoInscripto()), LocalDateTime.now(), inscriptoDTO.getMotivo());
                 existingInscripto.agregarEstado(estado);
             }
@@ -79,22 +79,12 @@ public class InscriptoServiceImpl implements InscriptoService{
         }
     }
 
-    private TipoEstadoInscripto obtenerTipoEstadoInscripto(Integer id) {
-        return switch (id) {
-            case 0 -> TipoEstadoInscripto.PENDIENTE;
-            case 1 -> TipoEstadoInscripto.CONFIRMADO;
-            case 2 -> TipoEstadoInscripto.CANCELADO;
-            case 3 -> TipoEstadoInscripto.RECHAZADO;
-            case 4 -> TipoEstadoInscripto.ASISTIO;
-            default -> throw new IllegalArgumentException("Tipo de estado de inscripto no válido");
-        };
-    }
-
-    private Boolean esTipoEstadoInscriptoValido(Integer id){
-        if (id == null) {
-            return false;
-        } else {
-            return id >= 0 && id <= 4;
+    private TipoEstadoInscripto obtenerTipoEstadoInscripto(String tipoEstadoInscriptoString) {
+        try {
+            return TipoEstadoInscripto.valueOf(tipoEstadoInscriptoString.toUpperCase());
+        } catch (IllegalArgumentException e) {
+            throw  new TipoEstadoInscriptoNoValidoException("El tipo de estado inscripto: "+tipoEstadoInscriptoString+" no es reconocido");
         }
     }
+
 }
