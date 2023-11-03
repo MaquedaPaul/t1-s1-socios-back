@@ -24,7 +24,7 @@ public class AceleradoraUtnBaGestionDeSociosApplication {
 			CategoriaRepository categoriaRepository, DepartamentoRepository departamentoRepository, AutoridadRepository autoridadRepository,
 			CoorDepartamentoRepository coorDepartamentoRepository, EventoRepository eventoRepository, InscriptoRepository inscriptoRepository,
 			UbicacionRepository ubicacionRepository) throws NoSuchFieldException, IllegalAccessException {
-		Boolean quieroDataInicial = true;
+		Boolean quieroDataInicial = false;
 		if(quieroDataInicial){
 			SocioInitializer socioInitializer = new SocioInitializer(socioRepository,categoriaRepository,membresiaRepository,membresiaParticularRepository);
 			socioInitializer.run();
