@@ -20,14 +20,14 @@ class AceleradoraUtnBaGestionDeSociosApplicationTests {
 	//void contextLoads() {
 	//}
 
-	@Autowired
+	/*@Autowired
 	private SocioRepository socioRepository;
 
 	@Autowired
 	private SocioServiceImpl socioService;
 
 	@Autowired
-	private UbicacionService ubicacionService;
+	private UbicacionService ubicacionService;*/
 
 
 	@Test
