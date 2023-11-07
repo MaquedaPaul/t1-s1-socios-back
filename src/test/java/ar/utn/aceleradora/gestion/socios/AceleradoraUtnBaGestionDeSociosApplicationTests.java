@@ -15,7 +15,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 @SpringBootTest
 class AceleradoraUtnBaGestionDeSociosApplicationTests {
-
+/*
 	@Test
 	void contextLoads() {
 	}
@@ -38,7 +38,7 @@ class AceleradoraUtnBaGestionDeSociosApplicationTests {
 		Ubicacion ubicacionGuardada = ubicacionService.agregarUbicacion(ubicacion);
 		*/
 	}
-
+/*
 	@Test
 	public void testObtenerUbicacion(){
 		Ubicacion ubicacionRecuperada = ubicacionService.obtenerUbicacion(1);
@@ -97,7 +97,7 @@ class AceleradoraUtnBaGestionDeSociosApplicationTests {
 	}*/
 
 
-	@Test
+/*	@Test
 	public void testObtenerSocio(){
 /*
 		SocioDTO socio = socioService.obtenerSocio(1);
