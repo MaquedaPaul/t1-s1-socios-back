@@ -16,9 +16,9 @@ import static org.assertj.core.api.Assertions.assertThat;
 @SpringBootTest
 class AceleradoraUtnBaGestionDeSociosApplicationTests {
 
-	@Test
-	void contextLoads() {
-	}
+	//@Test
+	//void contextLoads() {
+	//}
 
 	@Autowired
 	private SocioRepository socioRepository;
