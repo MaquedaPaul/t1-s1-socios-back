@@ -59,12 +59,11 @@ public class ImagenServiceImpl implements ImagenService {
       File archivo = new File(rutaCompleta);
       file.transferTo(archivo);
 
-      // Devuelve la ruta relativa de la imagen, que se puede almacenar en la base de datos
+      // Devuelve la ruta relativa de la imagen, que se almacena en la base de datos
       return nombreImagen;
     } catch (IOException e) {
-      // Maneja la excepción en caso de error
-      e.printStackTrace(); // Puedes personalizar cómo manejar la excepción
-      return null; // Otra acción apropiada en caso de error
+      e.printStackTrace();
+      return null;
     }
   }
 }
