@@ -1,4 +1,4 @@
-package ar.utn.aceleradora.gestion.socios.repositorios;
+package ar.utn.aceleradora.gestion.socios.repositorios.departamentos;
 
 
 

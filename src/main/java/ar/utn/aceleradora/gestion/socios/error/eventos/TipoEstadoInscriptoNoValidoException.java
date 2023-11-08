@@ -1,4 +1,4 @@
-package ar.utn.aceleradora.gestion.socios.error;
+package ar.utn.aceleradora.gestion.socios.error.eventos;
 
 public class TipoEstadoInscriptoNoValidoException extends RuntimeException {
     public TipoEstadoInscriptoNoValidoException(String s) {

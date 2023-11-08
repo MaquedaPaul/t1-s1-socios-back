@@ -5,8 +5,8 @@ import ar.utn.aceleradora.gestion.socios.modelos.eventos.inscriptos.EstadoInscri
 import ar.utn.aceleradora.gestion.socios.modelos.eventos.inscriptos.Inscripto;
 import ar.utn.aceleradora.gestion.socios.modelos.eventos.inscriptos.TipoEstadoInscripto;
 import ar.utn.aceleradora.gestion.socios.modelos.socios.Socio;
-import ar.utn.aceleradora.gestion.socios.repositorios.DepartamentoRepository;
-import ar.utn.aceleradora.gestion.socios.repositorios.InscriptoRepository;
+import ar.utn.aceleradora.gestion.socios.repositorios.departamentos.DepartamentoRepository;
+import ar.utn.aceleradora.gestion.socios.repositorios.eventos.InscriptoRepository;
 import lombok.Getter;
 
 import java.util.ArrayList;

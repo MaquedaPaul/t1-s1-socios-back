@@ -1,7 +1,7 @@
 package ar.utn.aceleradora.gestion.socios.servicios.departamentos;
 
 
-import ar.utn.aceleradora.gestion.socios.error.DepartamentoNotFoundException;
+import ar.utn.aceleradora.gestion.socios.error.departamentos.DepartamentoNotFoundException;
 import ar.utn.aceleradora.gestion.socios.modelos.departamentos.Autoridad;
 import ar.utn.aceleradora.gestion.socios.dto.departamentos.CreacionEdicionDepartamentoDTO;
 import ar.utn.aceleradora.gestion.socios.modelos.departamentos.Departamento;

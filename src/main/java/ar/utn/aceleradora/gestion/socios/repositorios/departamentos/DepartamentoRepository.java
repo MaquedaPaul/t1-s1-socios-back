@@ -1,4 +1,4 @@
-package ar.utn.aceleradora.gestion.socios.repositorios;
+package ar.utn.aceleradora.gestion.socios.repositorios.departamentos;
 
 import ar.utn.aceleradora.gestion.socios.modelos.departamentos.Departamento;
 import org.jetbrains.annotations.NotNull;
