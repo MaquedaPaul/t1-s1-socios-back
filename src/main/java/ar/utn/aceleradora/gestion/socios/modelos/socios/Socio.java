@@ -1,5 +1,6 @@
 package ar.utn.aceleradora.gestion.socios.modelos.socios;
 
+import ar.utn.aceleradora.gestion.socios.modelos.imagen.Imagen;
 import ar.utn.aceleradora.gestion.socios.modelos.socios.membresia.MembresiaParticular;
 import ar.utn.aceleradora.gestion.socios.modelos.ubicacion.Ubicacion;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
@@ -57,25 +58,24 @@ public class Socio {
     @OneToMany(mappedBy = "socio", cascade = {CascadeType.REMOVE, CascadeType.REFRESH})
     private List<MembresiaParticular> membresias;
 
-    /*@OneToOne
+    @OneToOne
     @JoinColumn(name = "id_imagen", referencedColumnName = "id")
-    private Imagen imagen;*/
+    private Imagen imagen;
 
     public Socio() {
         this.categorias = new ArrayList<>();
     }
 
-    public Socio(String nombre, String nombrePresidente, String cuit, TipoSocio tipoSocio, String telefono, String mail) {
+    public Socio(String nombre, String nombrePresidente, String cuit, TipoSocio tipoSocio, String telefono, String mail, Imagen imagen) {
         this.nombre = nombre;
         this.nombrePresidente = nombrePresidente;
         this.cuit = cuit;
         this.tipoSocio = tipoSocio;
         this.telefono = telefono;
         this.mail = mail;
-//        this.imagen = imagen;
+        this.imagen = imagen;
         this.categorias = new ArrayList<>();
         this.membresias = new ArrayList<>();
-        //this.ubicacion = ubicacion; NO DEBERIA ASIGNARSE A SI MISMO SIN QUE EXISTA COMO PARAMETRO
     }
 
     public Socio(String nombre, String nombrePresidente, String cuit, TipoSocio tipoSocio, String telefono, String mail, Ubicacion ubicacion) {

@@ -1,6 +1,5 @@
 package ar.utn.aceleradora.gestion.socios.dto.socios;
 
-import ar.utn.aceleradora.gestion.socios.dto.socios.ImagenDTO;
 import lombok.Getter;
 
 @Getter
@@ -15,5 +14,4 @@ public class SocioUpdateDTO {
     private String departamento;
     private String localidad;
     private String provincia;
-    private ImagenDTO imagen;
 }

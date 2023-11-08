@@ -6,6 +6,7 @@ import ar.utn.aceleradora.gestion.socios.error.SocioNotFoundException;
 import ar.utn.aceleradora.gestion.socios.dto.socios.SocioCreateDTO;
 import ar.utn.aceleradora.gestion.socios.dto.socios.SocioUpdateDTO;
 import ar.utn.aceleradora.gestion.socios.modelos.departamentos.Departamento;
+import ar.utn.aceleradora.gestion.socios.modelos.imagen.Imagen;
 import ar.utn.aceleradora.gestion.socios.modelos.socios.Socio;
 import ar.utn.aceleradora.gestion.socios.modelos.socios.TipoSocio;
 import ar.utn.aceleradora.gestion.socios.modelos.socios.membresia.Membresia;
@@ -108,12 +109,12 @@ public class SocioServiceImpl implements SocioService {
   }
 
   @Override
-  public void createSocio(SocioCreateDTO socio) throws Exception {
+  public void createSocio(SocioCreateDTO socio, String rutaImagen) throws Exception {
     try {
       TipoSocio tipoSocio = ("0".equals(socio.getTipoSocio())) ? TipoSocio.SOCIO_PLENARIO : TipoSocio.SOCIO_ADHERENTE;
-      //Imagen imagen = new Imagen(socio.getImagen().getRutaImagen());
+      Imagen imagen = new Imagen(rutaImagen);
 
-      Socio nuevoSocio = new Socio(socio.getNombre(), socio.getNombrePresidente(), socio.getCuit(), tipoSocio, socio.getTelefono(), socio.getMail());
+      Socio nuevoSocio = new Socio(socio.getNombre(), socio.getNombrePresidente(), socio.getCuit(), tipoSocio, socio.getTelefono(), socio.getMail(), imagen);
 
       Ubicacion ubicacion = new Ubicacion(socio.getDireccion(), socio.getPiso(), socio.getDepartamento(), socio.getLocalidad(), socio.getProvincia());
       ubicacionRepository.save(ubicacion);

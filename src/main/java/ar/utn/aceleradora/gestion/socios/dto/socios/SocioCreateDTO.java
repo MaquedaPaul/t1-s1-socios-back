@@ -1,6 +1,5 @@
 package ar.utn.aceleradora.gestion.socios.dto.socios;
 
-import ar.utn.aceleradora.gestion.socios.dto.socios.ImagenDTO;
 import lombok.Getter;
 
 import java.util.List;
@@ -22,5 +21,4 @@ public class SocioCreateDTO {
     private Double valor;
     private Integer membresiaId;
     public String fechaInicio;
-    private ImagenDTO imagen;
 }
