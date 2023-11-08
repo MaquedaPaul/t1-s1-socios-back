@@ -1,6 +1,7 @@
 package ar.utn.aceleradora.gestion.socios.dto.socios;
 
 import lombok.Getter;
+import org.springframework.web.bind.annotation.ModelAttribute;
 
 import java.util.List;
 

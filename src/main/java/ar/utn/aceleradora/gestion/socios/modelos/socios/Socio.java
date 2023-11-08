@@ -58,7 +58,7 @@ public class Socio {
     @OneToMany(mappedBy = "socio", cascade = {CascadeType.REMOVE, CascadeType.REFRESH})
     private List<MembresiaParticular> membresias;
 
-    @OneToOne
+    @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "id_imagen", referencedColumnName = "id")
     private Imagen imagen;
 

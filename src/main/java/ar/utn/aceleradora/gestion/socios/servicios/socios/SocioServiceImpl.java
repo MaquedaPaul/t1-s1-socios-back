@@ -111,6 +111,7 @@ public class SocioServiceImpl implements SocioService {
   @Override
   public void createSocio(SocioCreateDTO socio, String rutaImagen) throws Exception {
     try {
+
       TipoSocio tipoSocio = ("0".equals(socio.getTipoSocio())) ? TipoSocio.SOCIO_PLENARIO : TipoSocio.SOCIO_ADHERENTE;
       Imagen imagen = new Imagen(rutaImagen);
 
@@ -118,9 +119,10 @@ public class SocioServiceImpl implements SocioService {
 
       Ubicacion ubicacion = new Ubicacion(socio.getDireccion(), socio.getPiso(), socio.getDepartamento(), socio.getLocalidad(), socio.getProvincia());
       ubicacionRepository.save(ubicacion);
-      socioRepository.save(nuevoSocio);
 
+      System.out.println(socio.getMembresiaId());
       Optional<Membresia> membresiaSeleccionada = membresiaRepository.findById(socio.getMembresiaId());
+
       LocalDate fechaInicio = DateConverter.parse(socio.getFechaInicio());
       MembresiaParticular membresiaParticular = new MembresiaParticular(membresiaSeleccionada.get(), fechaInicio, socio.getValor());
       nuevoSocio.agregarMembresia(membresiaParticular);
@@ -132,6 +134,7 @@ public class SocioServiceImpl implements SocioService {
       membresiaParticularRepository.save(membresiaParticular);
 
     } catch (Exception e) {
+      e.printStackTrace();
       throw new Exception("Error al crear el socio, por favor inténtelo más tarde");
     }
   }
