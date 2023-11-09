@@ -28,6 +28,7 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.UUID;
 import java.util.stream.Collectors;
 
 @Service
@@ -163,6 +164,7 @@ public class EventoServiceImpl implements EventoService {
             for (Evento evento : eventos) {
                 ListaEventoDTO eventoDTO = new ListaEventoDTO();
                 eventoDTO.setId(evento.getId());
+                eventoDTO.setUuid(evento.getUuid());
                 eventoDTO.setNombre(evento.getNombre());
                 eventoDTO.setFechaComienzo(evento.getFechaComienzo());
                 eventoDTO.setTipoEstadoEvento(evento.estadoActual().getTipoEstadoEvento());
@@ -177,9 +179,9 @@ public class EventoServiceImpl implements EventoService {
     }
 
     @Override
-    public EventoLimitadoDTO listarEvento(Integer id) throws Exception{
+    public EventoLimitadoDTO listarEvento(UUID id) throws Exception{
 
-        Evento evento = eventoRepository.findById(id).orElseThrow(() -> new EventoNotFoundException("No se pudo encontrar el evento con id: "+id));
+        Evento evento = eventoRepository.findByUuid(id).orElseThrow(() -> new EventoNotFoundException("No se pudo encontrar el evento con uuid: "+id));
         EventoLimitadoDTO eventoLimitadoDTO = new EventoLimitadoDTO();
 
         List<ProyeccionDepartamentoDTO> proyeccionesDepartamentoDTO = new ArrayList<>();
@@ -198,6 +200,7 @@ public class EventoServiceImpl implements EventoService {
     }
     private void mapearDatosPrimitivos(EventoLimitadoDTO eventoLimitadoDTO, Evento evento){
         eventoLimitadoDTO.setId(evento.getId());
+        eventoLimitadoDTO.setUuid(evento.getUuid());
         eventoLimitadoDTO.setEstadosEvento(evento.getEstadosEvento());
         eventoLimitadoDTO.setDescripcion(evento.getDescripcion());
         eventoLimitadoDTO.setUbicacion(evento.getUbicacion());
