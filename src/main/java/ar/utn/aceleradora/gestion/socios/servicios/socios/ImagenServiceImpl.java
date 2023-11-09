@@ -63,7 +63,7 @@ public class ImagenServiceImpl implements ImagenService {
 
     Optional<Socio> socioOptional = this.socioRepository.findById(socioId);
 
-    if (socioOptional.isPresent() && socioOptional.get().getImagen().getRutaImagen() != null) {
+    if (socioOptional.isPresent() && socioOptional.get().getImagen().getRutaImagen() != null && socioOptional.get().getImagen() != null) {
       Socio socio = socioOptional.get();
 
       String filePath = socio.getImagen().getRutaImagen();
