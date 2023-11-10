@@ -5,9 +5,9 @@ import ar.utn.aceleradora.gestion.socios.modelos.socios.Socio;
 import ar.utn.aceleradora.gestion.socios.modelos.socios.TipoSocio;
 import ar.utn.aceleradora.gestion.socios.modelos.socios.membresia.MembresiaParticular;
 import ar.utn.aceleradora.gestion.socios.modelos.ubicacion.Ubicacion;
-import ar.utn.aceleradora.gestion.socios.repositorios.CategoriaRepository;
-import ar.utn.aceleradora.gestion.socios.repositorios.MembresiaParticularRepository;
-import ar.utn.aceleradora.gestion.socios.repositorios.SocioRepository;
+import ar.utn.aceleradora.gestion.socios.repositorios.socios.CategoriaRepository;
+import ar.utn.aceleradora.gestion.socios.repositorios.socios.MembresiaParticularRepository;
+import ar.utn.aceleradora.gestion.socios.repositorios.socios.SocioRepository;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

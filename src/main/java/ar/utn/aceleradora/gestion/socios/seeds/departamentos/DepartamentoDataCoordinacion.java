@@ -3,8 +3,8 @@ package ar.utn.aceleradora.gestion.socios.seeds.departamentos;
 import ar.utn.aceleradora.gestion.socios.modelos.departamentos.Autoridad;
 import ar.utn.aceleradora.gestion.socios.modelos.departamentos.Coordinacion;
 import ar.utn.aceleradora.gestion.socios.modelos.departamentos.Departamento;
-import ar.utn.aceleradora.gestion.socios.repositorios.AutoridadRepository;
-import ar.utn.aceleradora.gestion.socios.repositorios.CoorDepartamentoRepository;
+import ar.utn.aceleradora.gestion.socios.repositorios.departamentos.AutoridadRepository;
+import ar.utn.aceleradora.gestion.socios.repositorios.departamentos.CoorDepartamentoRepository;
 
 import java.util.List;
 

@@ -1,7 +1,7 @@
 package ar.utn.aceleradora.gestion.socios.servicios.departamentos;
 
 import ar.utn.aceleradora.gestion.socios.modelos.departamentos.Coordinacion;
-import ar.utn.aceleradora.gestion.socios.repositorios.CoorDepartamentoRepository;
+import ar.utn.aceleradora.gestion.socios.repositorios.departamentos.CoorDepartamentoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

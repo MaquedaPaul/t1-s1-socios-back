@@ -2,9 +2,9 @@ package ar.utn.aceleradora.gestion.socios.seeds.socios;
 
 import ar.utn.aceleradora.gestion.socios.modelos.socios.membresia.Membresia;
 import ar.utn.aceleradora.gestion.socios.modelos.socios.membresia.MembresiaParticular;
-import ar.utn.aceleradora.gestion.socios.repositorios.MembresiaParticularRepository;
+import ar.utn.aceleradora.gestion.socios.repositorios.socios.MembresiaParticularRepository;
 
-import ar.utn.aceleradora.gestion.socios.repositorios.MembresiaRepository;
+import ar.utn.aceleradora.gestion.socios.repositorios.socios.MembresiaRepository;
 
 import lombok.Getter;
 import org.slf4j.Logger;

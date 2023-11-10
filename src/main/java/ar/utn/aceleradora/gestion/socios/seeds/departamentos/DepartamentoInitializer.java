@@ -1,5 +1,7 @@
 package ar.utn.aceleradora.gestion.socios.seeds.departamentos;
-import ar.utn.aceleradora.gestion.socios.repositorios.*;
+import ar.utn.aceleradora.gestion.socios.repositorios.departamentos.AutoridadRepository;
+import ar.utn.aceleradora.gestion.socios.repositorios.departamentos.CoorDepartamentoRepository;
+import ar.utn.aceleradora.gestion.socios.repositorios.socios.SocioRepository;
 import org.springframework.stereotype.Component;
 
 @Component

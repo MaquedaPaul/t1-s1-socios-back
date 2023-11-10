@@ -2,7 +2,7 @@ package ar.utn.aceleradora.gestion.socios.servicios.socios;
 
 import ar.utn.aceleradora.gestion.socios.converters.DateConverter;
 
-import ar.utn.aceleradora.gestion.socios.error.SocioNotFoundException;
+import ar.utn.aceleradora.gestion.socios.error.socios.SocioNotFoundException;
 import ar.utn.aceleradora.gestion.socios.dto.socios.SocioCreateDTO;
 import ar.utn.aceleradora.gestion.socios.dto.socios.SocioUpdateDTO;
 import ar.utn.aceleradora.gestion.socios.modelos.departamentos.Departamento;
@@ -13,6 +13,11 @@ import ar.utn.aceleradora.gestion.socios.modelos.socios.membresia.Membresia;
 import ar.utn.aceleradora.gestion.socios.modelos.socios.membresia.MembresiaParticular;
 import ar.utn.aceleradora.gestion.socios.modelos.ubicacion.Ubicacion;
 import ar.utn.aceleradora.gestion.socios.repositorios.*;
+import ar.utn.aceleradora.gestion.socios.repositorios.departamentos.DepartamentoRepository;
+import ar.utn.aceleradora.gestion.socios.repositorios.socios.CategoriaRepository;
+import ar.utn.aceleradora.gestion.socios.repositorios.socios.MembresiaParticularRepository;
+import ar.utn.aceleradora.gestion.socios.repositorios.socios.MembresiaRepository;
+import ar.utn.aceleradora.gestion.socios.repositorios.socios.SocioRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
