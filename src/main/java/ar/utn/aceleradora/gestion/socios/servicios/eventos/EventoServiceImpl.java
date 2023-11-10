@@ -8,6 +8,7 @@ import ar.utn.aceleradora.gestion.socios.dto.eventos.ListaEventoDTO;
 import ar.utn.aceleradora.gestion.socios.error.eventos.EstadoEventoNoValidoException;
 import ar.utn.aceleradora.gestion.socios.error.eventos.EventoNotFoundException;
 import ar.utn.aceleradora.gestion.socios.error.eventos.ModalidadNoValidaException;
+import ar.utn.aceleradora.gestion.socios.modelos.departamentos.Autoridad;
 import ar.utn.aceleradora.gestion.socios.modelos.departamentos.Departamento;
 import ar.utn.aceleradora.gestion.socios.modelos.eventos.EstadoEvento;
 import ar.utn.aceleradora.gestion.socios.modelos.eventos.Evento;
@@ -16,6 +17,7 @@ import ar.utn.aceleradora.gestion.socios.modelos.eventos.TipoModalidad;
 import ar.utn.aceleradora.gestion.socios.modelos.eventos.inscriptos.TipoEstadoInscripto;
 import ar.utn.aceleradora.gestion.socios.modelos.socios.Socio;
 import ar.utn.aceleradora.gestion.socios.modelos.ubicacion.Ubicacion;
+import ar.utn.aceleradora.gestion.socios.repositorios.departamentos.AutoridadRepository;
 import ar.utn.aceleradora.gestion.socios.repositorios.departamentos.DepartamentoRepository;
 import ar.utn.aceleradora.gestion.socios.repositorios.eventos.EventoRepository;
 import ar.utn.aceleradora.gestion.socios.repositorios.socios.SocioRepository;
@@ -74,6 +76,7 @@ public class EventoServiceImpl implements EventoService {
             throw new Exception("Error al obtener evento por id, por favor intentelo más tarde");
         }
     }
+
 
     @Override
     public List<TipoModalidad> listasModalidades() {
