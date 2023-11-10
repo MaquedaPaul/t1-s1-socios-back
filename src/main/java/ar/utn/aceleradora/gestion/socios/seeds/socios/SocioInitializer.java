@@ -1,9 +1,9 @@
 package ar.utn.aceleradora.gestion.socios.seeds.socios;
 
-import ar.utn.aceleradora.gestion.socios.repositorios.CategoriaRepository;
-import ar.utn.aceleradora.gestion.socios.repositorios.MembresiaParticularRepository;
-import ar.utn.aceleradora.gestion.socios.repositorios.MembresiaRepository;
-import ar.utn.aceleradora.gestion.socios.repositorios.SocioRepository;
+import ar.utn.aceleradora.gestion.socios.repositorios.socios.CategoriaRepository;
+import ar.utn.aceleradora.gestion.socios.repositorios.socios.MembresiaParticularRepository;
+import ar.utn.aceleradora.gestion.socios.repositorios.socios.MembresiaRepository;
+import ar.utn.aceleradora.gestion.socios.repositorios.socios.SocioRepository;
 import org.springframework.stereotype.Component;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;

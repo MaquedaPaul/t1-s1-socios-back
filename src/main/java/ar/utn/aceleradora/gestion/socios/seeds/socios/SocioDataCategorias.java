@@ -1,7 +1,7 @@
 package ar.utn.aceleradora.gestion.socios.seeds.socios;
 
 import ar.utn.aceleradora.gestion.socios.modelos.socios.Categoria;
-import ar.utn.aceleradora.gestion.socios.repositorios.CategoriaRepository;
+import ar.utn.aceleradora.gestion.socios.repositorios.socios.CategoriaRepository;
 
 import java.util.Arrays;
 import java.util.List;

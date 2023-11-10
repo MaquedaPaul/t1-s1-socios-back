@@ -1,4 +1,8 @@
 package ar.utn.aceleradora.gestion.socios.error;
+import ar.utn.aceleradora.gestion.socios.error.departamentos.*;
+import ar.utn.aceleradora.gestion.socios.error.eventos.EventoNotFoundException;
+import ar.utn.aceleradora.gestion.socios.error.socios.CategoriaNotCreatedException;
+import ar.utn.aceleradora.gestion.socios.error.socios.SocioNotFoundException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;
