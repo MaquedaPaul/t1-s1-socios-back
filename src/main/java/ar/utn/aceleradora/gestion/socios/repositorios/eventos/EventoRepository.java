@@ -2,6 +2,7 @@ package ar.utn.aceleradora.gestion.socios.repositorios.eventos;
 
 import ar.utn.aceleradora.gestion.socios.modelos.eventos.Evento;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Repository;
 
 import java.util.Optional;
 import java.util.UUID;
