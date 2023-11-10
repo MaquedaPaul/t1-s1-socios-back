@@ -6,9 +6,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import java.util.Optional;
 import java.util.UUID;
 
-//@Repository
-
-
+@Repository
 public interface EventoRepository extends JpaRepository<Evento, Integer> {
     Optional<Evento> findById(Integer id);
     Optional<Evento> findByUuid(UUID uuid);
