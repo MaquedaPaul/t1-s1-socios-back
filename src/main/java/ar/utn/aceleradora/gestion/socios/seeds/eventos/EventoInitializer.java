@@ -1,8 +1,8 @@
 package ar.utn.aceleradora.gestion.socios.seeds.eventos;
 
-import ar.utn.aceleradora.gestion.socios.repositorios.DepartamentoRepository;
-import ar.utn.aceleradora.gestion.socios.repositorios.EventoRepository;
-import ar.utn.aceleradora.gestion.socios.repositorios.InscriptoRepository;
+import ar.utn.aceleradora.gestion.socios.repositorios.departamentos.DepartamentoRepository;
+import ar.utn.aceleradora.gestion.socios.repositorios.eventos.EventoRepository;
+import ar.utn.aceleradora.gestion.socios.repositorios.eventos.InscriptoRepository;
 import ar.utn.aceleradora.gestion.socios.repositorios.UbicacionRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;

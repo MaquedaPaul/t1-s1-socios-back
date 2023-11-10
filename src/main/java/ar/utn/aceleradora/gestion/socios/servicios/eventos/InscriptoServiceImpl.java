@@ -2,17 +2,17 @@ package ar.utn.aceleradora.gestion.socios.servicios.eventos;
 
 import ar.utn.aceleradora.gestion.socios.dto.eventos.InscriptoCreateDTO;
 import ar.utn.aceleradora.gestion.socios.dto.eventos.InscriptoUpdateDTO;
-import ar.utn.aceleradora.gestion.socios.error.EventoNotFoundException;
-import ar.utn.aceleradora.gestion.socios.error.SocioNotFoundException;
-import ar.utn.aceleradora.gestion.socios.error.TipoEstadoInscriptoNoValidoException;
+import ar.utn.aceleradora.gestion.socios.error.eventos.EventoNotFoundException;
+import ar.utn.aceleradora.gestion.socios.error.socios.SocioNotFoundException;
+import ar.utn.aceleradora.gestion.socios.error.eventos.TipoEstadoInscriptoNoValidoException;
 import ar.utn.aceleradora.gestion.socios.modelos.eventos.Evento;
 import ar.utn.aceleradora.gestion.socios.modelos.eventos.inscriptos.EstadoInscripto;
 import ar.utn.aceleradora.gestion.socios.modelos.eventos.inscriptos.Inscripto;
 import ar.utn.aceleradora.gestion.socios.modelos.eventos.inscriptos.TipoEstadoInscripto;
 import ar.utn.aceleradora.gestion.socios.modelos.socios.Socio;
-import ar.utn.aceleradora.gestion.socios.repositorios.EventoRepository;
-import ar.utn.aceleradora.gestion.socios.repositorios.InscriptoRepository;
-import ar.utn.aceleradora.gestion.socios.repositorios.SocioRepository;
+import ar.utn.aceleradora.gestion.socios.repositorios.eventos.EventoRepository;
+import ar.utn.aceleradora.gestion.socios.repositorios.eventos.InscriptoRepository;
+import ar.utn.aceleradora.gestion.socios.repositorios.socios.SocioRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

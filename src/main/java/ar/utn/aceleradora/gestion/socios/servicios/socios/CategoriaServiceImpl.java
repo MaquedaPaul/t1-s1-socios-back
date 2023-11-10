@@ -1,10 +1,10 @@
 package ar.utn.aceleradora.gestion.socios.servicios.socios;
 
 import ar.utn.aceleradora.gestion.socios.dto.socios.CategoriaDTO;
-import ar.utn.aceleradora.gestion.socios.error.CategoriaNotCreatedException;
+import ar.utn.aceleradora.gestion.socios.error.socios.CategoriaNotCreatedException;
 import ar.utn.aceleradora.gestion.socios.modelos.socios.Categoria;
 
-import ar.utn.aceleradora.gestion.socios.repositorios.CategoriaRepository;
+import ar.utn.aceleradora.gestion.socios.repositorios.socios.CategoriaRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
