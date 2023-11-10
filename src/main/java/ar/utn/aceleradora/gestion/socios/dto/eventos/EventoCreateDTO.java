@@ -18,4 +18,5 @@ public class EventoCreateDTO {
     private String localidad;
     private String provincia;
     private List<Integer> id_departamentos;
+    private String hora;
 }
