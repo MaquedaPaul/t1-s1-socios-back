@@ -140,5 +140,9 @@ public class Evento {
     public void agregarInscripto(Inscripto inscripto){
         getInscriptos().add(inscripto);
     }
+
+    public void eliminarDepartamento(Departamento departamento) {
+        this.getDepartamentos().remove(departamento);
+    }
 }
 
