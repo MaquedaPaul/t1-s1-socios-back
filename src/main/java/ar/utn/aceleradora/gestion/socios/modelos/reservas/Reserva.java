@@ -10,4 +10,7 @@ public class Reserva {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
+    public Reserva() {
+
+    }
 }

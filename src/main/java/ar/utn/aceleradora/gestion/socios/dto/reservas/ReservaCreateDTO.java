@@ -8,7 +8,7 @@ import java.util.List;
 public class ReservaCreateDTO {
     private Integer idDepartamento;
     private String fecha;
-    private Integer espacioFisico;
+    private Integer idEspacioFisico;
     private String horaInicio;
     private String descripcion;
     private double duracion;
