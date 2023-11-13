@@ -114,7 +114,7 @@ public class ReservaServiceImpl implements ReservaService {
     private void creacionReservaLimitada(Reserva reserva, List<ReservaLimitadoDTO> reservasLimitadas) {
         ReservaLimitadoDTO nuevaReservaLimitada = new ReservaLimitadoDTO();
         nuevaReservaLimitada.setId(reserva.getId());
-        //nuevaReservaLimitada.setDescripcion(reserva.getDescripcion); //TODO DESCOMENTAR
+        nuevaReservaLimitada.setDescripcion(reserva.getDescripcion());
         nuevaReservaLimitada.setEstadosReserva(reserva.getEstadosReserva());
         nuevaReservaLimitada.setRecursosSolicitados(reserva.getRecursosSolicitados());
 
