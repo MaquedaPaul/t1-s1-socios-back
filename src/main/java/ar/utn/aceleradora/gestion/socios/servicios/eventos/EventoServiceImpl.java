@@ -5,9 +5,11 @@ import ar.utn.aceleradora.gestion.socios.dto.eventos.*;
 import ar.utn.aceleradora.gestion.socios.dto.eventos.EventoCreateDTO;
 import ar.utn.aceleradora.gestion.socios.dto.eventos.EventoUpdateDTO;
 import ar.utn.aceleradora.gestion.socios.dto.eventos.ListaEventoDTO;
+import ar.utn.aceleradora.gestion.socios.error.departamentos.AutoridadNotFoundException;
 import ar.utn.aceleradora.gestion.socios.error.eventos.EstadoEventoNoValidoException;
 import ar.utn.aceleradora.gestion.socios.error.eventos.EventoNotFoundException;
 import ar.utn.aceleradora.gestion.socios.error.eventos.ModalidadNoValidaException;
+import ar.utn.aceleradora.gestion.socios.modelos.departamentos.Autoridad;
 import ar.utn.aceleradora.gestion.socios.modelos.departamentos.Departamento;
 import ar.utn.aceleradora.gestion.socios.modelos.eventos.EstadoEvento;
 import ar.utn.aceleradora.gestion.socios.modelos.eventos.Evento;
@@ -16,6 +18,7 @@ import ar.utn.aceleradora.gestion.socios.modelos.eventos.TipoModalidad;
 import ar.utn.aceleradora.gestion.socios.modelos.eventos.inscriptos.TipoEstadoInscripto;
 import ar.utn.aceleradora.gestion.socios.modelos.socios.Socio;
 import ar.utn.aceleradora.gestion.socios.modelos.ubicacion.Ubicacion;
+import ar.utn.aceleradora.gestion.socios.repositorios.departamentos.AutoridadRepository;
 import ar.utn.aceleradora.gestion.socios.repositorios.departamentos.DepartamentoRepository;
 import ar.utn.aceleradora.gestion.socios.repositorios.eventos.EventoRepository;
 import ar.utn.aceleradora.gestion.socios.repositorios.socios.SocioRepository;
@@ -38,13 +41,15 @@ public class EventoServiceImpl implements EventoService {
     private DepartamentoRepository departamentoRepository;
     private SocioRepository socioRepository;
     private UbicacionRepository ubicacionRepository;
+    private AutoridadRepository autoridadRepository;
 
     @Autowired
-    public EventoServiceImpl(EventoRepository eventoRepository, DepartamentoRepository departamentoRepository, SocioRepository socioRepository, UbicacionRepository ubicacionRepository) {
+    public EventoServiceImpl(EventoRepository eventoRepository, DepartamentoRepository departamentoRepository, SocioRepository socioRepository, UbicacionRepository ubicacionRepository, AutoridadRepository autoridadRepository) {
         this.eventoRepository = eventoRepository;
         this.departamentoRepository = departamentoRepository;
         this.socioRepository = socioRepository;
         this.ubicacionRepository = ubicacionRepository;
+        this.autoridadRepository = autoridadRepository;
     }
 
     @Override
@@ -72,6 +77,12 @@ public class EventoServiceImpl implements EventoService {
         } catch (Exception e) {
             throw new Exception("Error al obtener evento por id, por favor intentelo más tarde");
         }
+    }
+
+    @Override
+    public Autoridad obtenerAutoridadPorId(Integer autoridadId) {
+        return autoridadRepository.findById(autoridadId)
+                .orElseThrow(() -> new AutoridadNotFoundException("No se encontró ninguna autoridad con el ID proporcionado: " + autoridadId));
     }
 
     @Override
