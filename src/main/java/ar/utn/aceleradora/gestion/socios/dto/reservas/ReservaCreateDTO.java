@@ -10,12 +10,12 @@ public class ReservaCreateDTO {
     private String fecha;
     private Integer idEspacioFisico;
     private String horaInicio;
+    private String horaFin;
     private String descripcion;
-    private double duracion;
-    private String nombre;
-    private String mail;
-    private String apellido;
-    private String telefono;
-    private List<Integer> idsRecursos;
+    private String nombreReservante;
+    private String mailReservante;
+    private String apellidoReservante;
+    private String telefonoReservante;
+    private List<RecursoCreateDTO> recursosSolicitados;
 
 }
