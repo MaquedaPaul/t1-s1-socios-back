@@ -94,12 +94,12 @@ public class EventoDataEventos {
             Evento evento = (Evento) getClass().getDeclaredField(nombreVariable).get(this);
 
             // Genera un número aleatorio entre 1 y 15
-            int cantidadInscriptos = random.nextInt(15) + 1;
+            int cantidadInscriptos = random.nextInt(4) + 1;
 
             // Agrega entre 1 y 15 inscriptos aleatorios al evento
             for (int j = 0; j < cantidadInscriptos; j++) {
                 int indiceAleatorio = random.nextInt(inscriptos.size());
-                Inscripto inscriptoAleatorio = inscriptos.get(indiceAleatorio);
+                Inscripto inscriptoAleatorio = inscriptos.remove(indiceAleatorio);
                 evento.agregarInscripto(inscriptoAleatorio);
             }
         }

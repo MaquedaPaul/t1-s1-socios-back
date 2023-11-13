@@ -12,6 +12,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.UUID;
 
 
 @RestController
@@ -59,7 +60,7 @@ public class EventoController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<EventoLimitadoDTO> listarEvento(@PathVariable Integer id) {
+    public ResponseEntity<EventoLimitadoDTO> listarEvento(@PathVariable UUID id) {
         try {
             EventoLimitadoDTO eventoLimitadoDTO = eventoService.listarEvento(id);
             return ResponseEntity.ok(eventoLimitadoDTO);

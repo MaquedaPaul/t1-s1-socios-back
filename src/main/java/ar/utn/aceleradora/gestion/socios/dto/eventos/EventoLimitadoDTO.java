@@ -16,12 +16,14 @@ import lombok.Setter;
 import java.time.LocalDate;
 
 import java.util.List;
+import java.util.UUID;
 
 @Getter
 @Setter
 public class EventoLimitadoDTO {
 
     private Integer id;
+    private UUID uuid;
     private String nombre;
     private String descripcion;
     private LocalDate fechaComienzo;
