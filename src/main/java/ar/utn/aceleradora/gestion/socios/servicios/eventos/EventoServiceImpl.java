@@ -78,10 +78,16 @@ public class EventoServiceImpl implements EventoService {
         }
     }
 
+    public static class AutoridadNotFoundException extends RuntimeException {
+        public AutoridadNotFoundException(String mensaje) {
+            super(mensaje);
+        }
+    }
+
     @Override
     public Autoridad obtenerAutoridadPorId(Integer autoridadId) {
         return autoridadRepository.findById(autoridadId)
-                .orElseThrow(() -> new IllegalArgumentException("No se encontró ninguna autoridad con el ID proporcionado: " + autoridadId));
+                .orElseThrow(() -> new AutoridadNotFoundException("No se encontró ninguna autoridad con el ID proporcionado: " + autoridadId));
     }
 
     @Override
