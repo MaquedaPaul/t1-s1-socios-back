@@ -9,6 +9,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -60,7 +61,7 @@ public class Reserva {
     @JoinColumn(name = "id_reserva")
     private List<RecursoSolicitado> recursosSolicitados;
 
-    @OneToMany
+    @OneToMany(cascade = CascadeType.ALL)
     @JoinColumn(name = "id_reserva")
     private List<EstadoReserva> estadosReserva;
 
@@ -71,6 +72,7 @@ public class Reserva {
     public Reserva(){
         this.recursosSolicitados = new ArrayList<>();
         this.estadosReserva = new ArrayList<>();
+        estadosReserva.add(new EstadoReserva(TipoEstadoReserva.PENDIENTE, LocalDateTime.now(),"Pendiente de aprobación"));
     }
 
 
