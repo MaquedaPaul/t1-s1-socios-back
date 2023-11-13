@@ -6,11 +6,13 @@ import ar.utn.aceleradora.gestion.socios.modelos.departamentos.Autoridad;
 import ar.utn.aceleradora.gestion.socios.modelos.departamentos.Coordinacion;
 import ar.utn.aceleradora.gestion.socios.modelos.departamentos.Departamento;
 import ar.utn.aceleradora.gestion.socios.modelos.eventos.Evento;
+import ar.utn.aceleradora.gestion.socios.modelos.reservas.Reserva;
 import ar.utn.aceleradora.gestion.socios.modelos.socios.Socio;
 import ar.utn.aceleradora.gestion.socios.repositorios.departamentos.AutoridadRepository;
 import ar.utn.aceleradora.gestion.socios.repositorios.departamentos.CoorDepartamentoRepository;
 import ar.utn.aceleradora.gestion.socios.repositorios.departamentos.DepartamentoRepository;
 import ar.utn.aceleradora.gestion.socios.repositorios.eventos.EventoRepository;
+import ar.utn.aceleradora.gestion.socios.repositorios.reservas.ReservaRepository;
 import ar.utn.aceleradora.gestion.socios.repositorios.socios.SocioRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -33,14 +35,16 @@ public class DepartamentoServiceImpl implements DepartamentoService {
 
     private final CoorDepartamentoRepository coordinacionRepository;
     private final EventoRepository eventoRepository;
+    private final ReservaRepository reservaRepository;
 
     @Autowired
-    public DepartamentoServiceImpl(DepartamentoRepository departamentoRepository, AutoridadRepository autoridadRepository, SocioRepository socioRepository, CoorDepartamentoRepository coordinacionRepository, EventoRepository eventoRepository) {
+    public DepartamentoServiceImpl(DepartamentoRepository departamentoRepository, AutoridadRepository autoridadRepository, SocioRepository socioRepository, CoorDepartamentoRepository coordinacionRepository, EventoRepository eventoRepository, ReservaRepository reservaRepository) {
         this.departamentoRepository = departamentoRepository;
         this.autoridadRepository = autoridadRepository;
         this.socioRepository = socioRepository;
         this.coordinacionRepository = coordinacionRepository;
         this.eventoRepository = eventoRepository;
+        this.reservaRepository = reservaRepository;
     }
 
     @Override
@@ -55,13 +59,20 @@ public class DepartamentoServiceImpl implements DepartamentoService {
         if(departamento.isPresent())
         {
             removerDepartamentoDeCoordinaciones(departamento.get());
-            //removerDepartamentoDeReservas(departamento.get());
+            removerDepartamentoDeReservas(departamento.get());
             removerDepartamentoDeEventos(departamento.get());
             departamentoRepository.deleteById(id);
         }
         else{
             throw new DepartamentoNotFoundException("no se encontro departamento con id: "+id+" para borrar");
         }
+    }
+
+    private void removerDepartamentoDeReservas(Departamento departamento) {
+        List<Reserva> reservas = reservaRepository.findAll();
+        List<Reserva> reservasQueTienenAlDepartamento = reservas.stream().filter(reserva -> reserva.getDepartamentoAsociado().equals(departamento)).toList();
+        reservaRepository.deleteAll(reservasQueTienenAlDepartamento);
+        //Seria un problema que se borre un departamento que tenga reservas...
     }
 
     private void removerDepartamentoDeEventos(Departamento departamento) {
