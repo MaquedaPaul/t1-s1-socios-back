@@ -13,6 +13,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Random;
@@ -102,6 +103,14 @@ public class EventoDataEventos {
                 Inscripto inscriptoAleatorio = inscriptos.remove(indiceAleatorio);
                 evento.agregarInscripto(inscriptoAleatorio);
             }
+
+            int indiceAleatorioEstado = random.nextInt(dataEstadoEventos.getPendientes().size());
+            EstadoEvento estadoAleatorio = dataEstadoEventos.removerElementoPendientes(indiceAleatorioEstado);
+
+            LocalDateTime horaAleatoria = LocalDateTime.of(2023, 1, 1, random.nextInt(24), random.nextInt(60));
+
+            evento.agregarEstado(new EstadoEvento(estadoAleatorio.getTipoEstadoEvento(), estadoAleatorio.getFechaYHora(), estadoAleatorio.getMotivo(), horaAleatoria));
+
         }
 
         eventoRepository.saveAll(eventos);

@@ -55,7 +55,7 @@ public class EventoServiceImpl implements EventoService {
         try{
             LocalDate fechaComienzo = DateConverter.parse(evento.getFechaComienzo());
             LocalDate fechaFin = DateConverter.parse(evento.getFechaFin());
-            LocalTime hora = LocalTime.parse(evento.getHora());
+            LocalTime hora = DateConverter.parseDateTime(evento.getHora());
             Ubicacion ubicacion = new Ubicacion(evento.getDireccion(), evento.getPiso(), evento.getDepartamento(), evento.getLocalidad(), evento.getProvincia());
             ubicacionRepository.save(ubicacion);
             List<Departamento> departamentos = this.departamentoRepository.findAllById(evento.getId_departamentos());

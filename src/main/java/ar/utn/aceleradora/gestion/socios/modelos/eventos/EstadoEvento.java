@@ -34,4 +34,6 @@ public class EstadoEvento {
         this.motivo = motivo;
     }
 
+    public EstadoEvento(TipoEstadoEvento tipoEstadoEvento, LocalDateTime fechaYHora, String motivo, LocalDateTime hora) {
+    }
 }
