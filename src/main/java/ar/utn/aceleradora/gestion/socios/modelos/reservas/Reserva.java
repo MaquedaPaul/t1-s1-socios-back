@@ -71,12 +71,11 @@ public class Reserva {
     public Reserva(){
         this.recursosSolicitados = new ArrayList<>();
         this.estadosReserva = new ArrayList<>();
-        this.codigoDeSeguimiento = this.generarCodigoSeguimiento();
     }
 
 
-    private String generarCodigoSeguimiento(){
-        Integer id = 5; //--> reemplazar por getId();
+    public void generarCodigoSeguimiento(){
+        Integer id = this.getId();
         String idString = id.toString();
         String caracteres = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
         SecureRandom random = new SecureRandom();
@@ -87,6 +86,6 @@ public class Reserva {
             codigo.append(caracteres.charAt(indice));
         }
         codigo.append(idString);
-        return codigo.toString();
+        this.codigoDeSeguimiento = codigo.toString();
     }
 }

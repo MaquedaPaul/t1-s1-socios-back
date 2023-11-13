@@ -74,6 +74,8 @@ public class ReservaServiceImpl implements ReservaService {
 
         try {
             reservaRepository.save(nuevaReserva);
+            nuevaReserva.generarCodigoSeguimiento();
+            reservaRepository.save(nuevaReserva);
         } catch (Exception e) {
             System.out.println(e.getMessage());
             throw new ReservaNotCreatedException("No se pudo crear la reserva");
