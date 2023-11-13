@@ -1,6 +1,8 @@
 package ar.utn.aceleradora.gestion.socios.error;
 import ar.utn.aceleradora.gestion.socios.error.departamentos.*;
 import ar.utn.aceleradora.gestion.socios.error.eventos.EventoNotFoundException;
+import ar.utn.aceleradora.gestion.socios.error.reservas.EstadoReservaNoValidoException;
+import ar.utn.aceleradora.gestion.socios.error.reservas.ReservaNotFoundException;
 import ar.utn.aceleradora.gestion.socios.error.socios.CategoriaNotCreatedException;
 import ar.utn.aceleradora.gestion.socios.error.socios.SocioNotFoundException;
 import org.springframework.http.HttpStatus;
@@ -71,4 +73,20 @@ public class GlobalExceptionHandler {
                 .status(HttpStatus.INTERNAL_SERVER_ERROR)
                 .body(exception.getMessage());
     }
+
+    @ExceptionHandler({ReservaNotFoundException.class})
+    public ResponseEntity<Object> handleEventoNotFoundException(ReservaNotFoundException exception){
+        return ResponseEntity
+                .status(HttpStatus.INTERNAL_SERVER_ERROR)
+                .body(exception.getMessage());
+    }
+    @ExceptionHandler({EstadoReservaNoValidoException.class})
+    public ResponseEntity<Object> handleEventoNotFoundException(EstadoReservaNoValidoException exception){
+        return ResponseEntity
+                .status(HttpStatus.INTERNAL_SERVER_ERROR)
+                .body(exception.getMessage());
+    }
+
+
+
 }
