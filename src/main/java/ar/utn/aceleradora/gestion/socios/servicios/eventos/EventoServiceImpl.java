@@ -5,6 +5,7 @@ import ar.utn.aceleradora.gestion.socios.dto.eventos.*;
 import ar.utn.aceleradora.gestion.socios.dto.eventos.EventoCreateDTO;
 import ar.utn.aceleradora.gestion.socios.dto.eventos.EventoUpdateDTO;
 import ar.utn.aceleradora.gestion.socios.dto.eventos.ListaEventoDTO;
+import ar.utn.aceleradora.gestion.socios.error.departamentos.AutoridadNotFoundException;
 import ar.utn.aceleradora.gestion.socios.error.eventos.EstadoEventoNoValidoException;
 import ar.utn.aceleradora.gestion.socios.error.eventos.EventoNotFoundException;
 import ar.utn.aceleradora.gestion.socios.error.eventos.ModalidadNoValidaException;
@@ -75,12 +76,6 @@ public class EventoServiceImpl implements EventoService {
             return eventoRepository.findById(eventoId).orElse(null);
         } catch (Exception e) {
             throw new Exception("Error al obtener evento por id, por favor intentelo más tarde");
-        }
-    }
-
-    public static class AutoridadNotFoundException extends RuntimeException {
-        public AutoridadNotFoundException(String mensaje) {
-            super(mensaje);
         }
     }
 
