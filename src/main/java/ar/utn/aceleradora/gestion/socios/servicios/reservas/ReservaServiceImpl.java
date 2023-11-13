@@ -105,9 +105,6 @@ public class ReservaServiceImpl implements ReservaService {
 
     @Override
     public List<ReservaLimitadoDTO> listarReservas() {
-        Reserva reservaTest = new Reserva();
-
-        reservaRepository.save(reservaTest);
         List<Reserva> reservas = reservaRepository.findAll();
         List<ReservaLimitadoDTO> reservasLimitadas = new ArrayList<>();
         reservas.forEach(reserva -> this.creacionReservaLimitada(reserva, reservasLimitadas));
