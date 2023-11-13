@@ -45,14 +45,6 @@ public class ReservaServiceImpl implements ReservaService {
 
     @Override
     public void crearReserva(ReservaCreateDTO reservaCreateDTO) {
-        Recurso recursoTest1 = new Recurso();
-        Recurso recursoTest2 = new Recurso();
-        EspacioFisico espacioFisicoTest = new EspacioFisico();
-        recursoRepository.save(recursoTest1);
-        recursoRepository.save(recursoTest2);
-        espacioFisicoRepository.save(espacioFisicoTest);
-
-
         Reserva nuevaReserva = new Reserva();
 
 
