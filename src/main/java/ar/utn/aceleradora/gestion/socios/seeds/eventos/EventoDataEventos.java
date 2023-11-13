@@ -14,21 +14,22 @@ import lombok.Setter;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Random;
 
 public class EventoDataEventos {
 
-    Evento evento1 = new Evento("Evento 1", "Descripción del evento 1", LocalDate.of(2023, 11, 1), LocalDate.of(2023, 11, 3), TipoModalidad.HIBRIDO);
-    Evento evento2 = new Evento("Evento 2", "Descripción del evento 2", LocalDate.of(2023, 12, 5), LocalDate.of(2023, 12, 7), TipoModalidad.VIRTUAL);
-    Evento evento3 = new Evento("Evento 3", "Descripción del evento 3", LocalDate.of(2023, 10, 15), LocalDate.of(2023, 10, 17), TipoModalidad.PRESENCIAL);
-    Evento evento4 = new Evento("Evento 4", "Descripción del evento 4", LocalDate.of(2023, 9, 20), LocalDate.of(2023, 9, 22), TipoModalidad.HIBRIDO);
+    Evento evento1 = new Evento("Evento 1", "Descripción del evento 1", LocalDate.of(2023, 11, 1), LocalDate.of(2023, 11, 3), TipoModalidad.HIBRIDO, LocalTime.of(10, 0));
+    Evento evento2 = new Evento("Evento 2", "Descripción del evento 2", LocalDate.of(2023, 12, 5), LocalDate.of(2023, 12, 7), TipoModalidad.VIRTUAL, LocalTime.of(11, 30));
+    Evento evento3 = new Evento("Evento 3", "Descripción del evento 3", LocalDate.of(2023, 10, 15), LocalDate.of(2023, 10, 17), TipoModalidad.PRESENCIAL, LocalTime.of(9, 0));
+    Evento evento4 = new Evento("Evento 4", "Descripción del evento 4", LocalDate.of(2023, 9, 20), LocalDate.of(2023, 9, 22), TipoModalidad.HIBRIDO, LocalTime.of(5, 15));
 
-    Evento evento5 = new Evento("Evento 5", "Descripción del evento 5", LocalDate.of(2023, 8, 10), LocalDate.of(2023, 8, 12), TipoModalidad.HIBRIDO);
-    Evento evento6 = new Evento("Evento 6", "Descripción del evento 6", LocalDate.of(2023, 7, 5), LocalDate.of(2023, 7, 7), TipoModalidad.VIRTUAL);
-    Evento evento7 = new Evento("Evento 7", "Descripción del evento 7", LocalDate.of(2023, 6, 15), LocalDate.of(2023, 6, 17), TipoModalidad.PRESENCIAL);
-    Evento evento8 = new Evento("Evento 8", "Descripción del evento 8", LocalDate.of(2023, 5, 20), LocalDate.of(2023, 5, 22), TipoModalidad.HIBRIDO);
+    Evento evento5 = new Evento("Evento 5", "Descripción del evento 5", LocalDate.of(2023, 8, 10), LocalDate.of(2023, 8, 12), TipoModalidad.HIBRIDO, LocalTime.of(12, 20));
+    Evento evento6 = new Evento("Evento 6", "Descripción del evento 6", LocalDate.of(2023, 7, 5), LocalDate.of(2023, 7, 7), TipoModalidad.VIRTUAL, LocalTime.of(10, 0));
+    Evento evento7 = new Evento("Evento 7", "Descripción del evento 7", LocalDate.of(2023, 6, 15), LocalDate.of(2023, 6, 17), TipoModalidad.PRESENCIAL, LocalTime.of(16, 0));
+    Evento evento8 = new Evento("Evento 8", "Descripción del evento 8", LocalDate.of(2023, 5, 20), LocalDate.of(2023, 5, 22), TipoModalidad.HIBRIDO, LocalTime.of(10, 8));
 
     @Setter
     @Getter
@@ -115,9 +116,4 @@ public class EventoDataEventos {
 
         eventoRepository.saveAll(eventos);
     }
-
-
-
-
-
 }
