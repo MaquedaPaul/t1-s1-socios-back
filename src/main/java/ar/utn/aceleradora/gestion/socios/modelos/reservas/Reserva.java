@@ -3,6 +3,7 @@ package ar.utn.aceleradora.gestion.socios.modelos.reservas;
 import ar.utn.aceleradora.gestion.socios.modelos.departamentos.Departamento;
 import jakarta.persistence.*;
 import lombok.Getter;
+import lombok.Setter;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
@@ -12,6 +13,7 @@ import java.util.List;
 @Entity
 @Table(name = "reservas")
 @Getter
+@Setter
 public class Reserva {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -50,7 +52,7 @@ public class Reserva {
     @JoinColumn(name = "id_reserva")
     private List<RecursoSolicitado> recursosSolicitados;
 
-    @OneToMany
+    @OneToMany(cascade = CascadeType.ALL)
     @JoinColumn(name = "id_reserva")
     private List<EstadoReserva> estadosReserva;
 
@@ -60,5 +62,9 @@ public class Reserva {
     public Reserva(){
         this.recursosSolicitados = new ArrayList<>();
         this.estadosReserva = new ArrayList<>();
+    }
+
+    public void agregarNuevoEstado(EstadoReserva nuevoEstado) {
+        this.estadosReserva.add(nuevoEstado);
     }
 }

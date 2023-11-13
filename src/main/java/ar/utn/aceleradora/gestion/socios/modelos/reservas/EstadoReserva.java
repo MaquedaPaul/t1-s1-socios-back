@@ -26,4 +26,10 @@ public class EstadoReserva {
 
     public EstadoReserva(){
     }
+
+    public EstadoReserva(TipoEstadoReserva tipoEstadoReserva, String motivo){
+        this.estadoReserva=tipoEstadoReserva;
+        this.motivo = motivo;
+        this.fechaYHora= LocalDateTime.now();
+    }
 }

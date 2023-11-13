@@ -2,10 +2,12 @@ package ar.utn.aceleradora.gestion.socios.modelos.reservas;
 
 import jakarta.persistence.*;
 import lombok.Getter;
+import lombok.Setter;
 
 @Entity
 @Table(name = "recursosSolicitados")
 @Getter
+@Setter
 public class RecursoSolicitado {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
