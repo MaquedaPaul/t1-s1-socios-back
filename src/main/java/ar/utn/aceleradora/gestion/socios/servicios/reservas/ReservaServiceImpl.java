@@ -1,24 +1,28 @@
 package ar.utn.aceleradora.gestion.socios.servicios.reservas;
 
-import ar.utn.aceleradora.gestion.socios.error.departamentos.DepartamentoNotCreatedException;
+import ar.utn.aceleradora.gestion.socios.converters.DateConverter;
+import ar.utn.aceleradora.gestion.socios.dto.reservas.RecursoCreateDTO;
 import ar.utn.aceleradora.gestion.socios.error.departamentos.DepartamentoNotFoundException;
 import ar.utn.aceleradora.gestion.socios.error.reservas.EspacioFisicoNotFoundException;
 import ar.utn.aceleradora.gestion.socios.error.reservas.RecursoNotFoundException;
 import ar.utn.aceleradora.gestion.socios.error.reservas.ReservaNotCreatedException;
 import ar.utn.aceleradora.gestion.socios.modelos.reservas.EspacioFisico;
 import ar.utn.aceleradora.gestion.socios.modelos.reservas.Recurso;
+import ar.utn.aceleradora.gestion.socios.modelos.reservas.RecursoSolicitado;
 import ar.utn.aceleradora.gestion.socios.repositorios.departamentos.DepartamentoRepository;
 import ar.utn.aceleradora.gestion.socios.repositorios.reservas.EspacioFisicoRepository;
 import ar.utn.aceleradora.gestion.socios.repositorios.reservas.RecursoRepository;
 import ar.utn.aceleradora.gestion.socios.repositorios.reservas.RecursoSolicitadoRepository;
 import ar.utn.aceleradora.gestion.socios.repositorios.reservas.ReservaRepository;
-import jakarta.persistence.criteria.CriteriaBuilder;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import ar.utn.aceleradora.gestion.socios.dto.reservas.ReservaCreateDTO;
 import ar.utn.aceleradora.gestion.socios.modelos.departamentos.Departamento;
 import ar.utn.aceleradora.gestion.socios.modelos.reservas.Reserva;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -41,45 +45,32 @@ public class ReservaServiceImpl implements ReservaService {
 
     @Override
     public void crearReserva(ReservaCreateDTO reservaCreateDTO) {
+        Recurso recursoTest1 = new Recurso();
+        Recurso recursoTest2 = new Recurso();
+        EspacioFisico espacioFisicoTest = new EspacioFisico();
+        recursoRepository.save(recursoTest1);
+        recursoRepository.save(recursoTest2);
+        espacioFisicoRepository.save(espacioFisicoTest);
+
+
         Reserva nuevaReserva = new Reserva();
 
-        /*
-        nuevaReserva.setFecha(reservaCreateDTO.getFecha());
-        nuevaReserva.setHoraInicio(reservaCreateDTO.getHoraInicio());
-        nuevaReserva.setDescripcion(reservaCreateDTO.getDescripcion());
-        nuevaReserva.setDuracion(reservaCreateDTO.getDuracion());
-        nuevaReserva.setNombre(reservaCreateDTO.getNombre());
-        nuevaReserva.setMail(reservaCreateDTO.getMail());
-        nuevaReserva.setApellido(reservaCreateDTO.getApellido());
-        nuevaReserva.setTelefono(reservaCreateDTO.getTelefono());
-*/
-        Optional<Departamento> departamentoEncontrado =
-                Optional.ofNullable(departamentoRepository
+
+        this.crearReservaMapearPrimitivos(nuevaReserva, reservaCreateDTO);
+        List<RecursoSolicitado> recursoSolicitados = this.crearReservaMapearRecursosSolicitados(reservaCreateDTO);
+        Departamento departamentoEncontrado =
+                departamentoRepository
                         .findById(reservaCreateDTO.getIdDepartamento())
-                        .orElseThrow(() -> new DepartamentoNotFoundException("No se encontró el departamento con el id: " + reservaCreateDTO.getIdDepartamento())));
+                        .orElseThrow(() -> new DepartamentoNotFoundException("No se encontró el departamento con el id: " + reservaCreateDTO.getIdDepartamento()));
 
-        Optional<EspacioFisico> espacioFisicoEncontrado =
-                Optional.ofNullable(espacioFisicoRepository
+        EspacioFisico espacioFisicoEncontrado =
+                espacioFisicoRepository
                         .findById(reservaCreateDTO.getIdEspacioFisico())
-                        .orElseThrow(() -> new EspacioFisicoNotFoundException("No se encontró el espacio físico con el id: " + reservaCreateDTO.getIdEspacioFisico())));
+                        .orElseThrow(() -> new EspacioFisicoNotFoundException("No se encontró el espacio físico con el id: " + reservaCreateDTO.getIdEspacioFisico()));
 
-        List<Integer> idsRecursos = reservaCreateDTO.getIdsRecursos();
-        Optional<List<Recurso>> recursosEncontrados =
-                Optional.of(recursoRepository.findAllById(idsRecursos));
-
-        Optional<Integer> recursoNoEncontradoId = recursosEncontrados
-                .flatMap(recursos -> idsRecursos.stream()
-                        .filter(id -> recursos.stream().noneMatch(recurso -> id.equals(recurso.getId())))
-                        .findFirst());
-
-        recursoNoEncontradoId.ifPresent(id -> {
-            throw new RecursoNotFoundException("No se pudo encontrar el recurso con id: " + id);
-        });
-        /*
-        nuevaReserva.setDepartamento(departamentoEncontrado.get());
-        nuevaReserva.setEspacioFisico(espacioFisicoEncontrado.get());
-        nuevaReserva.setRecursosSolicitados(recursosEncontrados.get());
-        */
+        nuevaReserva.setDepartamentoAsociado(departamentoEncontrado);
+        nuevaReserva.setEspacioFisico(espacioFisicoEncontrado);
+        nuevaReserva.setRecursosSolicitados(recursoSolicitados);
 
         try {
             reservaRepository.save(nuevaReserva);
@@ -88,4 +79,33 @@ public class ReservaServiceImpl implements ReservaService {
             throw new ReservaNotCreatedException("No se pudo crear la reserva");
         }
     }
+    private void crearReservaMapearPrimitivos(Reserva nuevaReserva, ReservaCreateDTO reservaCreateDTO){
+        nuevaReserva.setFecha(DateConverter.parse(reservaCreateDTO.getFecha()));
+        nuevaReserva.setHoraInicio(DateConverter.parseDateTime(reservaCreateDTO.getHoraInicio()));
+        nuevaReserva.setDescripcion(reservaCreateDTO.getDescripcion());
+        nuevaReserva.setHoraFin(DateConverter.parseDateTime(reservaCreateDTO.getHoraFin()));
+        nuevaReserva.setNombreReservante(reservaCreateDTO.getNombreReservante());
+        nuevaReserva.setMailReservante(reservaCreateDTO.getMailReservante());
+        nuevaReserva.setApellidoReservante(reservaCreateDTO.getApellidoReservante());
+        nuevaReserva.setTelefonoReservante(reservaCreateDTO.getTelefonoReservante());
+    }
+    private List<RecursoSolicitado> crearReservaMapearRecursosSolicitados(ReservaCreateDTO reservaCreateDTO){
+        List<RecursoCreateDTO> recursosCreateDTO = new ArrayList<>(reservaCreateDTO.getRecursosSolicitados());
+        List<RecursoSolicitado> recursosSolicitados = new ArrayList<>();
+        recursosCreateDTO.forEach(recursoCreateDTO-> {
+            RecursoSolicitado nuevoRecurso = new RecursoSolicitado();
+            Integer idRecursoSolicitado = recursoCreateDTO.getIdRecursoSolicitado();
+            Recurso recurso= recursoRepository
+                    .findById(idRecursoSolicitado)
+                    .orElseThrow(() -> new RecursoNotFoundException("No se pudo encontrar al recurso con id: "+idRecursoSolicitado));
+            nuevoRecurso.setRecurso(recurso);
+            nuevoRecurso.setCantidad(recursoCreateDTO.getCantidad());
+            nuevoRecurso.setAprobado(recursoCreateDTO.isAprobado());
+            recursosSolicitados.add(nuevoRecurso);
+        });
+    return recursosSolicitados;
+    }
+
+
+
 }
