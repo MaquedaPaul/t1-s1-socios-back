@@ -13,6 +13,7 @@ import ar.utn.aceleradora.gestion.socios.modelos.socios.Socio;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.UUID;
 
 @Service
 public interface EventoService {
@@ -23,7 +24,7 @@ public interface EventoService {
 
     List<ListaEventoDTO> listarEventos()throws Exception;
 
-    EventoLimitadoDTO listarEvento(Integer id) throws Exception;
+    EventoLimitadoDTO listarEvento(UUID id) throws Exception;
 
     void invitar(Evento evento, Socio socio) throws Exception;
 

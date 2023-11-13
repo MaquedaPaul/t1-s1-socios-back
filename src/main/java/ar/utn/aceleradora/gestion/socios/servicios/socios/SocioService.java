@@ -17,7 +17,7 @@ public interface SocioService {
 
     void updateSocio(SocioUpdateDTO partner, Integer id) throws Exception;
 
-    void createSocio(SocioCreateDTO partner) throws Exception;
+    void createSocio(SocioCreateDTO partner, String rutaImagen) throws Exception;
     Socio findSocioById(Integer id);
 
 }
