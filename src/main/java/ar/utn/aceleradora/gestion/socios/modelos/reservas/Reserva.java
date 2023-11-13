@@ -76,7 +76,7 @@ public class Reserva {
 
 
     private String generarCodigoSeguimiento(){
-        Integer id = 5; //--> reemplazar por getId();
+        Integer id = this.getId();
         String idString = id.toString();
         String caracteres = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
         SecureRandom random = new SecureRandom();
