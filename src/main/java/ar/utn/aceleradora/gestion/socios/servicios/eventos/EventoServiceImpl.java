@@ -1,6 +1,7 @@
 package ar.utn.aceleradora.gestion.socios.servicios.eventos;
 
 import ar.utn.aceleradora.gestion.socios.converters.DateConverter;
+import ar.utn.aceleradora.gestion.socios.dto.departamentos.ProyeccionDepartamentoDTO;
 import ar.utn.aceleradora.gestion.socios.dto.eventos.*;
 import ar.utn.aceleradora.gestion.socios.dto.eventos.EventoCreateDTO;
 import ar.utn.aceleradora.gestion.socios.dto.eventos.EventoUpdateDTO;
