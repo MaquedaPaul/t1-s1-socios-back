@@ -222,6 +222,7 @@ public class EventoServiceImpl implements EventoService {
         eventoLimitadoDTO.setFechaFin(evento.getFechaFin());
         eventoLimitadoDTO.setFechaComienzo(evento.getFechaComienzo());
         eventoLimitadoDTO.setModalidad(evento.getModalidad());
+        eventoLimitadoDTO.setHora(evento.getHora());
     }
     private void mapearProyeccionInvitados(List<Socio> invitados, List<ProyeccionSocioDTO> proyeccionesSocioDTO){
         invitados.forEach(invitado ->
