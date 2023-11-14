@@ -5,6 +5,7 @@ import ar.utn.aceleradora.gestion.socios.dto.eventos.EventoLimitadoDTO;
 import ar.utn.aceleradora.gestion.socios.dto.eventos.EventoCreateDTO;
 import ar.utn.aceleradora.gestion.socios.dto.eventos.EventoUpdateDTO;
 import ar.utn.aceleradora.gestion.socios.dto.eventos.ListaEventoDTO;
+import ar.utn.aceleradora.gestion.socios.modelos.departamentos.Autoridad;
 import ar.utn.aceleradora.gestion.socios.modelos.eventos.Evento;
 import ar.utn.aceleradora.gestion.socios.modelos.eventos.TipoEstadoEvento;
 import ar.utn.aceleradora.gestion.socios.modelos.eventos.TipoModalidad;
@@ -36,6 +37,7 @@ public interface EventoService {
 
     Evento obtenerEventoPorId(Integer eventoId) throws Exception;
 
+    Autoridad obtenerAutoridadPorId(Integer autoridadId);
     List<TipoModalidad> listasModalidades();
 
     List<TipoEstadoEvento> listarEstadosEventos();

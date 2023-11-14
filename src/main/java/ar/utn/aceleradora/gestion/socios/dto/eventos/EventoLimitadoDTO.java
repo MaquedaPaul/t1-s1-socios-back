@@ -1,6 +1,7 @@
 package ar.utn.aceleradora.gestion.socios.dto.eventos;
 
 
+import ar.utn.aceleradora.gestion.socios.dto.departamentos.ProyeccionDepartamentoDTO;
 import ar.utn.aceleradora.gestion.socios.modelos.eventos.EstadoEvento;
 
 import ar.utn.aceleradora.gestion.socios.modelos.eventos.TipoModalidad;

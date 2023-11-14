@@ -1,11 +1,15 @@
 package ar.utn.aceleradora.gestion.socios.modelos.reservas;
 
+import java.security.SecureRandom;
+
 import ar.utn.aceleradora.gestion.socios.modelos.departamentos.Departamento;
 import jakarta.persistence.*;
+import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.Setter;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -15,6 +19,7 @@ import java.util.List;
 @Getter
 @Setter
 public class Reserva {
+    @Setter(AccessLevel.NONE)
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
@@ -26,6 +31,10 @@ public class Reserva {
     @ManyToOne
     @JoinColumn(name = "id_espacio_fisico")
     private EspacioFisico espacioFisico;
+
+    @Column(name = "descripcion")
+    private String descripcion;
+
 
     @Column(name = "fecha")
     private LocalDate fecha;
@@ -56,12 +65,30 @@ public class Reserva {
     @JoinColumn(name = "id_reserva")
     private List<EstadoReserva> estadosReserva;
 
+    @Setter(AccessLevel.NONE)
     @Column(name = "codigo_seguimiento")
     private String codigoDeSeguimiento;
 
     public Reserva(){
         this.recursosSolicitados = new ArrayList<>();
         this.estadosReserva = new ArrayList<>();
+        estadosReserva.add(new EstadoReserva(TipoEstadoReserva.PENDIENTE, LocalDateTime.now(),"Pendiente de aprobación"));
+    }
+
+
+    public void generarCodigoSeguimiento(){
+        Integer id = this.getId();
+        String idString = id.toString();
+        String caracteres = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+        SecureRandom random = new SecureRandom();
+        StringBuilder codigo = new StringBuilder();
+
+        for (int i = 0; i < 11; i++) {
+            int indice = random.nextInt(caracteres.length());
+            codigo.append(caracteres.charAt(indice));
+        }
+        codigo.append(idString);
+        this.codigoDeSeguimiento = codigo.toString();
     }
 
     public void agregarNuevoEstado(EstadoReserva nuevoEstado) {
