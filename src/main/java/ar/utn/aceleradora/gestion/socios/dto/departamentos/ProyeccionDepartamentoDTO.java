@@ -1,4 +1,4 @@
-package ar.utn.aceleradora.gestion.socios.dto.eventos;
+package ar.utn.aceleradora.gestion.socios.dto.departamentos;
 
 import lombok.Getter;
 import lombok.Setter;

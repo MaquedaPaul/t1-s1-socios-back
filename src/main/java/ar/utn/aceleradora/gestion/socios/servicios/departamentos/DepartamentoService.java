@@ -5,6 +5,7 @@ import ar.utn.aceleradora.gestion.socios.error.departamentos.DepartamentoNotFoun
 import ar.utn.aceleradora.gestion.socios.modelos.departamentos.Autoridad;
 import ar.utn.aceleradora.gestion.socios.dto.departamentos.CreacionEdicionDepartamentoDTO;
 import ar.utn.aceleradora.gestion.socios.modelos.departamentos.Departamento;
+import ar.utn.aceleradora.gestion.socios.modelos.reservas.EspacioFisico;
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Service;
 
@@ -36,4 +37,6 @@ public interface DepartamentoService {
     List<Autoridad> obtenerAutoridadesDe(Integer id);
 
     List<Autoridad> obtenerAutoridades();
+
+    List<EspacioFisico> obtenerEspaciosFisicos();
 }

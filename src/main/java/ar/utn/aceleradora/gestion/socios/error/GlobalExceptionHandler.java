@@ -1,6 +1,10 @@
 package ar.utn.aceleradora.gestion.socios.error;
 import ar.utn.aceleradora.gestion.socios.error.departamentos.*;
 import ar.utn.aceleradora.gestion.socios.error.eventos.EventoNotFoundException;
+import ar.utn.aceleradora.gestion.socios.error.reservas.EspacioFisicoNotFoundException;
+import ar.utn.aceleradora.gestion.socios.error.reservas.RecursoNotFoundException;
+import ar.utn.aceleradora.gestion.socios.error.reservas.ReservaNotCreatedException;
+import ar.utn.aceleradora.gestion.socios.error.reservas.ReservaNotFoundException;
 import ar.utn.aceleradora.gestion.socios.error.socios.CategoriaNotCreatedException;
 import ar.utn.aceleradora.gestion.socios.error.socios.SocioNotFoundException;
 import org.springframework.http.HttpStatus;
@@ -71,4 +75,29 @@ public class GlobalExceptionHandler {
                 .status(HttpStatus.INTERNAL_SERVER_ERROR)
                 .body(exception.getMessage());
     }
+    @ExceptionHandler({ReservaNotFoundException.class})
+    public ResponseEntity<Object> handleReservaNotFoundException(ReservaNotFoundException exception){
+        return ResponseEntity
+                .status(HttpStatus.INTERNAL_SERVER_ERROR)
+                .body(exception.getMessage());
+    }
+    @ExceptionHandler({ReservaNotCreatedException.class})
+    public ResponseEntity<Object> handleReservaNotCreatedException(ReservaNotCreatedException exception){
+        return ResponseEntity
+                .status(HttpStatus.INTERNAL_SERVER_ERROR)
+                .body(exception.getMessage());
+    }
+    @ExceptionHandler({EspacioFisicoNotFoundException.class})
+    public ResponseEntity<Object> handleEspacioFisicoNotFoundException(EspacioFisicoNotFoundException exception){
+        return ResponseEntity
+                .status(HttpStatus.INTERNAL_SERVER_ERROR)
+                .body(exception.getMessage());
+    }
+    @ExceptionHandler({RecursoNotFoundException.class})
+    public ResponseEntity<Object> handleRecursoNotFoundException(RecursoNotFoundException exception){
+        return ResponseEntity
+                .status(HttpStatus.INTERNAL_SERVER_ERROR)
+                .body(exception.getMessage());
+    }
+
 }

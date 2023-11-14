@@ -10,5 +10,5 @@ public interface CoordinacionService {
     List<Coordinacion> obtenerCoordinaciones();
 
 
-
+    Coordinacion obtenerCoordinacionPorId(Integer id);
 }
