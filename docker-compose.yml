@@ -1,33 +1,27 @@
-version: '3'
-
+version: '3.7'
 services:
-  mysql-tabla:
-    container_name: mysql-tabla
-    image: mysql:8.0
-    environment:
-      MYSQL_ROOT_PASSWORD: rootpassword
-      MYSQL_DATABASE: modulo_socios
-      MYSQL_USER: usuario
-      MYSQL_PASSWORD: usuario
+ #docker run --env=MYSQL_ROOT_PASSWORD=123 --env=MYSQL_USER=fede --env=MYSQL_PASSWORD=fede --env=MYSQL_DATABASE=pepe -d mariadb:latest
+  mariadb:
+    image: mariadb:latest
+    container_name: mariadb1
     ports:
-      - "3306:3306"
-    volumes:
-      - mysql-data:/var/lib/mysql
-
-  socios-back:
-    image: 4lexander/aceleradora_utn:latest
+      - "3307:3306"
+    environment:
+      MYSQL_ROOT_PASSWORD: 123
+      MYSQL_DATABASE: pepe
+#docker run  --env=MYSQL_HOST=mariadb --env=MYSQL_PORT=3306 --env=MYSQL_DB_NAME=pepe --env=MYSQL_USER=root --env=MYSQL_PASSWORD=123 --network=redMariaDB  -p 8080:8080 -d correlativas
+  appjava:
+    image: javaback:latest
+    depends_on:
+      - mariadb
+    container_name: sprint-java
     ports:
       - "8080:8080"
-    depends_on:
-      - mysql-tabla
     environment:
-      - SPRING_DATASOURCE_URL=jdbc:mysql://mysql-tabla:3306/modulo_socios
-      - SPRING_DATASOURCE_USERNAME=usuario
-      - SPRING_DATASOURCE_PASSWORD=usuario
-      - SPRING_JPA_HIBERNATE_DDL_AUTO=update
-      - PORT=8080
+      MYSQL_HOST: mariadb
+      MYSQL_PORT: 3306
+      MYSQL_DB_NAME: pepe
+      MYSQL_USER: root
+      MYSQL_PASSWORD: 123
+    restart: unless-stopped
 
-    command: ["/wait-for-it.sh", "mysql-tabla:3306", "java", "-jar", "/app/app.jar"]
-
-volumes:
-  mysql-data:
