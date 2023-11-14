@@ -7,6 +7,4 @@ public class RecursoCreateDTO {
 
     private Integer idRecursoSolicitado;
     private Integer cantidad;
-    private boolean aprobado;
-
 }

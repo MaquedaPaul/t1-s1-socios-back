@@ -98,7 +98,7 @@ public class ReservaServiceImpl implements ReservaService {
                     .orElseThrow(() -> new RecursoNotFoundException("No se pudo encontrar al recurso con id: "+idRecursoSolicitado));
             nuevoRecurso.setRecurso(recurso);
             nuevoRecurso.setCantidad(recursoCreateDTO.getCantidad());
-            nuevoRecurso.setAprobado(recursoCreateDTO.isAprobado());
+            nuevoRecurso.setAprobado(true);
             recursosSolicitados.add(nuevoRecurso);
         });
     return recursosSolicitados;
