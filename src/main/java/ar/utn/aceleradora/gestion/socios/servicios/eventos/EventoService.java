@@ -38,6 +38,7 @@ public interface EventoService {
     Evento obtenerEventoPorId(Integer eventoId) throws Exception;
 
     Autoridad obtenerAutoridadPorId(Integer autoridadId);
+
     List<TipoModalidad> listasModalidades();
 
     List<TipoEstadoEvento> listarEstadosEventos();

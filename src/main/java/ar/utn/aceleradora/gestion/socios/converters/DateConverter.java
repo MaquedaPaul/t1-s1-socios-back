@@ -16,6 +16,7 @@ public class DateConverter {
             throw new IllegalArgumentException("Formato de fecha no válido: " + dateString);
         }
     }
+
     public static LocalTime parseDateTime(String dateTime){
         try {
             DateTimeFormatter formatter = DateTimeFormatter.ofPattern("HH:mm");
@@ -24,6 +25,4 @@ public class DateConverter {
             throw new IllegalArgumentException("Formato de fecha no válido: " + dateTime);
         }
     }
-
-
 }

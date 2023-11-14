@@ -5,6 +5,7 @@ import lombok.Setter;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.LocalTime;
 
 @Setter
 @Getter
@@ -34,4 +35,7 @@ public class EstadoEvento {
         this.motivo = motivo;
     }
 
+
+    public EstadoEvento(TipoEstadoEvento tipoEstadoEvento, LocalDateTime fechaYHora, String motivo, LocalTime horaAleatoria) {
+    }
 }
