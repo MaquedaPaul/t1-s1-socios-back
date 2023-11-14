@@ -104,13 +104,6 @@ public class EventoDataEventos {
                 evento.agregarInscripto(inscriptoAleatorio);
             }
 
-            int indiceAleatorioEstado = random.nextInt(dataEstadoEventos.getPendientes().size());
-            EstadoEvento estadoAleatorio = dataEstadoEventos.removerElementoPendientes(indiceAleatorioEstado);
-
-            LocalTime horaAleatoria = LocalTime.of(random.nextInt(24), random.nextInt(60));
-
-            evento.agregarEstado(new EstadoEvento(estadoAleatorio.getTipoEstadoEvento(), estadoAleatorio.getFechaYHora(), estadoAleatorio.getMotivo(), horaAleatoria));
-
         }
 
         eventoRepository.saveAll(eventos);
