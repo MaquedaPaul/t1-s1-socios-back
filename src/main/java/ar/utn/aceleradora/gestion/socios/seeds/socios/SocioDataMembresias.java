@@ -2,9 +2,9 @@ package ar.utn.aceleradora.gestion.socios.seeds.socios;
 
 import ar.utn.aceleradora.gestion.socios.modelos.socios.membresia.Membresia;
 import ar.utn.aceleradora.gestion.socios.modelos.socios.membresia.MembresiaParticular;
-import ar.utn.aceleradora.gestion.socios.repositorios.MembresiaParticularRepository;
+import ar.utn.aceleradora.gestion.socios.repositorios.socios.MembresiaParticularRepository;
 
-import ar.utn.aceleradora.gestion.socios.repositorios.MembresiaRepository;
+import ar.utn.aceleradora.gestion.socios.repositorios.socios.MembresiaRepository;
 
 import lombok.Getter;
 import org.slf4j.Logger;
@@ -18,7 +18,7 @@ import java.util.List;
 public class SocioDataMembresias {
     private static final Logger logger = LoggerFactory.getLogger(SocioDataMembresias.class);
 
-    final List<Membresia> membresias = Arrays.asList(new Membresia("semestrual",6),new Membresia("anual",12));
+    final List<Membresia> membresias = Arrays.asList(new Membresia("semestral",6),new Membresia("anual",12));
     final MembresiaParticular membresiaParticular1 = new MembresiaParticular(membresias.get(0), LocalDate.now(), 723450.65);
     final MembresiaParticular membresiaParticular2 = new MembresiaParticular(membresias.get(1), LocalDate.now(), 123456.78);
     final MembresiaParticular membresiaParticular3 = new MembresiaParticular(membresias.get(0), LocalDate.now(), 987654.32);

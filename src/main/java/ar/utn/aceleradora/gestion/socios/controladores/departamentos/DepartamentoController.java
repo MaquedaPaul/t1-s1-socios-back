@@ -3,11 +3,12 @@ package ar.utn.aceleradora.gestion.socios.controladores.departamentos;
 
 import ar.utn.aceleradora.gestion.socios.dto.departamentos.CreacionEdicionDepartamentoDTO;
 import ar.utn.aceleradora.gestion.socios.dto.departamentos.DepartamentoCoordinacionDTO;
-import ar.utn.aceleradora.gestion.socios.error.AutoridadNotFoundException;
-import ar.utn.aceleradora.gestion.socios.error.DepartamentoNotFoundException;
+import ar.utn.aceleradora.gestion.socios.error.departamentos.AutoridadNotFoundException;
+import ar.utn.aceleradora.gestion.socios.error.departamentos.DepartamentoNotFoundException;
 import ar.utn.aceleradora.gestion.socios.modelos.departamentos.Autoridad;
 import ar.utn.aceleradora.gestion.socios.modelos.departamentos.Coordinacion;
 import ar.utn.aceleradora.gestion.socios.modelos.departamentos.Departamento;
+import ar.utn.aceleradora.gestion.socios.modelos.reservas.EspacioFisico;
 import ar.utn.aceleradora.gestion.socios.servicios.departamentos.DepartamentoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -157,6 +158,13 @@ public class DepartamentoController {
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(e.getMessage());
         }
+    }
+    //Se plantea desde el departamento porque teóricamente pertenecen a los departamentos, pero como actualmente se consideran que t
+    // todos los espacios físicos pertenecen a todos los departamentos no lo implementamos totalmente
+    @GetMapping("/espaciosFisicos")
+    public ResponseEntity<List<EspacioFisico>> obtenerEspaciosFisicos() {
+        List<EspacioFisico> espacioFisicos = departamentoService.obtenerEspaciosFisicos();
+        return new ResponseEntity<>(espacioFisicos, HttpStatus.OK);
     }
 
 

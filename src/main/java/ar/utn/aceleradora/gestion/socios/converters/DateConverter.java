@@ -1,6 +1,7 @@
 package ar.utn.aceleradora.gestion.socios.converters;
 
 import java.time.LocalDate;
+import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 
@@ -13,6 +14,15 @@ public class DateConverter {
             return LocalDate.parse(dateString, formatter);
         } catch (DateTimeParseException e) {
             throw new IllegalArgumentException("Formato de fecha no válido: " + dateString);
+        }
+    }
+
+    public static LocalTime parseDateTime(String dateTime){
+        try {
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("HH:mm");
+            return LocalTime.parse(dateTime, formatter);
+        } catch (DateTimeParseException e) {
+            throw new IllegalArgumentException("Formato de fecha no válido: " + dateTime);
         }
     }
 }

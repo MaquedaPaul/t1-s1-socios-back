@@ -1,13 +1,16 @@
 package ar.utn.aceleradora.gestion.socios.servicios.eventos;
 
 import ar.utn.aceleradora.gestion.socios.converters.DateConverter;
+import ar.utn.aceleradora.gestion.socios.dto.departamentos.ProyeccionDepartamentoDTO;
 import ar.utn.aceleradora.gestion.socios.dto.eventos.*;
 import ar.utn.aceleradora.gestion.socios.dto.eventos.EventoCreateDTO;
 import ar.utn.aceleradora.gestion.socios.dto.eventos.EventoUpdateDTO;
 import ar.utn.aceleradora.gestion.socios.dto.eventos.ListaEventoDTO;
-import ar.utn.aceleradora.gestion.socios.error.EstadoEventoNoValidoException;
-import ar.utn.aceleradora.gestion.socios.error.EventoNotFoundException;
-import ar.utn.aceleradora.gestion.socios.error.ModalidadNoValidaException;
+import ar.utn.aceleradora.gestion.socios.error.departamentos.AutoridadNotFoundException;
+import ar.utn.aceleradora.gestion.socios.error.eventos.EstadoEventoNoValidoException;
+import ar.utn.aceleradora.gestion.socios.error.eventos.EventoNotFoundException;
+import ar.utn.aceleradora.gestion.socios.error.eventos.ModalidadNoValidaException;
+import ar.utn.aceleradora.gestion.socios.modelos.departamentos.Autoridad;
 import ar.utn.aceleradora.gestion.socios.modelos.departamentos.Departamento;
 import ar.utn.aceleradora.gestion.socios.modelos.eventos.EstadoEvento;
 import ar.utn.aceleradora.gestion.socios.modelos.eventos.Evento;
@@ -16,18 +19,21 @@ import ar.utn.aceleradora.gestion.socios.modelos.eventos.TipoModalidad;
 import ar.utn.aceleradora.gestion.socios.modelos.eventos.inscriptos.TipoEstadoInscripto;
 import ar.utn.aceleradora.gestion.socios.modelos.socios.Socio;
 import ar.utn.aceleradora.gestion.socios.modelos.ubicacion.Ubicacion;
-import ar.utn.aceleradora.gestion.socios.repositorios.DepartamentoRepository;
-import ar.utn.aceleradora.gestion.socios.repositorios.EventoRepository;
-import ar.utn.aceleradora.gestion.socios.repositorios.SocioRepository;
+import ar.utn.aceleradora.gestion.socios.repositorios.departamentos.AutoridadRepository;
+import ar.utn.aceleradora.gestion.socios.repositorios.departamentos.DepartamentoRepository;
+import ar.utn.aceleradora.gestion.socios.repositorios.eventos.EventoRepository;
+import ar.utn.aceleradora.gestion.socios.repositorios.socios.SocioRepository;
 import ar.utn.aceleradora.gestion.socios.repositorios.UbicacionRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.UUID;
 import java.util.stream.Collectors;
 
 @Service
@@ -37,13 +43,15 @@ public class EventoServiceImpl implements EventoService {
     private DepartamentoRepository departamentoRepository;
     private SocioRepository socioRepository;
     private UbicacionRepository ubicacionRepository;
+    private AutoridadRepository autoridadRepository;
 
     @Autowired
-    public EventoServiceImpl(EventoRepository eventoRepository, DepartamentoRepository departamentoRepository, SocioRepository socioRepository, UbicacionRepository ubicacionRepository) {
+    public EventoServiceImpl(EventoRepository eventoRepository, DepartamentoRepository departamentoRepository, SocioRepository socioRepository, UbicacionRepository ubicacionRepository, AutoridadRepository autoridadRepository) {
         this.eventoRepository = eventoRepository;
         this.departamentoRepository = departamentoRepository;
         this.socioRepository = socioRepository;
         this.ubicacionRepository = ubicacionRepository;
+        this.autoridadRepository = autoridadRepository;
     }
 
     @Override
@@ -51,11 +59,11 @@ public class EventoServiceImpl implements EventoService {
         try{
             LocalDate fechaComienzo = DateConverter.parse(evento.getFechaComienzo());
             LocalDate fechaFin = DateConverter.parse(evento.getFechaFin());
+            LocalTime hora = DateConverter.parseDateTime(evento.getHora());
             Ubicacion ubicacion = new Ubicacion(evento.getDireccion(), evento.getPiso(), evento.getDepartamento(), evento.getLocalidad(), evento.getProvincia());
             ubicacionRepository.save(ubicacion);
             List<Departamento> departamentos = this.departamentoRepository.findAllById(evento.getId_departamentos());
-            Evento nuevoEvento = new Evento(evento.getNombre(), evento.getDescripcion(), fechaComienzo, fechaFin, obtenerTipoModalidad(evento.getModalidad()), ubicacion, departamentos);
-
+            Evento nuevoEvento = new Evento(evento.getNombre(), evento.getDescripcion(), fechaComienzo, fechaFin, obtenerTipoModalidad(evento.getModalidad()), ubicacion, departamentos, hora);
 
             eventoRepository.save(nuevoEvento);
         } catch (Exception e) {
@@ -71,6 +79,13 @@ public class EventoServiceImpl implements EventoService {
         } catch (Exception e) {
             throw new Exception("Error al obtener evento por id, por favor intentelo más tarde");
         }
+    }
+
+
+    @Override
+    public Autoridad obtenerAutoridadPorId(Integer autoridadId) {
+        return autoridadRepository.findById(autoridadId)
+                .orElseThrow(() -> new AutoridadNotFoundException("No se encontró ninguna autoridad con el ID proporcionado: " + autoridadId));
     }
 
     @Override
@@ -163,6 +178,7 @@ public class EventoServiceImpl implements EventoService {
             for (Evento evento : eventos) {
                 ListaEventoDTO eventoDTO = new ListaEventoDTO();
                 eventoDTO.setId(evento.getId());
+                eventoDTO.setUuid(evento.getUuid());
                 eventoDTO.setNombre(evento.getNombre());
                 eventoDTO.setFechaComienzo(evento.getFechaComienzo());
                 eventoDTO.setTipoEstadoEvento(evento.estadoActual().getTipoEstadoEvento());
@@ -177,9 +193,9 @@ public class EventoServiceImpl implements EventoService {
     }
 
     @Override
-    public EventoLimitadoDTO listarEvento(Integer id) throws Exception{
+    public EventoLimitadoDTO listarEvento(UUID id) throws Exception{
 
-        Evento evento = eventoRepository.findById(id).orElseThrow(() -> new EventoNotFoundException("No se pudo encontrar el evento con id: "+id));
+        Evento evento = eventoRepository.findByUuid(id).orElseThrow(() -> new EventoNotFoundException("No se pudo encontrar el evento con uuid: "+id));
         EventoLimitadoDTO eventoLimitadoDTO = new EventoLimitadoDTO();
 
         List<ProyeccionDepartamentoDTO> proyeccionesDepartamentoDTO = new ArrayList<>();
@@ -198,6 +214,7 @@ public class EventoServiceImpl implements EventoService {
     }
     private void mapearDatosPrimitivos(EventoLimitadoDTO eventoLimitadoDTO, Evento evento){
         eventoLimitadoDTO.setId(evento.getId());
+        eventoLimitadoDTO.setUuid(evento.getUuid());
         eventoLimitadoDTO.setEstadosEvento(evento.getEstadosEvento());
         eventoLimitadoDTO.setDescripcion(evento.getDescripcion());
         eventoLimitadoDTO.setUbicacion(evento.getUbicacion());
@@ -205,6 +222,7 @@ public class EventoServiceImpl implements EventoService {
         eventoLimitadoDTO.setFechaFin(evento.getFechaFin());
         eventoLimitadoDTO.setFechaComienzo(evento.getFechaComienzo());
         eventoLimitadoDTO.setModalidad(evento.getModalidad());
+        eventoLimitadoDTO.setHora(evento.getHora());
     }
     private void mapearProyeccionInvitados(List<Socio> invitados, List<ProyeccionSocioDTO> proyeccionesSocioDTO){
         invitados.forEach(invitado ->

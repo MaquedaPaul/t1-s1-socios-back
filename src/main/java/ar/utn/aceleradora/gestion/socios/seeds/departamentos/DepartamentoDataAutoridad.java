@@ -1,7 +1,7 @@
 package ar.utn.aceleradora.gestion.socios.seeds.departamentos;
 
 import ar.utn.aceleradora.gestion.socios.modelos.departamentos.Autoridad;
-import ar.utn.aceleradora.gestion.socios.repositorios.AutoridadRepository;
+import ar.utn.aceleradora.gestion.socios.repositorios.departamentos.AutoridadRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

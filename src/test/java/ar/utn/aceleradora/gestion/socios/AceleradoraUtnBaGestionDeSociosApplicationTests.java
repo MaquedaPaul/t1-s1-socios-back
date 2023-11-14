@@ -2,7 +2,7 @@ package ar.utn.aceleradora.gestion.socios;
 
 //import ar.utn.aceleradora.gestion.socios.modelos.socios.Socio;
 import ar.utn.aceleradora.gestion.socios.modelos.ubicacion.Ubicacion;
-import ar.utn.aceleradora.gestion.socios.repositorios.SocioRepository;
+import ar.utn.aceleradora.gestion.socios.repositorios.socios.SocioRepository;
 import ar.utn.aceleradora.gestion.socios.servicios.socios.SocioServiceImpl;
 import ar.utn.aceleradora.gestion.socios.servicios.UbicacionService;
 

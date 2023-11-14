@@ -5,6 +5,7 @@ import ar.utn.aceleradora.gestion.socios.dto.eventos.EventoLimitadoDTO;
 import ar.utn.aceleradora.gestion.socios.dto.eventos.EventoCreateDTO;
 import ar.utn.aceleradora.gestion.socios.dto.eventos.EventoUpdateDTO;
 import ar.utn.aceleradora.gestion.socios.dto.eventos.ListaEventoDTO;
+import ar.utn.aceleradora.gestion.socios.modelos.departamentos.Autoridad;
 import ar.utn.aceleradora.gestion.socios.modelos.eventos.Evento;
 import ar.utn.aceleradora.gestion.socios.modelos.eventos.TipoEstadoEvento;
 import ar.utn.aceleradora.gestion.socios.modelos.eventos.TipoModalidad;
@@ -13,6 +14,7 @@ import ar.utn.aceleradora.gestion.socios.modelos.socios.Socio;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.UUID;
 
 @Service
 public interface EventoService {
@@ -23,7 +25,7 @@ public interface EventoService {
 
     List<ListaEventoDTO> listarEventos()throws Exception;
 
-    EventoLimitadoDTO listarEvento(Integer id) throws Exception;
+    EventoLimitadoDTO listarEvento(UUID id) throws Exception;
 
     void invitar(Evento evento, Socio socio) throws Exception;
 
@@ -34,6 +36,8 @@ public interface EventoService {
     void finalizar(Evento evento) throws Exception;
 
     Evento obtenerEventoPorId(Integer eventoId) throws Exception;
+
+    Autoridad obtenerAutoridadPorId(Integer autoridadId);
 
     List<TipoModalidad> listasModalidades();
 

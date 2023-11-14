@@ -1,6 +1,6 @@
 package ar.utn.aceleradora.gestion.socios.controladores;
+import ar.utn.aceleradora.gestion.socios.dto.ResponseDTO;
 import ar.utn.aceleradora.gestion.socios.dto.eventos.*;
-import ar.utn.aceleradora.gestion.socios.modelos.eventos.Evento;
 import ar.utn.aceleradora.gestion.socios.modelos.eventos.TipoEstadoEvento;
 import ar.utn.aceleradora.gestion.socios.modelos.eventos.TipoModalidad;
 import ar.utn.aceleradora.gestion.socios.modelos.eventos.inscriptos.TipoEstadoInscripto;
@@ -10,9 +10,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import ar.utn.aceleradora.gestion.socios.servicios.eventos.EventoServiceImpl;
 
 import java.util.List;
+import java.util.UUID;
 
 
 @RestController
@@ -60,7 +60,7 @@ public class EventoController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<EventoLimitadoDTO> listarEvento(@PathVariable Integer id) {
+    public ResponseEntity<EventoLimitadoDTO> listarEvento(@PathVariable UUID id) {
         try {
             EventoLimitadoDTO eventoLimitadoDTO = eventoService.listarEvento(id);
             return ResponseEntity.ok(eventoLimitadoDTO);

@@ -67,6 +67,7 @@ public class Inscripto {
         this.trabajo = trabajo;
         this.mail = mail;
         this.estados = new ArrayList<>();
+        this.estados.add(new EstadoInscripto(TipoEstadoInscripto.PENDIENTE, LocalDateTime.now(), "Recien inscripto"));
     }
 
     public void agregarEstado(EstadoInscripto estado){

@@ -3,6 +3,15 @@ package ar.utn.aceleradora.gestion.socios;
 
 
 import ar.utn.aceleradora.gestion.socios.repositorios.*;
+import ar.utn.aceleradora.gestion.socios.repositorios.departamentos.AutoridadRepository;
+import ar.utn.aceleradora.gestion.socios.repositorios.departamentos.CoorDepartamentoRepository;
+import ar.utn.aceleradora.gestion.socios.repositorios.departamentos.DepartamentoRepository;
+import ar.utn.aceleradora.gestion.socios.repositorios.eventos.EventoRepository;
+import ar.utn.aceleradora.gestion.socios.repositorios.eventos.InscriptoRepository;
+import ar.utn.aceleradora.gestion.socios.repositorios.socios.CategoriaRepository;
+import ar.utn.aceleradora.gestion.socios.repositorios.socios.MembresiaParticularRepository;
+import ar.utn.aceleradora.gestion.socios.repositorios.socios.MembresiaRepository;
+import ar.utn.aceleradora.gestion.socios.repositorios.socios.SocioRepository;
 import ar.utn.aceleradora.gestion.socios.seeds.eventos.EventoInitializer;
 import ar.utn.aceleradora.gestion.socios.seeds.socios.SocioInitializer;
 import ar.utn.aceleradora.gestion.socios.seeds.departamentos.DepartamentoInitializer;

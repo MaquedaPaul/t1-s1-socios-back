@@ -13,6 +13,9 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
+import java.time.LocalTime;
+
+import java.util.UUID;
 
 @Entity
 @Table(name = "eventos")
@@ -21,6 +24,9 @@ public class Evento {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
+
+    @Column(name = "uuid", unique = true, nullable = false)
+    private UUID uuid;
 
     @Setter
     @Column(name = "nombre")
@@ -64,6 +70,10 @@ public class Evento {
     @ManyToMany
     private List<Departamento> departamentos;
 
+    @Setter
+    @JoinColumn(name = "hora")
+    private LocalTime hora;
+
     public Evento(String nombre, String descripcion, LocalDate fechaComienzo, LocalDate fechaFin, TipoModalidad modalidad, Ubicacion ubicacion, List<Departamento> departamentos) {
         this.nombre = nombre;
         this.descripcion = descripcion;
@@ -79,6 +89,26 @@ public class Evento {
 
         this.invitados.addAll(departamentos.stream().flatMap(departamento ->  departamento.getSociosSuscritos().stream()).toList());
         this.estadosEvento.add(new EstadoEvento(TipoEstadoEvento.PENDIENTE, LocalDateTime.now(), "Recien agregado"));
+        this.uuid = UUID.randomUUID();
+    }
+
+    public Evento(String nombre, String descripcion, LocalDate fechaComienzo, LocalDate fechaFin, TipoModalidad modalidad, Ubicacion ubicacion, List<Departamento> departamentos, LocalTime hora) {
+        this.nombre = nombre;
+        this.descripcion = descripcion;
+        this.fechaComienzo = fechaComienzo;
+        this.fechaFin = fechaFin;
+        this.modalidad = modalidad;
+        this.ubicacion = ubicacion;
+        this.departamentos = departamentos;
+        this.hora = hora;
+
+        this.invitados = new ArrayList<>();
+        this.inscriptos = new ArrayList<>();
+        this.estadosEvento = new ArrayList<>();;
+
+        this.invitados.addAll(departamentos.stream().flatMap(departamento ->  departamento.getSociosSuscritos().stream()).toList());
+        this.estadosEvento.add(new EstadoEvento(TipoEstadoEvento.PENDIENTE, LocalDateTime.now(), "Recien agregado"));
+        this.uuid = UUID.randomUUID();
     }
 
     public Evento() {
@@ -87,6 +117,7 @@ public class Evento {
         this.departamentos = new ArrayList<>();
         this.estadosEvento = new ArrayList<>();
         this.estadosEvento.add(new EstadoEvento(TipoEstadoEvento.PENDIENTE, LocalDateTime.now(), "Recien agregado"));
+        this.uuid = UUID.randomUUID();
     }
 
     //Esta constructor solamente esta para el SEED
@@ -100,6 +131,21 @@ public class Evento {
         this.inscriptos = new ArrayList<>();
         this.estadosEvento = new ArrayList<>();
         this.departamentos = new ArrayList<>();
+        this.uuid = UUID.randomUUID();
+    }
+
+    public Evento(String nombre, String descripcion, LocalDate fechaComienzo, LocalDate fechaFin, TipoModalidad modalidad, LocalTime hora) {
+        this.nombre = nombre;
+        this.descripcion = descripcion;
+        this.fechaComienzo = fechaComienzo;
+        this.fechaFin = fechaFin;
+        this.modalidad = modalidad;
+        this.hora = hora;
+        this.invitados = new ArrayList<>();
+        this.inscriptos = new ArrayList<>();
+        this.estadosEvento = new ArrayList<>();
+        this.departamentos = new ArrayList<>();
+        this.uuid = UUID.randomUUID();
     }
 
     public void setDepartamentos(List<Departamento> departamentos){
@@ -139,6 +185,10 @@ public class Evento {
     //Esta función solamente esta para el SEED
     public void agregarInscripto(Inscripto inscripto){
         getInscriptos().add(inscripto);
+    }
+
+    public void eliminarDepartamento(Departamento departamento) {
+        this.getDepartamentos().remove(departamento);
     }
 }
 

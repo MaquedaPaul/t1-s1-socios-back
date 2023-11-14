@@ -5,8 +5,8 @@ import ar.utn.aceleradora.gestion.socios.modelos.eventos.inscriptos.EstadoInscri
 import ar.utn.aceleradora.gestion.socios.modelos.eventos.inscriptos.Inscripto;
 import ar.utn.aceleradora.gestion.socios.modelos.eventos.inscriptos.TipoEstadoInscripto;
 import ar.utn.aceleradora.gestion.socios.modelos.socios.Socio;
-import ar.utn.aceleradora.gestion.socios.repositorios.DepartamentoRepository;
-import ar.utn.aceleradora.gestion.socios.repositorios.InscriptoRepository;
+import ar.utn.aceleradora.gestion.socios.repositorios.departamentos.DepartamentoRepository;
+import ar.utn.aceleradora.gestion.socios.repositorios.eventos.InscriptoRepository;
 import lombok.Getter;
 
 import java.util.ArrayList;
@@ -86,20 +86,19 @@ public class EventoDataInscriptos {
     private void asignarEstadosAleatorios(EventoDataEstadosInscriptos dataEstadosInscriptos) {
         List<EstadoInscripto> estadosInscriptos = dataEstadosInscriptos.estadosInscriptos;
 
+        /*
         // Asignar estados PENDIENTE a todos los inscriptos
         for (Inscripto inscripto : inscriptos) {
             EstadoInscripto estadoPendiente = obtenerEstadoPorTipo(estadosInscriptos, TipoEstadoInscripto.PENDIENTE);
             inscripto.agregarEstado(estadoPendiente);
         }
-
+*/
         // Seleccionar aleatoriamente algunos inscriptos para tener estados diferentes a PENDIENTE
         Random random = new Random();
         for (Inscripto inscripto : inscriptos) {
-            if (random.nextBoolean()) {
                 TipoEstadoInscripto tipoEstado = obtenerTipoEstadoAleatorioExceptoPendiente();
                 EstadoInscripto estado = obtenerEstadoPorTipo(estadosInscriptos, tipoEstado);
                 inscripto.agregarEstado(estado);
-            }
         }
     }
     private static TipoEstadoInscripto obtenerTipoEstadoAleatorioExceptoPendiente() {

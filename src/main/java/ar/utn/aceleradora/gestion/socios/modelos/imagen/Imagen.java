@@ -3,12 +3,12 @@ package ar.utn.aceleradora.gestion.socios.modelos.imagen;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
-/*
+
 @Entity
 @Table(name = "imagenes")
-@Getter @Setter*/
+@Getter @Setter
 public class Imagen {
-/*
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
@@ -21,5 +21,5 @@ public class Imagen {
     }
 
     public Imagen() {
-    }*/
+    }
 }

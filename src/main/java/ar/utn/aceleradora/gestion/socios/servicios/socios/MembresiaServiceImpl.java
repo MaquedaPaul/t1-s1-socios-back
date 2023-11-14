@@ -1,7 +1,7 @@
 package ar.utn.aceleradora.gestion.socios.servicios.socios;
 
 import ar.utn.aceleradora.gestion.socios.modelos.socios.membresia.Membresia;
-import ar.utn.aceleradora.gestion.socios.repositorios.MembresiaRepository;
+import ar.utn.aceleradora.gestion.socios.repositorios.socios.MembresiaRepository;
 
 import org.springframework.stereotype.Service;
 

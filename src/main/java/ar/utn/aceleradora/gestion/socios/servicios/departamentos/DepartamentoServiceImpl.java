@@ -1,14 +1,19 @@
 package ar.utn.aceleradora.gestion.socios.servicios.departamentos;
 import ar.utn.aceleradora.gestion.socios.dto.departamentos.CreacionEdicionDepartamentoDTO;
-import ar.utn.aceleradora.gestion.socios.error.*;
+import ar.utn.aceleradora.gestion.socios.error.departamentos.*;
+import ar.utn.aceleradora.gestion.socios.error.socios.SocioNotFoundException;
 import ar.utn.aceleradora.gestion.socios.modelos.departamentos.Autoridad;
 import ar.utn.aceleradora.gestion.socios.modelos.departamentos.Coordinacion;
 import ar.utn.aceleradora.gestion.socios.modelos.departamentos.Departamento;
+import ar.utn.aceleradora.gestion.socios.modelos.eventos.Evento;
+import ar.utn.aceleradora.gestion.socios.modelos.reservas.EspacioFisico;
 import ar.utn.aceleradora.gestion.socios.modelos.socios.Socio;
-import ar.utn.aceleradora.gestion.socios.repositorios.AutoridadRepository;
-import ar.utn.aceleradora.gestion.socios.repositorios.CoorDepartamentoRepository;
-import ar.utn.aceleradora.gestion.socios.repositorios.DepartamentoRepository;
-import ar.utn.aceleradora.gestion.socios.repositorios.SocioRepository;
+import ar.utn.aceleradora.gestion.socios.repositorios.departamentos.AutoridadRepository;
+import ar.utn.aceleradora.gestion.socios.repositorios.departamentos.CoorDepartamentoRepository;
+import ar.utn.aceleradora.gestion.socios.repositorios.departamentos.DepartamentoRepository;
+import ar.utn.aceleradora.gestion.socios.repositorios.eventos.EventoRepository;
+import ar.utn.aceleradora.gestion.socios.repositorios.reservas.EspacioFisicoRepository;
+import ar.utn.aceleradora.gestion.socios.repositorios.socios.SocioRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -29,13 +34,17 @@ public class DepartamentoServiceImpl implements DepartamentoService {
     private final SocioRepository socioRepository;
 
     private final CoorDepartamentoRepository coordinacionRepository;
+    private final EventoRepository eventoRepository;
+    private final EspacioFisicoRepository espacioFisicoRepository;
 
     @Autowired
-    public DepartamentoServiceImpl(DepartamentoRepository departamentoRepository, AutoridadRepository autoridadRepository, SocioRepository socioRepository, CoorDepartamentoRepository coordinacionRepository) {
+    public DepartamentoServiceImpl(DepartamentoRepository departamentoRepository, AutoridadRepository autoridadRepository, SocioRepository socioRepository, CoorDepartamentoRepository coordinacionRepository, EventoRepository eventoRepository, EspacioFisicoRepository espacioFisicoRepository) {
         this.departamentoRepository = departamentoRepository;
         this.autoridadRepository = autoridadRepository;
         this.socioRepository = socioRepository;
         this.coordinacionRepository = coordinacionRepository;
+        this.eventoRepository = eventoRepository;
+        this.espacioFisicoRepository = espacioFisicoRepository;
     }
 
     @Override
@@ -49,11 +58,32 @@ public class DepartamentoServiceImpl implements DepartamentoService {
         Optional<Departamento> departamento = departamentoRepository.findById(id);
         if(departamento.isPresent())
         {
+            removerDepartamentoDeCoordinaciones(departamento.get());
+            //removerDepartamentoDeReservas(departamento.get());
+            removerDepartamentoDeEventos(departamento.get());
             departamentoRepository.deleteById(id);
         }
         else{
             throw new DepartamentoNotFoundException("no se encontro departamento con id: "+id+" para borrar");
         }
+    }
+
+    private void removerDepartamentoDeEventos(Departamento departamento) {
+        List<Evento> eventos  = eventoRepository.findAll();
+        List<Evento> eventosQueTienenAlDepartamento = eventos.stream().filter(evento -> evento.getDepartamentos().contains(departamento)).toList();
+        eventosQueTienenAlDepartamento.forEach(evento -> {
+            evento.eliminarDepartamento(departamento);
+        });
+        eventoRepository.saveAll(eventosQueTienenAlDepartamento);
+    }
+
+    private void removerDepartamentoDeCoordinaciones(Departamento departamento) {
+        List<Coordinacion> coordinaciones = coordinacionRepository.findAll();
+        List<Coordinacion> coordinacionesConElDepartamento = coordinaciones.stream().filter(coord -> coord.getDepartamentos().contains(departamento)).toList();
+        coordinacionesConElDepartamento.forEach(coordinacion -> {
+            coordinacion.eliminarDepartamento(departamento);
+        });
+        coordinacionRepository.saveAll(coordinacionesConElDepartamento);
     }
 
 
@@ -287,6 +317,10 @@ public class DepartamentoServiceImpl implements DepartamentoService {
 
     }
 
+    @Override
+    public List<EspacioFisico> obtenerEspaciosFisicos() {
+        return espacioFisicoRepository.findAll();
+    }
 
 
 }
