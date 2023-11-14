@@ -27,7 +27,7 @@ public class ReservasController {
         this.reservaService = reservaService;
     }
 
-    @GetMapping("/")
+    @GetMapping({"", "/"})
     public ResponseEntity<List<ReservaLimitadoDTO>> listarReservas() {
             List<ReservaLimitadoDTO> reservas = reservaService.listarReservas();
             return new ResponseEntity<>(reservas, HttpStatus.OK);
