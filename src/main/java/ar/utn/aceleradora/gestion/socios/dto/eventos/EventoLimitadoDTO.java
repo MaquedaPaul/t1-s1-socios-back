@@ -16,6 +16,7 @@ import lombok.Setter;
 
 import java.time.LocalDate;
 
+import java.time.LocalTime;
 import java.util.List;
 import java.util.UUID;
 
@@ -35,7 +36,7 @@ public class EventoLimitadoDTO {
     private List<EstadoEvento> estadosEvento;
     private List<ProyeccionSocioDTO> invitados;
     private List<ProyeccionDepartamentoDTO> departamentos;
-
+    private LocalTime hora;
 
 
 }

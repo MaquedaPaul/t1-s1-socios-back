@@ -134,6 +134,20 @@ public class Evento {
         this.uuid = UUID.randomUUID();
     }
 
+    public Evento(String nombre, String descripcion, LocalDate fechaComienzo, LocalDate fechaFin, TipoModalidad modalidad, LocalTime hora) {
+        this.nombre = nombre;
+        this.descripcion = descripcion;
+        this.fechaComienzo = fechaComienzo;
+        this.fechaFin = fechaFin;
+        this.modalidad = modalidad;
+        this.hora = hora;
+        this.invitados = new ArrayList<>();
+        this.inscriptos = new ArrayList<>();
+        this.estadosEvento = new ArrayList<>();
+        this.departamentos = new ArrayList<>();
+        this.uuid = UUID.randomUUID();
+    }
+
     public void setDepartamentos(List<Departamento> departamentos){
         this.departamentos = departamentos;
         this.invitados.addAll(departamentos.stream().flatMap(departamento ->  departamento.getSociosSuscritos().stream()).toList());
