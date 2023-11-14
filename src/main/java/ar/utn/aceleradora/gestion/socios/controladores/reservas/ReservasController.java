@@ -1,8 +1,10 @@
 package ar.utn.aceleradora.gestion.socios.controladores.reservas;
 
+import ar.utn.aceleradora.gestion.socios.dto.ResponseDTO;
+import ar.utn.aceleradora.gestion.socios.dto.reservas.ReservaUpdateDTO;
+import ar.utn.aceleradora.gestion.socios.error.reservas.EstadoReservaNoValidoException;
 
 import ar.utn.aceleradora.gestion.socios.dto.reservas.ReservaLimitadoDTO;
-import ar.utn.aceleradora.gestion.socios.dto.ResponseDTO;
 import ar.utn.aceleradora.gestion.socios.dto.reservas.ReservaCreateDTO;
 import ar.utn.aceleradora.gestion.socios.servicios.reservas.ReservaService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,6 +18,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+
 @RequestMapping("/reservas")
 @CrossOrigin(origins= "*")
 @RestController
@@ -26,6 +29,13 @@ public class ReservasController {
     public ReservasController(ReservaService reservaService) {
         this.reservaService = reservaService;
     }
+
+    @PatchMapping({"{id}"})
+    public ResponseEntity<ResponseDTO> editarReserva(@RequestBody ReservaUpdateDTO reservaUpdateDTO, @PathVariable Integer id) throws EstadoReservaNoValidoException {
+            reservaService.editarReserva(reservaUpdateDTO, id);
+            return new ResponseEntity<>(new ResponseDTO("Reserva editada satisfactoriamente", "SUCCESS", 200),HttpStatus.NO_CONTENT);
+    }
+
 
     @GetMapping({"", "/"})
     public ResponseEntity<List<ReservaLimitadoDTO>> listarReservas() {

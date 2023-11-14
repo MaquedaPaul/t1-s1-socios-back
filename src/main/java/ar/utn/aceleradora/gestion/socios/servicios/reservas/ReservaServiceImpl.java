@@ -1,5 +1,9 @@
 package ar.utn.aceleradora.gestion.socios.servicios.reservas;
 
+import ar.utn.aceleradora.gestion.socios.dto.reservas.ReservaUpdateDTO;
+import ar.utn.aceleradora.gestion.socios.error.reservas.EstadoReservaNoValidoException;
+import ar.utn.aceleradora.gestion.socios.error.reservas.ReservaNotFoundException;
+import ar.utn.aceleradora.gestion.socios.modelos.reservas.*;
 import ar.utn.aceleradora.gestion.socios.dto.departamentos.ProyeccionDepartamentoDTO;
 import ar.utn.aceleradora.gestion.socios.dto.reservas.ReservaLimitadoDTO;
 import ar.utn.aceleradora.gestion.socios.modelos.departamentos.Departamento;
@@ -23,8 +27,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import ar.utn.aceleradora.gestion.socios.dto.reservas.ReservaCreateDTO;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.List;
+import java.util.ArrayList;
 
 @Service
 public class ReservaServiceImpl implements ReservaService {
@@ -140,5 +144,42 @@ public class ReservaServiceImpl implements ReservaService {
 
         reservasLimitadas.add(nuevaReservaLimitada);
 
+    }
+
+    @Override
+    public void editarReserva(ReservaUpdateDTO reservaUpdateDTO, Integer id) throws EstadoReservaNoValidoException {
+        Reserva reservaEncontrada = reservaRepository.findById(id).orElseThrow(() -> new ReservaNotFoundException("No se pudo encontrar la reserva con id: "+id));
+        this.gestionarEdicionEstado(reservaUpdateDTO, reservaEncontrada);
+        this.gestionarAprobacionRecursos(reservaUpdateDTO, reservaEncontrada);
+        reservaRepository.save(reservaEncontrada);
+    }
+
+    private void gestionarAprobacionRecursos(ReservaUpdateDTO reservaUpdateDTO, Reserva reservaEncontrada) {
+        List<RecursoSolicitado> recursosSolicitados = reservaEncontrada.getRecursosSolicitados();
+        List<Integer> idsNuevosAprobados = reservaUpdateDTO.getIdsRecursosAprobados();
+        List<RecursoSolicitado> aprobados = recursosSolicitados.stream().filter(recursoSolicitado -> idsNuevosAprobados.contains(recursoSolicitado.getId())).toList();
+        List<RecursoSolicitado> desaprobados = recursosSolicitados.stream().filter(recursoSolicitado -> !idsNuevosAprobados.contains(recursoSolicitado.getId())).toList();
+        aprobados.forEach(aprobado -> aprobado.setAprobado(true));
+        desaprobados.forEach(aprobado-> aprobado.setAprobado(false));
+    }
+
+    private void gestionarEdicionEstado(ReservaUpdateDTO reservaUpdateDTO, Reserva reservaEncontrada) throws EstadoReservaNoValidoException {
+        String estadoReservaString = reservaUpdateDTO.getTipoEstadoReserva();
+        TipoEstadoReserva tipoEstadoReserva = null;
+        if(estadoReservaString != null){
+            tipoEstadoReserva = obtenerTipoEstadoReserva(estadoReservaString);
+            EstadoReserva nuevoEstado = new EstadoReserva(tipoEstadoReserva,reservaUpdateDTO.getMotivo());
+            reservaEncontrada.agregarNuevoEstado(nuevoEstado);
+
+        }
+
+
+    }
+    private TipoEstadoReserva obtenerTipoEstadoReserva(String estadoReservaString) throws EstadoReservaNoValidoException {
+        try {
+            return TipoEstadoReserva.valueOf(estadoReservaString.toUpperCase());
+        } catch (IllegalArgumentException e) {
+            throw  new EstadoReservaNoValidoException("El estado de la reserva: "+estadoReservaString+" no es reconocido");
+        }
     }
 }

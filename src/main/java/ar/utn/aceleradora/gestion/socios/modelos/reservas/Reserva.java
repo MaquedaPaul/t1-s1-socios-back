@@ -90,4 +90,8 @@ public class Reserva {
         codigo.append(idString);
         this.codigoDeSeguimiento = codigo.toString();
     }
+
+    public void agregarNuevoEstado(EstadoReserva nuevoEstado) {
+        this.estadosReserva.add(nuevoEstado);
+    }
 }
