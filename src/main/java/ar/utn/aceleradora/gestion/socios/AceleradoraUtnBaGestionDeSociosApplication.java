@@ -5,6 +5,8 @@ package ar.utn.aceleradora.gestion.socios;
 import ar.utn.aceleradora.gestion.socios.repositorios.*;
 import ar.utn.aceleradora.gestion.socios.seeds.socios.SocioInitializer;
 import ar.utn.aceleradora.gestion.socios.seeds.departamentos.DepartamentoInitializer;
+import ar.utn.aceleradora.gestion.socios.seeds.test.initializer.TestDepartamentoInitializer;
+import ar.utn.aceleradora.gestion.socios.seeds.test.initializer.TestSocioInitializer;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -19,13 +21,26 @@ public class AceleradoraUtnBaGestionDeSociosApplication {
 
 	@Bean
 	public CommandLineRunner dataInicial(SocioRepository socioRepository, MembresiaRepository membresiaRepository, MembresiaParticularRepository membresiaParticularRepository, CategoriaRepository categoriaRepository, DepartamentoRepository departamentoRepository, AutoridadRepository autoridadRepository, CoorDepartamentoRepository coorDepartamentoRepository )  {
-		Boolean quieroDataInicial = true;
+		Boolean quieroDataInicial = false;
 		if(quieroDataInicial){
-			SocioInitializer socioInitializer = new SocioInitializer(socioRepository,categoriaRepository,membresiaRepository,membresiaParticularRepository);
-			socioInitializer.run();
-			DepartamentoInitializer departamentoInitializer = new DepartamentoInitializer(socioRepository, autoridadRepository, coorDepartamentoRepository);
-			departamentoInitializer.run();
+			TestSocioInitializer testSocioInitializer = new TestSocioInitializer(socioRepository,categoriaRepository,membresiaRepository,membresiaParticularRepository);
+			testSocioInitializer.run();
+			TestDepartamentoInitializer testDepartamentoInitializer = new TestDepartamentoInitializer(departamentoRepository, autoridadRepository, coorDepartamentoRepository);
+			testDepartamentoInitializer.run();
+
 		}
 		return null;
     }
+
+	/*@Bean
+	public CommandLineRunner dataDePruebaInitialize(SocioRepository socioRepository, MembresiaRepository membresiaRepository, MembresiaParticularRepository membresiaParticularRepository, CategoriaRepository categoriaRepository, DepartamentoRepository departamentoRepository, AutoridadRepository autoridadRepository, CoorDepartamentoRepository coorDepartamentoRepository )  {
+		Boolean quieroDataInicial = true;
+		if(quieroDataInicial){
+			TestSocioInitializer testSocioInitializer = new TestSocioInitializer(socioRepository,categoriaRepository,membresiaRepository,membresiaParticularRepository);
+			testSocioInitializer.run();
+			TestDepartamentoInitializer testDepartamentoInitializer = new TestDepartamentoInitializer(departamentoRepository, autoridadRepository, coorDepartamentoRepository);
+			testDepartamentoInitializer.run();
+		}
+		return null;
+	}*/
 }

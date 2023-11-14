@@ -91,6 +91,19 @@ public class Socio {
         this.ubicacion = ubicacion;
     }
 
+    //Constructor para Datos de Prueba
+    public Socio(String nombre, String nombrePresidente, String cuit, TipoSocio tipoSocio, String telefono, String mail , List<Categoria> categorias, List<MembresiaParticular> membresias, Ubicacion ubicacion) {
+        this.nombre = nombre;
+        this.nombrePresidente = nombrePresidente;
+        this.cuit = cuit;
+        this.tipoSocio = tipoSocio;
+        this.telefono = telefono;
+        this.mail = mail;
+//        this.imagen = imagen;
+        this.categorias = categorias;
+        this.membresias = membresias;
+        this.ubicacion = ubicacion;
+    }
     public void agregarMembresia(MembresiaParticular membresiaParticular) {
         membresiaParticular.setSocio(this);
         membresias.add(membresiaParticular);

@@ -1,28 +1,28 @@
 package ar.utn.aceleradora.gestion.socios;
 
-//import ar.utn.aceleradora.gestion.socios.modelos.socios.Socio;
-import ar.utn.aceleradora.gestion.socios.modelos.ubicacion.Ubicacion;
-import ar.utn.aceleradora.gestion.socios.repositorios.SocioRepository;
-import ar.utn.aceleradora.gestion.socios.servicios.socios.SocioServiceImpl;
-import ar.utn.aceleradora.gestion.socios.servicios.UbicacionService;
-
-import org.junit.jupiter.api.Test;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.test.context.TestPropertySource;
+import ar.utn.aceleradora.gestion.socios.seeds.test.initializer.TestDepartamentoInitializer;
+import ar.utn.aceleradora.gestion.socios.seeds.test.initializer.TestSocioInitializer;
+import ar.utn.aceleradora.gestion.socios.repositorios.*;
+import org.springframework.boot.CommandLineRunner;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.context.annotation.Bean;
 
 
-import static org.assertj.core.api.Assertions.assertThat;
-
-
-@SpringBootTest(properties = {"""
-		spring.datasource.url=jdbc:h2:file:/test
-		spring.datasource.driverClassName= org.h2.Driver
-		spring.jpa.database-platform= org.hibernate.dialect.H2Dialect
-		spring.h2.console.enabled= true
-		"""})
+@SpringBootApplication
 class AceleradoraUtnBaGestionDeSociosApplicationTests {
 
+	@Bean
+	public CommandLineRunner dataDePruebaInitialize(SocioRepository socioRepository, MembresiaRepository membresiaRepository, MembresiaParticularRepository membresiaParticularRepository, CategoriaRepository categoriaRepository, DepartamentoRepository departamentoRepository, AutoridadRepository autoridadRepository, CoorDepartamentoRepository coorDepartamentoRepository )  {
+		Boolean quieroDataInicial = true;
+		if(quieroDataInicial){
+			TestSocioInitializer testSocioInitializer = new TestSocioInitializer(socioRepository,categoriaRepository,membresiaRepository,membresiaParticularRepository);
+			testSocioInitializer.run();
+			TestDepartamentoInitializer testDepartamentoInitializer = new TestDepartamentoInitializer(departamentoRepository, autoridadRepository, coorDepartamentoRepository);
+			testDepartamentoInitializer.run();
+		}
+		return null;
+	}
+ /*
 	@Test
 	void contextLoads() {
 	}
@@ -39,11 +39,11 @@ class AceleradoraUtnBaGestionDeSociosApplicationTests {
 
 	@Test
 	public void testGuardarUbicacion(){
-		/*
+
 		Ubicacion ubicacion = new Ubicacion("Ejemplo","Ejemplo","Ejemplo","Ejemplo","Ejemplo");
 
 		Ubicacion ubicacionGuardada = ubicacionService.agregarUbicacion(ubicacion);
-		*/
+
 	}
 
 	@Test
@@ -103,18 +103,18 @@ class AceleradoraUtnBaGestionDeSociosApplicationTests {
 		assertThat(socioGuardado.getUbicacion()).isEqualTo(ubicacionService.obtenerUbicacion(1));
 	}*/
 
-
+/*
 	@Test
 	public void testObtenerSocio(){
-/*
+
 		SocioDTO socio = socioService.obtenerSocio(1);
 
 		assertThat(socio.getNombre()).isEqualTo("Ejemplo");
 		assertThat(socio.getTelefono()).isEqualTo(123456);
-*/
+
 	}
 
-
+*/
 
 
 /*
@@ -145,7 +145,7 @@ class AceleradoraUtnBaGestionDeSociosApplicationTests {
 		assertThat(socioRecuperado.getTelefono()).isEqualTo(123456);
 		assertThat(socioRecuperado.getMail()).isEqualTo("Ejemplo");
 	}
-*/
 
 
+  */
 }

@@ -8,6 +8,7 @@ import lombok.Setter;
 
 import java.time.LocalDate;
 
+
 @Entity
 @Table(name = "membresias_particulares")
 public class MembresiaParticular {
@@ -25,7 +26,7 @@ public class MembresiaParticular {
     @Getter @Setter
     private LocalDate fechaInicio;
 
-    @Column(name = "value")
+    @Column(name = "valor")
     @Getter @Setter
     private Double valor;
 

@@ -66,6 +66,16 @@ public class Departamento{
         this.autoridades = new ArrayList<>();
     }
 
+    //Constructor para Datos de Prueba
+    public Departamento(String nombre, String descripcion, String icono, Integer jerarquia, List<Socio> sociosSuscritos, List<Autoridad> autoridades) {
+        this.nombre = nombre;
+        this.descripcion = descripcion;
+        this.icono = icono;
+        this.jerarquia = jerarquia;
+        this.sociosSuscritos = sociosSuscritos;
+        this.autoridades = autoridades;
+    }
+
     public void suscribirSocio(Socio unSocio) {
         sociosSuscritos.add(unSocio);
     }
