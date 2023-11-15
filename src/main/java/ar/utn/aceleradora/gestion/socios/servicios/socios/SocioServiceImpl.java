@@ -84,7 +84,7 @@ public class SocioServiceImpl implements SocioService {
     departamentoRepository.saveAll(departamentosQueTienenAlSocio);
   }
   @Override
-  public void updateSocio(SocioUpdateDTO socioUpdate, Integer id) throws Exception {
+  public void updateSocio(SocioUpdateDTO socioUpdate, Integer id, String rutaImagen) throws Exception {
     try {
       Optional<Socio> optionalSocio = socioRepository.findById(id);
 
@@ -103,8 +103,8 @@ public class SocioServiceImpl implements SocioService {
       existingSocio.getUbicacion().setDepartamento(socioUpdate.getDepartamento());
       existingSocio.getUbicacion().setLocalidad(socioUpdate.getLocalidad());
       existingSocio.getUbicacion().setProvincia(socioUpdate.getProvincia());
-      //Imagen imagen = new Imagen(socioUpdate.getImagen().getRutaImagen());
-      //existingSocio.setImagen(imagen);
+      Imagen imagen = new Imagen(rutaImagen);
+      existingSocio.setImagen(imagen);
 
       socioRepository.save(existingSocio);
 
