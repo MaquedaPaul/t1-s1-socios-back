@@ -183,8 +183,7 @@ public class ReservaServiceImpl implements ReservaService {
         }
     }
 
-    @Override
-    public Reserva obtenerReservaPorCodigoSeguimiento(String codigoSeguimiento) {
-        return reservaRepository.findByCodigoSeguimiento(codigoSeguimiento);
+    public Reserva obtenerReservaPorCodigoDeSeguimiento(String codigoDeSeguimiento) {
+        return reservaRepository.findByCodigoDeSeguimiento(codigoDeSeguimiento);
     }
 }

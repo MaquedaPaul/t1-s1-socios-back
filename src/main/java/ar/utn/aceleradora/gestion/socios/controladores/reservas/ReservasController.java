@@ -6,6 +6,7 @@ import ar.utn.aceleradora.gestion.socios.error.reservas.EstadoReservaNoValidoExc
 
 import ar.utn.aceleradora.gestion.socios.dto.reservas.ReservaLimitadoDTO;
 import ar.utn.aceleradora.gestion.socios.dto.reservas.ReservaCreateDTO;
+import ar.utn.aceleradora.gestion.socios.modelos.reservas.Reserva;
 import ar.utn.aceleradora.gestion.socios.servicios.reservas.ReservaService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -43,11 +44,15 @@ public class ReservasController {
             return new ResponseEntity<>(reservas, HttpStatus.OK);
     }
 
-    @PostMapping({"", "/"})
+    @PostMapping({"", "/crear"})
     public ResponseEntity<ResponseDTO> crearReserva(@RequestBody ReservaCreateDTO reservaCreateDTO) {
             reservaService.crearReserva(reservaCreateDTO);
             return new ResponseEntity<>(new ResponseDTO("Reserva creada satisfactoriamente", "CREATE", 201),HttpStatus.CREATED);
     }
 
-
+    @GetMapping("/{codigoDeSeguimiento}")
+    public ResponseEntity<Reserva> obtenerReservaPorCodigoDeSeguimiento(@PathVariable String codigoDeSeguimiento) {
+        Reserva reserva = reservaService.obtenerReservaPorCodigoDeSeguimiento(codigoDeSeguimiento);
+            return new ResponseEntity<>(reserva, HttpStatus.OK);
+    }
 }

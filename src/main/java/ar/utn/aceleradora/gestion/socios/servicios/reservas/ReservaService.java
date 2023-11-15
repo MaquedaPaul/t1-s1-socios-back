@@ -16,5 +16,5 @@ public interface ReservaService {
     List<ReservaLimitadoDTO> listarReservas();
     void crearReserva(ReservaCreateDTO reservaCreateDTO);
 
-    Reserva obtenerReservaPorCodigoSeguimiento(String codigoSeguimiento);
+    Reserva obtenerReservaPorCodigoDeSeguimiento(String codigoDeSeguimiento);
 }
