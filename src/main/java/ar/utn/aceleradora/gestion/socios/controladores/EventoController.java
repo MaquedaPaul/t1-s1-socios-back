@@ -4,8 +4,10 @@ import ar.utn.aceleradora.gestion.socios.dto.eventos.*;
 import ar.utn.aceleradora.gestion.socios.modelos.eventos.TipoEstadoEvento;
 import ar.utn.aceleradora.gestion.socios.modelos.eventos.TipoModalidad;
 import ar.utn.aceleradora.gestion.socios.modelos.eventos.inscriptos.TipoEstadoInscripto;
+import ar.utn.aceleradora.gestion.socios.modelos.reservas.Reserva;
 import ar.utn.aceleradora.gestion.socios.servicios.eventos.EventoService;
 import ar.utn.aceleradora.gestion.socios.servicios.eventos.InscriptoService;
+import ar.utn.aceleradora.gestion.socios.servicios.reservas.ReservaService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -22,11 +24,13 @@ public class EventoController {
 
     private final EventoService eventoService;
     private final InscriptoService inscriptoService;
+    private final ReservaService reservaService;
 
     @Autowired
-    public EventoController(EventoService eventoService, InscriptoService inscriptoService) {
+    public EventoController(EventoService eventoService, InscriptoService inscriptoService, ReservaService reservaService) {
         this.eventoService = eventoService;
         this.inscriptoService = inscriptoService;
+        this.reservaService = reservaService;
     }
 
     @PostMapping({"", "/"})
@@ -118,6 +122,17 @@ public class EventoController {
             return ResponseEntity.ok(estadosInscriptos);
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+        }
+    }
+
+    @GetMapping("/reservas/{codigoSeguimiento}")
+    public ResponseEntity<Reserva> obtenerReservaPorCodigoSeguimiento(@PathVariable String codigoSeguimiento) {
+        Reserva reserva = reservaService.obtenerReservaPorCodigoSeguimiento(codigoSeguimiento);
+
+        if (reserva != null) {
+            return new ResponseEntity<>(reserva, HttpStatus.OK);
+        } else {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
     }
 }

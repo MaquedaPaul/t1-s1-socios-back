@@ -5,6 +5,7 @@ import ar.utn.aceleradora.gestion.socios.error.reservas.EstadoReservaNoValidoExc
 
 import ar.utn.aceleradora.gestion.socios.dto.reservas.ReservaLimitadoDTO;
 import ar.utn.aceleradora.gestion.socios.dto.reservas.ReservaCreateDTO;
+import ar.utn.aceleradora.gestion.socios.modelos.reservas.Reserva;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -14,4 +15,6 @@ public interface ReservaService {
     void editarReserva(ReservaUpdateDTO reservaUpdateDTO, Integer id) throws EstadoReservaNoValidoException;
     List<ReservaLimitadoDTO> listarReservas();
     void crearReserva(ReservaCreateDTO reservaCreateDTO);
+
+    Reserva obtenerReservaPorCodigoSeguimiento(String codigoSeguimiento);
 }

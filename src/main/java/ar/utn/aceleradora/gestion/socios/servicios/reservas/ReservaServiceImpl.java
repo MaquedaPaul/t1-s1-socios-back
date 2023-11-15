@@ -182,4 +182,9 @@ public class ReservaServiceImpl implements ReservaService {
             throw  new EstadoReservaNoValidoException("El estado de la reserva: "+estadoReservaString+" no es reconocido");
         }
     }
+
+    @Override
+    public Reserva obtenerReservaPorCodigoSeguimiento(String codigoSeguimiento) {
+        return reservaRepository.findByCodigoSeguimiento(codigoSeguimiento);
+    }
 }
