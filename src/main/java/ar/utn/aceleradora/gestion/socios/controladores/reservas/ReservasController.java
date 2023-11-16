@@ -44,7 +44,7 @@ public class ReservasController {
             return new ResponseEntity<>(reservas, HttpStatus.OK);
     }
 
-    @PostMapping({"", "/crear"})
+    @PostMapping({"", "/"})
     public ResponseEntity<ResponseDTO> crearReserva(@RequestBody ReservaCreateDTO reservaCreateDTO) {
             reservaService.crearReserva(reservaCreateDTO);
             return new ResponseEntity<>(new ResponseDTO("Reserva creada satisfactoriamente", "CREATE", 201),HttpStatus.CREATED);

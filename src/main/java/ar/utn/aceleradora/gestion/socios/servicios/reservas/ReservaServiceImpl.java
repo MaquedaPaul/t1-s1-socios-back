@@ -141,9 +141,8 @@ public class ReservaServiceImpl implements ReservaService {
         nuevaReservaLimitada.setNombreReservante(reserva.getNombreReservante());
         nuevaReservaLimitada.setApellidoReservante(reserva.getApellidoReservante());
         nuevaReservaLimitada.setTelefonoReservante(reserva.getTelefonoReservante());
-
+        nuevaReservaLimitada.setCodigoSeguimiento(reserva.getCodigoDeSeguimiento());
         reservasLimitadas.add(nuevaReservaLimitada);
-
     }
 
     @Override
