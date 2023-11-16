@@ -50,9 +50,15 @@ public class ReservasController {
             return new ResponseEntity<>(new ResponseDTO("Reserva creada satisfactoriamente", "CREATE", 201),HttpStatus.CREATED);
     }
 
-    @GetMapping("/{codigoDeSeguimiento}")
+    @GetMapping("/codigo/{codigoDeSeguimiento}")
     public ResponseEntity<Reserva> obtenerReservaPorCodigoDeSeguimiento(@PathVariable String codigoDeSeguimiento) {
         Reserva reserva = reservaService.obtenerReservaPorCodigoDeSeguimiento(codigoDeSeguimiento);
             return new ResponseEntity<>(reserva, HttpStatus.OK);
+    }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<Reserva> obtenerReservaPorId(@PathVariable Integer id) {
+        Reserva reserva = reservaService.obtenerReservaPorId(id);
+        return new ResponseEntity<>(reserva, HttpStatus.OK);
     }
 }

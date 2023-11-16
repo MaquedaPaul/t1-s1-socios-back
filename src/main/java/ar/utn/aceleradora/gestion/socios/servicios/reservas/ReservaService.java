@@ -17,4 +17,6 @@ public interface ReservaService {
     void crearReserva(ReservaCreateDTO reservaCreateDTO);
 
     Reserva obtenerReservaPorCodigoDeSeguimiento(String codigoDeSeguimiento);
+
+    Reserva obtenerReservaPorId(Integer id);
 }
