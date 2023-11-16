@@ -35,7 +35,6 @@ public class Reserva {
     @Column(name = "descripcion")
     private String descripcion;
 
-
     @Column(name = "fecha")
     private LocalDate fecha;
 
@@ -73,6 +72,9 @@ public class Reserva {
         this.recursosSolicitados = new ArrayList<>();
         this.estadosReserva = new ArrayList<>();
         estadosReserva.add(new EstadoReserva(TipoEstadoReserva.PENDIENTE, LocalDateTime.now(),"Pendiente de aprobación"));
+    }
+
+    public Reserva(String departamentoAsociado, String espacioFisico, String descripcion, LocalDate fecha, LocalTime horaInicio, LocalTime horaFin, String nombreReservante, String mailReservante, String telefonoReservante, String codigoDeSeguimiento) {
     }
 
 
