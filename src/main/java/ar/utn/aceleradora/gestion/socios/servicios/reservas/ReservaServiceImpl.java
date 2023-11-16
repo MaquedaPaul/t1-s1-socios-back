@@ -185,4 +185,9 @@ public class ReservaServiceImpl implements ReservaService {
     public Reserva obtenerReservaPorCodigoDeSeguimiento(String codigoDeSeguimiento) {
         return reservaRepository.findByCodigoDeSeguimiento(codigoDeSeguimiento);
     }
+
+    @Override
+    public Reserva obtenerReservaPorId(Integer id) {
+        return reservaRepository.findById(id).orElseThrow(()-> new ReservaNotFoundException("No se pudo encontrar la reserva con id:"+ id));
+    }
 }
