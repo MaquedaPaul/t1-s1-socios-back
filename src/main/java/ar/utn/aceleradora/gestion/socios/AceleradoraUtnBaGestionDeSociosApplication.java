@@ -8,11 +8,16 @@ import ar.utn.aceleradora.gestion.socios.repositorios.departamentos.CoorDepartam
 import ar.utn.aceleradora.gestion.socios.repositorios.departamentos.DepartamentoRepository;
 import ar.utn.aceleradora.gestion.socios.repositorios.eventos.EventoRepository;
 import ar.utn.aceleradora.gestion.socios.repositorios.eventos.InscriptoRepository;
+import ar.utn.aceleradora.gestion.socios.repositorios.reservas.EspacioFisicoRepository;
+import ar.utn.aceleradora.gestion.socios.repositorios.reservas.EstadoReservaRepository;
+import ar.utn.aceleradora.gestion.socios.repositorios.reservas.RecursoSolicitadoRepository;
+import ar.utn.aceleradora.gestion.socios.repositorios.reservas.ReservaRepository;
 import ar.utn.aceleradora.gestion.socios.repositorios.socios.CategoriaRepository;
 import ar.utn.aceleradora.gestion.socios.repositorios.socios.MembresiaParticularRepository;
 import ar.utn.aceleradora.gestion.socios.repositorios.socios.MembresiaRepository;
 import ar.utn.aceleradora.gestion.socios.repositorios.socios.SocioRepository;
 import ar.utn.aceleradora.gestion.socios.seeds.eventos.EventoInitializer;
+import ar.utn.aceleradora.gestion.socios.seeds.reservas.ReservaInitializer;
 import ar.utn.aceleradora.gestion.socios.seeds.socios.SocioInitializer;
 import ar.utn.aceleradora.gestion.socios.seeds.departamentos.DepartamentoInitializer;
 import org.springframework.boot.CommandLineRunner;
@@ -32,7 +37,7 @@ public class AceleradoraUtnBaGestionDeSociosApplication {
 			SocioRepository socioRepository, MembresiaRepository membresiaRepository, MembresiaParticularRepository membresiaParticularRepository,
 			CategoriaRepository categoriaRepository, DepartamentoRepository departamentoRepository, AutoridadRepository autoridadRepository,
 			CoorDepartamentoRepository coorDepartamentoRepository, EventoRepository eventoRepository, InscriptoRepository inscriptoRepository,
-			UbicacionRepository ubicacionRepository) throws NoSuchFieldException, IllegalAccessException {
+			UbicacionRepository ubicacionRepository, ReservaRepository reservaRepository, EspacioFisicoRepository espacioFisicoRepository, RecursoSolicitadoRepository recursoSolicitadoRepository, EstadoReservaRepository estadoReservaRepository) throws NoSuchFieldException, IllegalAccessException {
 		Boolean quieroDataInicial = false;
 		if(quieroDataInicial){
 			SocioInitializer socioInitializer = new SocioInitializer(socioRepository,categoriaRepository,membresiaRepository,membresiaParticularRepository);
@@ -41,6 +46,8 @@ public class AceleradoraUtnBaGestionDeSociosApplication {
 			departamentoInitializer.run();
 			EventoInitializer eventoInitializer = new EventoInitializer(eventoRepository, inscriptoRepository, departamentoRepository, ubicacionRepository);
 			eventoInitializer.run();
+			ReservaInitializer reservaInitializer = new ReservaInitializer(reservaRepository, espacioFisicoRepository, recursoSolicitadoRepository, estadoReservaRepository);
+			reservaInitializer.run();
 		}
 		return null;
     }
