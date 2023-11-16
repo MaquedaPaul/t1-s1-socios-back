@@ -141,9 +141,8 @@ public class ReservaServiceImpl implements ReservaService {
         nuevaReservaLimitada.setNombreReservante(reserva.getNombreReservante());
         nuevaReservaLimitada.setApellidoReservante(reserva.getApellidoReservante());
         nuevaReservaLimitada.setTelefonoReservante(reserva.getTelefonoReservante());
-
+        nuevaReservaLimitada.setCodigoSeguimiento(reserva.getCodigoDeSeguimiento());
         reservasLimitadas.add(nuevaReservaLimitada);
-
     }
 
     @Override
@@ -181,5 +180,9 @@ public class ReservaServiceImpl implements ReservaService {
         } catch (IllegalArgumentException e) {
             throw  new EstadoReservaNoValidoException("El estado de la reserva: "+estadoReservaString+" no es reconocido");
         }
+    }
+
+    public Reserva obtenerReservaPorCodigoDeSeguimiento(String codigoDeSeguimiento) {
+        return reservaRepository.findByCodigoDeSeguimiento(codigoDeSeguimiento);
     }
 }

@@ -6,4 +6,5 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface ReservaRepository extends JpaRepository<Reserva, Integer> {
+    Reserva findByCodigoDeSeguimiento(String codigoDeSeguimiento);
 }
