@@ -19,4 +19,9 @@ public class Recurso {
 
     public Recurso(){
     }
+
+    public Recurso(String nombre, String descripcion){
+        this.nombre = nombre;
+        this.descripcion = descripcion;
+    }
 }

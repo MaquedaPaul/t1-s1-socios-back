@@ -27,4 +27,9 @@ public class RecursoSolicitado {
 
     public RecursoSolicitado(){
     }
+
+    public RecursoSolicitado(Recurso recurso, int cantidad) {
+        this.recurso = recurso;
+        this.cantidad = cantidad;
+    }
 }
