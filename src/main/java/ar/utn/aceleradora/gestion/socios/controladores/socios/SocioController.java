@@ -61,9 +61,13 @@ public class SocioController {
 
 
     @PatchMapping({"{id}"})
-    public ResponseEntity<ResponseDTO> updatePartner (@RequestBody SocioUpdateDTO socio, @PathVariable Integer id) {
+    public ResponseEntity<ResponseDTO> updatePartner (@RequestPart("file") MultipartFile file, @RequestPart("partner") String StringPartner, @PathVariable Integer id) {
         try {
-            socioService.updateSocio(socio, id);
+            ObjectMapper objectMapper = new ObjectMapper();
+            SocioUpdateDTO partner = objectMapper.readValue(StringPartner, SocioUpdateDTO.class);
+
+            String rutaImagen = imagenService.guardarImagenEnSistemaDeArchivos(file);
+            socioService.updateSocio(partner, id, rutaImagen);
 
             return ResponseEntity.ok(new ResponseDTO("Socio editado satisfactoriamente", "SUCCESS", 200));
         } catch (Exception e) {

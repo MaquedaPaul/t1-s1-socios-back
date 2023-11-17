@@ -33,6 +33,5 @@ public class EventoInitializer {
         dataEstadosInscriptos.cargarEstados();
         dataInscriptos.cargarInscriptos(inscriptoRepository,departamentoRepository, dataEstadosInscriptos);
         dataEventos.cargarEventos(dataInscriptos, departamentoRepository, dataEstadoEventos, eventoRepository, ubicacionRepository);
-
     }
 }

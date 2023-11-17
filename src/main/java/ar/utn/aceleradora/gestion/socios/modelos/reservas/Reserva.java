@@ -35,7 +35,6 @@ public class Reserva {
     @Column(name = "descripcion")
     private String descripcion;
 
-
     @Column(name = "fecha")
     private LocalDate fecha;
 
@@ -57,7 +56,7 @@ public class Reserva {
     @Column(name = "telefono_reservante")
     private String telefonoReservante;
 
-    @OneToMany
+    @OneToMany(cascade = CascadeType.ALL)
     @JoinColumn(name = "id_reserva")
     private List<RecursoSolicitado> recursosSolicitados;
 
@@ -75,6 +74,18 @@ public class Reserva {
         estadosReserva.add(new EstadoReserva(TipoEstadoReserva.PENDIENTE, LocalDateTime.now(),"Pendiente de aprobación"));
     }
 
+    public Reserva(String descripcion,
+                   LocalDate fecha, LocalTime horaInicio, LocalTime horaFin, String nombreReservante, String mailReservante, String telefonoReservante) {
+        this.descripcion = descripcion;
+        this.fecha = fecha;
+        this.horaInicio = horaInicio;
+        this.horaFin = horaFin;
+        this.nombreReservante = nombreReservante;
+        this.mailReservante = mailReservante;
+        this.telefonoReservante = telefonoReservante;
+        this.estadosReserva = new ArrayList<>();
+        this.agregarNuevoEstado(new EstadoReserva(TipoEstadoReserva.PENDIENTE, LocalDateTime.now(), "Pendiente de aprobación"));
+    }
 
     public void generarCodigoSeguimiento(){
         Integer id = this.getId();

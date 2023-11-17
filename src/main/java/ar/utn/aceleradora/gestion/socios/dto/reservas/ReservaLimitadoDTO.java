@@ -27,4 +27,5 @@ public class ReservaLimitadoDTO {
     private String telefonoReservante;
     private List<RecursoSolicitado> recursosSolicitados;
     private List<EstadoReserva> estadosReserva;
+    private String codigoSeguimiento;
 }

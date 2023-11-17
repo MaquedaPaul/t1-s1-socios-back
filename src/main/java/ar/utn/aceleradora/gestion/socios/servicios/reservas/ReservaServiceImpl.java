@@ -98,7 +98,7 @@ public class ReservaServiceImpl implements ReservaService {
                     .orElseThrow(() -> new RecursoNotFoundException("No se pudo encontrar al recurso con id: "+idRecursoSolicitado));
             nuevoRecurso.setRecurso(recurso);
             nuevoRecurso.setCantidad(recursoCreateDTO.getCantidad());
-            nuevoRecurso.setAprobado(recursoCreateDTO.isAprobado());
+            nuevoRecurso.setAprobado(true);
             recursosSolicitados.add(nuevoRecurso);
         });
     return recursosSolicitados;
@@ -141,9 +141,8 @@ public class ReservaServiceImpl implements ReservaService {
         nuevaReservaLimitada.setNombreReservante(reserva.getNombreReservante());
         nuevaReservaLimitada.setApellidoReservante(reserva.getApellidoReservante());
         nuevaReservaLimitada.setTelefonoReservante(reserva.getTelefonoReservante());
-
+        nuevaReservaLimitada.setCodigoSeguimiento(reserva.getCodigoDeSeguimiento());
         reservasLimitadas.add(nuevaReservaLimitada);
-
     }
 
     @Override
@@ -181,5 +180,14 @@ public class ReservaServiceImpl implements ReservaService {
         } catch (IllegalArgumentException e) {
             throw  new EstadoReservaNoValidoException("El estado de la reserva: "+estadoReservaString+" no es reconocido");
         }
+    }
+
+    public Reserva obtenerReservaPorCodigoDeSeguimiento(String codigoDeSeguimiento) {
+        return reservaRepository.findByCodigoDeSeguimiento(codigoDeSeguimiento);
+    }
+
+    @Override
+    public Reserva obtenerReservaPorId(Integer id) {
+        return reservaRepository.findById(id).orElseThrow(()-> new ReservaNotFoundException("No se pudo encontrar la reserva con id:"+ id));
     }
 }
