@@ -19,22 +19,26 @@ public class ReservaInitializer {
     private final EspacioFisicoRepository espacioFisicoRepository;
     private final RecursoSolicitadoRepository recursoSolicitadoRepository;
     private final EstadoReservaRepository estadoReservaRepository;
+    private final DepartamentoRepository departamentoRepository;
 
 
     @Autowired
-    public ReservaInitializer(ReservaRepository reservaRepository, EspacioFisicoRepository espacioFisicoRepository, RecursoSolicitadoRepository recursoSolicitadoRepository, EstadoReservaRepository estadoReservaRepository){
+    public ReservaInitializer(ReservaRepository reservaRepository, EspacioFisicoRepository espacioFisicoRepository, RecursoSolicitadoRepository recursoSolicitadoRepository, EstadoReservaRepository estadoReservaRepository, DepartamentoRepository departamentoRepository){
         this.reservaRepository = reservaRepository;
         this.espacioFisicoRepository = espacioFisicoRepository;
         this.recursoSolicitadoRepository = recursoSolicitadoRepository;
         this.estadoReservaRepository = estadoReservaRepository;
+        this.departamentoRepository = departamentoRepository;
     }
 
     public void run() throws NoSuchFieldException, IllegalAccessException {
         ReservaDataEspacioFisico dataEspacioFisico = new ReservaDataEspacioFisico();
         ReservaDataReservas dataReservas = new ReservaDataReservas();
         ReservaDataEstadoReservas dataEstadoReservas = new ReservaDataEstadoReservas();
+        ReservaDataDepartamentos reservaDataDepartamentos = new ReservaDataDepartamentos();
 
         //dataEspacioFisico.cargarEspacios(espacioFisicoRepository);
+        reservaDataDepartamentos.cargarDepartamentos(departamentoRepository);
         dataEstadoReservas.cargarEstadosReservas(estadoReservaRepository);
         dataReservas.cargarReservas(reservaRepository);
     }

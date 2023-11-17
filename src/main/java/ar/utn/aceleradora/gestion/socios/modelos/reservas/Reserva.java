@@ -77,6 +77,9 @@ public class Reserva {
     public Reserva(String departamentoAsociado, String espacioFisico, String descripcion, LocalDate fecha, LocalTime horaInicio, LocalTime horaFin, String nombreReservante, String mailReservante, String telefonoReservante, String codigoDeSeguimiento) {
     }
 
+    public Reserva(String departamentoAsociado, String espacioFisico, String descripcion, LocalDate fecha, LocalTime horaInicio, LocalTime horaFin, String nombreReservante, String mailReservante, String telefonoReservante) {
+    }
+
 
     public void generarCodigoSeguimiento(){
         Integer id = this.getId();
