@@ -10,6 +10,7 @@ import ar.utn.aceleradora.gestion.socios.repositorios.reservas.EspacioFisicoRepo
 import ar.utn.aceleradora.gestion.socios.repositorios.reservas.EstadoReservaRepository;
 import ar.utn.aceleradora.gestion.socios.repositorios.reservas.RecursoSolicitadoRepository;
 import ar.utn.aceleradora.gestion.socios.repositorios.reservas.ReservaRepository;
+import ar.utn.aceleradora.gestion.socios.repositorios.reservas.*;
 import ar.utn.aceleradora.gestion.socios.repositorios.socios.CategoriaRepository;
 import ar.utn.aceleradora.gestion.socios.repositorios.socios.MembresiaParticularRepository;
 import ar.utn.aceleradora.gestion.socios.repositorios.socios.MembresiaRepository;
@@ -35,7 +36,9 @@ public class AceleradoraUtnBaGestionDeSociosApplication {
 			SocioRepository socioRepository, MembresiaRepository membresiaRepository, MembresiaParticularRepository membresiaParticularRepository,
 			CategoriaRepository categoriaRepository, DepartamentoRepository departamentoRepository, AutoridadRepository autoridadRepository,
 			CoorDepartamentoRepository coorDepartamentoRepository, EventoRepository eventoRepository, InscriptoRepository inscriptoRepository,
-			UbicacionRepository ubicacionRepository, ReservaRepository reservaRepository, EspacioFisicoRepository espacioFisicoRepository, RecursoSolicitadoRepository recursoSolicitadoRepository, EstadoReservaRepository estadoReservaRepository) throws NoSuchFieldException, IllegalAccessException {
+			UbicacionRepository ubicacionRepository, ReservaRepository reservaRepository, EspacioFisicoRepository espacioFisicoRepository,
+			RecursoSolicitadoRepository recursoSolicitadoRepository, EstadoReservaRepository estadoReservaRepository, RecursoRepository recursoRepository)
+			throws NoSuchFieldException, IllegalAccessException {
 		Boolean quieroDataInicial = false;
 		if(quieroDataInicial){
 			SocioInitializer socioInitializer = new SocioInitializer(socioRepository,categoriaRepository,membresiaRepository,membresiaParticularRepository);
@@ -44,7 +47,8 @@ public class AceleradoraUtnBaGestionDeSociosApplication {
 			departamentoInitializer.run();
 			EventoInitializer eventoInitializer = new EventoInitializer(eventoRepository, inscriptoRepository, departamentoRepository, ubicacionRepository);
 			eventoInitializer.run();
-			ReservaInitializer reservaInitializer = new ReservaInitializer(reservaRepository, espacioFisicoRepository, estadoReservaRepository, departamentoRepository, ubicacionRepository);
+			ReservaInitializer reservaInitializer = new ReservaInitializer(reservaRepository, espacioFisicoRepository, estadoReservaRepository,
+					departamentoRepository, ubicacionRepository, recursoRepository, recursoSolicitadoRepository);
 			reservaInitializer.run();
 		}
 		return null;

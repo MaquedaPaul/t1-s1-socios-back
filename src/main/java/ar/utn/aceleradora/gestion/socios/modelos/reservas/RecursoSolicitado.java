@@ -27,4 +27,11 @@ public class RecursoSolicitado {
 
     public RecursoSolicitado(){
     }
+    public RecursoSolicitado(int cantidad){
+        this.aprobado = true;
+        this.cantidad = cantidad;
+    }
+
+
+
 }

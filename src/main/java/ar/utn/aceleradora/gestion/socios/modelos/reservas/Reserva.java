@@ -56,7 +56,7 @@ public class Reserva {
     @Column(name = "telefono_reservante")
     private String telefonoReservante;
 
-    @OneToMany
+    @OneToMany(cascade = CascadeType.ALL)
     @JoinColumn(name = "id_reserva")
     private List<RecursoSolicitado> recursosSolicitados;
 
