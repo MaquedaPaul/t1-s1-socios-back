@@ -21,10 +21,8 @@ public class ReservaDataEstadoReservas {
     EstadoReserva estadoReserva7 = new EstadoReserva(TipoEstadoReserva.PENDIENTE, LocalDateTime.of(2023, 11, 7, 13, 15), "motivo 7");
     EstadoReserva estadoReserva8 = new EstadoReserva(TipoEstadoReserva.PENDIENTE, LocalDateTime.of(2023, 11, 8, 12, 15), "motivo 8");
 
-    @Setter
-    @Getter
+    @Setter @Getter
     public List<EstadoReserva> estadoReservas = new ArrayList<>(Arrays.asList(estadoReserva1, estadoReserva2, estadoReserva3, estadoReserva4, estadoReserva5, estadoReserva6, estadoReserva7, estadoReserva8));
-
 
     public void cargarEstadosReservas(EstadoReservaRepository estadoReservaRepository){
         estadoReservaRepository.saveAll(estadoReservas);
