@@ -1,14 +1,6 @@
 package ar.utn.aceleradora.gestion.socios.seeds.reservas;
 
-import ar.utn.aceleradora.gestion.socios.modelos.departamentos.Departamento;
-import ar.utn.aceleradora.gestion.socios.modelos.eventos.EstadoEvento;
-import ar.utn.aceleradora.gestion.socios.modelos.eventos.Evento;
-import ar.utn.aceleradora.gestion.socios.modelos.eventos.inscriptos.Inscripto;
-import ar.utn.aceleradora.gestion.socios.modelos.reservas.EstadoReserva;
-import ar.utn.aceleradora.gestion.socios.modelos.reservas.RecursoSolicitado;
 import ar.utn.aceleradora.gestion.socios.modelos.reservas.Reserva;
-import ar.utn.aceleradora.gestion.socios.modelos.ubicacion.Ubicacion;
-import ar.utn.aceleradora.gestion.socios.repositorios.reservas.RecursoSolicitadoRepository;
 import ar.utn.aceleradora.gestion.socios.repositorios.reservas.ReservaRepository;
 import lombok.Getter;
 import lombok.Setter;
@@ -17,7 +9,6 @@ import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.Arrays;
 import java.util.List;
-import java.util.Random;
 
 public class ReservaDataReservas {
     Reserva reserva1 = new Reserva("departamento 1", "hotel 1", "descripcion de la reserva 1", LocalDate.of(2023, 11, 1), LocalTime.of(10, 0), LocalTime.of(12, 0), "nombre reservante 1", "mail reservante 1", "telefono reservante 1","");

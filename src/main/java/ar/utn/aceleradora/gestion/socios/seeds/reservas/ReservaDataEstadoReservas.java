@@ -1,14 +1,11 @@
 package ar.utn.aceleradora.gestion.socios.seeds.reservas;
 
 import ar.utn.aceleradora.gestion.socios.modelos.reservas.EstadoReserva;
-import ar.utn.aceleradora.gestion.socios.modelos.reservas.Reserva;
 import ar.utn.aceleradora.gestion.socios.modelos.reservas.TipoEstadoReserva;
 import ar.utn.aceleradora.gestion.socios.repositorios.reservas.EstadoReservaRepository;
-import ar.utn.aceleradora.gestion.socios.repositorios.reservas.ReservaRepository;
 import lombok.Getter;
 import lombok.Setter;
 
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Arrays;
