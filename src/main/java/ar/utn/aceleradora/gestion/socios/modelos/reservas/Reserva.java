@@ -74,7 +74,17 @@ public class Reserva {
         estadosReserva.add(new EstadoReserva(TipoEstadoReserva.PENDIENTE, LocalDateTime.now(),"Pendiente de aprobación"));
     }
 
-    public Reserva(String departamentoAsociado, String espacioFisico, String descripcion, LocalDate fecha, LocalTime horaInicio, LocalTime horaFin, String nombreReservante, String mailReservante, String telefonoReservante, String codigoDeSeguimiento) {
+    public Reserva(String descripcion,
+                   LocalDate fecha, LocalTime horaInicio, LocalTime horaFin, String nombreReservante, String mailReservante, String telefonoReservante) {
+        this.descripcion = descripcion;
+        this.fecha = fecha;
+        this.horaInicio = horaInicio;
+        this.horaFin = horaFin;
+        this.nombreReservante = nombreReservante;
+        this.mailReservante = mailReservante;
+        this.telefonoReservante = telefonoReservante;
+        this.estadosReserva = new ArrayList<>();
+        this.agregarNuevoEstado(new EstadoReserva(TipoEstadoReserva.PENDIENTE, LocalDateTime.now(), "Pendiente de aprobación"));
     }
 
     public void generarCodigoSeguimiento(){

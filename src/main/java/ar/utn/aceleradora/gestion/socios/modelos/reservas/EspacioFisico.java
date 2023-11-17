@@ -28,6 +28,7 @@ public class EspacioFisico {
     private Ubicacion ubicacion;
 
     @ManyToMany
+
     private List<Recurso> recursosTotales;
 
     public EspacioFisico(){
@@ -35,5 +36,12 @@ public class EspacioFisico {
     }
 
     public EspacioFisico(String nombre, String descripcion) {
+        this.nombre = nombre;
+        this.descripcion = descripcion;
+        this.recursosTotales = new ArrayList<>();
+    }
+
+    public void agregarRecurso(Recurso recurso){
+        this.getRecursosTotales().add(recurso);
     }
 }
