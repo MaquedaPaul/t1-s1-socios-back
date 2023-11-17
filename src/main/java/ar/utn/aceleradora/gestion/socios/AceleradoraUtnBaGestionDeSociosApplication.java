@@ -44,7 +44,7 @@ public class AceleradoraUtnBaGestionDeSociosApplication {
 			departamentoInitializer.run();
 			EventoInitializer eventoInitializer = new EventoInitializer(eventoRepository, inscriptoRepository, departamentoRepository, ubicacionRepository);
 			eventoInitializer.run();
-			ReservaInitializer reservaInitializer = new ReservaInitializer(reservaRepository, espacioFisicoRepository, recursoSolicitadoRepository, estadoReservaRepository, departamentoRepository, ubicacionRepository);
+			ReservaInitializer reservaInitializer = new ReservaInitializer(reservaRepository, espacioFisicoRepository, estadoReservaRepository, departamentoRepository, ubicacionRepository);
 			reservaInitializer.run();
 		}
 		return null;
