@@ -103,9 +103,7 @@ public class EventoDataEventos {
                 Inscripto inscriptoAleatorio = inscriptos.remove(indiceAleatorio);
                 evento.agregarInscripto(inscriptoAleatorio);
             }
-
         }
-
         eventoRepository.saveAll(eventos);
     }
 }

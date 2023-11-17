@@ -32,6 +32,7 @@ public class ReservaDataReservas {
     @Getter
     public List<Reserva> reservas = Arrays.asList(reserva1,reserva2,reserva3,reserva4,reserva5,reserva6,reserva7,reserva8);
     public void cargarReservas(ReservaRepository reservaRepository) {
+        reservaRepository.saveAll(reservas);
         cargarCodigos();
         reservaRepository.saveAll(reservas);
     }

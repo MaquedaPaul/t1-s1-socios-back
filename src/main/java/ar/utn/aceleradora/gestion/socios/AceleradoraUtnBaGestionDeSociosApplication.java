@@ -1,7 +1,5 @@
 package ar.utn.aceleradora.gestion.socios;
 
-
-
 import ar.utn.aceleradora.gestion.socios.repositorios.*;
 import ar.utn.aceleradora.gestion.socios.repositorios.departamentos.AutoridadRepository;
 import ar.utn.aceleradora.gestion.socios.repositorios.departamentos.CoorDepartamentoRepository;
