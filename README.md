@@ -15,7 +15,7 @@ Este proyecto utiliza las siguientes tecnologías y dependencias:
 - Spring Data JPA: Facilita la creación de repositorios basados en JPA.
 - ModelMapper: Facilita el mapeo automático entre objetos, útil para convertir DTOs a entidades y viceversa.
 - Spring Boot Actuator: Proporciona características de producción listas para monitorear y administrar la aplicación.
-- MySQL Driver: Driver necesario para conectar con bases de datos MySQL.
+- MariaDB Driver: Driver necesario para conectar con bases de datos MariaDB.
 - Thumbnailator: Biblioteca para la creación de miniaturas de imágenes en Java.
 ## Estructura del proyecto:
 El proyecto sigue el siguiente modelo de carpetas:
@@ -35,15 +35,9 @@ El proyecto sigue el siguiente modelo de carpetas:
 
 ### Instrucciones de Despliegue:
 1. Abre la Terminal de Git.
-2. Navega hasta la carpeta del proyecto usando el comando `cd [ruta-a-tu-carpeta]`.
+2. Clonar el repositorio de Git. `git clone "https://github.com/disilab-frba-utn-edu-ar/t1-s1-socios-back"`
+3. Ingresar a la carpeta donde clonamos el repositorio y abrir una consola
+4. Correr el comando docker build -t javaback:latest .    (asegurarse tener corriendo docker)
+5. Ejecutar el comando docker compose up
+6. Abre http://localhost:8080 para visualizar el proyecto en tu navegador.
 
-3a. Ejecuta el script `./start.sh`. Este script compila y lanza el contenedor Docker, instalando todas las dependencias automáticamente.
-   
-   ```bash
-   ./start.sh
-
-### Instrucciones de Reseteo:
-3b. Ejecuta el script `./restart.sh`. Este script recompila y lanza el contenedor Docker.
-
-   ```bash
-   ./restart.sh

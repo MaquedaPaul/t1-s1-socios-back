@@ -39,7 +39,7 @@ public class AceleradoraUtnBaGestionDeSociosApplication {
 			UbicacionRepository ubicacionRepository, ReservaRepository reservaRepository, EspacioFisicoRepository espacioFisicoRepository,
 			RecursoSolicitadoRepository recursoSolicitadoRepository, EstadoReservaRepository estadoReservaRepository, RecursoRepository recursoRepository)
 			throws NoSuchFieldException, IllegalAccessException {
-		Boolean quieroDataInicial = false;
+		Boolean quieroDataInicial = true;
 		if(quieroDataInicial){
 			SocioInitializer socioInitializer = new SocioInitializer(socioRepository,categoriaRepository,membresiaRepository,membresiaParticularRepository);
 			socioInitializer.run();
