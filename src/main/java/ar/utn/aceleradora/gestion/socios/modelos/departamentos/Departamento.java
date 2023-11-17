@@ -66,6 +66,11 @@ public class Departamento{
         this.autoridades = new ArrayList<>();
     }
 
+    public Departamento(String nombre, String descripcion) {
+        this.nombre = nombre;
+        this.descripcion = descripcion;
+    }
+
     public void suscribirSocio(Socio unSocio) {
         sociosSuscritos.add(unSocio);
     }

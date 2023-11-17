@@ -36,14 +36,8 @@ public class EventoDataEventos {
     public void cargarEventos(EventoDataInscriptos dataInscriptos, DepartamentoRepository departamentoRepository, EventoDataEstadosEventos dataEstadoEventos, EventoRepository eventoRepository, UbicacionRepository ubicacionRepository) throws NoSuchFieldException, IllegalAccessException {
         List<Departamento> departamentos = departamentoRepository.findAll();
         List<Ubicacion> ubicaciones = ubicacionRepository.findAll();
-        evento1.setUbicacion(ubicaciones.get(1));
-        evento2.setUbicacion(ubicaciones.get(2));
-        evento3.setUbicacion(ubicaciones.get(3));
-        evento4.setUbicacion(ubicaciones.get(4));
-        evento5.setUbicacion(ubicaciones.get(5));
-        evento6.setUbicacion(ubicaciones.get(6));
-        evento7.setUbicacion(ubicaciones.get(7));
-        evento8.setUbicacion(ubicaciones.get(8));
+        for(int i=0; i<8; i++)
+            eventos.get(i).setUbicacion(ubicaciones.get(i));
 
         evento1.setDepartamentos(departamentos);
         //evento2 no tendrá departamentos
@@ -103,9 +97,7 @@ public class EventoDataEventos {
                 Inscripto inscriptoAleatorio = inscriptos.remove(indiceAleatorio);
                 evento.agregarInscripto(inscriptoAleatorio);
             }
-
         }
-
         eventoRepository.saveAll(eventos);
     }
 }
